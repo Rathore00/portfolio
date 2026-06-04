@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cambridge School Admissions — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--black:#0C0C0C;--white:#fff;--bg:#fff;
+  --off:#F5F3EE;--mid:#999;--border:#E4E2DC;
+  --M:'Montserrat',sans-serif;--S:'Playfair Display',serif;--B:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--black);font-family:var(--B);overflow-x:hidden;cursor:none}
+#cr{position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--black);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .15s}
+#cd{position:fixed;width:4px;height:4px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .12s}
+#cr.dk{border-color:#fff}#cd.dk{background:#fff}
+#cr.hv{width:50px;height:50px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border);transition:background .3s}
+nav.dk{background:rgba(12,12,12,.75);border-bottom-color:rgba(255,255,255,.07)}
+.nav-logo{font-family:var(--B);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none;transition:color .3s}
+nav.dk .nav-logo{color:#fff}
+.nav-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+nav.dk .nav-tag{color:rgba(255,255,255,.35)}
+.nav-back{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px}
+.nav-back:hover{color:var(--black)}
+nav.dk .nav-back{color:rgba(255,255,255,.4)}
+nav.dk .nav-back:hover{color:#fff}
+.hero{background:var(--black);min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 0;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+.hero-num{position:absolute;right:2.5rem;top:7rem;font-family:var(--M);font-weight:900;font-size:14rem;color:rgba(255,255,255,.03);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none}
+.hero-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.2rem;opacity:0;animation:up .6s ease .1s forwards}
+.hero-h{font-family:var(--M);font-weight:900;font-size:clamp(2.6rem,5.2vw,5.2rem);color:#fff;line-height:1.02;letter-spacing:-.025em;max-width:780px;opacity:0;animation:up .9s cubic-bezier(.22,1,.36,1) .2s forwards}
+.hero-h em{font-family:var(--S);font-style:italic;font-weight:700;color:rgba(255,255,255,.5)}
+.hero-sub{font-family:var(--S);font-style:italic;font-size:clamp(.9rem,1.3vw,1rem);color:rgba(255,255,255,.4);max-width:500px;line-height:1.75;margin-top:1.2rem;opacity:0;animation:up .7s ease .38s forwards}
+.hero-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid rgba(255,255,255,.08);margin-top:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
+.hb-item{padding:1.2rem 0;border-right:.5px solid rgba(255,255,255,.06)}
+.hb-item:last-child{border-right:none}
+.hb-l{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.hb-v{font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.page{padding:0 3rem}
+.sec-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:1.2rem;display:flex;align-items:center;gap:10px}
+.sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
+.bento{display:grid;gap:10px}
+.cols-2{grid-template-columns:1fr 1fr}
+.cols-3{grid-template-columns:1fr 1fr 1fr}
+.cols-12{grid-template-columns:repeat(12,1fr)}
+.cell{background:var(--off);border-radius:6px;padding:1.8rem;position:relative;overflow:hidden}
+.cell.dark{background:var(--black);color:#fff}
+.cell.white{background:var(--white);border:.5px solid var(--border)}
+.cell.red{background:var(--red);color:#fff}
+.cell.span2{grid-column:span 2}.cell.span3{grid-column:span 3}.cell.span4{grid-column:span 4}
+.cell.span5{grid-column:span 5}.cell.span6{grid-column:span 6}.cell.span7{grid-column:span 7}
+.cell.span8{grid-column:span 8}
+.cell-label{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem}
+.cell.dark .cell-label,.cell.red .cell-label{color:rgba(255,255,255,.4)}
+.cell-title{font-family:var(--M);font-weight:900;font-size:clamp(1.1rem,2vw,1.5rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem}
+.cell-body{font-size:13px;color:#555;line-height:1.7}
+.cell.dark .cell-body{color:rgba(255,255,255,.55)}
+.cell-stat{font-family:var(--M);font-weight:900;font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.04em;line-height:1;margin-bottom:.3rem}
+.cell-stat-l{font-size:11px;color:var(--mid);line-height:1.4}
+.cell.dark .cell-stat-l{color:rgba(255,255,255,.4)}
+.img-ph{width:100%;aspect-ratio:16/9;background:var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);overflow:hidden;position:relative}
+.img-ph.tall{aspect-ratio:4/5}.img-ph.sq{aspect-ratio:1}
+.img-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%);background-size:20px 20px}
+.img-ph span{position:relative;z-index:1}
+.pt-list{display:flex;flex-direction:column;gap:.55rem;margin-top:.8rem}
+.pt-item{font-size:12.5px;color:#444;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
+.pt-item::before{content:'—';color:var(--red);flex-shrink:0;font-weight:700;font-size:.9rem}
+.cell.dark .pt-item{color:rgba(255,255,255,.6)}
+.cell.dark .pt-item::before{color:rgba(255,255,255,.3)}
+.step-row{display:flex;gap:1.2rem;align-items:flex-start;padding:.9rem 0;border-bottom:.5px solid var(--border)}
+.step-row:last-child{border-bottom:none}
+.step-n{font-family:var(--M);font-weight:900;font-size:1.8rem;color:rgba(0,0,0,.07);line-height:1;flex-shrink:0;width:2.5rem}
+.step-t{font-family:var(--M);font-weight:700;font-size:.9rem;letter-spacing:-.01em;margin-bottom:.3rem}
+.step-d{font-size:12px;color:#555;line-height:1.6}
+.quote{font-family:var(--S);font-style:italic;font-size:clamp(1.1rem,2vw,1.4rem);color:rgba(255,255,255,.75);line-height:1.6}
+.quote-src{font-family:var(--B);font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.8rem}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:.8rem}
+.pill{font-size:10px;letter-spacing:.06em;padding:4px 11px;border-radius:999px;border:.5px solid var(--border);color:var(--mid)}
+.cell.dark .pill{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
+.outcome-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem}
+.oc-item{background:rgba(255,255,255,.06);border-radius:4px;padding:1rem}
+.oc-n{font-family:var(--M);font-weight:900;font-size:1.6rem;letter-spacing:-.03em;color:#fff;margin-bottom:2px}
+.oc-l{font-size:11px;color:rgba(255,255,255,.4)}
+.spacer{height:4rem}.spacer-sm{height:2rem}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rv.vis{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.25s}.d4{transition-delay:.35s}
+.next{background:var(--off);border-top:.5px solid var(--border);padding:4rem 3rem}
+.next-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
+.next-t{font-family:var(--M);font-weight:900;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.025em;line-height:1.05;margin-bottom:1.5rem}
+.next-link{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--black);text-decoration:none;border-bottom:.5px solid var(--black);padding-bottom:2px;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
+.next-link::after{content:'→'}.next-link:hover{opacity:.5}
+@media(max-width:900px){nav{padding:1rem 1.4rem}.hero{padding:7rem 1.4rem 0}.hero-bar{grid-template-columns:1fr 1fr}.hero-num{display:none}.bento.cols-12{grid-template-columns:repeat(6,1fr)}.bento.cols-3,.bento.cols-2{grid-template-columns:1fr 1fr}.cell.span2,.cell.span3,.cell.span4,.cell.span5{grid-column:span 3}.cell.span6,.cell.span7,.cell.span8{grid-column:1/-1}.next,.page{padding-left:1.4rem;padding-right:1.4rem}}
+@media(max-width:580px){.bento.cols-12,.bento.cols-3,.bento.cols-2{grid-template-columns:1fr}.cell[class*=span]{grid-column:span 1}.hero-bar{grid-template-columns:1fr 1fr}}
+</style>
+  <link rel="stylesheet" href="site-nav-subpage.css">
+  <link rel="stylesheet" href="case-study-shared.css">
+</head>
+<body>
+<div id="cr"></div><div id="cd"></div>
+<nav class="subpage-nav">
+  <ul class="nav-links-row">
+    <li><a href="parul-homepage_10.html#hero">Home</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="parul-homepage_10.html#work" class="active">Work</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="parul-homepage_10.html#red">Know the Designer</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="parul-homepage_10.html#workshop">Workshop</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="parul-homepage_10.html#dark">Off the Grid</a></li>
+  </ul>
+</nav>
+<div class="hero">
+  <div class="hero-num">05</div>
+  <div class="hero-ey">EdTech · SaaS · ERP · 5 Campuses · 2024</div>
+  <h1 class="hero-h">From Paper Trails to<br><em>Seamless</em> Digital Journeys</h1>
+  <p class="hero-sub">End-to-end digitisation of a 95-year-old school's admission system across 5 campuses — inquiry to enrollment, staff to super-admin.</p>
+  <div class="hero-bar"><div class="hb-item"><div class="hb-l">Role</div><div class="hb-v">Product Designer (E2E)</div></div><div class="hb-item"><div class="hb-l">Scope</div><div class="hb-v">5 Campuses</div></div><div class="hb-item"><div class="hb-l">Platform</div><div class="hb-v">Web · ERP</div></div><div class="hb-item"><div class="hb-l">Outcome</div><div class="hb-v">~60% fewer drop-offs</div></div></div>
+</div>
+<div class="page">
+
+<div class="spacer"></div>
+<div class="sec-label rv">Overview</div>
+<div class="bento cols-12 rv">
+  <div class="cell white span8"><div class="img-ph"><span>Cambridge School · Landing Page</span></div></div>
+  <div class="cell dark span4" style="display:flex;flex-direction:column;justify-content:space-between">
+    <div>
+      <div class="cell-label">Context</div>
+      <div class="cell-title">95 years old. Zero digital admissions.</div>
+      <div class="cell-body">Cambridge School was losing applicants to manual, WhatsApp-and-paper workflows with no tracking, no follow-up system, and no consistency across 5 campuses. I redesigned the entire journey.</div>
+    </div>
+    <div class="pill-row"><span class="pill">Legacy System</span><span class="pill">Multi-campus</span><span class="pill">Parent-first</span></div>
+  </div>
+  <div class="cell span4" style="text-align:center"><div class="cell-stat">~60%</div><div class="cell-stat-l">Reduction in inquiry drop-offs post-launch</div></div>
+  <div class="cell span4" style="text-align:center"><div class="cell-stat">7 Steps</div><div class="cell-stat-l">Admission journey fully digitised end-to-end</div></div>
+  <div class="cell span4" style="text-align:center"><div class="cell-stat">5</div><div class="cell-stat-l">Campuses unified on one platform with UACM</div></div>
+</div>
+
+<div class="spacer"></div>
+<div class="sec-label rv">The Problem</div>
+<div class="bento cols-12 rv">
+  <div class="cell white span5">
+    <div class="cell-label">Where the system was failing</div>
+    <div class="cell-title">"How can you increase admissions across all campuses?"</div>
+    <div class="cell-body">Despite 95 years of legacy, Cambridge School was grappling with falling admissions. Most interactions were handled via WhatsApp, paper forms, and phone calls — with no way to track, follow up, or analyse the pipeline.</div>
+  </div>
+  <div class="cell span7">
+    <div class="cell-label">Systemic pain points</div>
+    <div class="pt-list">
+      <div class="pt-item">~40% inquiry drop-off — leads lost with no tracking system in place</div>
+      <div class="pt-item">Every campus ran a different ad-hoc process — person-dependent, not system-dependent</div>
+      <div class="pt-item">Entrance exam and interview scheduling was entirely ad hoc via phone calls</div>
+      <div class="pt-item">Even existing ERP systems mimicked paper-based formats — outdated UI, no parent-first thinking</div>
+      <div class="pt-item">Director had zero visibility across campuses — flying blind on enrollment pipeline</div>
+    </div>
+  </div>
+  <div class="cell dark span6">
+    <div class="cell-label">Design Goals</div>
+    <div class="pt-list">
+      <div class="pt-item">Centralise all 5 campuses on one platform with consistent workflows</div>
+      <div class="pt-item">Design for both tech-savvy parents and offline users equally</div>
+      <div class="pt-item">Reduce manual overhead for staff while preserving personal touchpoints</div>
+      <div class="pt-item">Build a UACM (User Access Control Model) for role-based access across campuses</div>
+    </div>
+  </div>
+  <div class="cell red span3" style="display:flex;flex-direction:column;justify-content:center">
+    <div class="quote">"Every automation must feel like a helping hand, not a black box."</div>
+    <div class="quote-src">Design principle · This project</div>
+  </div>
+  <div class="cell span3"><div class="cell-label">Key Stakeholders</div><div class="pt-list"><div class="pt-item">Parents (primary users)</div><div class="pt-item">Admission staff (admin users)</div><div class="pt-item">Super admin / Director</div></div></div>
+</div>
+
+<div class="spacer"></div>
+<div class="sec-label rv">What We Built</div>
+<div class="bento cols-3 rv">
+  <div class="cell white">
+    <div class="cell-label">01 — Landing Page</div>
+    <div class="cell-title" style="font-size:1rem">School Landing Page</div>
+    <div class="cell-body">Told the 95-year legacy story, showcased values, and offered a campus selector as the first action — the most impactful structural change. Parents no longer called the wrong campus.</div>
+  </div>
+  <div class="cell white">
+    <div class="cell-label">02 — 7-Step Admission Flow</div>
+    <div class="cell-title" style="font-size:1rem">Digital Admission Journey</div>
+    <div class="cell-body">Inquiry → Registration → Scheduling → Campus Visit (QR check-in) → Results → Fee Payment → Welcome with auto-generated student ID and ERP sync.</div>
+  </div>
+  <div class="cell dark">
+    <div class="cell-label">03 — Admin Panel</div>
+    <div class="cell-title" style="font-size:1rem;color:#fff">Role-based Admin System</div>
+    <div class="cell-body">Super Admin: cross-campus metrics, permissions, configuration. Staff: campus-specific dashboard, validation alerts, manual entry for offline parents. UACM built before any UI design began.</div>
+  </div>
+</div>
+
+<div class="spacer-sm"></div>
+<div class="bento cols-12 rv">
+  <div class="cell white span6"><div class="img-ph tall"><span>Admission Flow · Parent View</span></div></div>
+  <div class="cell white span6"><div class="img-ph tall"><span>Admin Panel · Staff Dashboard</span></div></div>
+  <div class="cell white span4"><div class="img-ph sq"><span>Campus Selector · Landing</span></div></div>
+  <div class="cell white span4"><div class="img-ph sq"><span>Super Admin · Cross-campus View</span></div></div>
+  <div class="cell white span4"><div class="img-ph sq"><span>QR Check-in · Campus Visit</span></div></div>
+</div>
+
+<div class="spacer"></div>
+<div class="sec-label rv">Outcomes & Learnings</div>
+<div class="bento cols-12 rv">
+  <div class="cell dark span8">
+    <div class="cell-label">Business impact</div>
+    <div class="outcome-row">
+      <div class="oc-item"><div class="oc-n">~60%</div><div class="oc-l">Reduction in inquiry drop-offs</div></div>
+      <div class="oc-item"><div class="oc-n">0 calls</div><div class="oc-l">Manual scheduling calls eliminated via self-service calendar</div></div>
+      <div class="oc-item"><div class="oc-n">5 campuses</div><div class="oc-l">Unified under one dashboard — Director now has full visibility</div></div>
+      <div class="oc-item"><div class="oc-n">Hybrid</div><div class="oc-l">Digital-first but with manual fallback — serves offline parents equally</div></div>
+    </div>
+  </div>
+  <div class="cell white span4">
+    <div class="cell-label">Key learnings</div>
+    <div class="pt-list">
+      <div class="pt-item">Human psychology beats design systems — mental models need mapping, not replacing</div>
+      <div class="pt-item">Design for the lowest-tech user: offline parents needed an equal path</div>
+      <div class="pt-item">100% digital onboarding was the wrong call — quickly pivoted to hybrid model</div>
+      <div class="pt-item">This wasn't pixel-perfect — it was people-first</div>
+    </div>
+  </div>
+</div>
+
+<div class="spacer"></div>
+</div>
+<section class="cs-more-work">
+  <p class="cs-more-label">More entries</p>
+  <h2 class="cs-more-title">Other case studies</h2>
+  <div class="cs-more-grid">
+    <a href="case-study-hre.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2025</span>
+        <span class="cs-card-title">AMEX GBT — Hotel Rate Efficiency Dashboard</span>
+      </div>
+    </a>
+    <a href="case-study-admin_2.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2024</span>
+        <span class="cs-card-title">E-Commerce Admin Panel for Indian SMBs</span>
+      </div>
+    </a>
+    <a href="case-study-web3.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2023</span>
+        <span class="cs-card-title">Web3 Privacy Marketing — No Data Sold</span>
+      </div>
+    </a>
+    <a href="case-study-dailybloom.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2023</span>
+        <span class="cs-card-title">DailyBloom IBS — Redesign Under Uncertainty</span>
+      </div>
+    </a>
+  </div>
+</section>
+<footer id="footer-contact" class="cs-footer">
+  <div class="footer-contact">
+    <div>
+      <div class="fc-label">Say Hello</div>
+      <div class="fc-val"><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    </div>
+    <div>
+      <div class="fc-label">Location</div>
+      <div class="fc-val">Himachal Pradesh, India</div>
+    </div>
+    <div>
+      <div class="fc-label">Currently at</div>
+      <div class="fc-val">American Express GBT</div>
+    </div>
+  </div>
+  <div class="footer-socials">
+    <a href="https://www.linkedin.com/in/parulrathour" class="fs-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="#" class="fs-link">Instagram</a>
+    <a href="#" class="fs-link">Behance</a>
+    <a href="#" class="fs-link">Resume</a>
+  </div>
+  <div class="footer-main">
+    <div class="footer-tagline">Let's make something.</div>
+    <div class="footer-nav-col">
+      <a href="parul-homepage_10.html#hero" class="footer-nav-item"><span>Home</span></a>
+      <a href="parul-homepage_10.html#work" class="footer-nav-item"><span>Work</span></a>
+      <a href="parul-homepage_10.html#red" class="footer-nav-item"><span>Know the Designer</span></a>
+      <a href="parul-homepage_10.html#workshop" class="footer-nav-item"><span>Workshop</span></a>
+      <a href="parul-homepage_10.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Parul Rathour</span>
+    <span>Himachal Pradesh, India</span>
+    <span id="footer-time">IST —:—</span>
+  </div>
+</footer>
+<script>
+const ring=document.getElementById('cr'),dot=document.getElementById('cd');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function l(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(l)})();
+function lum(x,y){const el=document.elementFromPoint(x,y);if(!el)return 255;let n=el;while(n&&n!==document.body){const b=getComputedStyle(n).backgroundColor;if(b&&b!=='rgba(0, 0, 0, 0)'&&b!=='transparent'){const m=b.match(/\d+/g);if(m)return(+m[0]*299+ +m[1]*587+ +m[2]*114)/1000;}n=n.parentElement;}return 255;}
+document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);});
+document.querySelectorAll('a,button,.cell,.cs-card,.footer-nav-item,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
+const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+window.addEventListener('scroll',()=>{const d=lum(mx,my)<100;document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);},{passive:true});
+
+(function(){
+  function tick(){
+    const ist=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+    const h=ist.getHours().toString().padStart(2,"0");
+    const m=ist.getMinutes().toString().padStart(2,"0");
+    const s=ist.getSeconds().toString().padStart(2,"0");
+    const ft=document.getElementById("footer-time");
+    if(ft) ft.textContent=`${h}:${m}:${s} IST`;
+  }
+  tick();setInterval(tick,1000);
+})();
+
+</script>
+</body>
+</html>

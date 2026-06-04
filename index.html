@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parul Rathour — Product Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fff; --fg: #000; --muted: #9a9a9a;
+  --light-gray: #f2f2f2; --lilac: #b8c5ed;
+}
+html { scroll-behavior: smooth; }
+body { background:#fff; color:#000; font-family:'Inter',sans-serif; overflow-x:hidden; }
+
+/* ── NAMSKAR WORDMARK ── */
+.hero-wordmark { width:100%; overflow:hidden; padding:20px 0 0; }
+.hero-wordmark h1 { margin: 74px 74px; font-family:'Inter',sans-serif; font-weight:900; color:#e6e6e6;
+  letter-spacing:-3.4px; line-height:0.95; white-space:nowrap; display:block;
+}
+
+/* ── NAV ── */
+nav {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 74px; position:sticky; top:0; z-index:100;
+  background:rgba(255,255,255,0.96); backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,0,0,0.07);
+}
+.nav-links { display:flex; gap:20px; align-items:center; }
+.nav-links a {
+  text-decoration:none; color:#000; font-size:16px; font-style:italic;
+  font-family:Georgia,serif; opacity:0.6; transition:opacity 0.2s; letter-spacing:-0.23px;
+}
+.nav-links a.active { opacity:1; border-bottom:2px solid #000; padding-bottom:2px; }
+.nav-links a:hover { opacity:1; }
+.nav-dot { width:4px; height:4px; background:#000; border-radius:50%; opacity:0.35; flex-shrink:0; }
+.nav-right { display:flex; gap:8px; align-items:center; }
+.social-btn {
+  width:38px; height:38px; background:#000; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; border:none; flex-shrink:0; transition:background 0.2s;
+}
+.social-btn:hover { background:#333; }
+.btn-hire {
+  padding:10px 22px; background:#000; color:white; border:none;
+  border-radius:45px; font-family:'Inter',sans-serif; font-size:12px; cursor:pointer; white-space:nowrap;
+}
+.btn-note {
+  padding:8px 22px; background:#f2f2f2; color:#6d6d6d; border:none;
+  border-radius:32px; font-family:'Inter',sans-serif; font-size:14px; cursor:pointer; white-space:nowrap;
+}
+
+/* ── HERO BANNER ── */
+.hero-banner {
+  margin: 74px 74px; border-radius:11px; overflow:hidden;
+  position:relative; height:380px;
+}
+.hero-banner img { width:100%; height:100%; object-fit:cover; display:block; }
+.hero-tag {
+  position:absolute; top:14px; right:14px; background:white; color:#6d6d6d;
+  font-size:12px; font-weight:700; padding:8px 14px; border-radius:28px;
+}
+.hero-title {
+  margin: 74px 74px; position:absolute; bottom:28px; right:28px;
+  font-family:'Inter',sans-serif; font-weight:700;
+  font: size 180px; color:white; letter-spacing:-0.7px; line-height:1;
+}
+
+/* ── INTRO ── */
+.intro {
+  text-align:center; padding:40px 12px 32px;
+  display:flex; flex-direction:column; gap:12px; align-items:center;
+}
+.intro-sub { font-family:Georgia,serif; font-style:italic; color:#9a9a9a; font-size:28px; }
+.intro-title { font-size:44px; line-height:1.15; font-family:Georgia,serif; }
+.intro-title em { font-style:italic; }
+.intro-title span { font-style:normal; }
+.intro-desc { font-size:22px; font-family:Georgia,serif; font-style:italic; }
+.intro-desc strong { font-style:italic; font-weight:700; }
+
+/* ══════════════════════════════════════════
+   EXPERIENCE SECTION — COMPLETELY REBUILT
+   ══════════════════════════════════════════ */
+.exp-section { padding: 0 74px 80px; }
+
+.exp-label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(56px, 9vw, 102px);
+  color: #d7d7d7;
+  line-height: 1;
+  letter-spacing: -1.02px;
+  margin-bottom: 6px;
+}
+
+.exp-tagline {
+  font-size: 22px;
+  font-family: Georgia, serif;
+  font-style: italic;
+  margin-bottom: 64px;
+  color: #000;
+}
+.exp-tagline span { font-style: normal; }
+
+/* Scroll container */
+.tl-scroll {
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+/* The actual canvas — fixed tall enough for cards above + below */
+.tl-canvas {
+  position: relative;
+  min-width: 860px;
+  /* 
+    ABOVE area:  220px  (cards sit here)
+    SPINE:       at y=280px  
+    BELOW area:  200px  (cards sit here)
+    Total:       480px
+  */
+  height: 480px;
+}
+
+/* Spine — the horizontal line */
+.tl-spine {
+  position: absolute;
+  top: 280px;
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(0,0,0,0.15);
+  z-index: 1;
+}
+
+/* SVG for bracket connectors — sits above spine z-wise */
+.tl-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Year labels — horizontally centered on spine */
+.tl-years {
+  position: absolute;
+  top: 0;
+  left: 0; right: 0;
+  height: 100%;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.yr-label {
+  position: absolute;
+  top: 280px;
+  transform: translateY(-50%);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #c8c8c8;
+  letter-spacing: -0.3px;
+  text-align: center;
+  /* white bg to "erase" the spine line behind label */
+  background: white;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+.yr-label.yr-current {
+  color: #000;
+  font-size: 26px;
+}
+.yr-label.yr-faded {
+  color: #e2e2e2;
+}
+
+/* Company cards */
+.co-card {
+  position: absolute;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.09), 0 0 0 1px rgba(0,0,0,0.055);
+  padding: 16px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 168px;
+  z-index: 10;
+  /* Start invisible, animate in */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.co-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.co-card img {
+  height: 48px;
+  max-width: 140px;
+  object-fit: contain;
+}
+
+.co-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  color: #111;
+}
+
+/* ── CASE STUDIES ── */
+.case-outer { padding:0 74px 80px; overflow:hidden; }
+.case-row { display:flex; gap:66px; align-items:center; }
+.case-header { flex-shrink:0; width:220px; }
+.case-header h2 {
+  font-family:'Inter',sans-serif; font-weight:700;
+  font-size:50px; letter-spacing:-0.55px; line-height:1.1;
+}
+.case-header p { font-size:18px; color:#555; margin-top:6px; }
+.case-cards { display:flex; gap:40px; overflow-x:auto; padding:20px 0; flex:1; }
+
+.cc {
+  position:relative; flex-shrink:0; width:292px; height:420px;
+}
+.cc-folder {
+  position:absolute; bottom:0; left:0; right:0;
+  height:280px; background:var(--lilac); border-radius:14px; overflow:visible;
+}
+.cc-info { position:absolute; bottom:22px; left:22px; }
+.cc-cat { font-size:13px; color:#555; margin-bottom:5px; }
+.cc-name { font-family:'Inter',sans-serif; font-weight:700; font-size:22px; letter-spacing:-0.24px; margin-bottom:10px; }
+.tag-chip {
+  display:inline-block; background:#000; color:white;
+  font-size:11px; padding:5px 10px; border-radius:5px; font-family:'Inter',sans-serif;
+}
+.cc-photo {
+  position:absolute; top:0; left:10px; right:10px;
+  height:260px; border-radius:12px; overflow:hidden;
+  box-shadow:0 8px 28px rgba(0,0,0,0.18); z-index:2;
+}
+.cc-photo img { width:100%; height:100%; object-fit:cover; }
+.cc-label {
+  position:absolute; top:12px; right:12px;
+  font-family:'Inter',sans-serif; font-size:13px; font-weight:500; color:white;
+  z-index:3; text-shadow:0 1px 3px rgba(0,0,0,0.4);
+}
+.cc-ptitle {
+  position:absolute; bottom:14px; left:14px;
+  font-family:'Inter',sans-serif; font-size:22px; font-weight:700; color:white;
+  letter-spacing:-0.24px; z-index:3;
+  text-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* ── PLAYGROUND ── */
+.play-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.play-card { border-radius:10px; overflow:hidden; height:600px; cursor:pointer; }
+.play-card img { width:100%; height:100%; object-fit:cover; transition:transform 0.5s; }
+.play-card:hover img { transform:scale(1.04); }
+
+/* ── SKILLS PILLS ── */
+.skills-wrap {
+  position:relative; height:290px; overflow:hidden;
+  border-top:1px solid rgba(0,0,0,0.1);
+  border-bottom:1px solid rgba(0,0,0,0.1);
+  margin-bottom:0;
+}
+.sp {
+  padding:16px 30px; border-radius:70px;
+  font-size:32px; font-weight:600; font-family:'Inter',sans-serif;
+  cursor:pointer; position:absolute;
+  display:flex; align-items:center; gap:10px;
+  letter-spacing:-0.32px; color:white; white-space:nowrap;
+  opacity:0; transform-origin:center center;
+}
+@keyframes fallIn {
+  0%   { opacity:0; transform:translateY(-260px) rotate(var(--rot-start)) scale(0.85); }
+  60%  { opacity:1; transform:translateY(18px)   rotate(var(--rot-mid))   scale(1.04); }
+  78%  { transform:translateY(-8px)  rotate(calc(var(--rot-end) * 0.6)) scale(0.98); }
+  90%  { transform:translateY(5px)   rotate(var(--rot-end))              scale(1.01); }
+  100% { opacity:1; transform:translateY(0px)    rotate(var(--rot-end))  scale(1); }
+}
+.sp.animate { animation: fallIn 0.75s cubic-bezier(0.22,1,0.36,1) forwards; }
+.sp:nth-child(1){animation-delay:0.0s}.sp:nth-child(2){animation-delay:0.12s}
+.sp:nth-child(3){animation-delay:0.22s}.sp:nth-child(4){animation-delay:0.32s}
+.sp:nth-child(5){animation-delay:0.42s}.sp:nth-child(6){animation-delay:0.52s}
+.sp:nth-child(7){animation-delay:0.64s}
+@keyframes spinStar { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+/* ── FOOTER WORDMARK ── */
+.footer-wordmark { width:100%; overflow:hidden; }
+.footer-wordmark h2 {
+  font-family:'Inter',sans-serif; font-weight:700;
+  letter-spacing:-2.3px; line-height:1;
+  background:linear-gradient(180deg,#808080 0%,#fafafa 200%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  white-space:nowrap; display:block;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding:40px 74px 60px;
+  display:flex; justify-content:space-between; align-items:flex-end;
+  border-top:1px solid rgba(0,0,0,0.08);
+}
+.footer-links { display:flex; flex-direction:column; gap:20px; }
+.footer-links a {
+  text-decoration:none; color:#000; font-size:18px;
+  font-style:italic; font-family:Georgia,serif; letter-spacing:-0.23px; opacity:0.8;
+}
+.footer-links a.active { opacity:1; border-bottom:2px solid #000; }
+.footer-right { display:flex; flex-direction:column; gap:18px; align-items:flex-end; }
+.footer-right p { font-size:18px; font-style:italic; font-family:Georgia,serif; text-align:right; max-width:350px; }
+.f-row { display:flex; gap:8px; justify-content:flex-end; }
+.sec { padding:0 74px; }
+.reveal { opacity:0; transform:translateY(20px); transition:opacity 0.7s,transform 0.7s; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Namskar wordmark -->
+<div class="hero-wordmark"><h1 id="namskar-word">Namskar</h1></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-links">
+    <a href="#" class="active">Home</a>
+    <span class="nav-dot"></span>
+    <a href="#case-studies">Case Studies</a>
+    <span class="nav-dot"></span>
+    <a href="#experience">Experience</a>
+    <span class="nav-dot"></span>
+    <a href="#workshop">Workshop</a>
+    <span class="nav-dot"></span>
+    <a href="#playground">Playground</a>
+  </div>
+  <div class="nav-right">
+    <div style="display:flex;gap:8px;">
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.6667 4.3335H11.6733M4.66667 1.3335H11.3333C13.1743 1.3335 14.6667 2.82588 14.6667 4.66683V11.3335C14.6667 13.1744 13.1743 14.6668 11.3333 14.6668H4.66667C2.82572 14.6668 1.33333 13.1744 1.33333 11.3335V4.66683C1.33333 2.82588 2.82572 1.3335 4.66667 1.3335ZM10.6667 7.58016C10.7489 8.13499 10.6542 8.70164 10.3958 9.19951C10.1375 9.69737 9.72876 10.1011 9.22775 10.3533C8.72674 10.6055 8.15896 10.6932 7.60519 10.6041C7.05142 10.515 6.53984 10.2536 6.14322 9.85694C5.74661 9.46032 5.48515 8.94875 5.39604 8.39497C5.30693 7.8412 5.39471 7.27343 5.64688 6.77241C5.89906 6.2714 6.30279 5.86266 6.80066 5.60432C7.29852 5.34599 7.86517 5.25122 8.42 5.3335C8.98595 5.41742 9.5099 5.68114 9.91446 6.0857C10.319 6.49026 10.5827 7.01421 10.6667 7.58016Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 1.3335H10C9.11594 1.3335 8.2681 1.68469 7.64297 2.30981C7.01785 2.93493 6.66666 3.78277 6.66666 4.66683V6.66683H4.66666V9.3335H6.66666V14.6668H9.33333V9.3335H11.3333L12 6.66683H9.33333V4.66683C9.33333 4.49002 9.40357 4.32045 9.52859 4.19542C9.65362 4.0704 9.82319 4.00016 10 4.00016H12V1.3335Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 7.66669C14.0023 8.5466 13.7967 9.41461 13.4 10.2C12.9296 11.1412 12.2065 11.9328 11.3116 12.4862C10.4168 13.0396 9.3855 13.3329 8.33333 13.3334C7.45342 13.3356 6.58541 13.1301 5.8 12.7334L2 14L3.26667 10.2C2.86995 9.41461 2.66437 8.5466 2.66667 7.66669C2.66707 6.61452 2.96041 5.58325 3.51381 4.68839C4.06722 3.79352 4.85884 3.0704 5.8 2.60002C6.58541 2.20331 7.45342 1.99772 8.33333 2.00002H8.66667C10.0562 2.07668 11.3687 2.66319 12.3528 3.64726C13.3368 4.63132 13.9233 5.94379 14 7.33335V7.66669Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.6667 3.99984C14.6667 3.2665 14.0667 2.6665 13.3333 2.6665H2.66666C1.93333 2.6665 1.33333 3.2665 1.33333 3.99984M14.6667 3.99984V11.9998C14.6667 12.7332 14.0667 13.3332 13.3333 13.3332H2.66666C1.93333 13.3332 1.33333 12.7332 1.33333 11.9998V3.99984M14.6667 3.99984L7.99999 8.6665L1.33333 3.99984" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+    <button class="btn-hire">Know the Deजाइner</button>
+    <button class="btn-note">Leave a note</button>
+  </div>
+</nav>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+  <img src="Asset/images/test.jpeg" alt="Hero">
+  <span class="hero-tag">@woman.who.design</span>
+  <h2 class="hero-title">Product Designer</h2>
+</div>
+
+<!-- Intro -->
+<div class="sec">
+  <div class="intro reveal">
+    <p class="intro-sub">Hi, I am Parul Rathour.</p>
+    <div class="intro-title">
+      <em>Product Designer</em> <span>keen on</span><br>
+      <em>AI</em> <span>and</span> <em>entrepreneurship</em>
+    </div>
+    <p class="intro-desc">I shape intuitive SaaS experiences that <strong>drive business outcomes</strong>.</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     EXPERIENCE — REBUILT
+     ══════════════════════════════════════════ -->
+<section class="exp-section" id="experience">
+  <p class="exp-label">experience</p>
+  <p class="exp-tagline"><em>Product Designer</em> <span>keen on</span> <em>AI</em> <span>and</span> <em>entrepreneurship</em></p>
+
+  <div class="tl-scroll">
+    <div class="tl-canvas" id="tlCanvas">
+
+      <!-- The horizontal spine line -->
+      <div class="tl-spine"></div>
+
+      <!-- SVG bracket connectors (drawn by JS) -->
+      <svg class="tl-svg" id="tlSvg"></svg>
+
+      <!-- Year labels (positioned by JS) -->
+      <div class="tl-years" id="tlYears">
+        <span class="yr-label yr-faded" data-idx="0">2019</span>
+        <span class="yr-label" data-idx="1">2020</span>
+        <span class="yr-label" data-idx="2">2021</span>
+        <span class="yr-label" data-idx="3">2022</span>
+        <span class="yr-label" data-idx="4">2023</span>
+        <span class="yr-label" data-idx="5">2024</span>
+        <span class="yr-label" data-idx="6">2025</span>
+        <span class="yr-label yr-current" data-idx="7">2026</span>
+        <span class="yr-label yr-faded" data-idx="8">2027</span>
+      </div>
+
+      <!-- BYJU'S — BELOW spine, 2020→2022 -->
+      <div class="co-card" id="card-byjus">
+        <span class="co-name">BYJU'S</span>
+        <svg width="80" height="48" viewBox="0 0 200 120">
+          <rect width="200" height="120" rx="8" fill="#6E2D97"/>
+          <text x="100" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="36" fill="white">B</text>
+          <text x="100" y="90" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="22" fill="white">BYJU'S</text>
+        </svg>
+      </div>
+
+      <!-- Tech Mahindra — ABOVE spine, 2023→2024 -->
+      <div class="co-card" id="card-tm">
+        <svg width="110" height="40" viewBox="0 0 220 80">
+          <text x="10" y="38" font-family="Arial,sans-serif" font-weight="700" font-size="28" fill="#CC0000">Tech</text>
+          <text x="10" y="66" font-family="Arial,sans-serif" font-weight="900" font-size="28" fill="#CC0000">Mahindra</text>
+        </svg>
+        <span class="co-name">Tech Mahindra</span>
+      </div>
+
+      <!-- GrowthJockey — BELOW spine, 2024→2025 -->
+      <div class="co-card" id="card-gj">
+        <span class="co-name">GrowthJockey</span>
+        <svg width="90" height="48" viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="55" fill="#003087"/>
+          <text x="60" y="75" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="52" fill="white">G</text>
+        </svg>
+      </div>
+
+      <!-- AMEX GBT — ABOVE spine, 2025→2026 -->
+      <div class="co-card" id="card-amex">
+        <svg width="110" height="36" viewBox="0 0 220 72">
+          <rect width="220" height="72" rx="4" fill="#006FCF"/>
+          <text x="110" y="28" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">GLOBAL BUSINESS</text>
+          <text x="110" y="48" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="14" fill="white">TRAVEL</text>
+          <rect x="8" y="56" width="36" height="10" rx="1" fill="#FFFFFF" opacity="0.5"/>
+          <text x="26" y="64" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="8" fill="white">AMEX</text>
+        </svg>
+        <span class="co-name">AMEX GBT</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Case Studies -->
+<section id="case-studies" class="case-outer">
+  <div class="case-row">
+    <div class="case-header reveal">
+      <h2>Case studies</h2>
+      <p>Case studies</p>
+    </div>
+    <div class="case-cards">
+      <div class="cc reveal">
+        <div class="cc-folder"></div>
+        <div class="cc-photo">
+          <img src="Asset/images/test.jpeg" alt="Project">
+          <span class="cc-label">Case study</span>
+          <span class="cc-ptitle">Project Name</span>
+        </div>
+        <div class="cc-info">
+          <div class="cc-cat">Website</div>
+          <div class="cc-name">Project Name</div>
+          <span class="tag-chip">Design Thinking</span>
+        </div>
+      </div>
+      <div class="cc reveal">
+        <div class="cc-folder"></div>
+        <div class="cc-photo">
+          <img src="Asset/images/test.jpeg" alt="Project">
+          <span class="cc-label">Case study</span>
+          <span class="cc-ptitle">Project Name</span>
+        </div>
+        <div class="cc-info">
+          <div class="cc-cat">Website</div>
+          <div class="cc-name">Project Name</div>
+          <span class="tag-chip">Design Thinking</span>
+        </div>
+      </div>
+      <div class="cc reveal">
+        <div class="cc-folder"></div>
+        <div class="cc-photo">
+          <img src="Asset/images/test.jpeg" alt="Project">
+          <span class="cc-label">Case study</span>
+          <span class="cc-ptitle">Project Name</span>
+        </div>
+        <div class="cc-info">
+          <div class="cc-cat">Website</div>
+          <div class="cc-name">Project Name</div>
+          <span class="tag-chip">Design Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Playground -->
+<section id="playground" class="sec" style="padding-bottom:0;">
+  <div class="play-grid">
+    <div class="play-card"><img src="Asset/images/test.jpeg" alt="Play 1"></div>
+    <div class="play-card"><img src="Asset/images/test.jpeg" alt="Play 2"></div>
+    <div class="play-card"><img src="Asset/images/test.jpeg" alt="Play 3"></div>
+  </div>
+</section>
+
+<!-- Skills Pills -->
+<div class="sec" style="padding-top:0;padding-bottom:40px;">
+  <div class="skills-wrap" id="skills-wrap">
+    <div class="sp" style="--rot-start:-30deg;--rot-mid:-16deg;--rot-end:-13.43deg;background:#7eb9f8;left:-2px;top:155px;">Visual Design</div>
+    <div class="sp" style="--rot-start:40deg;--rot-mid:30deg;--rot-end:26.87deg;background:#f1ba04;left:183px;top:55px;">Product Thinking</div>
+    <div class="sp" style="--rot-start:0deg;--rot-mid:0deg;--rot-end:0deg;background:#061b32;left:109px;top:180px;padding:16px 20px;">
+      <svg width="40" height="40" viewBox="0 0 38 57"><path d="M19 0H9.5C4.25 0 0 4.25 0 9.5C0 14.75 4.25 19 9.5 19H19V0Z" fill="#0ACF83"/><path d="M19 19H9.5C4.25 19 0 23.25 0 28.5C0 33.75 4.25 38 9.5 38H19V19Z" fill="#A259FF"/><path d="M19 38H9.5C4.25 38 0 42.25 0 47.5C0 52.75 4.25 57 9.5 57C14.75 57 19 52.75 19 47.5V38Z" fill="#F24E1E"/><path d="M19 0H28.5C33.75 0 38 4.25 38 9.5C38 14.75 33.75 19 28.5 19H19V0Z" fill="#FF7262"/><circle cx="28.5" cy="28.5" r="9.5" fill="#1ABCFE"/></svg>
+    </div>
+    <div class="sp" style="--rot-start:-5deg;--rot-mid:0deg;--rot-end:0deg;background:#2b3ff0;left:191px;top:195px;">Motion Design</div>
+    <div class="sp" style="--rot-start:-40deg;--rot-mid:-30deg;--rot-end:-27.63deg;background:#9650ec;left:458px;top:75px;">Design Thinking</div>
+    <div class="sp" style="--rot-start:0deg;--rot-mid:0deg;--rot-end:0deg;background:#509bec;left:484px;top:108px;padding:16px 20px;">
+      <svg width="40" height="40" viewBox="0 0 38 57"><path d="M19 0H9.5C4.25 0 0 4.25 0 9.5C0 14.75 4.25 19 9.5 19H19V0Z" fill="#0ACF83"/><path d="M19 19H9.5C4.25 19 0 23.25 0 28.5C0 33.75 4.25 38 9.5 38H19V19Z" fill="#A259FF"/><path d="M19 38H9.5C4.25 38 0 42.25 0 47.5C0 52.75 4.25 57 9.5 57C14.75 57 19 52.75 19 47.5V38Z" fill="#F24E1E"/><path d="M19 0H28.5C33.75 0 38 4.25 38 9.5C38 14.75 33.75 19 28.5 19H19V0Z" fill="#FF7262"/><circle cx="28.5" cy="28.5" r="9.5" fill="#1ABCFE"/></svg>
+    </div>
+    <div id="star-badge" style="position:absolute;left:705px;top:110px;width:133px;height:133px;opacity:0;transition:opacity 0.4s 0.9s;">
+      <svg width="133" height="133" viewBox="0 0 133 133" style="animation:spinStar 12s linear infinite;">
+        <path d="M66.5,6 C69,6 71,8 73,8 C75,8 77,6 79,7 C81,8 82,11 84,12 C86,13 88,12 90,14 C92,16 91,19 93,21 C95,23 98,23 99,26 C101,29 99,32 100,35 C101,38 104,40 104,43 C104,46 101,48 101,51 C101,54 104,56 103,59 C102,62 99,63 98,66 C97,69 99,72 97,75 C95,78 92,78 90,81 C88,84 89,87 86,89 C83,91 80,90 77,92 C74,94 73,97 70,98 C67,99 64,98 61,99 C58,100 56,103 53,103 C50,103 48,100 45,100 C42,100 39,102 36,101 C33,100 32,97 29,96 C26,95 23,96 21,94 C19,92 19,89 17,87 C15,85 12,84 11,81 C10,78 12,75 11,72 C10,69 7,67 7,64 C7,61 10,59 10,56 C10,53 7,51 8,48 C9,45 12,44 13,41 C14,38 12,35 14,32 C16,29 19,29 21,26 C23,23 22,20 25,18 C28,16 31,17 34,15 C37,13 38,10 41,9 C44,8 46,10 49,9 C52,8 53,6 56,6 C59,6 61,8 64,7 C66,7 66.5,6 66.5,6 Z" fill="#e8784a"/>
+        <defs><path id="cp2" d="M66.5,24 a42.5,42.5 0 1,1 0.001,0"/></defs>
+        <text font-family="Inter,sans-serif" font-size="11" font-weight="500" fill="white" letter-spacing="2">
+          <textPath href="#cp2" startOffset="5%">I l l u s t r a t i o n s</textPath>
+        </text>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- Footer Wordmark -->
+<div class="footer-wordmark"><h2 id="parul-word">parul.rathour</h2></div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="#" class="active">Home</a>
+    <a href="#case-studies">Case Studies</a>
+    <a href="#experience">Experience</a>
+    <a href="#workshop">Workshop</a>
+    <a href="#playground">Playground</a>
+  </div>
+  <div class="footer-right">
+    <p>Would you like to share your feedback or say Hi</p>
+    <div class="f-row">
+      <button class="btn-hire">Know the Deजाइner</button>
+      <button class="btn-note">Leave a note</button>
+    </div>
+    <div class="f-row">
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.6667 4.3335H11.6733M4.66667 1.3335H11.3333C13.1743 1.3335 14.6667 2.82588 14.6667 4.66683V11.3335C14.6667 13.1744 13.1743 14.6668 11.3333 14.6668H4.66667C2.82572 14.6668 1.33333 13.1744 1.33333 11.3335V4.66683C1.33333 2.82588 2.82572 1.3335 4.66667 1.3335ZM10.6667 7.58016C10.7489 8.13499 10.6542 8.70164 10.3958 9.19951C10.1375 9.69737 9.72876 10.1011 9.22775 10.3533C8.72674 10.6055 8.15896 10.6932 7.60519 10.6041C7.05142 10.515 6.53984 10.2536 6.14322 9.85694C5.74661 9.46032 5.48515 8.94875 5.39604 8.39497C5.30693 7.8412 5.39471 7.27343 5.64688 6.77241C5.89906 6.2714 6.30279 5.86266 6.80066 5.60432C7.29852 5.34599 7.86517 5.25122 8.42 5.3335C8.98595 5.41742 9.5099 5.68114 9.91446 6.0857C10.319 6.49026 10.5827 7.01421 10.6667 7.58016Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 1.3335H10C9.11594 1.3335 8.2681 1.68469 7.64297 2.30981C7.01785 2.93493 6.66666 3.78277 6.66666 4.66683V6.66683H4.66666V9.3335H6.66666V14.6668H9.33333V9.3335H11.3333L12 6.66683H9.33333V4.66683C9.33333 4.49002 9.40357 4.32045 9.52859 4.19542C9.65362 4.0704 9.82319 4.00016 10 4.00016H12V1.3335Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14 7.66669C14.0023 8.5466 13.7967 9.41461 13.4 10.2C12.9296 11.1412 12.2065 11.9328 11.3116 12.4862C10.4168 13.0396 9.3855 13.3329 8.33333 13.3334C7.45342 13.3356 6.58541 13.1301 5.8 12.7334L2 14L3.26667 10.2C2.86995 9.41461 2.66437 8.5466 2.66667 7.66669C2.66707 6.61452 2.96041 5.58325 3.51381 4.68839C4.06722 3.79352 4.85884 3.0704 5.8 2.60002C6.58541 2.20331 7.45342 1.99772 8.33333 2.00002H8.66667C10.0562 2.07668 11.3687 2.66319 12.3528 3.64726C13.3368 4.63132 13.9233 5.94379 14 7.33335V7.66669Z" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="social-btn"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M14.6667 3.99984C14.6667 3.2665 14.0667 2.6665 13.3333 2.6665H2.66666C1.93333 2.6665 1.33333 3.2665 1.33333 3.99984M14.6667 3.99984V11.9998C14.6667 12.7332 14.0667 13.3332 13.3333 13.3332H2.66666C1.93333 13.3332 1.33333 12.7332 1.33333 11.9998V3.99984M14.6667 3.99984L7.99999 8.6665L1.33333 3.99984" stroke="#F3F3F3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── WORDMARKS: fit to full width ── */
+function fitText(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.fontSize = '200px';
+  const ratio = window.innerWidth / el.scrollWidth;
+  el.style.fontSize = (200 * ratio * 0.998) + 'px';
+}
+
+/* ══════════════════════════════════════════
+   TIMELINE LAYOUT ENGINE
+   ══════════════════════════════════════════
+   
+   9 year slots: 2019(0) … 2027(8)
+   Spine Y: 280px
+   Bracket depth: 60px from spine
+   Card gap: 12px from bracket bar
+
+   Companies:
+     BYJU'S:       idx 1→3, BELOW
+     Tech Mahindra:idx 4→5, ABOVE
+     GrowthJockey: idx 5→6, BELOW
+     AMEX GBT:     idx 6→7, ABOVE
+*/
+function layoutTimeline() {
+  const canvas = document.getElementById('tlCanvas');
+  const svg    = document.getElementById('tlSvg');
+  if (!canvas || !svg) return;
+
+  const W = canvas.offsetWidth;
+  const SPINE_Y     = 280;   // px from top of canvas
+  const PAD         = 28;    // left/right inset for first/last year
+  const N           = 9;     // number of year slots
+  const BRACKET_D   = 60;    // bracket depth from spine
+  const CARD_GAP    = 12;    // gap between bracket bar and card edge
+
+  // X center of each year index
+  const step = (W - PAD * 2) / (N - 1);
+  const xAt  = (idx) => PAD + idx * step;
+
+  /* ── Position year labels ── */
+  document.querySelectorAll('#tlYears .yr-label').forEach(el => {
+    const idx = parseInt(el.dataset.idx);
+    const x   = xAt(idx);
+    const w   = el.offsetWidth;
+    el.style.left = (x - w / 2) + 'px';
+    el.style.top  = SPINE_Y + 'px';
+    el.style.transform = 'translateY(-50%)';
+    el.style.position  = 'absolute';
+  });
+
+  /* ── Draw SVG brackets + position cards ── */
+  svg.innerHTML = '';
+  svg.setAttribute('viewBox', `0 0 ${W} ${canvas.offsetHeight}`);
+
+  const STROKE_COLOR = 'rgba(0,0,0,0.18)';
+  const STROKE_W     = '1.5';
+
+  function drawBracket(x1, x2, above) {
+    const ySpine  = SPINE_Y;
+    const yBar    = above ? SPINE_Y - BRACKET_D : SPINE_Y + BRACKET_D;
+    const cx      = (x1 + x2) / 2;
+
+    // Draw the U-shape:  left leg | horizontal bar | right leg
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M${x1},${ySpine} L${x1},${yBar} L${x2},${yBar} L${x2},${ySpine}`);
+    path.setAttribute('fill', 'none');
+    path.setAttribute('stroke', STROKE_COLOR);
+    path.setAttribute('stroke-width', STROKE_W);
+    svg.appendChild(path);
+
+    return { cx, barY: yBar, above };
+  }
+
+  function placeCard(cardId, bracket, delayMs) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+    const cw = card.offsetWidth;
+    const ch = card.offsetHeight;
+    const left = bracket.cx - cw / 2;
+    const top  = bracket.above
+      ? bracket.barY - CARD_GAP - ch   // card sits ABOVE the bar
+      : bracket.barY + CARD_GAP;        // card sits BELOW the bar
+
+    card.style.left = Math.max(0, left) + 'px';
+    card.style.top  = top + 'px';
+
+    // Animate in with stagger
+    setTimeout(() => { card.classList.add('visible'); }, delayMs);
+  }
+
+  // --- BYJU'S: 2020(1)→2022(3), BELOW ---
+  placeCard('card-byjus', drawBracket(xAt(1), xAt(3), false), 100);
+
+  // --- Tech Mahindra: 2023(4)→2024(5), ABOVE ---
+  placeCard('card-tm', drawBracket(xAt(4), xAt(5), true), 250);
+
+  // --- GrowthJockey: 2024(5)→2025(6), BELOW ---
+  placeCard('card-gj', drawBracket(xAt(5), xAt(6), false), 400);
+
+  // --- AMEX GBT: 2025(6)→2026(7), ABOVE ---
+  placeCard('card-amex', drawBracket(xAt(6), xAt(7), true), 550);
+}
+
+/* ── SCROLL REVEAL (general) ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── SKILLS PILLS animation on scroll ── */
+let pillsDone = false;
+const pillsObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !pillsDone) {
+      pillsDone = true;
+      document.querySelectorAll('#skills-wrap .sp').forEach((p, i) => {
+        setTimeout(() => p.classList.add('animate'), i * 110);
+      });
+      setTimeout(() => {
+        const s = document.getElementById('star-badge');
+        if (s) s.style.opacity = '1';
+      }, 900);
+    }
+  });
+}, { threshold: 0.3 });
+const sw = document.getElementById('skills-wrap');
+if (sw) pillsObs.observe(sw);
+
+/* ── MASTER INIT ── */
+function init() {
+  fitText('namskar-word');
+  fitText('parul-word');
+  layoutTimeline();
+}
+
+// Run on load, after fonts, on resize, and with a stagger to catch late renders
+window.addEventListener('load', init);
+window.addEventListener('resize', init);
+document.fonts.ready.then(init);
+setTimeout(init, 200);
+setTimeout(init, 600);
+</script>
+</body>
+</html>
