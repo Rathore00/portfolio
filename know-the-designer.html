@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know the Designer — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2f2f2;--ink:#0c0c0c;--muted:#6b7280;--soft:#9ca3af;
+  --sans:'DM Sans',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+  --display:'Montserrat',sans-serif;--serif:'Playfair Display',Georgia,serif;
+  --red:#c0392b;--blue:#1c36db;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.page{width:100%;max-width:1512px;margin:0 auto}
+
+/* NAV — fixed at top */
+.top{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:16px 80px 0;
+  pointer-events:none;
+}
+.top .nav{pointer-events:auto;max-width:1512px;margin:0 auto}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:#fff;border-bottom:1px solid rgba(0,0,0,.06);border-radius:70px;
+  padding:14px 22px 15px 52px;box-shadow:0 1px 2px rgba(0,0,0,.18);
+}
+.nav-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.nav-links a{font-family:var(--inter);font-size:14px;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a.active{font-weight:600;color:var(--ink)}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.social-btn{width:38px;height:38px;border-radius:19px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.social-btn img,.social-btn svg{width:16px;height:16px;display:block}
+.btn-touch{display:inline-flex;align-items:center;background:var(--ink);color:#fff;border-radius:45px;padding:10px 22px;font-size:12px;white-space:nowrap}
+.nav-burger{display:none;flex-direction:column;gap:4px;background:#0c0c0c;border:none;cursor:pointer;width:28px;height:28px;border-radius:19px;align-items:center;justify-content:center;padding:0}
+.nav-burger span{display:block;width:12px;height:1.5px;background:#fff;border-radius:1px}
+.nav-spacer{height:92px}
+
+/* KNOW ZONE — sticky identity + side panels until full-bleed sections */
+.know-zone{position:relative}
+.k-hero{padding:8px 80px 0;text-align:center}
+.k-meta{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#888;margin-bottom:4px}
+.k-namskar{width:100%;line-height:0;margin-bottom:20px}
+.k-namskar img{width:100%;height:auto;opacity:.9}
+.k-identity{
+  position:sticky;top:92px;z-index:40;
+  text-align:center;
+  background:linear-gradient(to bottom,var(--bg) 70%,rgba(242,242,242,0));
+  padding:8px 80px 20px;
+  margin:0 -0px;
+}
+.k-name{font-family:var(--inter);font-weight:700;font-size:clamp(2.4rem,5vw,56px);letter-spacing:-.04em;color:#111827;line-height:1.05;margin-bottom:12px}
+.k-role{font-family:var(--inter);font-size:clamp(1rem,1.5vw,20px);color:var(--muted);margin-bottom:8px}
+.k-loc{font-family:var(--inter);font-size:14px;color:var(--soft)}
+
+/* BENTO */
+.bento{
+  display:grid;
+  grid-template-columns:minmax(220px,279px) minmax(0,1fr) minmax(220px,279px);
+  gap:24px;align-items:start;
+  padding:14px 80px 48px;
+}
+.col{display:flex;flex-direction:column;gap:14px}
+.col-side{
+  position:sticky;top:220px;align-self:start;z-index:30;
+}
+.col-mid{min-width:0}
+.card{
+  background:#fff;border:1px solid #f3f4f6;border-radius:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,.03);padding:16px;
+}
+.card-label{font-family:var(--inter);font-weight:700;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+
+/* Photos fan */
+.photos{height:90px;position:relative;margin-top:8px}
+.photos img{
+  position:absolute;width:58px;height:72px;object-fit:cover;border-radius:8px;
+  box-shadow:0 4px 8px rgba(0,0,0,.22);
+}
+.photos img:nth-child(1){left:8%;top:10px;transform:rotate(-18deg);z-index:1}
+.photos img:nth-child(2){left:24%;top:4px;transform:rotate(-8deg);z-index:2}
+.photos img:nth-child(3){left:40%;top:0;transform:rotate(2deg);z-index:5}
+.photos img:nth-child(4){left:56%;top:6px;transform:rotate(12deg);z-index:3}
+.photos img:nth-child(5){left:72%;top:2px;transform:rotate(20deg);z-index:2}
+
+/* Folders */
+.folders{display:flex;align-items:flex-end;justify-content:center;height:76px;position:relative;margin-top:4px}
+.folder{width:52px;height:40px;border-radius:5px 5px 0 0;position:relative;box-shadow:inset 1px 2px 4px rgba(255,255,255,.4)}
+.folder::before{content:"";position:absolute;left:0;top:-8px;width:22px;height:10px;border-radius:4px 4px 0 0;background:inherit}
+.folder.f1{background:#85b344;transform:rotate(-6deg);z-index:1}
+.folder.f2{background:#6144b3;transform:rotate(8deg);margin-left:-10px;z-index:3;width:56px;height:44px}
+.folder.f3{background:#e7cf31;transform:rotate(-14deg);margin-left:-14px;z-index:2}
+.folder.f4{background:#1faff6;transform:rotate(-8deg);margin-left:-8px;z-index:4}
+
+/* Services */
+.services{background:var(--blue);border:none;color:#fff;padding:24px;min-height:220px}
+.services .card-label{color:#fff}
+.svc-tags{position:relative;height:140px;margin-top:18px}
+.svc-tag{
+  position:absolute;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);
+  border-radius:9999px;padding:9px 17px;font-family:var(--inter);font-size:11px;font-weight:500;color:#fff;white-space:nowrap;
+}
+.svc-tag:nth-child(1){left:19px;top:0;transform:rotate(-4deg)}
+.svc-tag:nth-child(2){left:0;top:36px;transform:rotate(-29deg)}
+.svc-tag:nth-child(3){left:72px;top:40px;transform:rotate(24deg)}
+.svc-tag:nth-child(4){left:136px;top:28px;transform:rotate(10deg)}
+.svc-tag:nth-child(5){left:120px;top:72px;transform:rotate(-17deg)}
+.svc-tag:nth-child(6){left:2px;top:100px}
+
+/* Stats */
+.stats{display:flex;padding:0;overflow:hidden;min-height:146px}
+.stat{flex:1;padding:32px;display:flex;flex-direction:column;justify-content:flex-end;border-right:1px solid #d0d1d3}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--inter);font-weight:700;font-size:36px;color:#676767;line-height:1.2}
+.stat-l{font-family:var(--inter);font-weight:700;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin-top:8px}
+.stat-s{font-family:var(--inter);font-size:12px;color:var(--muted);margin-top:2px}
+.resume-row{display:flex;align-items:center;gap:14px}
+.resume-play{width:23px;height:23px;border-radius:50%;background:#676767;display:flex;align-items:center;justify-content:center}
+.resume-play img{width:12px;height:12px}
+.resume-t{font-family:var(--inter);font-weight:700;font-size:24px;color:#676767}
+
+/* Tools + history */
+.tools-row{display:flex;gap:14px}
+.tools,.history{flex:1;min-width:0}
+.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.dot{width:6px;height:6px;border-radius:50%}
+.dot.orange{background:#fb923c}
+.dot.blue{background:#60a5fa}
+.tool{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.tool:last-child{margin-bottom:0}
+.tool-ico{width:40px;height:40px;border-radius:8px;border:1px solid #f3f4f6;overflow:hidden;flex-shrink:0;background:#fff}
+.tool-ico img{width:100%;height:100%;object-fit:cover}
+.tool-n{font-family:var(--inter);font-weight:700;font-size:14px;color:#1e293b}
+.tool-s{font-family:var(--inter);font-size:12px;color:var(--soft)}
+.hist{display:flex;flex-direction:column;gap:8px;max-height:268px;overflow-y:auto}
+.hist-item{border-radius:8px;padding:12px 16px}
+.hist-item .when{font-family:var(--inter);font-weight:700;font-size:10px;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+.hist-item .who{font-family:var(--inter);font-weight:700;font-size:14px}
+.hist-item.h1{background:#e3f4ff;color:#2e67bc}
+.hist-item.h2{background:#fff6d2;color:#aca21f}
+.hist-item.h3{background:#fff1f2;color:#be123c}
+.hist-item.h4{background:#f3fff8;color:#1a820e}
+.hist-item.h5{background:#f5f3ff;color:#6d28d9}
+
+/* Banner + ink reveal */
+.banner{
+  position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1165/431;background:#e8e8e8;
+  isolation:isolate;touch-action:none;cursor:crosshair;width:100%;margin-top:4px;
+}
+.banner img{width:100%;height:100%;object-fit:cover}
+.banner-ink{
+  position:absolute;inset:0;width:100%;height:100%;
+  z-index:2;pointer-events:auto;border-radius:inherit;
+}
+.banner-handle{
+  position:absolute;top:18px;right:18px;z-index:3;
+  background:rgba(255,255,255,.55);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.4);border-radius:999px;
+  padding:6px 12px;font-family:var(--inter);font-size:11px;font-weight:500;color:#fff;
+  pointer-events:none;
+}
+.banner-tag{
+  position:absolute;right:24px;bottom:20px;z-index:3;pointer-events:none;
+  font-family:var(--inter);font-weight:700;font-size:clamp(1.4rem,3vw,2.4rem);
+  color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.35);letter-spacing:-.02em;
+}
+
+/* Clock / quote / wishlist */
+.clock-row{display:flex;gap:8px;align-items:stretch}
+.clock{flex:1;padding:17px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center}
+.clock-top{display:flex;justify-content:space-between;width:100%;font-family:var(--inter);font-weight:500;font-size:10px;color:#676767}
+.clock-time{font-family:var(--inter);font-weight:900;font-size:48px;color:#676767;line-height:1}
+.clock-day{font-family:var(--inter);font-weight:500;font-size:14px;color:#676767}
+.clock-actions{width:64px;padding:13px;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
+.clock-btn{background:#f3f4f6;border-radius:8px;padding:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;width:100%}
+.clock-btn svg{width:16px;height:16px;opacity:.55}
+.quote{padding:16px}
+.quote p{font-family:var(--inter);font-weight:700;font-size:18px;color:#109c67;line-height:1.35;margin:12px 0 16px}
+.wishlist{padding:16px 24px}
+.wish{display:flex;gap:12px;align-items:flex-start;margin-top:16px}
+.wish input{width:16px;height:16px;margin-top:2px;accent-color:#109c67;flex-shrink:0}
+.wish span{font-family:var(--inter);font-weight:500;font-size:12px;color:#374151}
+
+/* RED */
+.red{
+  background:var(--red);color:#fff;position:relative;overflow:hidden;
+  min-height:520px;padding:72px 48px 48px;margin-top:8px;
+}
+.red-corner{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.3);border-style:solid}
+.red-corner.tl{left:24px;top:24px;border-width:1.5px 0 0 1.5px}
+.red-corner.br{right:24px;bottom:24px;border-width:0 1.5px 1.5px 0}
+.red-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.red-h{
+  font-family:var(--display);font-weight:900;font-size:clamp(2.8rem,7vw,83px);
+  letter-spacing:-.025em;line-height:.92;max-width:14ch;
+}
+.red-h .deco{display:block;font-family:var(--serif);font-style:italic;font-weight:700;font-size:.88em;letter-spacing:-.01em;text-transform:lowercase}
+.red-sub{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(1.2rem,2.5vw,2.2rem);color:rgba(255,255,255,.42);margin-top:12px}
+.red-bottom{
+  display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-end;
+  border-top:.5px solid rgba(255,255,255,.18);margin-top:48px;padding-top:28px;
+}
+.red-exp-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px}
+.red-cos{display:flex;flex-wrap:wrap;gap:12px 18px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.red-cos .now{color:#fff;font-weight:600}
+.red-cos .badge{display:inline-block;background:rgba(255,255,255,.15);border-radius:2px;padding:1px 5px;font-size:7px;letter-spacing:.08em;margin-left:4px;color:rgba(255,255,255,.75);vertical-align:middle}
+.red-manifesto{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.65;color:rgba(255,255,255,.5);max-width:340px}
+.red-stickers{position:absolute;inset:0;pointer-events:none}
+.rst{position:absolute}
+.rst.figma{left:62%;top:12%;transform:rotate(-8deg)}
+.rst.ux{left:60%;bottom:28%;transform:rotate(3deg);background:rgba(255,255,255,.92);color:var(--red);font-family:var(--display);font-weight:900;font-size:1rem;padding:8px 14px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.rst.chip{background:#fff;color:var(--red);font-size:10px;font-weight:500;letter-spacing:.06em;padding:6px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+.rst.chip.dt{left:55%;top:22%;transform:rotate(-6deg)}
+.rst.chip.pt{left:66%;top:38%;transform:rotate(4deg)}
+.rst.chip.sd{left:58%;top:48%;transform:rotate(-3deg)}
+.rst.star{left:72%;top:55%;font-size:2.2rem;color:rgba(255,255,255,.7);transform:rotate(-12deg)}
+
+/* DARK */
+.dark{
+  background:#0c0c0c;color:#fff;position:relative;overflow:hidden;
+  min-height:520px;padding:72px 48px 48px;
+}
+.dark-corner{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.25);border-style:solid}
+.dark-corner.tl{left:24px;top:24px;border-width:1.5px 0 0 1.5px}
+.dark-corner.br{right:24px;bottom:24px;border-width:0 1.5px 1.5px 0}
+.dark-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
+.dark-h{
+  font-family:var(--display);font-weight:900;font-size:clamp(2.8rem,8vw,96px);
+  letter-spacing:-.03em;line-height:.92;
+}
+.dark-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2vw,1.6rem);color:rgba(255,255,255,.45);margin-top:16px}
+.dark-bottom{
+  display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:center;
+  margin-top:64px;padding-top:28px;border-top:.5px solid rgba(255,255,255,.12);
+}
+.dark-tags{display:flex;flex-wrap:wrap;gap:10px}
+.dark-tag{
+  border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 14px;
+  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);
+}
+.dark-link{font-family:var(--inter);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.dark-link:hover{color:#c0392b}
+.dst{position:absolute;pointer-events:none}
+.dst.term{
+  right:18%;top:12%;background:#1a1a2e;border-radius:8px;padding:12px 16px;
+  font-family:monospace;font-size:11px;line-height:1.7;color:#00ff88;
+  border:1px solid rgba(0,255,136,.2);box-shadow:0 6px 24px rgba(0,0,0,.5);transform:rotate(-4deg);
+}
+.dst.vibe{
+  left:58%;top:48%;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;
+  padding:8px 14px;font-family:var(--display);font-weight:900;font-size:.9rem;transform:rotate(4deg);
+  box-shadow:0 4px 16px rgba(102,126,234,.4);
+}
+.dst.git{
+  left:62%;top:14%;background:#0d1117;border-radius:6px;padding:8px 12px;
+  font-family:monospace;font-size:10px;color:#7ee787;border:1px solid rgba(126,231,135,.15);
+  transform:rotate(-3deg);white-space:nowrap;
+}
+
+/* FOOTER */
+.footer{background:#fff;border-top:.5px solid #ddd}
+.fc-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:.5px solid #ddd;padding:3.5rem 3rem}
+.fc-col{padding:0 2rem}
+.fc-col:first-child{padding-left:.75rem;border-right:.5px solid #ddd}
+.fc-col:nth-child(2){border-right:.5px solid #ddd;text-align:center}
+.fc-col:last-child{text-align:right}
+.fc-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#888;margin-bottom:.7rem}
+.fc-v{font-size:16px;color:var(--ink);line-height:1.4}
+.fc-v small{display:block;color:#888;font-size:13.6px;margin-top:2px}
+.fc-mail{border-bottom:.5px solid var(--ink);display:inline-block}
+.fs-row{display:flex;gap:2rem;flex-wrap:wrap;padding:1.8rem 3rem;border-bottom:.5px solid #ddd}
+.fs-link{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.fs-link::after{content:" ↗";opacity:.45}
+.footer-big{padding:3rem 3rem 0}
+.footer-big-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(1.5rem,4vw,3rem)}
+.footer-cta{font-family:var(--display);font-weight:900;font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;max-width:12ch}
+.footer-nav{display:flex;flex-direction:column;width:min(320px,100%);border-top:.5px solid #ddd}
+.footer-nav a{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:.5px solid #ddd;font-family:var(--serif);font-style:italic;font-size:1rem}
+.footer-nav a::after{content:"→";color:#888;font-family:var(--sans);font-style:normal}
+.footer-nav a:hover{color:#c0392b}
+.footer-wordmark{width:100%;line-height:0;pointer-events:none}
+.footer-wordmark img{width:100%;height:auto}
+.footer-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase}
+
+.mob-menu{display:none;position:fixed;inset:0;background:var(--ink);z-index:9999;flex-direction:column;justify-content:center;align-items:center;gap:2rem}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--display);font-size:clamp(2rem,8vw,4rem);font-weight:900;color:#fff}
+.mob-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+
+@media(max-width:1100px){
+  .top,.k-hero,.k-identity,.bento{padding-left:40px;padding-right:40px}
+  .bento{grid-template-columns:1fr 1fr;gap:16px}
+  .bento .col-mid{grid-column:1/-1;order:-1}
+  .col-side{position:static}
+  .tools-row{flex-direction:column}
+  .stats{flex-wrap:wrap}
+  .stat{min-width:40%;border-bottom:1px solid #eee}
+  .red-stickers,.dst{display:none}
+}
+@media(max-width:900px){
+  .top{padding:12px 24px 0}
+  .nav-spacer{height:76px}
+  .k-hero,.k-identity,.bento{padding-left:24px;padding-right:24px}
+  .k-identity{top:76px}
+  .nav{padding:14px 16px}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .nav-right .social-btn{display:none}
+  .nav-right .social-x{display:flex!important;width:28px;height:28px}
+  .btn-touch{padding:8px 14px}
+  .bento{grid-template-columns:1fr}
+  .col-side{position:static}
+  .k-identity{position:static;background:transparent}
+  .red,.dark{padding:48px 24px}
+  .fc-row{grid-template-columns:1fr;gap:1.5rem;padding:2rem 1.5rem}
+  .fc-col,.fc-col:first-child,.fc-col:nth-child(2),.fc-col:last-child{padding:0;border:none;text-align:left}
+  .fs-row,.footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
+  .footer-big-top{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" type="button" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+  <a href="#dark" onclick="closeMob()">Off the Grid</a>
+</div>
+
+<div class="top">
+  <nav class="nav">
+    <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="work.html">Work</a>
+      <a href="know-the-designer.html" class="active">Know the Designer</a>
+      <a href="#dark">Off the Grid</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn social-x" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+    </div>
+  </nav>
+</div>
+<div class="nav-spacer" aria-hidden="true"></div>
+
+<div class="page know-zone">
+  <header class="k-hero">
+    <div class="k-meta">
+      <span id="hero-date">11 August 2026</span>
+      <span id="hero-time">00:00:00 IST</span>
+    </div>
+    <div class="k-namskar" aria-hidden="true">
+      <img src="Asset/images/know/namskar.svg" alt="" width="1237" height="204">
+    </div>
+  </header>
+
+  <div class="k-identity">
+    <h1 class="k-name">Parul Rathour</h1>
+    <p class="k-role">Product design across data, dashboards &amp; UX copy</p>
+    <p class="k-loc">Himachal, IN</p>
+  </div>
+
+  <section class="bento" aria-label="About widgets">
+    <div class="col col-side">
+      <div class="card">
+        <div class="card-label">Images</div>
+        <div class="photos">
+          <img src="Asset/images/home/cards/card-3.png" alt="" loading="lazy">
+          <img src="Asset/images/home/cards/card-4.png" alt="" loading="lazy">
+          <img src="Asset/images/home/cards/card-5.png" alt="" loading="lazy">
+          <img src="Asset/images/home/cards/card-2.png" alt="" loading="lazy">
+          <img src="Asset/images/home/cards/card-1.png" alt="" loading="lazy">
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Personal Projects</div>
+        <div class="folders" aria-hidden="true">
+          <span class="folder f1"></span>
+          <span class="folder f2"></span>
+          <span class="folder f3"></span>
+          <span class="folder f4"></span>
+        </div>
+      </div>
+      <div class="card services">
+        <div class="card-label">Services</div>
+        <div class="svc-tags">
+          <span class="svc-tag">Design Strategy</span>
+          <span class="svc-tag">Data Viz</span>
+          <span class="svc-tag">UX Writing</span>
+          <span class="svc-tag">Prototyping</span>
+          <span class="svc-tag">Dashboard Design</span>
+          <span class="svc-tag">Info Architecture</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col col-mid">
+      <div class="card stats">
+        <div class="stat">
+          <div class="stat-n">6+</div>
+          <div class="stat-l">Years Experience</div>
+          <div class="stat-s">Product · UX · Data Viz</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">12+</div>
+          <div class="stat-l">Projects Shipped</div>
+          <div class="stat-s">Across 5 product teams</div>
+        </div>
+        <a class="stat" href="#" aria-label="Resume">
+          <div class="resume-row">
+            <span class="resume-play"><img src="Asset/images/know/icon-play.svg" alt=""></span>
+            <span class="resume-t">Resume</span>
+          </div>
+          <div class="stat-s" style="margin-top:8px">View or download</div>
+        </a>
+      </div>
+
+      <div class="tools-row">
+        <div class="card tools">
+          <div class="sec-head"><span class="dot orange"></span><span class="card-label">Top Tools</span></div>
+          <div class="tool">
+            <div class="tool-ico"><img src="Asset/images/know/tool-figma.png" alt=""></div>
+            <div><div class="tool-n">Figma</div><div class="tool-s">Design</div></div>
+          </div>
+          <div class="tool">
+            <div class="tool-ico"><img src="Asset/images/know/tool-notion.png" alt=""></div>
+            <div><div class="tool-n">Notion</div><div class="tool-s">Documentation</div></div>
+          </div>
+          <div class="tool">
+            <div class="tool-ico"><img src="Asset/images/know/tool-claude.png" alt=""></div>
+            <div><div class="tool-n">Claude</div><div class="tool-s">Usability testing &amp; brainstorming</div></div>
+          </div>
+          <div class="tool">
+            <div class="tool-ico"><img src="Asset/images/know/tool-sheets.png" alt=""></div>
+            <div><div class="tool-n">Sheets</div><div class="tool-s">Data</div></div>
+          </div>
+        </div>
+        <div class="card history">
+          <div class="sec-head"><span class="dot blue"></span><span class="card-label">Work History</span></div>
+          <div class="hist">
+            <div class="hist-item h1"><div class="when">2025 — Present</div><div class="who">Amex GBT</div></div>
+            <div class="hist-item h2"><div class="when">2024 — 2025</div><div class="who">GrowthJockey</div></div>
+            <div class="hist-item h3"><div class="when">2023 — 2024</div><div class="who">Tech Mahindra</div></div>
+            <div class="hist-item h4"><div class="when">2022 — 2024</div><div class="who">Master’s in Design</div></div>
+            <div class="hist-item h5"><div class="when">2022 — 2024</div><div class="who">BYJU’S</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" id="banner-reveal">
+        <img src="Asset/images/know/banner-mountains.png" alt="Parul in Himachal mountains" loading="lazy">
+        <canvas class="banner-ink" data-ink-reveal data-mask-color="242,242,242" aria-hidden="true"></canvas>
+        <span class="banner-handle">@woman.who.design</span>
+        <span class="banner-tag">Product Designer</span>
+      </div>
+    </div>
+
+    <div class="col col-side">
+      <div class="clock-row">
+        <div class="card clock">
+          <div class="clock-top"><span id="clock-date">26 July</span><span id="clock-year">2026</span></div>
+          <div class="clock-time" id="clock-time">13:26</div>
+          <div class="clock-day" id="clock-day">Monday</div>
+        </div>
+        <div class="card clock-actions" aria-hidden="true">
+          <div class="clock-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div class="clock-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+          <button type="button" class="clock-btn" id="back-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+        </div>
+      </div>
+      <div class="card quote">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
+        <p>Good dashboards don't just show data - they show the decision hiding inside it.</p>
+        <div class="card-label">Personal Projects</div>
+      </div>
+      <div class="card wishlist">
+        <div class="card-label">Design Wishlist</div>
+        <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
+        <label class="wish"><input type="checkbox"><span>Participate in a design hackathon</span></label>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="red" id="red">
+  <div class="red-corner tl"></div>
+  <div class="red-corner br"></div>
+  <div class="red-stickers" aria-hidden="true">
+    <img class="rst figma" src="Asset/images/home/figma-icon.svg" alt="" width="52" height="76">
+    <span class="rst chip dt">Design Thinking</span>
+    <span class="rst chip pt">Product Thinking</span>
+    <span class="rst chip sd">System Design</span>
+    <span class="rst ux">UX ✦</span>
+    <span class="rst star">✦</span>
+  </div>
+  <div class="red-ey">[ Philosophy · Practice ]</div>
+  <h2 class="red-h">I DON'T<span class="deco">decorate -</span>I SOLVE.</h2>
+  <p class="red-sub">Design is clarity under pressure.</p>
+  <div class="red-bottom">
+    <div>
+      <div class="red-exp-l">Experience</div>
+      <div class="red-cos">
+        <span>Tech Mahindra</span>
+        <span>BYJU'S</span>
+        <span>GrowthJockey</span>
+        <span class="now">AMEX GBT<span class="badge">NOW</span></span>
+      </div>
+    </div>
+    <p class="red-manifesto">From B2B dashboards to consumer apps — I design the space between complexity and the people who have to live in it.</p>
+  </div>
+</section>
+
+<section class="dark" id="dark">
+  <div class="dark-corner tl"></div>
+  <div class="dark-corner br"></div>
+  <div class="dst term" aria-hidden="true">
+    <span style="color:#888">$</span> parul --design<br>
+    <span style="color:#64b5f6">→</span> shipping... ✓<br>
+    <span style="color:#888">$</span> ▋
+  </div>
+  <div class="dst git" aria-hidden="true">git commit -m "shipped 🚀"</div>
+  <div class="dst vibe" aria-hidden="true">vibe coded ✦</div>
+  <div class="dark-ey">[ Off the Grid ]</div>
+  <h2 class="dark-h">BEYOND<br>THE BRIEF.</h2>
+  <p class="dark-sub">Things that exist only because they had to.</p>
+  <div class="dark-bottom">
+    <div class="dark-tags">
+      <span class="dark-tag">Illustrations</span>
+      <span class="dark-tag">Side Codes</span>
+      <span class="dark-tag">Motion</span>
+      <span class="dark-tag">3D Experiments</span>
+      <span class="dark-tag">UI Concepts</span>
+    </div>
+    <a href="#dark" class="dark-link">Explore the chaos ↗</a>
+  </div>
+</section>
+
+<footer class="footer" id="footer-contact">
+  <div class="fc-row">
+    <div class="fc-col">
+      <div class="fc-l">Location</div>
+      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Say Hello</div>
+      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Currently at</div>
+      <div class="fc-v">American Express<br>Global Business Travel</div>
+    </div>
+  </div>
+  <div class="fs-row">
+    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+    <a href="#" class="fs-link">Resume</a>
+  </div>
+  <div class="footer-big">
+    <div class="footer-big-top">
+      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+      <div class="footer-nav">
+        <a href="index.html"><span>Home</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="know-the-designer.html"><span>Know the Designer</span></a>
+        <a href="#dark"><span>Off the Grid</span></a>
+      </div>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Parul Rathour</span>
+    <span id="footer-time">IST —:—</span>
+  </div>
+</footer>
+
+<script src="Asset/js/ink-reveal.js"></script>
+<script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
+(function(){
+  const heroDate=document.getElementById('hero-date');
+  const heroTime=document.getElementById('hero-time');
+  const footerTime=document.getElementById('footer-time');
+  const clockTime=document.getElementById('clock-time');
+  const clockDay=document.getElementById('clock-day');
+  const clockDate=document.getElementById('clock-date');
+  const clockYear=document.getElementById('clock-year');
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function tick(){
+    const now=new Date();
+    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,weekday:'long'}).formatToParts(now);
+    const get=t=>parts.find(p=>p.type===t)?.value||'';
+    const y=+get('year'), m=+get('month'), d=+get('day');
+    const h=get('hour'), mi=get('minute'), s=get('second');
+    if(heroDate) heroDate.textContent=d+' '+months[m-1]+' '+y;
+    if(heroTime) heroTime.textContent=h+':'+mi+':'+s+' IST';
+    if(footerTime) footerTime.textContent=h+':'+mi+':'+s+' IST';
+    if(clockTime) clockTime.textContent=h+':'+mi;
+    if(clockDate) clockDate.textContent=d+' '+months[m-1].slice(0,3);
+    if(clockYear) clockYear.textContent=String(y);
+    if(clockDay) clockDay.textContent=get('weekday')||days[now.getDay()];
+  }
+  tick();setInterval(tick,1000);
+})();
+
+document.getElementById('back-top')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

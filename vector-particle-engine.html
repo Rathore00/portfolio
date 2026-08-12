@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vector Particle Engine — Namskar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Space Grotesk",system-ui,sans-serif;
+  font-weight:500;
+  background:#f5f3f0;
+  color:#1a1a1a;
+  overflow:hidden;
+  cursor:none;
+}
+body.native-cursor{cursor:auto}
+body.native-cursor .cursor-dot{display:none}
+
+.cursor-dot{
+  position:fixed;left:0;top:0;
+  width:12px;height:12px;
+  margin:-6px 0 0 -6px;
+  border-radius:50%;
+  background:#000;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate3d(-100px,-100px,0);
+  will-change:transform;
+}
+
+.ui{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  pointer-events:none;
+  z-index:20;
+}
+.ui-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px 32px;
+  pointer-events:auto;
+}
+.eyebrow{
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  opacity:.4;
+}
+.upload-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:10px 16px;
+  border:1px solid rgba(0,0,0,.18);
+  border-radius:999px;
+  background:transparent;
+  font:inherit;font-size:12px;letter-spacing:.04em;
+  color:#1a1a1a;
+  cursor:none;
+  transition:background .2s,border-color .2s;
+}
+.upload-btn:hover{
+  background:rgba(0,0,0,.04);
+  border-color:rgba(0,0,0,.35);
+}
+.upload-btn svg{width:14px;height:14px;flex-shrink:0}
+.upload-btn input{display:none}
+
+.hint{
+  position:fixed;left:50%;bottom:28px;
+  transform:translateX(-50%);
+  font-size:11px;letter-spacing:.06em;
+  opacity:.35;pointer-events:none;z-index:20;
+  text-align:center;
+}
+
+.stage{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:80px 48px 72px;
+}
+.stage-inner{
+  position:relative;
+  width:min(1100px,92vw);
+  line-height:0;
+}
+.stage-inner svg,
+.stage-img{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:min(42vh,280px);
+  object-fit:contain;
+  transition:opacity .28s ease;
+  pointer-events:none;
+  user-select:none;
+  position:relative;
+  z-index:1;
+}
+.stage.is-hover .stage-img,
+.stage.is-hover .stage-svg-host > svg{
+  opacity:0;
+}
+.stage-svg-host{
+  display:block;width:100%;line-height:0;
+}
+.stage-svg-host svg{
+  width:100%;height:auto;max-height:min(42vh,280px);
+}
+.particle-canvas{
+  position:absolute;
+  left:0;top:0;
+  width:100%;height:100%;
+  z-index:10;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .22s ease;
+}
+.stage.is-hover .particle-canvas{opacity:1}
+
+.hit{
+  position:absolute;inset:-24px;
+  z-index:15;
+  cursor:none;
+}
+</style>
+</head>
+<body>
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+
+<div class="ui">
+  <div class="ui-top">
+    <p class="eyebrow">Vector Particle Engine</p>
+    <label class="upload-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M12 16V4M12 4l-4 4M12 4l4 4"/>
+        <path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+      </svg>
+      <span>Upload SVG</span>
+      <input type="file" id="svg-upload" accept=".svg,image/svg+xml">
+    </label>
+  </div>
+</div>
+<p class="hint">Hover the mark to dissolve · Upload any SVG</p>
+
+<div class="stage" id="stage">
+  <div class="stage-inner" id="stage-inner">
+    <div class="stage-svg-host" id="svg-host" aria-hidden="true"></div>
+    <img class="stage-img" id="svg-img" alt="Namskar" draggable="false" hidden>
+    <canvas class="particle-canvas" id="particle-canvas" aria-hidden="true"></canvas>
+    <div class="hit" id="hit" aria-label="Namskar particle field"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const DEFAULT_SVG = 'Asset/images/home/namskar.svg';
+  const GAP = 8;
+  const REPEL_R = 220;
+  const REPEL_FORCE = 18;
+  const FRICTION = 0.98;
+  const EASE_MIN = 0.05;
+  const EASE_MAX = 0.10;
+  const DRIFT = 0.15;
+  const DRIFT_BOUND = 60;
+  const SPIN = 0.02;
+
+  const stage = document.getElementById('stage');
+  const inner = document.getElementById('stage-inner');
+  const host = document.getElementById('svg-host');
+  const imgEl = document.getElementById('svg-img');
+  const canvas = document.getElementById('particle-canvas');
+  const hit = document.getElementById('hit');
+  const upload = document.getElementById('svg-upload');
+  const cursorDot = document.getElementById('cursor-dot');
+  const ctx = canvas.getContext('2d', { alpha: true });
+
+  let particles = [];
+  let hovering = false;
+  let ready = false;
+  let raf = 0;
+  let dpr = 1;
+  let cw = 0, ch = 0;
+  let padX = 0, padY = 0;
+  let drawW = 0, drawH = 0;
+  let mouse = { x: -9999, y: -9999, active: false };
+  let currentObjectUrl = null;
+
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if(!finePointer) document.body.classList.add('native-cursor');
+
+  function pickShape(){
+    const r = Math.random();
+    if(r < 0.60) return 'dot';
+    if(r < 0.94) return 'ring';
+    return 'cross';
+  }
+
+  function rand(a, b){ return a + Math.random() * (b - a); }
+
+  function setCursor(clientX, clientY){
+    if(!finePointer) return;
+    cursorDot.style.transform = 'translate3d(' + clientX + 'px,' + clientY + 'px,0)';
+  }
+
+  function loadSvgUrl(url){
+    return fetch(url)
+      .then(r => {
+        if(!r.ok) throw new Error('Failed to load SVG');
+        return r.text();
+      })
+      .then(text => bootFromSvgText(text));
+  }
+
+  function bootFromSvgText(svgText){
+    // Normalize for canvas draw (remove scripts, ensure xmlns)
+    let cleaned = svgText
+      .replace(/<script[\s\S]*?<\/script>/gi, '')
+      .replace(/onload=/gi, 'data-x=');
+    if(!/xmlns=/.test(cleaned)){
+      cleaned = cleaned.replace(/<svg\b/i, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+
+    if(currentObjectUrl){
+      URL.revokeObjectURL(currentObjectUrl);
+      currentObjectUrl = null;
+    }
+
+    const blob = new Blob([cleaned], { type: 'image/svg+xml;charset=utf-8' });
+    const objUrl = URL.createObjectURL(blob);
+    currentObjectUrl = objUrl;
+
+    host.innerHTML = cleaned;
+    const inlineSvg = host.querySelector('svg');
+    if(inlineSvg){
+      inlineSvg.removeAttribute('width');
+      inlineSvg.removeAttribute('height');
+      inlineSvg.style.width = '100%';
+      inlineSvg.style.height = 'auto';
+      inlineSvg.style.maxHeight = 'min(42vh, 280px)';
+      inlineSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    }
+    imgEl.hidden = true;
+
+    const im = new Image();
+    im.onload = () => {
+      rebuildFromImage(im);
+    };
+    im.onerror = () => {
+      // Fallback: rasterize via inline svg dimensions using offscreen canvas + foreignObject isn't reliable;
+      // try drawing after a short layout wait using serialized data URL
+      const serialized = new XMLSerializer().serializeToString(host.querySelector('svg') || document.createElement('svg'));
+      const encoded = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(serialized);
+      const im2 = new Image();
+      im2.onload = () => rebuildFromImage(im2);
+      im2.src = encoded;
+    };
+    im.src = objUrl;
+  }
+
+  function sizeCanvas(){
+    const rect = inner.getBoundingClientRect();
+    if(rect.width < 40 || rect.height < 20) return false;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    drawW = rect.width;
+    drawH = rect.height;
+    padX = Math.round(drawW * 0.08);
+    padY = Math.round(drawH * 0.55);
+    cw = drawW + padX * 2;
+    ch = drawH + padY * 2;
+    canvas.style.width = cw + 'px';
+    canvas.style.height = ch + 'px';
+    canvas.style.left = (-padX) + 'px';
+    canvas.style.top = (-padY) + 'px';
+    canvas.width = Math.max(1, Math.round(cw * dpr));
+    canvas.height = Math.max(1, Math.round(ch * dpr));
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return true;
+  }
+
+  function rebuildFromImage(sourceImg){
+    if(!sizeCanvas()) return;
+    const sampleW = Math.max(1, Math.round(drawW));
+    const sampleH = Math.max(1, Math.round(drawH));
+
+    const off = document.createElement('canvas');
+    off.width = sampleW;
+    off.height = sampleH;
+    const octx = off.getContext('2d', { willReadFrequently: true });
+    octx.clearRect(0, 0, sampleW, sampleH);
+
+    // Contain-fit source into stage box (match CSS object-fit: contain)
+    const sw = sourceImg.naturalWidth || sourceImg.width || sampleW;
+    const sh = sourceImg.naturalHeight || sourceImg.height || sampleH;
+    const scale = Math.min(sampleW / sw, sampleH / sh);
+    const dw = sw * scale;
+    const dh = sh * scale;
+    const ox = (sampleW - dw) / 2;
+    const oy = (sampleH - dh) / 2;
+    try { octx.drawImage(sourceImg, ox, oy, dw, dh); }
+    catch(e){ particles = []; ready = false; return; }
+
+    let data;
+    try { data = octx.getImageData(0, 0, sampleW, sampleH).data; }
+    catch(e){ particles = []; ready = false; return; }
+
+    const list = [];
+    for(let y = 0; y < sampleH; y += GAP){
+      for(let x = 0; x < sampleW; x += GAP){
+        const i = (y * sampleW + x) * 4;
+        const a = data[i + 3];
+        if(a < 28) continue;
+        const r = data[i], g = data[i + 1], b = data[i + 2];
+        // Skip near-white / empty
+        if(r > 248 && g > 248 && b > 248) continue;
+
+        const shape = pickShape();
+        const size = rand(0.6, 2.8);
+        const bx = x + padX + (Math.random() - 0.5) * GAP * 0.5;
+        const by = y + padY + (Math.random() - 0.5) * GAP * 0.5;
+        list.push({
+          x: bx, y: by,
+          ox: bx, oy: by,
+          vx: rand(-DRIFT, DRIFT),
+          vy: rand(-DRIFT, DRIFT),
+          rot: Math.random() * Math.PI * 2,
+          spin: rand(-SPIN, SPIN),
+          size: size,
+          shape: shape,
+          color: 'rgb(' + r + ',' + g + ',' + b + ')',
+          alpha: 1,
+          ease: rand(EASE_MIN, EASE_MAX)
+        });
+      }
+    }
+
+    particles = list;
+    ready = particles.length > 40;
+    stage.dataset.particles = String(particles.length);
+    if(ready && !raf) loop();
+  }
+
+  function drawParticle(p){
+    const s = p.size;
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(p.rot);
+    ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha));
+    ctx.fillStyle = p.color;
+    ctx.strokeStyle = p.color;
+    ctx.lineWidth = Math.max(0.45, s * 0.28);
+    ctx.lineCap = 'square';
+
+    if(p.shape === 'dot'){
+      ctx.beginPath();
+      ctx.arc(0, 0, s * 0.5, 0, Math.PI * 2);
+      ctx.fill();
+    } else if(p.shape === 'ring'){
+      ctx.beginPath();
+      ctx.arc(0, 0, s * 0.5, 0, Math.PI * 2);
+      ctx.stroke();
+    } else {
+      const d = s * 0.55;
+      ctx.beginPath();
+      ctx.moveTo(-d, -d); ctx.lineTo(d, d);
+      ctx.moveTo(d, -d); ctx.lineTo(-d, d);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function loop(){
+    raf = requestAnimationFrame(loop);
+    if(!hovering || !ready) return;
+
+    ctx.clearRect(0, 0, cw, ch);
+
+    for(let i = 0; i < particles.length; i++){
+      const p = particles[i];
+
+      // Continuous slow drift (bounded)
+      p.vx += rand(-0.01, 0.01);
+      p.vy += rand(-0.01, 0.01);
+      p.vx = Math.max(-DRIFT, Math.min(DRIFT, p.vx));
+      p.vy = Math.max(-DRIFT, Math.min(DRIFT, p.vy));
+
+      // Soft return toward home
+      p.vx += (p.ox - p.x) * p.ease * 0.35;
+      p.vy += (p.oy - p.y) * p.ease * 0.35;
+
+      // Keep within drift bounds of origin
+      const dxo = p.x - p.ox;
+      const dyo = p.y - p.oy;
+      if(Math.abs(dxo) > DRIFT_BOUND) p.vx -= Math.sign(dxo) * 0.08;
+      if(Math.abs(dyo) > DRIFT_BOUND) p.vy -= Math.sign(dyo) * 0.08;
+
+      let alpha = 1;
+      if(mouse.active){
+        const dx = p.x - mouse.x;
+        const dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        if(dist < REPEL_R){
+          const t = (REPEL_R - dist) / REPEL_R; // 1 at center, 0 at edge
+          // 18px offset force at center, falls off with distance
+          const force = t * REPEL_FORCE;
+          p.vx += (dx / dist) * force * 0.12;
+          p.vy += (dy / dist) * force * 0.12;
+          // Max 0.1 opacity at repulsion edge → fuller near cursor
+          alpha = 0.1 + t * 0.9;
+        }
+      }
+      p.alpha += (alpha - p.alpha) * 0.2;
+
+      p.vx *= FRICTION;
+      p.vy *= FRICTION;
+      // Continuous drift contribution each frame
+      p.x += p.vx + rand(-DRIFT, DRIFT) * 0.15;
+      p.y += p.vy + rand(-DRIFT, DRIFT) * 0.15;
+      p.rot += p.spin;
+
+      drawParticle(p);
+    }
+  }
+
+  function localMouse(clientX, clientY){
+    const r = canvas.getBoundingClientRect();
+    mouse.x = (clientX - r.left) * (cw / (r.width || 1));
+    mouse.y = (clientY - r.top) * (ch / (r.height || 1));
+  }
+
+  function activate(){
+    if(!ready) return;
+    hovering = true;
+    mouse.active = true;
+    stage.classList.add('is-hover');
+  }
+
+  function deactivate(){
+    hovering = false;
+    mouse.active = false;
+    mouse.x = -9999; mouse.y = -9999;
+    stage.classList.remove('is-hover');
+    ctx.clearRect(0, 0, cw, ch);
+    // Snap particles home for next hover
+    for(let i = 0; i < particles.length; i++){
+      const p = particles[i];
+      p.x = p.ox; p.y = p.oy;
+      p.vx = rand(-DRIFT, DRIFT);
+      p.vy = rand(-DRIFT, DRIFT);
+      p.alpha = 1;
+    }
+  }
+
+  hit.addEventListener('pointerenter', (e) => {
+    activate();
+    localMouse(e.clientX, e.clientY);
+  });
+  hit.addEventListener('pointerleave', () => deactivate());
+  hit.addEventListener('pointermove', (e) => {
+    if(!hovering) activate();
+    localMouse(e.clientX, e.clientY);
+    mouse.active = true;
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    setCursor(e.clientX, e.clientY);
+  }, { passive: true });
+
+  upload.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const text = String(reader.result || '');
+      if(!/<svg[\s>]/i.test(text)){
+        alert('Please upload a valid SVG file.');
+        return;
+      }
+      deactivate();
+      bootFromSvgText(text);
+    };
+    reader.readAsText(file);
+  });
+
+  let resizeT = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => {
+      if(currentObjectUrl){
+        const im = new Image();
+        im.onload = () => rebuildFromImage(im);
+        im.src = currentObjectUrl;
+      }
+    }, 140);
+  });
+
+  // Boot with Namskar
+  loadSvgUrl(DEFAULT_SVG).catch(() => {
+    // try alternate path
+    loadSvgUrl('Namskar.svg').catch(err => console.error(err));
+  });
+})();
+</script>
+</body>
+</html>

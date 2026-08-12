@@ -97,6 +97,14 @@ nav.dk .nav-back:hover{color:#fff}
 .next-link::after{content:'→'}.next-link:hover{opacity:.5}
 @media(max-width:900px){nav{padding:1rem 1.4rem}.hero{padding:7rem 1.4rem 0}.hero-bar{grid-template-columns:1fr 1fr}.hero-num{display:none}.bento.cols-12{grid-template-columns:repeat(6,1fr)}.bento.cols-3,.bento.cols-2{grid-template-columns:1fr 1fr}.cell.span2,.cell.span3,.cell.span4,.cell.span5{grid-column:span 3}.cell.span6,.cell.span7,.cell.span8{grid-column:1/-1}.next,.page{padding-left:1.4rem;padding-right:1.4rem}}
 @media(max-width:580px){.bento.cols-12,.bento.cols-3,.bento.cols-2{grid-template-columns:1fr}.cell[class*=span]{grid-column:span 1}.hero-bar{grid-template-columns:1fr 1fr}}
+
+.footer-wordmark{position:relative;z-index:1;width:100%;margin-top:clamp(1.5rem,3vw,2.5rem);line-height:0;overflow:hidden;pointer-events:none;user-select:none}
+.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-big{overflow:hidden}
+.footer-nav-item{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.footer-nav-item span{order:1}
+.footer-nav-item::after{content:"→";order:2}
+
 </style>
   <link rel="stylesheet" href="site-nav-subpage.css">
   <link rel="stylesheet" href="case-study-shared.css">
@@ -105,15 +113,15 @@ nav.dk .nav-back:hover{color:#fff}
 <div id="cr"></div><div id="cd"></div>
 <nav class="subpage-nav">
   <ul class="nav-links-row">
-    <li><a href="parul-homepage_10.html#hero">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="parul-homepage_10.html#work" class="active">Work</a></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
     <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="parul-homepage_10.html#red">Know the Designer</a></li>
+    <li><a href="know-the-designer.html">Know the Designer</a></li>
     <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="parul-homepage_10.html#workshop">Workshop</a></li>
+    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
     <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="parul-homepage_10.html#dark">Off the Grid</a></li>
+    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
   </ul>
 </nav>
 <div class="hero">
@@ -267,16 +275,16 @@ nav.dk .nav-back:hover{color:#fff}
 <footer id="footer-contact" class="cs-footer">
   <div class="footer-contact">
     <div>
+      <div class="fc-label">Location</div>
+      <div class="fc-val">Himachal Pradesh, India<br><span class="fc-sub">Available worldwide</span></div>
+    </div>
+    <div>
       <div class="fc-label">Say Hello</div>
       <div class="fc-val"><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
     </div>
     <div>
-      <div class="fc-label">Location</div>
-      <div class="fc-val">Himachal Pradesh, India</div>
-    </div>
-    <div>
       <div class="fc-label">Currently at</div>
-      <div class="fc-val">American Express GBT</div>
+      <div class="fc-val fc-val-right">American Express<br>Global Business Travel</div>
     </div>
   </div>
   <div class="footer-socials">
@@ -285,20 +293,19 @@ nav.dk .nav-back:hover{color:#fff}
     <a href="#" class="fs-link">Behance</a>
     <a href="#" class="fs-link">Resume</a>
   </div>
-  <div class="footer-main">
-    <div class="footer-tagline">Let's make something.</div>
-    <div class="footer-nav-col">
-      <a href="parul-homepage_10.html#hero" class="footer-nav-item"><span>Home</span></a>
-      <a href="parul-homepage_10.html#work" class="footer-nav-item"><span>Work</span></a>
-      <a href="parul-homepage_10.html#red" class="footer-nav-item"><span>Know the Designer</span></a>
-      <a href="parul-homepage_10.html#workshop" class="footer-nav-item"><span>Workshop</span></a>
-      <a href="parul-homepage_10.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
+  <div class="footer-big">
+    <div class="footer-big-text rv from-bottom">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav-col">
+      <a href="index.html" class="footer-nav-item"><span>Home</span></a>
+      <a href="index.html#work" class="footer-nav-item"><span>Work</span></a>
+      <a href="know-the-designer.html" class="footer-nav-item"><span>Know the Designer</span></a>
+      <a href="know-the-designer.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
     </div>
+    <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 Parul Rathour</span>
-    <span>Himachal Pradesh, India</span>
-    <span id="footer-time">IST —:—</span>
+    <span class="footer-copy">© 2025 Parul Rathour</span>
+    <span class="footer-ftime" id="footer-time">IST —:—</span>
   </div>
 </footer>
 <script>

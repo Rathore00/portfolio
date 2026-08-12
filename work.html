@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2f2f2;
+  --white:#fff;
+  --ink:#0c0c0c;
+  --muted:#6b7280;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --inter:'Inter',system-ui,sans-serif;
+  --display:'Montserrat',sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.page{width:100%;max-width:1512px;margin:0 auto}
+
+/* ══ NAV ══ */
+.top{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:16px 74px 0;
+  pointer-events:none;
+}
+.top .nav{pointer-events:auto;max-width:1512px;margin:0 auto;width:100%}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  background:#fff;
+  border-bottom:1px solid rgba(0,0,0,.06);
+  border-radius:70px;
+  padding:14px 22px 15px 52px;
+  box-shadow:0 1px 2px rgba(0,0,0,.18);
+}
+.nav-spacer{height:92px}
+.nav-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap;min-width:0}
+.nav-links a{
+  font-family:var(--inter);font-size:14px;font-weight:500;color:var(--muted);
+  transition:color .2s;
+}
+.nav-links a.active{font-weight:600;color:var(--ink)}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.social-btn{
+  width:38px;height:38px;border-radius:19px;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+}
+.social-btn img{width:16px;height:16px}
+.btn-touch{
+  display:inline-flex;align-items:center;
+  background:var(--ink);color:#fff;
+  border-radius:45px;padding:10px 22px;
+  font-family:var(--sans);font-size:12px;white-space:nowrap;
+}
+.btn-note{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#f2f2f2;border-radius:20px;height:36px;
+  padding:0 8px 0 7px;color:#6d6d6d;font-size:12px;
+}
+.btn-note img{width:26px;height:26px;border-radius:50%}
+.nav-burger{
+  display:none;flex-direction:column;gap:4px;
+  background:#0c0c0c;border:none;cursor:pointer;
+  width:28px;height:28px;border-radius:19px;
+  align-items:center;justify-content:center;padding:0;flex-shrink:0;
+}
+.nav-burger span{display:block;width:12px;height:1.5px;background:#fff;border-radius:1px}
+
+/* ══ WORK HERO ══ */
+.work-page{padding:36px 74px 40px}
+.work-intro{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:2rem;margin-bottom:36px;
+}
+.work-intro-left{display:flex;flex-direction:column;align-items:flex-start;max-width:390px}
+.work-pill{
+  display:inline-flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(7px);background:rgba(255,255,255,.36);
+  border:1px solid #d6d6d6;border-radius:22px;padding:10px;
+  font-family:var(--inter);font-size:12px;font-weight:600;
+  color:#6a6a6a;letter-spacing:-.02em;
+}
+.work-title{
+  font-family:var(--inter);font-weight:700;font-size:clamp(3.2rem,7vw,82px);
+  letter-spacing:-.02em;color:#000;line-height:1.05;margin-top:2px;
+}
+.work-lede{
+  font-family:var(--inter);font-size:18px;font-weight:400;
+  color:#595959;letter-spacing:-.02em;line-height:1.35;
+  max-width:324px;text-align:right;
+}
+
+/* ══ CASE STUDY GRID ══ */
+.cs-rows{display:flex;flex-direction:column;gap:18px}
+.cs-row{
+  display:flex;gap:18px;align-items:stretch;
+  min-height:362px;
+}
+.cs-card{
+  background:#fff;border-radius:32px;
+  padding:22px 18px 0;
+  display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;position:relative;
+  flex:1 1 0;min-width:0;min-height:362px;
+  transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s;
+  opacity:0;transform:translateY(40px);
+}
+.cs-card.is-in{opacity:1;transform:translateY(0);transition:transform 1s cubic-bezier(.22,1,.36,1),opacity 1s cubic-bezier(.22,1,.36,1),box-shadow .45s}
+.cs-card.is-in:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.08)}
+.cs-card-wide{flex:1.85 1 0}
+.cs-card-narrow{flex:0 0 259.5px;max-width:100%}
+.cs-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1}
+.cs-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:block;object-fit:cover}
+.cs-badge{
+  backdrop-filter:blur(2px);background:rgba(255,255,255,.36);
+  border-radius:22px;padding:10px;
+  font-family:var(--inter);font-size:12px;font-weight:600;color:#737373;
+  letter-spacing:-.02em;white-space:nowrap;
+}
+.cs-badge-solid{background:#fff}
+.cs-body{padding:22px 0 42px;position:relative;z-index:1}
+.cs-card-title{
+  font-family:var(--sans);font-size:22px;letter-spacing:-.02em;color:#2e2d2d;
+  margin-bottom:8px;line-height:1.25;font-weight:400;
+}
+.cs-card-sub{font-family:var(--sans);font-size:12px;letter-spacing:-.02em;color:#2e2d2d;line-height:1.45}
+.cs-card-featured{
+  color:#2e2d2d;
+}
+.cs-card-featured .cs-card-title{font-family:var(--inter);font-weight:500}
+.cs-card-featured .cs-card-sub{font-family:var(--inter)}
+.cs-card-bg{
+  position:absolute;inset:0;border-radius:32px;overflow:hidden;pointer-events:none;
+}
+.cs-card-bg img{
+  position:absolute;width:100%;height:296%;
+  left:0;top:-40%;object-fit:cover;max-width:none;
+}
+.cs-card-bg::after{
+  content:"";position:absolute;inset:0;border-radius:32px;
+  background:linear-gradient(to bottom,rgba(102,102,102,0) 0%, rgba(255,255,255,.5) 55.77%);
+}
+.cs-card-static{cursor:default}
+.cs-card-static.is-in:hover{transform:none;box-shadow:none}
+
+/* ══ FOOTER ══ */
+.footer{background:#fff;border-top:.5px solid #ddd}
+.fc-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  border-bottom:.5px solid #ddd;
+  padding:3.5rem 3rem;
+}
+.fc-col{padding:0 2rem}
+.fc-col:first-child{padding-left:.75rem;border-right:.5px solid #ddd}
+.fc-col:nth-child(2){border-right:.5px solid #ddd;text-align:center}
+.fc-col:last-child{text-align:right}
+.fc-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#888;margin-bottom:.7rem}
+.fc-v{font-size:16px;color:var(--ink);line-height:1.4}
+.fc-v small{display:block;color:#888;font-size:13.6px;margin-top:2px}
+.fc-mail{border-bottom:.5px solid var(--ink);display:inline-block;padding-bottom:1px}
+.fs-row{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  padding:1.8rem 3rem;border-bottom:.5px solid #ddd;
+}
+.fs-link{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+.fs-link::after{content:" ↗";opacity:.45}
+.footer-big{position:relative;padding:3rem 3rem 0;overflow:hidden}
+.footer-big-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;position:relative;z-index:2;
+  margin-bottom:clamp(1.5rem,4vw,3rem);
+}
+.footer-cta{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;
+  max-width:12ch;
+}
+.footer-nav{
+  display:flex;flex-direction:column;width:min(320px,100%);
+  border-top:.5px solid #ddd;flex-shrink:0;
+}
+.footer-nav a{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.9rem 0;border-bottom:.5px solid #ddd;
+  font-family:var(--serif);font-style:italic;font-size:1rem;
+}
+.footer-nav a span{order:1}
+.footer-nav a::after{
+  content:"→";color:#888;order:2;flex-shrink:0;
+  font-family:var(--sans);font-style:normal;
+}
+.footer-nav a:hover{color:#c0392b}
+.footer-nav a:hover::after{color:var(--ink);transform:translateX(3px)}
+.footer-wordmark{
+  position:relative;z-index:1;width:100%;margin:0;line-height:0;
+  overflow:hidden;pointer-events:none;user-select:none;
+}
+.footer-wordmark img{display:block;width:100%;height:auto}
+.footer-bottom{
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase;
+  position:relative;z-index:2;background:#fff;
+}
+
+.mob-menu{
+  display:none;position:fixed;inset:0;background:var(--ink);z-index:9999;
+  flex-direction:column;justify-content:center;align-items:center;gap:2rem;
+}
+.mob-menu.open{display:flex}
+.mob-menu a{font-family:var(--display);font-size:clamp(2rem,8vw,4rem);font-weight:900;color:#fff}
+.mob-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+
+@media(max-width:1100px){
+  .top,.work-page{padding-left:40px;padding-right:40px}
+  .cs-row{flex-wrap:wrap;min-height:0}
+  .cs-card{min-height:300px;flex:1 1 calc(50% - 9px)}
+  .cs-card-wide,.cs-card-narrow{flex:1 1 calc(50% - 9px)}
+  .work-intro{flex-direction:column;align-items:flex-start}
+  .work-lede{text-align:left;max-width:28rem}
+}
+@media(max-width:900px){
+  .top{padding:12px 24px 0}
+  .nav-spacer{height:76px}
+  .work-page{padding:24px 24px 40px}
+  .nav{padding:14px 16px;border-radius:70px;justify-content:space-between}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  .nav-right .social-btn:not(.social-mail),
+  .btn-note{display:none}
+  .nav-right .social-mail{display:flex;width:28px;height:28px;border-radius:19px}
+  .btn-touch{padding:8px 14px;font-size:12px}
+  .work-title{font-size:clamp(2.8rem,14vw,4rem)}
+  .work-lede{font-size:16px}
+  .cs-card{flex:1 1 100%;min-height:260px}
+  .cs-card-narrow{flex:1 1 100%}
+  .fc-row{grid-template-columns:1fr;gap:1.5rem;padding:2rem 1.5rem}
+  .fc-col,.fc-col:first-child,.fc-col:nth-child(2),.fc-col:last-child{
+    padding:0;border:none;text-align:left;
+  }
+  .fs-row,.footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
+  .footer-big-top{flex-direction:column;gap:1.5rem;margin-bottom:1.5rem}
+  .footer-cta{font-size:clamp(2.2rem,11vw,3.2rem);max-width:10ch}
+  .footer-nav{width:100%}
+}
+</style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+  <a href="know-the-designer.html#dark" onclick="closeMob()">Off the Grid</a>
+</div>
+
+<div class="page">
+  <div class="top">
+    <nav class="nav" id="site-nav">
+      <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="work.html" class="active">Work</a>
+        <a href="know-the-designer.html">Know the Designer</a>
+        <a href="know-the-designer.html#dark">Off the Grid</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+        <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+        <a href="https://x.com/ParulRath0ur" class="social-btn social-mail" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+        <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+        <a href="#footer-contact" class="btn-note"><img src="Asset/images/home/leave-note-avatar.svg" alt=""><span>Leave a note</span></a>
+      </div>
+    </nav>
+  </div>
+  <div class="nav-spacer" aria-hidden="true"></div>
+
+  <main class="work-page">
+    <header class="work-intro">
+      <div class="work-intro-left">
+        <span class="work-pill">AMEX GBT</span>
+        <h1 class="work-title">Work.</h1>
+      </div>
+      <p class="work-lede">A structured approach to managing complex infrastructure systems—from connection to long-term operation.</p>
+    </header>
+
+    <div class="cs-rows">
+      <div class="cs-row">
+        <div class="cs-card cs-card-wide cs-card-static" role="article">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">Identity Security KPI Dashboard</div>
+            <div class="cs-card-sub">23 identity and access metrics, distilled into two views teams actually use.</div>
+          </div>
+        </div>
+        <a class="cs-card" href="case-study-gbt-finance.html">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">Finance O2C— Global Billing</div>
+            <div class="cs-card-sub">Replaced a manual Excel report with a live dashboard finance actually trusts.</div>
+          </div>
+        </a>
+        <a class="cs-card" href="case-study-hre.html">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">HRE — Hotel Reshop System</div>
+            <div class="cs-card-sub">Rebooks hotel stays automatically the moment a better rate appears.</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="cs-row">
+        <a class="cs-card" href="case-study-cambridge.html">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">Digitizing Legacy Systems</div>
+            <div class="cs-card-sub">From Paper Trails to Seamless Digital Journeys</div>
+          </div>
+        </a>
+        <div class="cs-card cs-card-static" role="article">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">AI Load Calculator</div>
+            <div class="cs-card-sub">AI Load Calculator That Turns “Power Confusion” into Confident Purchases</div>
+          </div>
+        </div>
+        <a class="cs-card" href="case-study-dailybloom.html">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">DailyBloom IBS</div>
+            <div class="cs-card-sub">Adapting the DailyBloom IBS Landing Page for a Recipe Ebook Experience</div>
+          </div>
+        </a>
+        <a class="cs-card" href="case-study-admin_2.html">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">SMB Global Admin Panel</div>
+            <div class="cs-card-sub">One console for managing SMB accounts across every region.</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="cs-row">
+        <div class="cs-card cs-card-featured cs-card-static" role="article">
+          <div class="cs-card-bg" aria-hidden="true">
+            <img src="Asset/images/work/featured-scale.png" alt="">
+          </div>
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-light.svg" alt="" width="36" height="36">
+            <span class="cs-badge cs-badge-solid">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">Designed to Work at Scale</div>
+            <div class="cs-card-sub">Designed to Work at Scale</div>
+          </div>
+        </div>
+        <div class="cs-card cs-card-narrow cs-card-static" role="article">
+          <div class="cs-card-top">
+            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-badge">Designed</span>
+          </div>
+          <div class="cs-body">
+            <div class="cs-card-title">UI Design</div>
+            <div class="cs-card-sub">BYJU’s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" id="footer-contact">
+    <div class="fc-row">
+      <div class="fc-col">
+        <div class="fc-l">Location</div>
+        <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Say Hello</div>
+        <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Currently at</div>
+        <div class="fc-v">American Express<br>Global Business Travel</div>
+      </div>
+    </div>
+    <div class="fs-row">
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+      <a href="#" class="fs-link">Resume</a>
+    </div>
+    <div class="footer-big">
+      <div class="footer-big-top">
+        <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav">
+          <a href="index.html"><span>Home</span></a>
+          <a href="work.html"><span>Work</span></a>
+          <a href="know-the-designer.html"><span>Know the Designer</span></a>
+          <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
+        </div>
+      </div>
+      <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Parul Rathour</span>
+      <span id="footer-time">IST —:—</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
+(function(){
+  const ft=document.getElementById('footer-time');
+  function tick(){
+    const d=new Date();
+    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(d);
+    const get=t=>parts.find(p=>p.type===t)?.value||'00';
+    if(ft) ft.textContent=get('hour')+':'+get('minute')+':'+get('second')+' IST';
+  }
+  tick();setInterval(tick,1000);
+})();
+
+(function(){
+  const cards=document.querySelectorAll('.cs-card');
+  if(!('IntersectionObserver' in window)){
+    cards.forEach(c=>c.classList.add('is-in'));
+    return;
+  }
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target)}
+    });
+  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  cards.forEach((c,i)=>{c.style.transitionDelay=(i%4)*.1+'s';io.observe(c)});
+})();
+</script>
+</body>
+</html>

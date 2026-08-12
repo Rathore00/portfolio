@@ -1,0 +1,233 @@
+/* Shared footer — homepage + case studies */
+footer,
+.cs-footer {
+  background: #fff;
+  border-top: 0.5px solid #ddd;
+  padding: 0;
+}
+
+.footer-contact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 2.5rem 3rem;
+  border-bottom: 0.5px solid #ddd;
+}
+
+.footer-contact > div {
+  padding: 0 2rem;
+  border-right: 0.5px solid #ddd;
+}
+
+.footer-contact > div:first-child {
+  padding-left: 0;
+}
+
+.footer-contact > div:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.fc-label {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 0.7rem;
+}
+
+.fc-val {
+  font-size: 1rem;
+  color: #0c0c0c;
+  line-height: 1.45;
+}
+
+.fc-val-right {
+  text-align: right;
+}
+
+.fc-sub {
+  color: #999;
+  font-size: 0.85rem;
+  display: block;
+  margin-top: 0.15rem;
+}
+
+.fc-val a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0.5px solid #0c0c0c;
+  padding-bottom: 1px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.fc-val a:hover {
+  color: #c0392b;
+  border-color: #c0392b;
+}
+
+.footer-socials {
+  padding: 1.8rem 3rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  border-bottom: 0.5px solid #ddd;
+}
+
+.fs-link {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0c0c0c;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.fs-link::after {
+  content: "↗";
+  font-size: 0.75rem;
+}
+
+.fs-link:hover {
+  color: #c0392b;
+}
+
+.footer-big {
+  padding: 3rem 3rem 0;
+  display: grid;
+  grid-template-columns: 1fr min(320px, 34%);
+  gap: 2rem;
+  align-items: start;
+}
+
+.footer-big-text {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 7vw, 7rem);
+  color: #0c0c0c;
+  line-height: 0.88;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+}
+
+.footer-nav-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  border-top: 0.5px solid #ddd;
+}
+
+.footer-nav-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-bottom: 0.5px solid #ddd;
+  text-decoration: none;
+}
+
+.footer-nav-item::before {
+  content: "→";
+  color: #999;
+  font-size: 0.9rem;
+  transition: transform 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.footer-nav-item span {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: #0c0c0c;
+  transition: color 0.2s;
+}
+
+.footer-nav-item:hover span {
+  color: #c0392b;
+}
+
+.footer-nav-item:hover::before {
+  transform: translateX(4px);
+  color: #0c0c0c;
+}
+
+.footer-bottom {
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border-top: 0.5px solid #ddd;
+  margin-top: 2.5rem;
+}
+
+.footer-copy,
+.footer-ftime {
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #999;
+}
+
+.cs-footer {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .footer-contact,
+  .footer-socials,
+  .footer-big,
+  .footer-bottom {
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+  }
+
+  .footer-contact {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-contact > div:nth-child(2) {
+    border-right: none;
+  }
+
+  .footer-contact > div:nth-child(3) {
+    padding-left: 0;
+    border-right: none;
+    border-top: 0.5px solid #ddd;
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+    grid-column: 1 / -1;
+  }
+
+  .footer-big {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .footer-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-contact > div {
+    border-right: none !important;
+    padding-left: 0 !important;
+    border-top: 0.5px solid #ddd;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .footer-contact > div:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .fc-val-right {
+    text-align: left;
+  }
+}

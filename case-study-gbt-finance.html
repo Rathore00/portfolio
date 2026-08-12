@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBT Finance Billing Dashboard — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#C0392B;--black:#0C0C0C;--white:#fff;--bg:#fff;
+  --off:#F5F3EE;--mid:#999;--border:#E4E2DC;
+  --purple:#C6B7FF;--lime:#D4F077;--orange:#FF5F15;
+  --M:'Montserrat',sans-serif;--S:'Playfair Display',serif;--B:'DM Sans',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--black);font-family:var(--B);overflow-x:hidden;cursor:none}
+#cr{position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--black);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .15s}
+#cd{position:fixed;width:4px;height:4px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .12s}
+#cr.dk{border-color:#fff}#cd.dk{background:#fff}
+#cr.hv{width:50px;height:50px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border);transition:background .3s}
+nav.dk{background:rgba(12,12,12,.75);border-bottom-color:rgba(255,255,255,.07)}
+.hero{background:var(--black);min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 0;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
+.hero-num{position:absolute;right:2.5rem;top:7rem;font-family:var(--M);font-weight:900;font-size:14rem;color:rgba(255,255,255,.03);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none}
+.hero-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.2rem;opacity:0;animation:up .6s ease .1s forwards}
+.hero-h{font-family:var(--M);font-weight:900;font-size:clamp(2.6rem,5.2vw,5.2rem);color:#fff;line-height:1.02;letter-spacing:-.025em;max-width:780px;opacity:0;animation:up .9s cubic-bezier(.22,1,.36,1) .2s forwards}
+.hero-h em{font-family:var(--S);font-style:italic;font-weight:700;color:rgba(255,255,255,.5)}
+.hero-sub{font-family:var(--S);font-style:italic;font-size:clamp(.9rem,1.3vw,1rem);color:rgba(255,255,255,.4);max-width:560px;line-height:1.75;margin-top:1.2rem;opacity:0;animation:up .7s ease .38s forwards}
+.hero-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid rgba(255,255,255,.08);margin-top:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
+.hb-item{padding:1.2rem 0;border-right:.5px solid rgba(255,255,255,.06)}
+.hb-item:last-child{border-right:none}
+.hb-l{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.hb-v{font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+.page{padding:0 3rem}
+.spacer{height:5rem}.spacer-sm{height:2.5rem}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rv.vis{opacity:1;transform:none}
+
+/* Reference-inspired layout */
+.intro-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:4rem;align-items:start;padding-top:1rem}
+.intro-h{font-family:var(--M);font-weight:900;font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.08;letter-spacing:-.03em}
+.intro-h .hl{color:var(--purple)}
+.intro-meta-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
+.intro-meta{font-size:14px;color:#555;line-height:1.75;max-width:420px}
+
+.gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:2rem}
+.g-card{background:var(--off);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.g-card-img{flex:1;min-height:280px;background-size:cover;background-position:center top;background-color:var(--border)}
+.g-card-foot{padding:1.2rem 1.4rem 1.4rem}
+.g-tag{display:inline-block;font-size:10px;letter-spacing:.06em;padding:5px 12px;border-radius:999px;background:var(--lime);color:var(--black);font-weight:500;margin-bottom:.6rem}
+.g-card-foot p{font-size:13px;color:#444;line-height:1.55}
+.g-card-foot strong{display:block;font-family:var(--M);font-weight:700;font-size:.95rem;color:var(--black);margin-bottom:.35rem}
+
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);margin-top:1rem}
+.stat-col{padding:2rem 1.5rem 2rem 0;border-right:.5px solid var(--border)}
+.stat-col:last-child{border-right:none;padding-right:0}
+.stat-n{font-family:var(--S);font-weight:700;font-size:clamp(2rem,3.5vw,2.8rem);letter-spacing:-.02em;line-height:1;margin-bottom:.5rem}
+.stat-t{font-family:var(--M);font-weight:700;font-size:12px;letter-spacing:.02em;margin-bottom:.4rem}
+.stat-d{font-size:12px;color:var(--mid);line-height:1.55}
+
+.sec-tag{display:inline-block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mid);background:var(--off);padding:6px 14px;border-radius:999px;margin-bottom:1rem}
+.sec-head{font-family:var(--S);font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:.8rem;max-width:640px}
+.sec-lead{font-size:14px;color:#555;line-height:1.75;max-width:560px;margin-bottom:2rem}
+
+.ctx-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.ctx-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.6rem}
+.ctx-h{font-family:var(--M);font-weight:900;font-size:clamp(1.4rem,2.5vw,2rem);letter-spacing:-.02em;line-height:1.12;margin-bottom:1rem}
+.ctx-body{font-size:13px;color:#555;line-height:1.75;margin-bottom:1.5rem}
+.ctx-sub{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem;margin-top:1.2rem}
+.facts-head{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:.5px solid var(--border)}
+.fact-row{display:flex;justify-content:space-between;align-items:baseline;padding:1rem 0;border-bottom:.5px solid var(--border);gap:1rem}
+.fact-n{font-family:var(--M);font-weight:900;font-size:clamp(1.4rem,2vw,1.8rem);letter-spacing:-.03em;flex-shrink:0}
+.fact-l{font-size:12px;color:var(--mid);text-align:right;line-height:1.45;max-width:220px}
+
+.bento{display:grid;gap:12px}
+.bento-4{grid-template-columns:repeat(12,1fr);grid-template-rows:auto auto}
+.b-cell{background:var(--off);border-radius:20px;padding:1.6rem;overflow:hidden}
+.b-cell.white{background:var(--white);border:.5px solid var(--border)}
+.b-cell.dark{background:var(--black);color:#fff}
+.b-cell.accent{background:var(--orange);color:#fff}
+.b-cell.span5{grid-column:span 5}.b-cell.span4{grid-column:span 4}.b-cell.span3{grid-column:span 3}
+.b-cell.span7{grid-column:span 7}.b-cell.span8{grid-column:span 8}.b-cell.span6{grid-column:span 6}
+.b-cell.row2{grid-row:span 2}
+.b-label{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-bottom:.45rem}
+.b-cell.dark .b-label,.b-cell.accent .b-label{color:rgba(255,255,255,.45)}
+.b-title{font-family:var(--M);font-weight:900;font-size:clamp(1rem,1.8vw,1.25rem);letter-spacing:-.02em;line-height:1.15;margin-bottom:.5rem}
+.b-body{font-size:12.5px;color:#555;line-height:1.65}
+.b-cell.dark .b-body,.b-cell.accent .b-body{color:rgba(255,255,255,.6)}
+.b-img{width:100%;border-radius:14px;aspect-ratio:16/10;background-size:cover;background-position:center;background-color:var(--border);margin-bottom:1rem}
+.b-img.tall{aspect-ratio:3/4}
+.b-img.wide{aspect-ratio:21/9}
+.b-stat{font-family:var(--M);font-weight:900;font-size:clamp(2rem,3.5vw,2.8rem);letter-spacing:-.04em;line-height:1}
+.b-stat-l{font-size:11px;color:var(--mid);margin-top:.35rem;line-height:1.4}
+.b-cell.dark .b-stat-l{color:rgba(255,255,255,.4)}
+
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.svc-card{background:var(--white);border:.5px solid var(--border);border-radius:16px;padding:1.6rem;display:flex;flex-direction:column;justify-content:space-between;min-height:220px}
+.svc-card.dark{background:var(--black);color:#fff;border-color:transparent}
+.svc-card.accent{background:var(--orange);color:#fff;border-color:transparent}
+.svc-label{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem}
+.svc-card.dark .svc-label,.svc-card.accent .svc-label{color:rgba(255,255,255,.45)}
+.svc-title{font-family:var(--S);font-weight:700;font-size:1.15rem;line-height:1.2;margin-bottom:.6rem}
+.svc-body{font-size:12.5px;color:#555;line-height:1.65}
+.svc-card.dark .svc-body,.svc-card.accent .svc-body{color:rgba(255,255,255,.65)}
+.svc-link{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-top:1.2rem;text-decoration:none}
+.svc-card.dark .svc-link,.svc-card.accent .svc-link{color:rgba(255,255,255,.8)}
+
+.pt-list{display:flex;flex-direction:column;gap:.55rem;margin-top:.6rem}
+.pt-item{font-size:12.5px;color:#444;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
+.pt-item::before{content:'—';color:var(--red);flex-shrink:0;font-weight:700;font-size:.9rem}
+.b-cell.dark .pt-item,.svc-card.dark .pt-item{color:rgba(255,255,255,.6)}
+.b-cell.dark .pt-item::before,.svc-card.dark .pt-item::before{color:rgba(255,255,255,.3)}
+
+.quote-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.q-card{background:var(--off);border-radius:20px;padding:1.6rem;display:flex;flex-direction:column;justify-content:space-between;min-height:180px}
+.q-text{font-family:var(--S);font-style:italic;font-size:1rem;color:#333;line-height:1.6}
+.q-meta{display:flex;align-items:center;gap:10px;margin-top:1.2rem;padding-top:1rem;border-top:.5px solid var(--border)}
+.q-av{width:32px;height:32px;border-radius:50%;background:var(--border);flex-shrink:0}
+.q-name{font-size:11px;font-weight:600;color:var(--black)}
+.q-role{font-size:10px;color:var(--mid)}
+
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ba-col{background:var(--off);border-radius:16px;padding:1.4rem}
+.ba-col.after{background:var(--black);color:#fff}
+.ba-head{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem}
+.ba-col.after .ba-head{color:rgba(255,255,255,.4)}
+.ba-item{font-size:12px;color:#444;line-height:1.55;padding:.55rem 0;border-bottom:.5px solid var(--border);display:flex;gap:8px;align-items:flex-start}
+.ba-col.after .ba-item{color:rgba(255,255,255,.65);border-bottom-color:rgba(255,255,255,.08)}
+.ba-item:last-child{border-bottom:none}
+.ba-item::before{content:'→';color:var(--red);flex-shrink:0;font-size:.85rem}
+.ba-col.after .ba-item::before{color:var(--lime)}
+
+.outcome-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.oc-cell{background:var(--off);border-radius:14px;padding:1.2rem;text-align:center}
+.oc-n{font-family:var(--M);font-weight:900;font-size:clamp(1.4rem,2.5vw,1.8rem);letter-spacing:-.03em;margin-bottom:4px}
+.oc-l{font-size:10px;color:var(--mid);line-height:1.45}
+
+.center-sec{text-align:center;display:flex;flex-direction:column;align-items:center;padding:1rem 0 2rem}
+
+@media(max-width:900px){
+  nav,.page{padding-left:1.4rem;padding-right:1.4rem}
+  .hero{padding:7rem 1.4rem 0}
+  .hero-bar{grid-template-columns:1fr 1fr}
+  .hero-num{display:none}
+  .intro-grid,.ctx-grid,.ba-grid{grid-template-columns:1fr;gap:2rem}
+  .gallery,.cards-3,.quote-row,.outcome-grid{grid-template-columns:1fr 1fr}
+  .stats-bar{grid-template-columns:1fr 1fr}
+  .stat-col{border-right:none;border-bottom:.5px solid var(--border);padding:1.2rem 0}
+  .bento-4{grid-template-columns:1fr 1fr}
+  .b-cell[class*=span]{grid-column:span 1!important}
+  .b-cell.row2{grid-row:span 1}
+}
+@media(max-width:580px){
+  .gallery,.cards-3,.quote-row,.outcome-grid,.stats-bar,.bento-4{grid-template-columns:1fr}
+}
+
+.footer-wordmark{position:relative;z-index:1;width:100%;margin-top:clamp(1.5rem,3vw,2.5rem);line-height:0;overflow:hidden;pointer-events:none;user-select:none}
+.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-big{overflow:hidden}
+.footer-nav-item{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.footer-nav-item span{order:1}
+.footer-nav-item::after{content:"→";order:2}
+
+</style>
+  <link rel="stylesheet" href="site-nav-subpage.css">
+  <link rel="stylesheet" href="case-study-shared.css">
+</head>
+<body>
+<div id="cr"></div><div id="cd"></div>
+<nav class="subpage-nav">
+  <ul class="nav-links-row">
+    <li><a href="index.html">Home</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="index.html#work" class="active">Work</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="know-the-designer.html">Know the Designer</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
+    <li><span class="nav-dot" aria-hidden="true"></span></li>
+    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-num">07</div>
+  <div class="hero-ey">O2C Finance · Global Billing · BI · AMEX GBT · 2025</div>
+  <h1 class="hero-h">GBT Finance Billing<br><em>Dashboard</em></h1>
+  <p class="hero-sub">Replacing fifteen manually maintained Excel tabs with one unified, live BI dashboard — information architecture, KPI hierarchy, and operational decision-making for Global Billing.</p>
+  <div class="hero-bar">
+    <div class="hb-item"><div class="hb-l">Role</div><div class="hb-v">Product Designer</div></div>
+    <div class="hb-item"><div class="hb-l">Domain</div><div class="hb-v">Order-to-Cash Finance</div></div>
+    <div class="hb-item"><div class="hb-l">Scope</div><div class="hb-v">IA · Dashboard UX · Data Viz</div></div>
+    <div class="hb-item"><div class="hb-l">Status</div><div class="hb-v">Integrating into GBT BI platform</div></div>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- Intro: reference layout 1 -->
+  <div class="spacer"></div>
+  <div class="intro-grid rv">
+    <div>
+      <h2 class="intro-h">From fifteen Excel tabs to one <span class="hl">unified dashboard</span> for Global Billing operations</h2>
+    </div>
+    <div>
+      <div class="intro-meta-label">Project overview</div>
+      <p class="intro-meta">The Order-to-Cash Finance team managed Global Billing through a manually maintained workbook — "SFDC Metrics Report – Global Billing." The ask was straightforward: give Finance a way to understand billing operations without opening fifteen tabs. Not a visual refresh of Excel, but a working tool for operational decisions across Profiles and Settlements.</p>
+    </div>
+  </div>
+
+  <!-- Gallery placeholders -->
+  <div class="gallery rv">
+    <div class="g-card">
+      <div class="g-card-img" style="background-image:url('Asset/images/ref-layout-1.png')"></div>
+      <div class="g-card-foot">
+        <span class="g-tag">Overview</span>
+        <strong>Dashboard · Placeholder</strong>
+        <p>Unified BI view replacing fragmented Excel reporting across APAC, EMEA, NA, and LAC.</p>
+      </div>
+    </div>
+    <div class="g-card">
+      <div class="g-card-img" style="background-image:url('Asset/images/ref-layout-2.png')"></div>
+      <div class="g-card-foot">
+        <span class="g-tag">Action</span>
+        <strong>Operational View · Placeholder</strong>
+        <p>Live, filterable KPI cards and aging visualizations for daily billing decisions.</p>
+      </div>
+    </div>
+    <div class="g-card">
+      <div class="g-card-img" style="background-image:url('Asset/images/ref-layout-3.png')"></div>
+      <div class="g-card-foot">
+        <span class="g-tag">Analysis</span>
+        <strong>Drill-down · Placeholder</strong>
+        <p>Cross-region visibility with analyst, queue, and country-level drill-down tables.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar: reference layout 2 -->
+  <div class="stats-bar rv">
+    <div class="stat-col">
+      <div class="stat-n">15+</div>
+      <div class="stat-t">Excel tabs → 1 dashboard</div>
+      <div class="stat-d">Manual workbook replaced by a unified BI experience with persistent filters.</div>
+    </div>
+    <div class="stat-col">
+      <div class="stat-n">4</div>
+      <div class="stat-t">Regions in one view</div>
+      <div class="stat-d">APAC, EMEA, NA, and LAC — cross-region visibility without tab-hopping.</div>
+    </div>
+    <div class="stat-col">
+      <div class="stat-n">5</div>
+      <div class="stat-t">Aging bands tracked</div>
+      <div class="stat-d">Current, 30–40, 40–50, 50–60, and Over 60 days — stacked across teams.</div>
+    </div>
+    <div class="stat-col">
+      <div class="stat-n">10+</div>
+      <div class="stat-t">Countries covered</div>
+      <div class="stat-d">US, Canada, Finland, France, UK, Australia, Colombia, Hungary, Germany, Portugal, and more.</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Context & Facts: reference layout 1 -->
+  <div class="ctx-grid rv">
+    <div>
+      <div class="ctx-label">Key task</div>
+      <h3 class="ctx-h">Context</h3>
+      <p class="ctx-body">The workbook already contained detailed operational data across four regions. The complexity came from how information was organized — every tab answered one predefined question, metrics were duplicated across regions, and weekly updates meant data was outdated by review time.</p>
+      <div class="ctx-sub">Solution</div>
+      <p class="ctx-body">I reorganized the dataset into four decision-oriented sections — Overview, Action, Analysis – Closed Total, and Analysis – Totals by Status — with persistent faceted filters across Support Type, Region, Country, and Case Status.</p>
+    </div>
+    <div>
+      <div class="facts-head"><span>Facts</span><span>About</span></div>
+      <div class="fact-row"><span class="fact-n">4</span><span class="fact-l">Functional views — Overview, Action, Closed Total, Totals by Status</span></div>
+      <div class="fact-row"><span class="fact-n">4</span><span class="fact-l">Persistent filter dimensions across every screen</span></div>
+      <div class="fact-row"><span class="fact-n">6</span><span class="fact-l">KPI cards — open cases, profiles, settlements, over-60, approvals, approved-to-close</span></div>
+      <div class="fact-row"><span class="fact-n">Live</span><span class="fact-l">Replaced weekly manual updates with filterable, on-demand analysis</span></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- At a glance -->
+  <div class="center-sec rv">
+    <span class="sec-tag">At a glance</span>
+    <h3 class="sec-head">Before &amp; after the dashboard</h3>
+    <p class="sec-lead">The shift from spreadsheet maintenance to operational intelligence — what changed for Finance teams reviewing Global Billing.</p>
+  </div>
+  <div class="ba-grid rv">
+    <div class="ba-col">
+      <div class="ba-head">Before</div>
+      <div class="ba-item">15+ Excel tabs maintained manually</div>
+      <div class="ba-item">Static charts updated weekly</div>
+      <div class="ba-item">Metrics separated across APAC, EMEA, NA, and LAC</div>
+      <div class="ba-item">No filtering or drill-down capability</div>
+      <div class="ba-item">Users manually reconciled data across tabs</div>
+      <div class="ba-item">Operational and long-term metrics had equal priority</div>
+    </div>
+    <div class="ba-col after">
+      <div class="ba-head">After</div>
+      <div class="ba-item">One unified BI dashboard</div>
+      <div class="ba-item">Live, filterable views</div>
+      <div class="ba-item">Cross-region visibility in a single interface</div>
+      <div class="ba-item">Persistent filters across every screen</div>
+      <div class="ba-item">Drill-down by analyst, queue, country, and region</div>
+      <div class="ba-item">Clear KPI hierarchy based on decision-making needs</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- The ask -->
+  <div class="center-sec rv">
+    <span class="sec-tag">The challenge</span>
+    <h3 class="sec-head">The ask</h3>
+    <p class="sec-lead">Give Finance a way to understand billing operations without opening fifteen tabs — supporting decisions as Profiles and Settlements move through review, approval, and closure.</p>
+  </div>
+  <div class="quote-row rv">
+    <div class="q-card">
+      <p class="q-text">"Every tab answered only one predefined question — users compared four separate charts to understand a single trend."</p>
+      <div class="q-meta"><div class="q-av"></div><div><div class="q-name">Spreadsheet logic</div><div class="q-role">One metric per tab</div></div></div>
+    </div>
+    <div class="q-card">
+      <p class="q-text">"Weekly updates meant the data was already outdated by the time teams reviewed it."</p>
+      <div class="q-meta"><div class="q-av"></div><div><div class="q-name">Stale reporting</div><div class="q-role">No live visibility</div></div></div>
+    </div>
+    <div class="q-card">
+      <p class="q-text">"Which region has the most cases older than sixty days, and who owns them?" — required manual cross-referencing across multiple tabs.</p>
+      <div class="q-meta"><div class="q-av"></div><div><div class="q-name">Operational gap</div><div class="q-role">No drill-down path</div></div></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- The reframe: bento -->
+  <div class="center-sec rv">
+    <span class="sec-tag">Information architecture</span>
+    <h3 class="sec-head">The problem was IA, not chart design</h3>
+    <p class="sec-lead">The workbook was organized around the spreadsheet itself — not around the decisions Finance teams needed to make.</p>
+  </div>
+  <div class="bento bento-4 rv">
+    <div class="b-cell white span5 row2">
+      <div class="b-img tall" style="background-image:url('Asset/images/ref-layout-1.png')"></div>
+      <div class="b-label">01 — Overview</div>
+      <div class="b-title">What is the current state?</div>
+      <div class="b-body">Entry point with KPI cards for total open cases, profile cases, settlement cases, and high-level distribution across regions.</div>
+    </div>
+    <div class="b-cell span4">
+      <div class="b-label">02 — Action</div>
+      <div class="b-title">What needs attention today?</div>
+      <div class="b-body">Operational metrics — aging cases, pending approvals, over-60-day cases — prioritized for daily workflow.</div>
+    </div>
+    <div class="b-cell dark span3">
+      <div class="b-stat">5</div>
+      <div class="b-stat-l">Aging bands — Current through Over 60 days</div>
+    </div>
+    <div class="b-cell span4">
+      <div class="b-label">03 — Analysis · Closed Total</div>
+      <div class="b-title">What has been resolved?</div>
+      <div class="b-body">Long-term closure metrics and YTD analysis — accessible without competing with daily operational numbers.</div>
+    </div>
+    <div class="b-cell span3">
+      <div class="b-label">04 — Analysis · Totals by Status</div>
+      <div class="b-title">Complete breakdown</div>
+      <div class="b-body">Donut charts and status distribution across geography and case type.</div>
+    </div>
+  </div>
+
+  <div class="spacer-sm"></div>
+  <div class="b-cell white rv" style="border-radius:20px;padding:1.6rem;border:.5px solid var(--border)">
+    <div class="b-label">Persistent filters</div>
+    <div class="pt-list" style="flex-direction:row;flex-wrap:wrap;gap:1.5rem;margin-top:.4rem">
+      <div class="pt-item" style="margin:0">Support Type (Profile / Settlement)</div>
+      <div class="pt-item" style="margin:0">Region</div>
+      <div class="pt-item" style="margin:0">Country</div>
+      <div class="pt-item" style="margin:0">Case Status</div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Trade-off -->
+  <div class="center-sec rv">
+    <span class="sec-tag">Design decision</span>
+    <h3 class="sec-head">I deliberately chose four tabs instead of one dashboard</h3>
+    <p class="sec-lead">Combining all metrics into one page would have increased cognitive load, slowed performance, and reduced visibility of daily-use metrics.</p>
+  </div>
+  <div class="cards-3 rv">
+    <div class="svc-card">
+      <div>
+        <div class="svc-label">The cost</div>
+        <div class="svc-title">One additional click</div>
+        <div class="svc-body">Users switch between four focused sections rather than scrolling a single overloaded page.</div>
+      </div>
+    </div>
+    <div class="svc-card">
+      <div>
+        <div class="svc-label">The benefit</div>
+        <div class="svc-title">Clear KPI hierarchy</div>
+        <div class="svc-body">Daily operational numbers stay immediately visible. Monthly and YTD analysis remains accessible without overwhelming the primary workflow.</div>
+      </div>
+    </div>
+    <div class="svc-card accent">
+      <div>
+        <div class="svc-label">The principle</div>
+        <div class="svc-title">Prioritize what teams need in the moment</div>
+        <div class="svc-body">Less about reducing clicks — more about preserving performant, decision-oriented information architecture.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- The solution -->
+  <div class="center-sec rv">
+    <span class="sec-tag">Deliverables</span>
+    <h3 class="sec-head">The solution</h3>
+    <p class="sec-lead">KPI cards, drill-down tables, donut charts, horizontal bar charts, and stacked aging visualizations — all connected by persistent filters.</p>
+  </div>
+  <div class="cards-3 rv">
+    <div class="svc-card">
+      <div class="svc-label">Views</div>
+      <div class="svc-title">4 functional sections</div>
+      <div class="svc-body">Overview, Action, Analysis – Closed Total, and Analysis – Totals by Status — each answering a distinct decision question.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-label">Visualization</div>
+      <div class="svc-title">Multi-format data display</div>
+      <div class="svc-body">KPI cards, drill-down tables, donut charts, horizontal bar charts, and stacked aging visualizations across teams and regions.</div>
+    </div>
+    <div class="svc-card dark">
+      <div class="svc-label">Geography</div>
+      <div class="svc-title">Country-level views</div>
+      <div class="svc-body">Markets including the US, Canada, Finland, France, the UK, Australia, Colombia, Hungary, Germany, Portugal, and others.</div>
+    </div>
+  </div>
+
+  <div class="spacer-sm"></div>
+  <div class="bento bento-4 rv">
+    <div class="b-cell span8">
+      <div class="b-img wide" style="background-image:url('Asset/images/ref-layout-2.png')"></div>
+    </div>
+    <div class="b-cell dark span4" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="b-label">Drill-down</div>
+      <div class="b-title">Ownership by analyst, queue &amp; country</div>
+      <div class="b-body">Tables connect high-level KPIs to the people and queues responsible — no manual reconciliation across tabs.</div>
+    </div>
+    <div class="b-cell span4">
+      <div class="b-label">KPI cards</div>
+      <div class="pt-list">
+        <div class="pt-item">Total open cases</div>
+        <div class="pt-item">Profile &amp; settlement cases</div>
+        <div class="pt-item">Over-60-day cases</div>
+        <div class="pt-item">Waiting approvals &amp; approved-to-close</div>
+      </div>
+    </div>
+    <div class="b-cell span8">
+      <div class="b-img" style="background-image:url('Asset/images/ref-layout-3.png')"></div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Outcome -->
+  <div class="center-sec rv">
+    <span class="sec-tag">Impact</span>
+    <h3 class="sec-head">Outcome</h3>
+    <p class="sec-lead">The dashboard replaced a weekly manual reporting process with a live, interactive experience. Teams no longer need to manually cross-reference multiple Excel tabs.</p>
+  </div>
+  <div class="outcome-grid rv">
+    <div class="oc-cell"><div class="oc-n">4</div><div class="oc-l">Regions filterable in one interface</div></div>
+    <div class="oc-cell"><div class="oc-n">10+</div><div class="oc-l">Countries with drill-down</div></div>
+    <div class="oc-cell"><div class="oc-n">5</div><div class="oc-l">Aging bands analyzed on demand</div></div>
+    <div class="oc-cell"><div class="oc-n">Live</div><div class="oc-l">On-demand operational analysis</div></div>
+    <div class="oc-cell"><div class="oc-n">BI</div><div class="oc-l">Integrating into GBT's internal platform</div></div>
+  </div>
+
+  <div class="spacer"></div>
+</div>
+
+<section class="cs-more-work">
+  <p class="cs-more-label">More entries</p>
+  <h2 class="cs-more-title">Other case studies</h2>
+  <div class="cs-more-grid">
+    <a href="case-study-hre.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2025</span>
+        <span class="cs-card-title">AMEX GBT — Hotel Rate Efficiency Dashboard</span>
+      </div>
+    </a>
+    <a href="case-study-cambridge.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2024</span>
+        <span class="cs-card-title">Cambridge School — Digital Admissions</span>
+      </div>
+    </a>
+    <a href="case-study-admin_2.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2024</span>
+        <span class="cs-card-title">E-Commerce Admin Panel for Indian SMBs</span>
+      </div>
+    </a>
+    <a href="case-study-dailybloom.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2023</span>
+        <span class="cs-card-title">DailyBloom IBS — Redesigning Under Uncertainty</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<footer id="footer-contact" class="cs-footer">
+  <div class="footer-contact">
+    <div>
+      <div class="fc-label">Location</div>
+      <div class="fc-val">Himachal Pradesh, India<br><span class="fc-sub">Available worldwide</span></div>
+    </div>
+    <div>
+      <div class="fc-label">Say Hello</div>
+      <div class="fc-val"><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    </div>
+    <div>
+      <div class="fc-label">Currently at</div>
+      <div class="fc-val fc-val-right">American Express<br>Global Business Travel</div>
+    </div>
+  </div>
+  <div class="footer-socials">
+    <a href="https://www.linkedin.com/in/parulrathour" class="fs-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="#" class="fs-link">Instagram</a>
+    <a href="#" class="fs-link">Behance</a>
+    <a href="#" class="fs-link">Resume</a>
+  </div>
+  <div class="footer-big">
+    <div class="footer-big-text rv from-bottom">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav-col">
+      <a href="index.html" class="footer-nav-item"><span>Home</span></a>
+      <a href="index.html#work" class="footer-nav-item"><span>Work</span></a>
+      <a href="know-the-designer.html" class="footer-nav-item"><span>Know the Designer</span></a>
+      <a href="know-the-designer.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
+    </div>
+    <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Parul Rathour</span>
+    <span class="footer-ftime" id="footer-time">IST —:—</span>
+  </div>
+</footer>
+
+<script>
+const ring=document.getElementById('cr'),dot=document.getElementById('cd');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+(function l(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(l)})();
+function lum(x,y){const el=document.elementFromPoint(x,y);if(!el)return 255;let n=el;while(n&&n!==document.body){const b=getComputedStyle(n).backgroundColor;if(b&&b!=='rgba(0, 0, 0, 0)'&&b!=='transparent'){const m=b.match(/\d+/g);if(m)return(+m[0]*299+ +m[1]*587+ +m[2]*114)/1000;}n=n.parentElement;}return 255;}
+document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);});
+document.querySelectorAll('a,button,.g-card,.svc-card,.q-card,.b-cell,.cs-card,.footer-nav-item,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
+const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+window.addEventListener('scroll',()=>{const d=lum(mx,my)<100;document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);},{passive:true});
+(function(){
+  function tick(){
+    const ist=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+    const h=ist.getHours().toString().padStart(2,"0");
+    const m=ist.getMinutes().toString().padStart(2,"0");
+    const s=ist.getSeconds().toString().padStart(2,"0");
+    const ft=document.getElementById("footer-time");
+    if(ft) ft.textContent=`${h}:${m}:${s} IST`;
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>
