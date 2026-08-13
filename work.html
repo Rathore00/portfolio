@@ -156,6 +156,7 @@ img{display:block;max-width:100%}
 }
 .cs-card-static{cursor:default}
 .cs-card-static.is-in:hover{transform:none;box-shadow:none}
+.social-mail-only{display:none}
 
 /* ══ FOOTER ══ */
 .footer{background:#fff;border-top:.5px solid #ddd}
@@ -239,22 +240,93 @@ img{display:block;max-width:100%}
   .nav{padding:14px 16px;border-radius:70px;justify-content:space-between}
   .nav-links{display:none}
   .nav-burger{display:flex}
-  .nav-right .social-btn:not(.social-mail),
+  .nav-right .social-btn,
   .btn-note{display:none}
-  .nav-right .social-mail{display:flex;width:28px;height:28px;border-radius:19px}
-  .btn-touch{padding:8px 14px;font-size:12px}
-  .work-title{font-size:clamp(2.8rem,14vw,4rem)}
-  .work-lede{font-size:16px}
-  .cs-card{flex:1 1 100%;min-height:260px}
-  .cs-card-narrow{flex:1 1 100%}
-  .fc-row{grid-template-columns:1fr;gap:1.5rem;padding:2rem 1.5rem}
+  .nav-right .social-mail-only{
+    display:flex;width:28px;height:28px;border-radius:19px;
+  }
+  .btn-touch{padding:4px 9px;font-size:12px;height:28px}
+
+  .work-intro{
+    flex-direction:column;align-items:flex-start;justify-content:flex-start;
+    gap:0;min-height:129px;margin-bottom:0;
+  }
+  .work-intro-left{max-width:none;width:100%;margin-bottom:auto}
+  .work-pill{
+    border-width:.5px;padding:6px 10px;font-size:8px;letter-spacing:-.02em;
+  }
+  .work-title{font-size:52px;letter-spacing:-.02em;margin-top:0}
+  .work-lede{
+    font-size:12px;letter-spacing:-.02em;text-align:left;
+    max-width:324px;margin-top:12px;
+  }
+
+  .cs-rows{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:36px;
+  }
+  .cs-row{display:contents;min-height:0}
+  .cs-card,
+  .cs-card-wide,
+  .cs-card-narrow{
+    flex:none;width:auto;
+    min-height:0;height:auto;
+    border-radius:14px;
+    padding:14px 16px 0;
+  }
+  .cs-dot{width:22px;height:22px}
+  .cs-badge{padding:6px;font-size:8px;letter-spacing:-.02em}
+  .cs-body{padding:22px 0}
+  .cs-card-title{font-size:14px;letter-spacing:-.02em;margin-bottom:4px}
+  .cs-card-sub{font-size:8px;letter-spacing:-.02em}
+  .cs-card-bg{border-radius:14px}
+  .cs-card-bg::after{border-radius:14px}
+
+  .cs-identity,
+  .cs-finance{min-height:214px}
+  .cs-hre{grid-column:1/-1;min-height:166px}
+  .cs-digitizing{min-height:242px}
+  .cs-ai{min-height:206px}
+  .cs-daily{min-height:219px}
+  .cs-smb{min-height:256px}
+
+  .cs-featured{
+    grid-column:1/-1;min-height:271px;
+  }
+  .cs-ui{
+    grid-column:1/-1;min-height:173px;
+    padding-top:22px;padding-left:18px;padding-right:18px;
+  }
+  .cs-ui .cs-card-title{font-size:18px;letter-spacing:-.02em}
+
+  .fc-row{
+    grid-template-columns:1fr;gap:1.25rem;
+    padding:2rem 1.5rem 1.5rem;
+  }
   .fc-col,.fc-col:first-child,.fc-col:nth-child(2),.fc-col:last-child{
     padding:0;border:none;text-align:left;
   }
-  .fs-row,.footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
+  .fc-v{font-size:15px}
+  .fs-row{
+    gap:1rem 1.25rem;padding:1.25rem 1.5rem;
+  }
+  .fs-link{font-size:11px;letter-spacing:.1em}
+  .footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
+  .footer-big{padding-top:2rem}
   .footer-big-top{flex-direction:column;gap:1.5rem;margin-bottom:1.5rem}
   .footer-cta{font-size:clamp(2.2rem,11vw,3.2rem);max-width:10ch}
   .footer-nav{width:100%}
+  .footer-nav a{
+    font-family:var(--sans);font-style:normal;font-weight:500;
+  }
+  .footer-nav a::before{content:"→";color:#888;order:0;margin-right:.35rem}
+  .footer-nav a::after{content:none}
+  .footer-nav a span{order:1}
+}
+@media(max-width:1100px) and (min-width:901px){
+  .cs-hre{flex:1 1 100%}
 }
 </style>
 </head>
@@ -280,7 +352,8 @@ img{display:block;max-width:100%}
       <div class="nav-right">
         <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
         <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
-        <a href="https://x.com/ParulRath0ur" class="social-btn social-mail" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+        <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+        <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
         <a href="#footer-contact" class="btn-touch">Get In Touch</a>
         <a href="#footer-contact" class="btn-note"><img src="Asset/images/home/leave-note-avatar.svg" alt=""><span>Leave a note</span></a>
       </div>
@@ -291,38 +364,38 @@ img{display:block;max-width:100%}
   <main class="work-page">
     <header class="work-intro">
       <div class="work-intro-left">
-        <span class="work-pill">AMEX GBT</span>
+        <span class="work-pill">Case studies</span>
         <h1 class="work-title">Work.</h1>
       </div>
-      <p class="work-lede">A structured approach to managing complex infrastructure systems—from connection to long-term operation.</p>
+      <p class="work-lede">A range of work across SaaS platforms, new site builds, and product revamps, each shaped by the specific problem it needed to solve.</p>
     </header>
 
     <div class="cs-rows">
       <div class="cs-row">
-        <div class="cs-card cs-card-wide cs-card-static" role="article">
+        <div class="cs-card cs-card-wide cs-card-static cs-identity" role="article">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">AMEX GBT</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">Identity Security KPI Dashboard</div>
             <div class="cs-card-sub">23 identity and access metrics, distilled into two views teams actually use.</div>
           </div>
         </div>
-        <a class="cs-card" href="case-study-gbt-finance.html">
+        <a class="cs-card cs-finance" href="case-study-gbt-finance.html">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">AMEX GBT</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">Finance O2C— Global Billing</div>
             <div class="cs-card-sub">Replaced a manual Excel report with a live dashboard finance actually trusts.</div>
           </div>
         </a>
-        <a class="cs-card" href="case-study-hre.html">
+        <a class="cs-card cs-hre" href="case-study-hre.html">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">AMEX GBT</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">HRE — Hotel Reshop System</div>
@@ -332,40 +405,40 @@ img{display:block;max-width:100%}
       </div>
 
       <div class="cs-row">
-        <a class="cs-card" href="case-study-cambridge.html">
+        <a class="cs-card cs-digitizing" href="case-study-cambridge.html">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">Digitizing Legacy Systems</div>
             <div class="cs-card-sub">From Paper Trails to Seamless Digital Journeys</div>
           </div>
         </a>
-        <div class="cs-card cs-card-static" role="article">
+        <div class="cs-card cs-card-static cs-ai" role="article">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">AI Load Calculator</div>
             <div class="cs-card-sub">AI Load Calculator That Turns “Power Confusion” into Confident Purchases</div>
           </div>
         </div>
-        <a class="cs-card" href="case-study-dailybloom.html">
+        <a class="cs-card cs-daily" href="case-study-dailybloom.html">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">DailyBloom IBS</div>
             <div class="cs-card-sub">Adapting the DailyBloom IBS Landing Page for a Recipe Ebook Experience</div>
           </div>
         </a>
-        <a class="cs-card" href="case-study-admin_2.html">
+        <a class="cs-card cs-smb" href="case-study-admin_2.html">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">SMB Global Admin Panel</div>
@@ -375,27 +448,27 @@ img{display:block;max-width:100%}
       </div>
 
       <div class="cs-row">
-        <div class="cs-card cs-card-featured cs-card-static" role="article">
+        <div class="cs-card cs-card-featured cs-card-static cs-featured" role="article">
           <div class="cs-card-bg" aria-hidden="true">
             <img src="Asset/images/work/featured-scale.png" alt="">
           </div>
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-light.svg" alt="" width="36" height="36">
-            <span class="cs-badge cs-badge-solid">Designed</span>
+            <span class="cs-badge cs-badge-solid">BYJUS</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">Designed to Work at Scale</div>
             <div class="cs-card-sub">Designed to Work at Scale</div>
           </div>
         </div>
-        <div class="cs-card cs-card-narrow cs-card-static" role="article">
+        <div class="cs-card cs-card-narrow cs-card-static cs-ui" role="article">
           <div class="cs-card-top">
             <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
-            <span class="cs-badge">Designed</span>
+            <span class="cs-badge">BYJUS</span>
           </div>
           <div class="cs-body">
             <div class="cs-card-title">UI Design</div>
-            <div class="cs-card-sub">BYJU’s</div>
+            <div class="cs-card-sub">Coming Soon</div>
           </div>
         </div>
       </div>
