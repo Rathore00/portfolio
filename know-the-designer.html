@@ -107,29 +107,37 @@ img{display:block;max-width:100%}
   transform:scale(min(1, calc((100vh - 180px) / 640px)));
 }
 .col{display:flex;flex-direction:column;gap:10.6px;flex-shrink:0}
-.col-stats{padding-bottom:30px}
+.col-stats{
+  align-self:flex-start;
+  margin-top:12px;
+  padding-bottom:0;
+}
 .col-media{justify-content:center}
 .col-media .photos-card{padding-top:0;margin-top:30px}
 .col-history{
-  align-self:stretch;
+  align-self:flex-start; /* pin to top of cluster */
   display:flex;
-  align-items:stretch;
+  align-items:flex-start;
 }
 .col-history .history{
-  flex:1;
   display:flex;
   flex-direction:column;
-  height:100%;
-  gap:12px;
+  gap:10px;
+  height:auto;
+  padding:10px 12px;
 }
 .col-history .hist{
-  flex:1;
   display:flex;
   flex-direction:column;
-  gap:6px;
-  min-height:0;
+  gap:5px;
 }
-.col-history .hist-item{flex:1;display:flex;flex-direction:column;justify-content:center}
+.col-history .hist-item{
+  flex:0 0 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:7px 10px;
+}
 .col-quote{
   align-self:stretch;
   justify-content:center;
@@ -240,7 +248,9 @@ img{display:block;max-width:100%}
 .panel-sketch{
   width:1084px;
   min-width:1084px;
-  background:rgba(242,242,242,.92);backdrop-filter:blur(12px);
+  background:rgba(242,242,242,.28);
+  backdrop-filter:blur(28px) saturate(1.05);
+  -webkit-backdrop-filter:blur(28px) saturate(1.05);
   display:flex;flex-direction:column;justify-content:center;
   padding-left:50px;padding-right:50px;
   overflow:hidden;
@@ -250,10 +260,11 @@ img{display:block;max-width:100%}
 .sketch-top{display:flex;justify-content:space-between;gap:2rem;align-items:flex-start;margin-bottom:16px;flex-shrink:0}
 .sketch-h{
   font-family:var(--display);font-weight:900;font-size:clamp(28px,3.2vw,42px);
-  letter-spacing:-.02em;line-height:1;color:#3d3d3d;max-width:11ch;flex-shrink:0;
+  letter-spacing:-.02em;line-height:1;color:#3d3d3d;flex-shrink:0;
+  max-width:14ch;
 }
 .sketch-h em{font-family:var(--serif);font-style:italic;font-weight:600}
-.sketch-lede{font-family:var(--sans);font-weight:500;font-size:12px;color:#8e8e8e;max-width:268px;line-height:1.45;padding-top:4px}
+.sketch-lede{font-family:var(--sans);font-weight:500;font-size:12px;color:#8e8e8e;max-width:268px;line-height:1.45;padding-top:4px;flex-shrink:0}
 .sketch-mosaic{
   display:flex;gap:10px;height:414px;max-height:calc(100vh - 260px);width:100%;align-items:stretch;flex-shrink:0;
 }
@@ -418,7 +429,7 @@ img{display:block;max-width:100%}
   .panel{padding:90px 20px 28px}
   .panel-hero{
     width:auto;min-width:max-content;
-    display:flex;flex-direction:row;align-items:center;
+    display:flex;flex-direction:row;align-items:center;justify-content:center;
     padding:90px 40px 40px 0;
   }
   .hero-name{
@@ -433,7 +444,7 @@ img{display:block;max-width:100%}
     display:flex;align-items:flex-end;gap:10px;
     transform:scale(min(1, calc((100vh - 140px) / 560px)));
   }
-  .col-stats{padding-bottom:16px}
+  .col-stats{margin-top:20px;padding-bottom:0}
   .col-media .photos-card{margin-top:16px}
   .col-projects{padding-bottom:20px}
   .col{width:auto;flex-shrink:0}
@@ -442,18 +453,63 @@ img{display:block;max-width:100%}
   .services{height:240px}
   .svc-tags{height:110px}
 
-  .panel-sketch{width:min(920px,240vw);min-width:340px;padding-left:20px;padding-right:20px}
-  .sketch-top{flex-direction:column;gap:1rem;margin-bottom:14px}
-  .sketch-h{font-size:28px;max-width:14ch}
-  .sketch-lede{max-width:100%;font-size:13px}
-  .sketch-mosaic{height:min(380px,48vh);overflow:hidden}
-  .sk-col-a{width:160px}
-  .sk-col-b{width:200px}
-  .sk-row{height:110px}
-  .sk-fixed{flex:0 0 120px}
+  /* Sketch — blur bg, left-aligned horizontal masonry strip (not centered) */
+  .panel-sketch{
+    width:max-content;
+    min-width:0;
+    padding:90px 28px 28px 20px;
+    justify-content:center;
+    align-items:stretch;
+    overflow:visible;
+    background:rgba(242,242,242,.22);
+    backdrop-filter:blur(24px) saturate(1.05);
+    -webkit-backdrop-filter:blur(24px) saturate(1.05);
+  }
+  .sketch-ey{
+    text-align:left;
+    width:auto;
+  }
+  .sketch-top{
+    flex-direction:row;
+    flex-wrap:nowrap;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:1.25rem;
+    margin-bottom:14px;
+    width:auto;
+  }
+  .sketch-h{
+    font-size:clamp(24px,6.8vw,30px);
+    max-width:none;
+    width:max-content;
+    text-align:left;
+    line-height:1.02;
+  }
+  .sketch-lede{max-width:200px;font-size:11px;padding-top:2px;flex-shrink:0}
+  .sketch-mosaic{
+    height:min(400px,50vh);
+    max-height:none;
+    overflow:visible;
+    width:max-content;
+    margin:0;
+    align-items:stretch;
+  }
+  .sk-col-a{width:172px;flex-shrink:0}
+  .sk-col-b{width:216px;flex-shrink:0}
+  .sk-col-c,.sk-col-d{
+    flex:none;
+    width:152px;
+    min-width:152px;
+    flex-shrink:0;
+  }
+  .sk-row{height:128px}
+  .sk-fixed{flex:0 0 132px}
 
-  .panel-frame{width:88vw;min-width:300px}
-  .frame-wrap{width:100%;max-height:55vh}
+  .panel-frame{
+    width:88vw;min-width:300px;
+    justify-content:center;align-items:center;
+  }
+  .frame-wrap{width:100%;max-height:55vh;margin:0 auto}
 
   .panel.footer{width:100vw;min-width:100vw}
   .fc-row{
@@ -626,7 +682,7 @@ img{display:block;max-width:100%}
   <section class="panel panel-sketch" id="sketch" aria-label="Sketchbooks">
     <div class="sketch-ey">Hobby to skills</div>
     <div class="sketch-top">
-      <h2 class="sketch-h">Sketchbooks keep my <em>imagination</em> employed.</h2>
+      <h2 class="sketch-h">Sketchbooks keep my<br><em>imagination</em><br>employed.</h2>
       <div class="sketch-lede">
         <p>Design systems pay the bills. Sketchbooks keep my imagination employed.</p>
         <p style="margin-top:1rem">These illustrations are digital experiments, visual stories, character studies, and occasional midnight ideas that refused to stay inside my head. Different medium. Same designer.</p>
