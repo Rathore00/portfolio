@@ -6,269 +6,330 @@
 <title>Know the Designer — Parul Rathour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f2f2f2;--ink:#0c0c0c;--muted:#6b7280;--soft:#9ca3af;
   --sans:'DM Sans',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
   --display:'Montserrat',sans-serif;--serif:'Playfair Display',Georgia,serif;
-  --red:#c0392b;--blue:#1c36db;
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{overflow:hidden}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.page{width:100%;max-width:1512px;margin:0 auto}
 
-/* NAV — fixed at top */
+/* Fixed nav */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:300;
-  padding:16px 80px 0;
-  pointer-events:none;
+  padding:16px clamp(24px,5vw,80px) 0;pointer-events:none;
 }
-.top .nav{pointer-events:auto;max-width:1512px;margin:0 auto}
+.top .nav{pointer-events:auto;max-width:1512px;margin:0 auto;width:100%}
 .nav{
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   background:#fff;border-bottom:1px solid rgba(0,0,0,.06);border-radius:70px;
   padding:14px 22px 15px 52px;box-shadow:0 1px 2px rgba(0,0,0,.18);
 }
 .nav-links{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.nav-links a{font-family:var(--inter);font-size:14px;font-weight:500;color:var(--muted);transition:color .2s}
+.nav-links a{font-family:var(--inter);font-size:14px;font-weight:500;color:var(--muted)}
 .nav-links a.active{font-weight:600;color:var(--ink)}
 .nav-links a:hover{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .social-btn{width:38px;height:38px;border-radius:19px;background:var(--ink);display:flex;align-items:center;justify-content:center}
-.social-btn img,.social-btn svg{width:16px;height:16px;display:block}
+.social-btn img{width:16px;height:16px}
 .btn-touch{display:inline-flex;align-items:center;background:var(--ink);color:#fff;border-radius:45px;padding:10px 22px;font-size:12px;white-space:nowrap}
 .nav-burger{display:none;flex-direction:column;gap:4px;background:#0c0c0c;border:none;cursor:pointer;width:28px;height:28px;border-radius:19px;align-items:center;justify-content:center;padding:0}
 .nav-burger span{display:block;width:12px;height:1.5px;background:#fff;border-radius:1px}
-.nav-spacer{height:92px}
+.social-mail-only{display:none}
 
-/* KNOW ZONE — sticky identity + side panels until full-bleed sections */
-.know-zone{position:relative}
-.k-hero{padding:8px 80px 0;text-align:center}
-.k-meta{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#888;margin-bottom:4px}
-.k-namskar{width:100%;line-height:0;margin-bottom:20px}
-.k-namskar img{width:100%;height:auto;opacity:.9}
-.k-identity{
-  position:sticky;top:92px;z-index:40;
-  text-align:center;
-  background:linear-gradient(to bottom,var(--bg) 70%,rgba(242,242,242,0));
-  padding:8px 80px 20px;
-  margin:0 -0px;
+/* Horizontal track */
+.hscroll{
+  display:flex;flex-direction:row;align-items:stretch;
+  height:100vh;width:100%;
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:none;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;scrollbar-color:#cfcfcf transparent;
+  position:relative;z-index:10;
+  background:transparent;
 }
-.k-name{font-family:var(--inter);font-weight:700;font-size:clamp(2.4rem,5vw,56px);letter-spacing:-.04em;color:#111827;line-height:1.05;margin-bottom:12px}
-.k-role{font-family:var(--inter);font-size:clamp(1rem,1.5vw,20px);color:var(--muted);margin-bottom:8px}
-.k-loc{font-family:var(--inter);font-size:14px;color:var(--soft)}
+.hscroll::-webkit-scrollbar{height:6px}
+.hscroll::-webkit-scrollbar-thumb{background:#cfcfcf;border-radius:999px}
 
-/* BENTO */
-.bento{
-  display:grid;
-  grid-template-columns:minmax(220px,279px) minmax(0,1fr) minmax(220px,279px);
-  gap:24px;align-items:start;
-  padding:14px 80px 48px;
+.panel{
+  flex:0 0 auto;height:100%;
+  position:relative;
+  padding:100px clamp(24px,4vw,64px) 40px;
+  overflow:visible;
 }
-.col{display:flex;flex-direction:column;gap:14px}
-.col-side{
-  position:sticky;top:220px;align-self:start;z-index:30;
+
+/* Fixed wordmark — bottom of viewport; cards scroll over it */
+.hero-name{
+  position:fixed;
+  left:24px;
+  bottom:20px;
+  z-index:2;
+  font-family:var(--sans);font-weight:900;
+  font-size:200px;letter-spacing:-9px;
+  line-height:.88;color:#a0a0a0;
+  pointer-events:none;
+  display:flex;flex-direction:column;
+  transition:opacity .45s ease, transform .45s ease;
+  will-change:opacity,transform;
 }
-.col-mid{min-width:0}
+.hero-name span{display:block}
+.hero-name.is-out{
+  opacity:0;
+  transform:translateY(28px);
+}
+
+/* Panel 1 — Hero — Figma 204:9912 exact column layout */
+.panel-hero{
+  width:auto;
+  min-width:max-content;
+  height:100%;
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:flex-start;
+  padding:100px 190px 48px 0;
+  background:transparent;
+  box-sizing:border-box;
+}
+.hero-cluster{
+  position:relative;z-index:1;
+  width:1188px;
+  margin-left:570px;
+  display:flex;
+  align-items:flex-end;
+  gap:10.6px;
+  transform-origin:left center;
+  transform:scale(min(1, calc((100vh - 180px) / 640px)));
+}
+.col{display:flex;flex-direction:column;gap:10.6px;flex-shrink:0}
+.col-stats{padding-bottom:30px}
+.col-media{justify-content:center}
+.col-media .photos-card{padding-top:0;margin-top:30px}
+.col-history{
+  align-self:stretch;
+  display:flex;
+  align-items:stretch;
+}
+.col-history .history{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+  gap:12px;
+}
+.col-history .hist{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  min-height:0;
+}
+.col-history .hist-item{flex:1;display:flex;flex-direction:column;justify-content:center}
+.col-quote{
+  align-self:stretch;
+  justify-content:center;
+  width:212px;
+}
+.col-projects{
+  align-self:stretch;
+  align-items:center;
+  gap:6px;
+  padding-bottom:38px;
+}
 .card{
-  background:#fff;border:1px solid #f3f4f6;border-radius:12px;
-  box-shadow:0 4px 20px rgba(0,0,0,.03);padding:16px;
+  background:#fff;border:1px solid #f3f4f6;border-radius:9px;
+  box-shadow:-4.5px 4.5px 15px rgba(0,0,0,.08);padding:12px;
 }
-.card-label{font-family:var(--inter);font-weight:700;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.card-label{font-family:var(--inter);font-weight:700;font-size:7px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
+.hero-copy{width:238px;margin-bottom:2px}
+.hero-copy h2{font-family:var(--inter);font-weight:400;font-size:15px;color:#202020;line-height:1.4;margin-bottom:6px}
+.hero-copy p{font-family:var(--inter);font-size:11px;color:#202020}
 
-/* Photos fan */
-.photos{height:90px;position:relative;margin-top:8px}
-.photos img{
-  position:absolute;width:58px;height:72px;object-fit:cover;border-radius:8px;
-  box-shadow:0 4px 8px rgba(0,0,0,.22);
-}
-.photos img:nth-child(1){left:8%;top:10px;transform:rotate(-18deg);z-index:1}
-.photos img:nth-child(2){left:24%;top:4px;transform:rotate(-8deg);z-index:2}
-.photos img:nth-child(3){left:40%;top:0;transform:rotate(2deg);z-index:5}
-.photos img:nth-child(4){left:56%;top:6px;transform:rotate(12deg);z-index:3}
-.photos img:nth-child(5){left:72%;top:2px;transform:rotate(20deg);z-index:2}
-
-/* Folders */
-.folders{display:flex;align-items:flex-end;justify-content:center;height:76px;position:relative;margin-top:4px}
-.folder{width:52px;height:40px;border-radius:5px 5px 0 0;position:relative;box-shadow:inset 1px 2px 4px rgba(255,255,255,.4)}
-.folder::before{content:"";position:absolute;left:0;top:-8px;width:22px;height:10px;border-radius:4px 4px 0 0;background:inherit}
-.folder.f1{background:#85b344;transform:rotate(-6deg);z-index:1}
-.folder.f2{background:#6144b3;transform:rotate(8deg);margin-left:-10px;z-index:3;width:56px;height:44px}
-.folder.f3{background:#e7cf31;transform:rotate(-14deg);margin-left:-14px;z-index:2}
-.folder.f4{background:#1faff6;transform:rotate(-8deg);margin-left:-8px;z-index:4}
-
-/* Services */
-.services{background:var(--blue);border:none;color:#fff;padding:24px;min-height:220px}
-.services .card-label{color:#fff}
-.svc-tags{position:relative;height:140px;margin-top:18px}
-.svc-tag{
-  position:absolute;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.1);
-  border-radius:9999px;padding:9px 17px;font-family:var(--inter);font-size:11px;font-weight:500;color:#fff;white-space:nowrap;
-}
-.svc-tag:nth-child(1){left:19px;top:0;transform:rotate(-4deg)}
-.svc-tag:nth-child(2){left:0;top:36px;transform:rotate(-29deg)}
-.svc-tag:nth-child(3){left:72px;top:40px;transform:rotate(24deg)}
-.svc-tag:nth-child(4){left:136px;top:28px;transform:rotate(10deg)}
-.svc-tag:nth-child(5){left:120px;top:72px;transform:rotate(-17deg)}
-.svc-tag:nth-child(6){left:2px;top:100px}
-
-/* Stats */
-.stats{display:flex;padding:0;overflow:hidden;min-height:146px}
-.stat{flex:1;padding:32px;display:flex;flex-direction:column;justify-content:flex-end;border-right:1px solid #d0d1d3}
+.stats{padding:0;overflow:hidden;width:238px}
+.stat-row{display:flex;height:103px}
+.stat{flex:1;padding:14px 11px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #d0d1d3}
 .stat:last-child{border-right:none}
-.stat-n{font-family:var(--inter);font-weight:700;font-size:36px;color:#676767;line-height:1.2}
-.stat-l{font-family:var(--inter);font-weight:700;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin-top:8px}
-.stat-s{font-family:var(--inter);font-size:12px;color:var(--muted);margin-top:2px}
-.resume-row{display:flex;align-items:center;gap:14px}
-.resume-play{width:23px;height:23px;border-radius:50%;background:#676767;display:flex;align-items:center;justify-content:center}
-.resume-play img{width:12px;height:12px}
-.resume-t{font-family:var(--inter);font-weight:700;font-size:24px;color:#676767}
+.stat-n{font-family:var(--inter);font-weight:700;font-size:27px;color:#676767;line-height:1.2}
+.stat-l{font-family:var(--inter);font-weight:700;font-size:8px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin-top:6px}
+.stat-s{font-family:var(--inter);font-size:9px;color:var(--muted);margin-top:2px}
+.resume{
+  display:flex;align-items:center;gap:11px;
+  border-top:1px solid #d0d1d3;padding:17px 14px;
+}
+.resume-play{width:18px;height:18px;border-radius:50%;background:#676767;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.resume-play img{width:12px;height:12px;filter:brightness(10)}
+.resume-t{font-family:var(--inter);font-weight:700;font-size:18px;color:#676767}
+.resume-s{font-size:11px;color:var(--muted);margin-top:2px}
 
-/* Tools + history */
-.tools-row{display:flex;gap:14px}
-.tools,.history{flex:1;min-width:0}
-.sec-head{display:flex;align-items:center;gap:8px;margin-bottom:20px}
-.dot{width:6px;height:6px;border-radius:50%}
+.photos-card{width:236px}
+.photo-hero{width:100%;height:129px;object-fit:cover;border-radius:16px;box-shadow:0 8px 8px rgba(0,0,0,.25);margin:8px 0 10px}
+.fan{height:60px;position:relative;width:185px;margin:0 auto}
+.fan img{position:absolute;width:44px;height:55px;object-fit:cover;border-radius:6px;box-shadow:0 3px 3px rgba(0,0,0,.25)}
+.fan img:nth-child(1){left:6%;top:6px;transform:rotate(-15deg);z-index:1}
+.fan img:nth-child(2){left:24%;top:2px;transform:rotate(-8deg);z-index:2}
+.fan img:nth-child(3){left:40%;top:0;transform:rotate(.3deg);z-index:5}
+.fan img:nth-child(4){left:54%;top:3px;transform:rotate(15deg);z-index:3}
+.fan img:nth-child(5){left:68%;top:1px;transform:rotate(15deg);z-index:2}
+
+.tools{
+  width:236px;
+  display:flex;flex-direction:column;gap:18px;
+  padding:11px 12px;
+}
+.sec-head{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+.tools .sec-head{margin-bottom:0}
+.dot{width:5px;height:5px;border-radius:50%}
 .dot.orange{background:#fb923c}
 .dot.blue{background:#60a5fa}
-.tool{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-.tool:last-child{margin-bottom:0}
-.tool-ico{width:40px;height:40px;border-radius:8px;border:1px solid #f3f4f6;overflow:hidden;flex-shrink:0;background:#fff}
+.tool{display:flex;align-items:center;gap:12px}
+.tool-ico{width:30px;height:30px;border-radius:6px;border:1px solid #f3f4f6;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#fff}
 .tool-ico img{width:100%;height:100%;object-fit:cover}
-.tool-n{font-family:var(--inter);font-weight:700;font-size:14px;color:#1e293b}
-.tool-s{font-family:var(--inter);font-size:12px;color:var(--soft)}
-.hist{display:flex;flex-direction:column;gap:8px;max-height:268px;overflow-y:auto}
-.hist-item{border-radius:8px;padding:12px 16px}
-.hist-item .when{font-family:var(--inter);font-weight:700;font-size:10px;text-transform:uppercase;opacity:.6;margin-bottom:2px}
-.hist-item .who{font-family:var(--inter);font-weight:700;font-size:14px}
+.tool-ico.cursor-ico img{width:16px;height:16px;object-fit:contain}
+.tool-n{font-family:var(--inter);font-weight:700;font-size:11px;color:#1e293b}
+.tool-s{font-family:var(--inter);font-size:9px;color:var(--soft)}
+
+.history{width:247px}
+.hist{display:flex;flex-direction:column;gap:6px}
+.hist-item{border-radius:6px;padding:9px 12px}
+.hist-item .when{font-family:var(--inter);font-weight:700;font-size:8px;text-transform:uppercase;opacity:.6;margin-bottom:2px}
+.hist-item .who{font-family:var(--inter);font-weight:700;font-size:11px}
 .hist-item.h1{background:#e3f4ff;color:#2e67bc}
 .hist-item.h2{background:#fff6d2;color:#aca21f}
 .hist-item.h3{background:#fff1f2;color:#be123c}
 .hist-item.h4{background:#f3fff8;color:#1a820e}
 .hist-item.h5{background:#f5f3ff;color:#6d28d9}
 
-/* Banner + ink reveal */
-.banner{
-  position:relative;border-radius:12px;overflow:hidden;aspect-ratio:1165/431;background:#e8e8e8;
-  isolation:isolate;touch-action:none;cursor:crosshair;width:100%;margin-top:4px;
+.quote{width:212px}
+.quote p{font-family:var(--inter);font-weight:700;font-size:13px;color:#109c67;line-height:1.35;margin:10px 0 12px}
+.wishlist{width:212px}
+.wish{display:flex;gap:10px;align-items:flex-start;margin-top:12px}
+.wish input{width:14px;height:14px;margin-top:1px;accent-color:#109c67;flex-shrink:0}
+.wish span{font-family:var(--inter);font-weight:500;font-size:9px;color:#374151}
+
+.coming{width:212px;position:relative;overflow:hidden;height:243px;padding-bottom:0}
+.coming img{width:100%;height:184px;object-fit:cover;border-radius:16px;box-shadow:0 8px 8px rgba(0,0,0,.25);margin-top:8px}
+.coming-tag{
+  position:absolute;left:18px;bottom:18px;
+  background:rgba(214,214,214,.9);border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;padding:3px 9px;font-size:10px;font-weight:500;color:#673612;letter-spacing:-.04em;
 }
-.banner img{width:100%;height:100%;object-fit:cover}
-.banner-ink{
-  position:absolute;inset:0;width:100%;height:100%;
-  z-index:2;pointer-events:auto;border-radius:inherit;
+.services{
+  width:213px;height:281px;background:#06091b;color:#fff;border:none;
+  display:flex;flex-direction:column;justify-content:space-between;padding:18px;
 }
-.banner-handle{
-  position:absolute;top:18px;right:18px;z-index:3;
-  background:rgba(255,255,255,.55);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.4);border-radius:999px;
-  padding:6px 12px;font-family:var(--inter);font-size:11px;font-weight:500;color:#fff;
-  pointer-events:none;
+.services .card-label{color:#fff}
+.svc-tags{position:relative;height:96px;margin-top:auto;width:100%}
+.svc-tag{
+  position:absolute;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.05);
+  border-radius:9999px;padding:7px 13px;font-family:var(--inter);font-size:8.4px;font-weight:500;color:#fff;white-space:nowrap;
 }
-.banner-tag{
-  position:absolute;right:24px;bottom:20px;z-index:3;pointer-events:none;
-  font-family:var(--inter);font-weight:700;font-size:clamp(1.4rem,3vw,2.4rem);
-  color:#fff;text-shadow:0 2px 16px rgba(0,0,0,.35);letter-spacing:-.02em;
+/* Figma 243:9642 absolute positions */
+.svc-tag:nth-child(1){left:14px;top:-5px;transform:rotate(-4.24deg)} /* Design Strategy */
+.svc-tag:nth-child(2){left:103px;top:15px;transform:rotate(9.92deg)} /* Prototyping */
+.svc-tag:nth-child(3){left:2px;top:68px;transform:none;border-color:rgba(255,255,255,.05)} /* Info Architecture */
+.svc-tag:nth-child(4){left:91px;top:46px;transform:rotate(-17.24deg)} /* Dashboard Design */
+.svc-tag:nth-child(5){left:55px;top:21px;transform:rotate(24.03deg)} /* UX Writing */
+.svc-tag:nth-child(6){left:-2px;top:21px;transform:rotate(-29.47deg)} /* Data Viz */
+
+/* Panel 2 — Sketchbooks (Figma flex mosaic) */
+.panel-sketch{
+  width:1084px;
+  min-width:1084px;
+  background:rgba(242,242,242,.92);backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;justify-content:center;
+  padding-left:50px;padding-right:50px;
+  overflow:hidden;
+  z-index:3;
+}
+.sketch-ey{font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:rgba(61,61,61,.4);margin-bottom:8px}
+.sketch-top{display:flex;justify-content:space-between;gap:2rem;align-items:flex-start;margin-bottom:16px;flex-shrink:0}
+.sketch-h{
+  font-family:var(--display);font-weight:900;font-size:clamp(28px,3.2vw,42px);
+  letter-spacing:-.02em;line-height:1;color:#3d3d3d;max-width:11ch;flex-shrink:0;
+}
+.sketch-h em{font-family:var(--serif);font-style:italic;font-weight:600}
+.sketch-lede{font-family:var(--sans);font-weight:500;font-size:12px;color:#8e8e8e;max-width:268px;line-height:1.45;padding-top:4px}
+.sketch-mosaic{
+  display:flex;gap:10px;height:414px;max-height:calc(100vh - 260px);width:100%;align-items:stretch;flex-shrink:0;
+}
+.sk-col{display:flex;flex-direction:column;gap:5px;min-width:0;height:100%}
+.sk-col-a{width:252px;flex-shrink:0}
+.sk-col-b{width:310px;flex-shrink:0;flex-direction:row;gap:5px}
+.sk-col-b .sk-sub{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0;height:100%}
+.sk-col-c,.sk-col-d{flex:1;min-width:0}
+.sk-row{display:flex;gap:5px;height:146px;flex-shrink:0}
+.sk{
+  position:relative;border-radius:10px;overflow:hidden;background:#eaeaea;min-height:0;min-width:0;
+  flex:1;
+}
+.sk img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none}
+.sk-dot{position:absolute;top:10px;left:11px;width:14px;height:14px;border-radius:50%;background:#2e2d2d;z-index:1}
+.sk-tag{
+  position:absolute;top:10px;right:11px;z-index:1;
+  background:rgba(227,227,227,.46);backdrop-filter:blur(1px);
+  border-radius:8px;padding:3px 6px;font-size:6px;font-weight:600;color:#737373;letter-spacing:-.02em;
+}
+.sk-fill{flex:1}
+.sk-fixed{flex:0 0 167px}
+
+/* Panel 3 — Frame */
+.panel-frame{
+  width:min(900px, 72vw);
+  min-width:520px;
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;
+  z-index:3;
+}
+.frame-wrap{
+  width:min(640px,82%);
+  aspect-ratio:1144/787;
+  max-height:68vh;
+  position:relative;
+  filter:drop-shadow(0 12px 80px rgba(0,0,0,.4));
+}
+.frame-photo{
+  position:absolute;
+  left:11%;top:10%;
+  width:78%;height:80%;
+  object-fit:cover;object-position:center 35%;
+  border-radius:2px;
+}
+.frame-ornament{
+  position:absolute;left:50%;top:50%;
+  width:calc(100% * 787 / 1144);
+  height:calc(100% * 1144 / 787);
+  max-width:none;
+  object-fit:contain;pointer-events:none;
+  transform:translate(-50%,-50%) rotate(90deg);
 }
 
-/* Clock / quote / wishlist */
-.clock-row{display:flex;gap:8px;align-items:stretch}
-.clock{flex:1;padding:17px;min-height:160px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;text-align:center}
-.clock-top{display:flex;justify-content:space-between;width:100%;font-family:var(--inter);font-weight:500;font-size:10px;color:#676767}
-.clock-time{font-family:var(--inter);font-weight:900;font-size:48px;color:#676767;line-height:1}
-.clock-day{font-family:var(--inter);font-weight:500;font-size:14px;color:#676767}
-.clock-actions{width:64px;padding:13px;display:flex;flex-direction:column;justify-content:space-between;gap:8px}
-.clock-btn{background:#f3f4f6;border-radius:8px;padding:8px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;width:100%}
-.clock-btn svg{width:16px;height:16px;opacity:.55}
-.quote{padding:16px}
-.quote p{font-family:var(--inter);font-weight:700;font-size:18px;color:#109c67;line-height:1.35;margin:12px 0 16px}
-.wishlist{padding:16px 24px}
-.wish{display:flex;gap:12px;align-items:flex-start;margin-top:16px}
-.wish input{width:16px;height:16px;margin-top:2px;accent-color:#109c67;flex-shrink:0}
-.wish span{font-family:var(--inter);font-weight:500;font-size:12px;color:#374151}
-
-/* RED */
-.red{
-  background:var(--red);color:#fff;position:relative;overflow:hidden;
-  min-height:520px;padding:72px 48px 48px;margin-top:8px;
+/* Panel 4 — Footer (same as homepage) */
+.panel.footer{
+  width:min(1400px,100vw);
+  min-width:720px;
+  padding:88px 0 0;
+  background:#fff;
+  border-top:.5px solid #ddd;
+  display:flex;flex-direction:column;justify-content:flex-start;
+  overflow:hidden;
+  z-index:3;
 }
-.red-corner{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.3);border-style:solid}
-.red-corner.tl{left:24px;top:24px;border-width:1.5px 0 0 1.5px}
-.red-corner.br{right:24px;bottom:24px;border-width:0 1.5px 1.5px 0}
-.red-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
-.red-h{
-  font-family:var(--display);font-weight:900;font-size:clamp(2.8rem,7vw,83px);
-  letter-spacing:-.025em;line-height:.92;max-width:14ch;
+.panel.footer .fc-row{padding:2rem 3rem 1.75rem}
+.panel.footer .fs-row{padding:1.25rem 3rem}
+.panel.footer .footer-big{padding-top:1.75rem}
+.panel.footer .footer-big-top{margin-bottom:clamp(1rem,2.5vh,2rem)}
+.panel.footer .footer-cta{font-size:clamp(2.2rem,5.2vw,4.4rem)}
+.panel.footer .footer-bottom{padding-top:.9rem;padding-bottom:1.25rem}
+.fc-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  border-bottom:.5px solid #ddd;
+  padding:3.5rem 3rem;
 }
-.red-h .deco{display:block;font-family:var(--serif);font-style:italic;font-weight:700;font-size:.88em;letter-spacing:-.01em;text-transform:lowercase}
-.red-sub{font-family:var(--serif);font-style:italic;font-weight:700;font-size:clamp(1.2rem,2.5vw,2.2rem);color:rgba(255,255,255,.42);margin-top:12px}
-.red-bottom{
-  display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:flex-end;
-  border-top:.5px solid rgba(255,255,255,.18);margin-top:48px;padding-top:28px;
-}
-.red-exp-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:8px}
-.red-cos{display:flex;flex-wrap:wrap;gap:12px 18px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6)}
-.red-cos .now{color:#fff;font-weight:600}
-.red-cos .badge{display:inline-block;background:rgba(255,255,255,.15);border-radius:2px;padding:1px 5px;font-size:7px;letter-spacing:.08em;margin-left:4px;color:rgba(255,255,255,.75);vertical-align:middle}
-.red-manifesto{font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.65;color:rgba(255,255,255,.5);max-width:340px}
-.red-stickers{position:absolute;inset:0;pointer-events:none}
-.rst{position:absolute}
-.rst.figma{left:62%;top:12%;transform:rotate(-8deg)}
-.rst.ux{left:60%;bottom:28%;transform:rotate(3deg);background:rgba(255,255,255,.92);color:var(--red);font-family:var(--display);font-weight:900;font-size:1rem;padding:8px 14px;border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
-.rst.chip{background:#fff;color:var(--red);font-size:10px;font-weight:500;letter-spacing:.06em;padding:6px 14px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.rst.chip.dt{left:55%;top:22%;transform:rotate(-6deg)}
-.rst.chip.pt{left:66%;top:38%;transform:rotate(4deg)}
-.rst.chip.sd{left:58%;top:48%;transform:rotate(-3deg)}
-.rst.star{left:72%;top:55%;font-size:2.2rem;color:rgba(255,255,255,.7);transform:rotate(-12deg)}
-
-/* DARK */
-.dark{
-  background:#0c0c0c;color:#fff;position:relative;overflow:hidden;
-  min-height:520px;padding:72px 48px 48px;
-}
-.dark-corner{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.25);border-style:solid}
-.dark-corner.tl{left:24px;top:24px;border-width:1.5px 0 0 1.5px}
-.dark-corner.br{right:24px;bottom:24px;border-width:0 1.5px 1.5px 0}
-.dark-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:12px}
-.dark-h{
-  font-family:var(--display);font-weight:900;font-size:clamp(2.8rem,8vw,96px);
-  letter-spacing:-.03em;line-height:.92;
-}
-.dark-sub{font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2vw,1.6rem);color:rgba(255,255,255,.45);margin-top:16px}
-.dark-bottom{
-  display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:center;
-  margin-top:64px;padding-top:28px;border-top:.5px solid rgba(255,255,255,.12);
-}
-.dark-tags{display:flex;flex-wrap:wrap;gap:10px}
-.dark-tag{
-  border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 14px;
-  font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.7);
-}
-.dark-link{font-family:var(--inter);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
-.dark-link:hover{color:#c0392b}
-.dst{position:absolute;pointer-events:none}
-.dst.term{
-  right:18%;top:12%;background:#1a1a2e;border-radius:8px;padding:12px 16px;
-  font-family:monospace;font-size:11px;line-height:1.7;color:#00ff88;
-  border:1px solid rgba(0,255,136,.2);box-shadow:0 6px 24px rgba(0,0,0,.5);transform:rotate(-4deg);
-}
-.dst.vibe{
-  left:58%;top:48%;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;
-  padding:8px 14px;font-family:var(--display);font-weight:900;font-size:.9rem;transform:rotate(4deg);
-  box-shadow:0 4px 16px rgba(102,126,234,.4);
-}
-.dst.git{
-  left:62%;top:14%;background:#0d1117;border-radius:6px;padding:8px 12px;
-  font-family:monospace;font-size:10px;color:#7ee787;border:1px solid rgba(126,231,135,.15);
-  transform:rotate(-3deg);white-space:nowrap;
-}
-
-/* FOOTER */
-.footer{background:#fff;border-top:.5px solid #ddd}
-.fc-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:.5px solid #ddd;padding:3.5rem 3rem}
 .fc-col{padding:0 2rem}
 .fc-col:first-child{padding-left:.75rem;border-right:.5px solid #ddd}
 .fc-col:nth-child(2){border-right:.5px solid #ddd;text-align:center}
@@ -276,55 +337,147 @@ img{display:block;max-width:100%}
 .fc-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#888;margin-bottom:.7rem}
 .fc-v{font-size:16px;color:var(--ink);line-height:1.4}
 .fc-v small{display:block;color:#888;font-size:13.6px;margin-top:2px}
-.fc-mail{border-bottom:.5px solid var(--ink);display:inline-block}
-.fs-row{display:flex;gap:2rem;flex-wrap:wrap;padding:1.8rem 3rem;border-bottom:.5px solid #ddd}
-.fs-link{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.fc-mail{border-bottom:.5px solid var(--ink);display:inline-block;padding-bottom:1px}
+.fs-row{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  padding:1.8rem 3rem;border-bottom:.5px solid #ddd;
+}
+.fs-link{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
 .fs-link::after{content:" ↗";opacity:.45}
-.footer-big{padding:3rem 3rem 0}
-.footer-big-top{display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;margin-bottom:clamp(1.5rem,4vw,3rem)}
-.footer-cta{font-family:var(--display);font-weight:900;font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;max-width:12ch}
-.footer-nav{display:flex;flex-direction:column;width:min(320px,100%);border-top:.5px solid #ddd}
-.footer-nav a{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:.5px solid #ddd;font-family:var(--serif);font-style:italic;font-size:1rem}
-.footer-nav a::after{content:"→";color:#888;font-family:var(--sans);font-style:normal}
+.footer-big{
+  position:relative;padding:3rem 3rem 0;overflow:hidden;
+}
+.footer-big-top{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+  position:relative;z-index:2;
+  margin-bottom:clamp(1.5rem,4vw,3rem);
+}
+.footer-cta{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;
+  max-width:12ch;
+}
+.footer-nav{
+  display:flex;flex-direction:column;width:min(320px,100%);
+  border-top:.5px solid #ddd;flex-shrink:0;
+}
+.footer-nav a{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.9rem 0;border-bottom:.5px solid #ddd;
+  font-family:var(--serif);font-style:italic;font-size:1rem;
+}
+.footer-nav a span{order:1}
+.footer-nav a::after{
+  content:"→";color:#888;order:2;flex-shrink:0;
+  font-family:var(--sans);font-style:normal;
+}
 .footer-nav a:hover{color:#c0392b}
-.footer-wordmark{width:100%;line-height:0;pointer-events:none}
-.footer-wordmark img{width:100%;height:auto}
-.footer-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase}
+.footer-nav a:hover::after{color:var(--ink);transform:translateX(3px)}
+.footer-wordmark{
+  position:relative;z-index:1;
+  width:100%;margin:0;line-height:0;
+  overflow:hidden;pointer-events:none;user-select:none;
+}
+.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-bottom{
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase;
+  position:relative;z-index:2;background:#fff;
+}
 
-.mob-menu{display:none;position:fixed;inset:0;background:var(--ink);z-index:9999;flex-direction:column;justify-content:center;align-items:center;gap:2rem}
+.hint{
+  position:fixed;right:24px;bottom:24px;z-index:200;
+  background:rgba(12,12,12,.88);color:#fff;border-radius:999px;
+  padding:10px 16px;font-size:12px;letter-spacing:.04em;
+  pointer-events:none;opacity:.85;
+}
+
+.mob-menu{
+  display:none;position:fixed;inset:0;background:var(--ink);z-index:9999;
+  flex-direction:column;justify-content:center;align-items:center;gap:2rem;
+}
 .mob-menu.open{display:flex}
 .mob-menu a{font-family:var(--display);font-size:clamp(2rem,8vw,4rem);font-weight:900;color:#fff}
 .mob-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:rgba(255,255,255,.4);font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
 
-@media(max-width:1100px){
-  .top,.k-hero,.k-identity,.bento{padding-left:40px;padding-right:40px}
-  .bento{grid-template-columns:1fr 1fr;gap:16px}
-  .bento .col-mid{grid-column:1/-1;order:-1}
-  .col-side{position:static}
-  .tools-row{flex-direction:column}
-  .stats{flex-wrap:wrap}
-  .stat{min-width:40%;border-bottom:1px solid #eee}
-  .red-stickers,.dst{display:none}
-}
 @media(max-width:900px){
-  .top{padding:12px 24px 0}
-  .nav-spacer{height:76px}
-  .k-hero,.k-identity,.bento{padding-left:24px;padding-right:24px}
-  .k-identity{top:76px}
+  body{overflow:hidden}
+  .top{padding:12px 16px 0}
   .nav{padding:14px 16px}
   .nav-links{display:none}
   .nav-burger{display:flex}
   .nav-right .social-btn{display:none}
-  .nav-right .social-x{display:flex!important;width:28px;height:28px}
-  .btn-touch{padding:8px 14px}
-  .bento{grid-template-columns:1fr}
-  .col-side{position:static}
-  .k-identity{position:static;background:transparent}
-  .red,.dark{padding:48px 24px}
-  .fc-row{grid-template-columns:1fr;gap:1.5rem;padding:2rem 1.5rem}
-  .fc-col,.fc-col:first-child,.fc-col:nth-child(2),.fc-col:last-child{padding:0;border:none;text-align:left}
-  .fs-row,.footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
-  .footer-big-top{flex-direction:column}
+  .nav-right .social-mail-only{display:flex;width:28px;height:28px}
+  .btn-touch{padding:4px 9px;font-size:12px;height:28px}
+
+  .hscroll{
+    height:100vh;
+    overflow-x:auto;overflow-y:hidden;
+  }
+  .panel{padding:90px 20px 28px}
+  .panel-hero{
+    width:auto;min-width:max-content;
+    display:flex;flex-direction:row;align-items:center;
+    padding:90px 40px 40px 0;
+  }
+  .hero-name{
+    font-size:clamp(64px,18vw,96px);
+    left:12px;
+    bottom:16px;
+    letter-spacing:-.03em;
+  }
+  .hero-cluster{
+    width:auto;
+    margin-left:clamp(110px,28vw,200px);
+    display:flex;align-items:flex-end;gap:10px;
+    transform:scale(min(1, calc((100vh - 140px) / 560px)));
+  }
+  .col-stats{padding-bottom:16px}
+  .col-media .photos-card{margin-top:16px}
+  .col-projects{padding-bottom:20px}
+  .col{width:auto;flex-shrink:0}
+  .stats,.hero-copy{width:240px}
+  .tools,.history,.quote,.wishlist,.coming,.services,.photos-card{width:240px}
+  .services{height:240px}
+  .svc-tags{height:110px}
+
+  .panel-sketch{width:min(920px,240vw);min-width:340px;padding-left:20px;padding-right:20px}
+  .sketch-top{flex-direction:column;gap:1rem;margin-bottom:14px}
+  .sketch-h{font-size:28px;max-width:14ch}
+  .sketch-lede{max-width:100%;font-size:13px}
+  .sketch-mosaic{height:min(380px,48vh);overflow:hidden}
+  .sk-col-a{width:160px}
+  .sk-col-b{width:200px}
+  .sk-row{height:110px}
+  .sk-fixed{flex:0 0 120px}
+
+  .panel-frame{width:88vw;min-width:300px}
+  .frame-wrap{width:100%;max-height:55vh}
+
+  .panel.footer{width:100vw;min-width:100vw}
+  .fc-row{
+    grid-template-columns:1fr;
+    gap:1.5rem;
+    padding:2rem 1.5rem;
+  }
+  .fc-col,.fc-col:first-child,.fc-col:nth-child(2),.fc-col:last-child{
+    text-align:left;border:none;padding:0;
+  }
+  .fs-row{
+    padding:1.4rem 1.5rem;
+    gap:1.2rem 1.5rem;
+  }
+  .footer-big,.footer-bottom{padding-left:1.5rem;padding-right:1.5rem}
+  .footer-big-top{flex-direction:column;gap:1.5rem;margin-bottom:1.5rem}
+  .footer-cta{font-size:clamp(2.2rem,11vw,3.2rem);max-width:10ch}
+  .footer-nav{width:100%}
+  .footer-nav a{
+    justify-content:flex-start;gap:.6rem;
+  }
+  .footer-nav a span{order:2}
+  .footer-nav a::after{order:1;content:"→"}
+  .hint{display:none}
 }
 </style>
 </head>
@@ -334,7 +487,7 @@ img{display:block;max-width:100%}
   <a href="index.html" onclick="closeMob()">Home</a>
   <a href="work.html" onclick="closeMob()">Work</a>
   <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
-  <a href="#dark" onclick="closeMob()">Off the Grid</a>
+  <a href="#footer-contact" onclick="closeMob()">Off the Grid</a>
 </div>
 
 <div class="top">
@@ -344,110 +497,83 @@ img{display:block;max-width:100%}
       <a href="index.html">Home</a>
       <a href="work.html">Work</a>
       <a href="know-the-designer.html" class="active">Know the Designer</a>
-      <a href="#dark">Off the Grid</a>
+      <a href="#footer-contact">Off the Grid</a>
     </div>
     <div class="nav-right">
-      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
-      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
-      <a href="https://x.com/ParulRath0ur" class="social-btn social-x" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn" target="_blank" rel="noopener" aria-label="X"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
       <a href="#footer-contact" class="btn-touch">Get In Touch</a>
     </div>
   </nav>
 </div>
-<div class="nav-spacer" aria-hidden="true"></div>
 
-<div class="page know-zone">
-  <header class="k-hero">
-    <div class="k-meta">
-      <span id="hero-date">11 August 2026</span>
-      <span id="hero-time">00:00:00 IST</span>
-    </div>
-    <div class="k-namskar" aria-hidden="true">
-      <img src="Asset/images/know/namskar.svg" alt="" width="1237" height="204">
-    </div>
-  </header>
+<div class="hint" id="scroll-hint">Scroll →</div>
 
-  <div class="k-identity">
-    <h1 class="k-name">Parul Rathour</h1>
-    <p class="k-role">Product design across data, dashboards &amp; UX copy</p>
-    <p class="k-loc">Himachal, IN</p>
-  </div>
+<div class="hero-name" id="hero-name" aria-hidden="true">
+  <span>Parul</span>
+  <span>Rathour</span>
+</div>
 
-  <section class="bento" aria-label="About widgets">
-    <div class="col col-side">
-      <div class="card">
-        <div class="card-label">Images</div>
-        <div class="photos">
-          <img src="Asset/images/home/cards/card-3.png" alt="" loading="lazy">
-          <img src="Asset/images/home/cards/card-4.png" alt="" loading="lazy">
-          <img src="Asset/images/home/cards/card-5.png" alt="" loading="lazy">
-          <img src="Asset/images/home/cards/card-2.png" alt="" loading="lazy">
-          <img src="Asset/images/home/cards/card-1.png" alt="" loading="lazy">
+<div class="hscroll" id="hscroll">
+  <!-- PANEL 1 -->
+  <section class="panel panel-hero" aria-label="About">
+    <div class="hero-cluster">
+      <!-- Col 1: intro + stats (pb 30 like Figma) -->
+      <div class="col col-stats">
+        <div class="hero-copy">
+          <h2>From mountains to digital Product Designing</h2>
+          <p>Himachal, IN</p>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-label">Personal Projects</div>
-        <div class="folders" aria-hidden="true">
-          <span class="folder f1"></span>
-          <span class="folder f2"></span>
-          <span class="folder f3"></span>
-          <span class="folder f4"></span>
-        </div>
-      </div>
-      <div class="card services">
-        <div class="card-label">Services</div>
-        <div class="svc-tags">
-          <span class="svc-tag">Design Strategy</span>
-          <span class="svc-tag">Data Viz</span>
-          <span class="svc-tag">UX Writing</span>
-          <span class="svc-tag">Prototyping</span>
-          <span class="svc-tag">Dashboard Design</span>
-          <span class="svc-tag">Info Architecture</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="col col-mid">
-      <div class="card stats">
-        <div class="stat">
-          <div class="stat-n">6+</div>
-          <div class="stat-l">Years Experience</div>
-          <div class="stat-s">Product · UX · Data Viz</div>
-        </div>
-        <div class="stat">
-          <div class="stat-n">12+</div>
-          <div class="stat-l">Projects Shipped</div>
-          <div class="stat-s">Across 5 product teams</div>
-        </div>
-        <a class="stat" href="#" aria-label="Resume">
-          <div class="resume-row">
-            <span class="resume-play"><img src="Asset/images/know/icon-play.svg" alt=""></span>
-            <span class="resume-t">Resume</span>
+        <div class="card stats">
+          <div class="stat-row">
+            <div class="stat">
+              <div class="stat-n">6+</div>
+              <div class="stat-l">Years Experience</div>
+              <div class="stat-s">Product · UX · Data Viz</div>
+            </div>
+            <div class="stat">
+              <div class="stat-n">12+</div>
+              <div class="stat-l">Projects Shipped</div>
+              <div class="stat-s">Across 5 product teams</div>
+            </div>
           </div>
-          <div class="stat-s" style="margin-top:8px">View or download</div>
-        </a>
+          <a class="resume" href="#">
+            <span class="resume-play"><img src="Asset/images/know/icon-play.svg" alt=""></span>
+            <span>
+              <span class="resume-t">Resume</span>
+              <div class="resume-s">View or download</div>
+            </span>
+          </a>
+        </div>
       </div>
 
-      <div class="tools-row">
+      <!-- Col 2: Images (pt 30) + Top Tools -->
+      <div class="col col-media">
+        <div class="card photos-card">
+          <div class="card-label">Images</div>
+          <img class="photo-hero" src="Asset/images/know/hero-mountain.png" alt="Himachal mountains" loading="lazy">
+          <div class="fan" aria-hidden="true">
+            <img src="Asset/images/home/cards/card-3.png" alt="">
+            <img src="Asset/images/home/cards/card-4.png" alt="">
+            <img src="Asset/images/home/cards/card-5.png" alt="">
+            <img src="Asset/images/home/cards/card-2.png" alt="">
+            <img src="Asset/images/home/cards/card-1.png" alt="">
+          </div>
+        </div>
         <div class="card tools">
           <div class="sec-head"><span class="dot orange"></span><span class="card-label">Top Tools</span></div>
-          <div class="tool">
-            <div class="tool-ico"><img src="Asset/images/know/tool-figma.png" alt=""></div>
-            <div><div class="tool-n">Figma</div><div class="tool-s">Design</div></div>
-          </div>
-          <div class="tool">
-            <div class="tool-ico"><img src="Asset/images/know/tool-notion.png" alt=""></div>
-            <div><div class="tool-n">Notion</div><div class="tool-s">Documentation</div></div>
-          </div>
-          <div class="tool">
-            <div class="tool-ico"><img src="Asset/images/know/tool-claude.png" alt=""></div>
-            <div><div class="tool-n">Claude</div><div class="tool-s">Usability testing &amp; brainstorming</div></div>
-          </div>
-          <div class="tool">
-            <div class="tool-ico"><img src="Asset/images/know/tool-sheets.png" alt=""></div>
-            <div><div class="tool-n">Sheets</div><div class="tool-s">Data</div></div>
-          </div>
+          <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-figma.png" alt=""></div><div><div class="tool-n">Figma</div><div class="tool-s">Design</div></div></div>
+          <div class="tool"><div class="tool-ico cursor-ico"><img src="Asset/images/home/icon-cursor.svg" alt=""></div><div><div class="tool-n">Cursor</div><div class="tool-s">Vibe code</div></div></div>
+          <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-claude.png" alt=""></div><div><div class="tool-n">Claude</div><div class="tool-s">Usability testing &amp; brainstorming</div></div></div>
+          <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-notion.png" alt=""></div><div><div class="tool-n">Notion</div><div class="tool-s">Documentation</div></div></div>
+          <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-sheets.png" alt=""></div><div><div class="tool-n">Sheets</div><div class="tool-s">Data</div></div></div>
         </div>
+      </div>
+
+      <!-- Col 3: Work History (stretches full row height) -->
+      <div class="col col-history">
         <div class="card history">
           <div class="sec-head"><span class="dot blue"></span><span class="card-label">Work History</span></div>
           <div class="hist">
@@ -460,165 +586,196 @@ img{display:block;max-width:100%}
         </div>
       </div>
 
-      <div class="banner" id="banner-reveal">
-        <img src="Asset/images/know/banner-mountains.png" alt="Parul in Himachal mountains" loading="lazy">
-        <canvas class="banner-ink" data-ink-reveal data-mask-color="242,242,242" aria-hidden="true"></canvas>
-        <span class="banner-handle">@woman.who.design</span>
-        <span class="banner-tag">Product Designer</span>
+      <!-- Col 4: Quote + Wishlist (vertically centered in row) -->
+      <div class="col col-quote">
+        <div class="card quote">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
+          <p>Most people called it “just a hobby.” Thank goodness I didn’t listen. Every sketch, illustration, and late-night experiment eventually became the foundation of the designer I am today.</p>
+          <div class="card-label">Personal Projects</div>
+        </div>
+        <div class="card wishlist">
+          <div class="card-label">Design Wishlist</div>
+          <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
+          <label class="wish"><input type="checkbox"><span>Participate in a design hackathon</span></label>
+        </div>
       </div>
-    </div>
 
-    <div class="col col-side">
-      <div class="clock-row">
-        <div class="card clock">
-          <div class="clock-top"><span id="clock-date">26 July</span><span id="clock-year">2026</span></div>
-          <div class="clock-time" id="clock-time">13:26</div>
-          <div class="clock-day" id="clock-day">Monday</div>
+      <!-- Col 5: Coming soon + Services (pb 38) -->
+      <div class="col col-projects">
+        <div class="card coming">
+          <div class="card-label">Personal Projects</div>
+          <img src="Asset/images/know/coming-soon-card.png" alt="Personal project preview" loading="lazy">
+          <span class="coming-tag">Coming soon</span>
         </div>
-        <div class="card clock-actions" aria-hidden="true">
-          <div class="clock-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-          <div class="clock-btn"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-          <button type="button" class="clock-btn" id="back-top" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="#676767" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+        <div class="card services">
+          <div class="card-label">Services</div>
+          <div class="svc-tags">
+            <span class="svc-tag">Design Strategy</span>
+            <span class="svc-tag">Prototyping</span>
+            <span class="svc-tag">Info Architecture</span>
+            <span class="svc-tag">Dashboard Design</span>
+            <span class="svc-tag">UX Writing</span>
+            <span class="svc-tag">Data Viz</span>
+          </div>
         </div>
-      </div>
-      <div class="card quote">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
-        <p>Good dashboards don't just show data - they show the decision hiding inside it.</p>
-        <div class="card-label">Personal Projects</div>
-      </div>
-      <div class="card wishlist">
-        <div class="card-label">Design Wishlist</div>
-        <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
-        <label class="wish"><input type="checkbox"><span>Participate in a design hackathon</span></label>
       </div>
     </div>
   </section>
+
+  <!-- PANEL 2 -->
+  <section class="panel panel-sketch" id="sketch" aria-label="Sketchbooks">
+    <div class="sketch-ey">Hobby to skills</div>
+    <div class="sketch-top">
+      <h2 class="sketch-h">Sketchbooks keep my <em>imagination</em> employed.</h2>
+      <div class="sketch-lede">
+        <p>Design systems pay the bills. Sketchbooks keep my imagination employed.</p>
+        <p style="margin-top:1rem">These illustrations are digital experiments, visual stories, character studies, and occasional midnight ideas that refused to stay inside my head. Different medium. Same designer.</p>
+      </div>
+    </div>
+    <div class="sketch-mosaic">
+      <div class="sk-col sk-col-a">
+        <div class="sk-row">
+          <div class="sk"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s1.png" alt="" loading="lazy"></div>
+          <div class="sk"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s2.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s3.png" alt="" loading="lazy"></div>
+      </div>
+      <div class="sk-col sk-col-b">
+        <div class="sk-sub">
+          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s4.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fixed"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s5.png" alt="" loading="lazy"></div>
+        </div>
+        <div class="sk-sub">
+          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s6.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s7.png" alt="" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="sk-col sk-col-c">
+        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s8.png" alt="" loading="lazy"></div>
+      </div>
+      <div class="sk-col sk-col-d">
+        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s9.png" alt="" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL 3 -->
+  <section class="panel panel-frame" aria-label="Portrait">
+    <div class="frame-wrap">
+      <img class="frame-photo" src="Asset/images/know/portrait-inner.png" alt="Parul in Himachal" loading="lazy">
+      <img class="frame-ornament" src="Asset/images/know/frame-ornate.png" alt="" aria-hidden="true">
+    </div>
+  </section>
+
+  <!-- PANEL 4 — Homepage footer -->
+  <footer class="panel footer" id="footer-contact">
+    <div class="fc-row">
+      <div class="fc-col">
+        <div class="fc-l">Location</div>
+        <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Say Hello</div>
+        <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Currently at</div>
+        <div class="fc-v">American Express<br>Global Business Travel</div>
+      </div>
+    </div>
+    <div class="fs-row">
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+      <a href="#" class="fs-link">Resume</a>
+    </div>
+    <div class="footer-big">
+      <div class="footer-big-top">
+        <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav">
+          <a href="index.html"><span>Home</span></a>
+          <a href="work.html"><span>Work</span></a>
+          <a href="know-the-designer.html"><span>Know the Designer</span></a>
+          <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
+        </div>
+      </div>
+      <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Parul Rathour</span>
+      <span id="footer-time">IST —:—</span>
+    </div>
+  </footer>
 </div>
 
-<section class="red" id="red">
-  <div class="red-corner tl"></div>
-  <div class="red-corner br"></div>
-  <div class="red-stickers" aria-hidden="true">
-    <img class="rst figma" src="Asset/images/home/figma-icon.svg" alt="" width="52" height="76">
-    <span class="rst chip dt">Design Thinking</span>
-    <span class="rst chip pt">Product Thinking</span>
-    <span class="rst chip sd">System Design</span>
-    <span class="rst ux">UX ✦</span>
-    <span class="rst star">✦</span>
-  </div>
-  <div class="red-ey">[ Philosophy · Practice ]</div>
-  <h2 class="red-h">I DON'T<span class="deco">decorate -</span>I SOLVE.</h2>
-  <p class="red-sub">Design is clarity under pressure.</p>
-  <div class="red-bottom">
-    <div>
-      <div class="red-exp-l">Experience</div>
-      <div class="red-cos">
-        <span>Tech Mahindra</span>
-        <span>BYJU'S</span>
-        <span>GrowthJockey</span>
-        <span class="now">AMEX GBT<span class="badge">NOW</span></span>
-      </div>
-    </div>
-    <p class="red-manifesto">From B2B dashboards to consumer apps — I design the space between complexity and the people who have to live in it.</p>
-  </div>
-</section>
-
-<section class="dark" id="dark">
-  <div class="dark-corner tl"></div>
-  <div class="dark-corner br"></div>
-  <div class="dst term" aria-hidden="true">
-    <span style="color:#888">$</span> parul --design<br>
-    <span style="color:#64b5f6">→</span> shipping... ✓<br>
-    <span style="color:#888">$</span> ▋
-  </div>
-  <div class="dst git" aria-hidden="true">git commit -m "shipped 🚀"</div>
-  <div class="dst vibe" aria-hidden="true">vibe coded ✦</div>
-  <div class="dark-ey">[ Off the Grid ]</div>
-  <h2 class="dark-h">BEYOND<br>THE BRIEF.</h2>
-  <p class="dark-sub">Things that exist only because they had to.</p>
-  <div class="dark-bottom">
-    <div class="dark-tags">
-      <span class="dark-tag">Illustrations</span>
-      <span class="dark-tag">Side Codes</span>
-      <span class="dark-tag">Motion</span>
-      <span class="dark-tag">3D Experiments</span>
-      <span class="dark-tag">UI Concepts</span>
-    </div>
-    <a href="#dark" class="dark-link">Explore the chaos ↗</a>
-  </div>
-</section>
-
-<footer class="footer" id="footer-contact">
-  <div class="fc-row">
-    <div class="fc-col">
-      <div class="fc-l">Location</div>
-      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
-    </div>
-    <div class="fc-col">
-      <div class="fc-l">Say Hello</div>
-      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
-    </div>
-    <div class="fc-col">
-      <div class="fc-l">Currently at</div>
-      <div class="fc-v">American Express<br>Global Business Travel</div>
-    </div>
-  </div>
-  <div class="fs-row">
-    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
-    <a href="#" class="fs-link">Resume</a>
-  </div>
-  <div class="footer-big">
-    <div class="footer-big-top">
-      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
-      <div class="footer-nav">
-        <a href="index.html"><span>Home</span></a>
-        <a href="work.html"><span>Work</span></a>
-        <a href="know-the-designer.html"><span>Know the Designer</span></a>
-        <a href="#dark"><span>Off the Grid</span></a>
-      </div>
-    </div>
-    <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Parul Rathour</span>
-    <span id="footer-time">IST —:—</span>
-  </div>
-</footer>
-
-<script src="Asset/js/ink-reveal.js"></script>
 <script>
 function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 
 (function(){
-  const heroDate=document.getElementById('hero-date');
-  const heroTime=document.getElementById('hero-time');
-  const footerTime=document.getElementById('footer-time');
-  const clockTime=document.getElementById('clock-time');
-  const clockDay=document.getElementById('clock-day');
-  const clockDate=document.getElementById('clock-date');
-  const clockYear=document.getElementById('clock-year');
-  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const scroller=document.getElementById('hscroll');
+  const hint=document.getElementById('scroll-hint');
+  const nameEl=document.getElementById('hero-name');
+  const cta=document.getElementById('footer-contact');
+  if(!scroller) return;
+
+  // Vertical + horizontal wheel/trackpad → horizontal only (free, no snap)
+  window.addEventListener('wheel',function(e){
+    if(document.getElementById('mobMenu')?.classList.contains('open')) return;
+    const delta=e.deltaY+e.deltaX;
+    if(delta===0) return;
+    e.preventDefault();
+    scroller.scrollLeft+=delta;
+  },{passive:false});
+
+  // Smooth-scroll Get In Touch / #footer-contact into the horizontal track
+  document.querySelectorAll('a[href="#footer-contact"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      if(!cta) return;
+      const left=cta.offsetLeft;
+      scroller.scrollTo({left:left,behavior:'smooth'});
+    });
+  });
+
+  function updateNameFade(){
+    if(!nameEl||!cta) return;
+    const ctaLeft=cta.getBoundingClientRect().left;
+    const vw=window.innerWidth;
+    // Start fading when footer is ~55% into the viewport; fully gone by ~15%
+    const start=vw*0.55;
+    const end=vw*0.15;
+    let t;
+    if(ctaLeft>=start) t=0;
+    else if(ctaLeft<=end) t=1;
+    else t=(start-ctaLeft)/(start-end);
+    nameEl.style.opacity=String(1-t);
+    nameEl.style.transform='translateY('+(t*28)+'px)';
+    nameEl.classList.toggle('is-out', t>0.95);
+  }
+
+  scroller.addEventListener('scroll',function(){
+    if(hint && scroller.scrollLeft>40) hint.style.opacity='0';
+    updateNameFade();
+  },{passive:true});
+
+  window.addEventListener('resize',updateNameFade,{passive:true});
+  updateNameFade();
+
+  window.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'){scroller.scrollBy({left:Math.min(window.innerWidth*.7,720),behavior:'smooth'})}
+    if(e.key==='ArrowLeft'){scroller.scrollBy({left:-Math.min(window.innerWidth*.7,720),behavior:'smooth'})}
+  });
+})();
+
+(function(){
+  const ft=document.getElementById('footer-time');
   function tick(){
-    const now=new Date();
-    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,weekday:'long'}).formatToParts(now);
-    const get=t=>parts.find(p=>p.type===t)?.value||'';
-    const y=+get('year'), m=+get('month'), d=+get('day');
-    const h=get('hour'), mi=get('minute'), s=get('second');
-    if(heroDate) heroDate.textContent=d+' '+months[m-1]+' '+y;
-    if(heroTime) heroTime.textContent=h+':'+mi+':'+s+' IST';
-    if(footerTime) footerTime.textContent=h+':'+mi+':'+s+' IST';
-    if(clockTime) clockTime.textContent=h+':'+mi;
-    if(clockDate) clockDate.textContent=d+' '+months[m-1].slice(0,3);
-    if(clockYear) clockYear.textContent=String(y);
-    if(clockDay) clockDay.textContent=get('weekday')||days[now.getDay()];
+    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date());
+    const get=t=>parts.find(p=>p.type===t)?.value||'00';
+    if(ft) ft.textContent=get('hour')+':'+get('minute')+':'+get('second')+' IST';
   }
   tick();setInterval(tick,1000);
 })();
-
-document.getElementById('back-top')?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 </script>
 </body>
 </html>
