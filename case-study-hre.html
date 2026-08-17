@@ -3,260 +3,371 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMEX GBT — HRE Dashboard — Parul Rathour</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<title>HRE Hotel Reshop — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --red:#C0392B;--black:#0C0C0C;--white:#fff;--bg:#fff;
   --off:#F5F3EE;--mid:#999;--border:#E4E2DC;
   --M:'Montserrat',sans-serif;--S:'Playfair Display',serif;--B:'DM Sans',sans-serif;
+  --ink:#1a1a18;--ink-mid:#4a4a47;--ink-light:#8a8a86;--rule:#e4e2dc;
+  --cs-bg:#f9f8f5;--cs-card:#fff;--accent:#2d5be3;--accent-pale:#eef1fc;--tag-bg:#f0efeb;
+  --font-display:'DM Serif Display',Georgia,serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --max:760px;--gutter:clamp(1.25rem,5vw,2.5rem);
 }
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--black);font-family:var(--B);overflow-x:hidden;cursor:none}
+body{background:var(--cs-bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;cursor:none;line-height:1.75;-webkit-font-smoothing:antialiased}
 #cr{position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--black);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .15s}
 #cd{position:fixed;width:4px;height:4px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .12s}
 #cr.dk{border-color:#fff}#cd.dk{background:#fff}
 #cr.hv{width:50px;height:50px}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 3rem;background:rgba(255,255,255,.85);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border);transition:background .3s}
-nav.dk{background:rgba(12,12,12,.75);border-bottom-color:rgba(255,255,255,.07)}
-.nav-logo{font-family:var(--B);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none;transition:color .3s}
-nav.dk .nav-logo{color:#fff}
-.nav-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-nav.dk .nav-tag{color:rgba(255,255,255,.35)}
-.nav-back{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px}
-.nav-back:hover{color:var(--black)}
-nav.dk .nav-back{color:rgba(255,255,255,.4)}
-nav.dk .nav-back:hover{color:#fff}
+
+/* Hero */
 .hero{background:var(--black);min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 0;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
 .hero-num{position:absolute;right:2.5rem;top:7rem;font-family:var(--M);font-weight:900;font-size:14rem;color:rgba(255,255,255,.03);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none}
 .hero-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.2rem;opacity:0;animation:up .6s ease .1s forwards}
-.hero-h{font-family:var(--M);font-weight:900;font-size:clamp(2.6rem,5.2vw,5.2rem);color:#fff;line-height:1.02;letter-spacing:-.025em;max-width:780px;opacity:0;animation:up .9s cubic-bezier(.22,1,.36,1) .2s forwards}
+.hero-h{font-family:var(--M);font-weight:900;font-size:clamp(2.6rem,5.2vw,5.2rem);color:#fff;line-height:1.02;letter-spacing:-.025em;max-width:820px;opacity:0;animation:up .9s cubic-bezier(.22,1,.36,1) .2s forwards}
 .hero-h em{font-family:var(--S);font-style:italic;font-weight:700;color:rgba(255,255,255,.5)}
-.hero-sub{font-family:var(--S);font-style:italic;font-size:clamp(.9rem,1.3vw,1rem);color:rgba(255,255,255,.4);max-width:500px;line-height:1.75;margin-top:1.2rem;opacity:0;animation:up .7s ease .38s forwards}
+.hero-sub{font-family:var(--S);font-style:italic;font-size:clamp(.9rem,1.3vw,1rem);color:rgba(255,255,255,.4);max-width:560px;line-height:1.75;margin-top:1.2rem;opacity:0;animation:up .7s ease .38s forwards}
 .hero-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid rgba(255,255,255,.08);margin-top:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
 .hb-item{padding:1.2rem 0;border-right:.5px solid rgba(255,255,255,.06)}
 .hb-item:last-child{border-right:none}
 .hb-l{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
 .hb-v{font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
 @keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-.page{padding:0 3rem}
-.sec-label{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-bottom:1.2rem;display:flex;align-items:center;gap:10px}
-.sec-label::after{content:'';flex:1;height:.5px;background:var(--border)}
-.bento{display:grid;gap:10px}
-.cols-2{grid-template-columns:1fr 1fr}
-.cols-3{grid-template-columns:1fr 1fr 1fr}
-.cols-12{grid-template-columns:repeat(12,1fr)}
-.cell{background:var(--off);border-radius:6px;padding:1.8rem;position:relative;overflow:hidden}
-.cell.dark{background:var(--black);color:#fff}
-.cell.white{background:var(--white);border:.5px solid var(--border)}
-.cell.red{background:var(--red);color:#fff}
-.cell.span2{grid-column:span 2}.cell.span3{grid-column:span 3}.cell.span4{grid-column:span 4}
-.cell.span5{grid-column:span 5}.cell.span6{grid-column:span 6}.cell.span7{grid-column:span 7}
-.cell.span8{grid-column:span 8}
-.cell-label{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--mid);margin-bottom:.5rem}
-.cell.dark .cell-label,.cell.red .cell-label{color:rgba(255,255,255,.4)}
-.cell-title{font-family:var(--M);font-weight:900;font-size:clamp(1.1rem,2vw,1.5rem);letter-spacing:-.02em;line-height:1.1;margin-bottom:.6rem}
-.cell-body{font-size:13px;color:#555;line-height:1.7}
-.cell.dark .cell-body{color:rgba(255,255,255,.55)}
-.cell-stat{font-family:var(--M);font-weight:900;font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.04em;line-height:1;margin-bottom:.3rem}
-.cell-stat-l{font-size:11px;color:var(--mid);line-height:1.4}
-.cell.dark .cell-stat-l{color:rgba(255,255,255,.4)}
-.img-ph{width:100%;aspect-ratio:16/9;background:var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);overflow:hidden;position:relative}
-.img-ph.tall{aspect-ratio:4/5}.img-ph.sq{aspect-ratio:1}
-.img-ph::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.03) 25%,transparent 25%,transparent 50%,rgba(0,0,0,.03) 50%,rgba(0,0,0,.03) 75%,transparent 75%);background-size:20px 20px}
-.img-ph span{position:relative;z-index:1}
-.pt-list{display:flex;flex-direction:column;gap:.55rem;margin-top:.8rem}
-.pt-item{font-size:12.5px;color:#444;line-height:1.55;display:flex;gap:10px;align-items:flex-start}
-.pt-item::before{content:'—';color:var(--red);flex-shrink:0;font-weight:700;font-size:.9rem}
-.cell.dark .pt-item{color:rgba(255,255,255,.6)}
-.cell.dark .pt-item::before{color:rgba(255,255,255,.3)}
-.step-row{display:flex;gap:1.2rem;align-items:flex-start;padding:.9rem 0;border-bottom:.5px solid var(--border)}
-.step-row:last-child{border-bottom:none}
-.step-n{font-family:var(--M);font-weight:900;font-size:1.8rem;color:rgba(0,0,0,.07);line-height:1;flex-shrink:0;width:2.5rem}
-.step-t{font-family:var(--M);font-weight:700;font-size:.9rem;letter-spacing:-.01em;margin-bottom:.3rem}
-.step-d{font-size:12px;color:#555;line-height:1.6}
-.quote{font-family:var(--S);font-style:italic;font-size:clamp(1.1rem,2vw,1.4rem);color:rgba(255,255,255,.75);line-height:1.6}
-.quote-src{font-family:var(--B);font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:.8rem}
-.pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:.8rem}
-.pill{font-size:10px;letter-spacing:.06em;padding:4px 11px;border-radius:999px;border:.5px solid var(--border);color:var(--mid)}
-.cell.dark .pill{border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.5)}
-.outcome-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:1rem}
-.oc-item{background:rgba(255,255,255,.06);border-radius:4px;padding:1rem}
-.oc-n{font-family:var(--M);font-weight:900;font-size:1.6rem;letter-spacing:-.03em;color:#fff;margin-bottom:2px}
-.oc-l{font-size:11px;color:rgba(255,255,255,.4)}
-.spacer{height:4rem}.spacer-sm{height:2rem}
+
+/* Case study body (from hre-case-study.html) */
+.cs-article{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:clamp(2.5rem,6vw,4rem) var(--gutter) clamp(3rem,8vw,5rem);
+}
+.cs-article .section{margin-bottom:clamp(2.5rem,6vw,3.5rem)}
+.section-label{
+  display:flex;align-items:center;gap:.75rem;
+  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.85rem;
+}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+.cs-article h2{
+  font-family:var(--font-display);font-size:clamp(1.4rem,2.8vw,1.85rem);
+  font-weight:400;line-height:1.2;color:var(--ink);margin-bottom:1rem;
+}
+.cs-article p{font-size:.97rem;color:var(--ink-mid);margin-bottom:1rem;line-height:1.78}
+.cs-article p:last-child{margin-bottom:0}
+.cs-article p strong{font-weight:600;color:var(--ink)}
+
+.pull{
+  margin:2rem 0;padding:1.25rem 1.5rem;
+  border-left:2px solid var(--accent);background:var(--accent-pale);
+  border-radius:0 6px 6px 0;
+}
+.pull p{
+  font-family:var(--font-display);font-size:1.1rem;font-style:italic;
+  color:var(--ink);margin:0;line-height:1.55;
+}
+
+.card-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:1.75rem 0;
+}
+.card{background:var(--cs-card);padding:1.25rem 1.25rem 1.35rem}
+.card-label{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
+.card-title{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;line-height:1.3}
+.card p{font-size:.85rem;line-height:1.6;margin:0}
+
+.tab-diagram{
+  background:var(--cs-card);border:1px solid var(--rule);
+  border-radius:10px;overflow:hidden;margin:1.75rem 0;
+}
+.tab-bar{display:flex;border-bottom:1px solid var(--rule);background:var(--tag-bg)}
+.tab{padding:.65rem 1.25rem;font-size:.82rem;font-weight:500;color:var(--ink-light);border-right:1px solid var(--rule)}
+.tab.active{background:var(--cs-card);color:var(--ink);border-bottom:1px solid var(--cs-card);margin-bottom:-1px}
+.tab-content{padding:1.25rem 1.5rem}
+.tab-content p{font-size:.87rem;margin-bottom:0}
+.tab-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+.tab-col{flex:1;min-width:160px}
+.tab-col-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.4rem}
+.tab-col p{font-size:.85rem}
+
+.principle-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin:1.25rem 0}
+.principle-list li{display:flex;gap:.85rem;align-items:flex-start}
+.principle-list .pill{
+  flex-shrink:0;margin-top:.15rem;display:inline-block;
+  padding:.2rem .65rem;border-radius:100px;background:var(--tag-bg);
+  font-size:.72rem;font-weight:600;color:var(--ink-mid);letter-spacing:.03em;
+}
+.principle-list p{font-size:.9rem;margin:0}
+
+.retro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.85rem;margin:1.5rem 0}
+.retro-card{background:var(--cs-card);border:1px solid var(--rule);border-radius:8px;padding:1.1rem 1.15rem 1.2rem}
+.retro-card-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.55rem}
+.retro-card p{font-size:.88rem;line-height:1.65;margin:0}
+
 .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
 .rv.vis{opacity:1;transform:none}
-.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.25s}.d4{transition-delay:.35s}
-.next{background:var(--off);border-top:.5px solid var(--border);padding:4rem 3rem}
-.next-l{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
-.next-t{font-family:var(--M);font-weight:900;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.025em;line-height:1.05;margin-bottom:1.5rem}
-.next-link{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--black);text-decoration:none;border-bottom:.5px solid var(--black);padding-bottom:2px;transition:opacity .2s;display:inline-flex;align-items:center;gap:6px}
-.next-link::after{content:'→'}.next-link:hover{opacity:.5}
-@media(max-width:900px){nav{padding:1rem 1.4rem}.hero{padding:7rem 1.4rem 0}.hero-bar{grid-template-columns:1fr 1fr}.hero-num{display:none}.bento.cols-12{grid-template-columns:repeat(6,1fr)}.bento.cols-3,.bento.cols-2{grid-template-columns:1fr 1fr}.cell.span2,.cell.span3,.cell.span4,.cell.span5{grid-column:span 3}.cell.span6,.cell.span7,.cell.span8{grid-column:1/-1}.next,.page{padding-left:1.4rem;padding-right:1.4rem}}
-@media(max-width:580px){.bento.cols-12,.bento.cols-3,.bento.cols-2{grid-template-columns:1fr}.cell[class*=span]{grid-column:span 1}.hero-bar{grid-template-columns:1fr 1fr}}
 
-.footer-wordmark{position:relative;z-index:1;width:100%;margin-top:clamp(1.5rem,3vw,2.5rem);line-height:0;overflow:hidden;pointer-events:none;user-select:none}
-.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
-.footer-big{overflow:hidden}
-.footer-nav-item{display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.footer-nav-item span{order:1}
-.footer-nav-item::after{content:"→";order:2}
+.cs-more-work{padding:4rem clamp(1.4rem,5vw,3rem);background:var(--off);border-top:.5px solid var(--border)}
+.cs-more-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
+.cs-more-title{font-family:var(--M);font-weight:900;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.025em;line-height:1.05;margin-bottom:1.5rem}
+.cs-more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.cs-card{display:block;text-decoration:none;color:inherit;background:#fff;border:.5px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.cs-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.cs-card-img{aspect-ratio:16/10;background:#ddd center/cover no-repeat}
+.cs-card-meta{padding:1rem 1.1rem 1.2rem}
+.cs-card-year{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
+.cs-card-title{font-family:var(--M);font-weight:700;font-size:.95rem;letter-spacing:-.01em;margin-top:.35rem;line-height:1.3}
 
+@media(max-width:900px){
+  .hero{padding:7rem 1.4rem 0}
+  .hero-bar{grid-template-columns:1fr 1fr}
+  .hero-num{display:none}
+}
+@media(max-width:580px){
+  .hero-bar{grid-template-columns:1fr 1fr}
+  .tab-bar{overflow-x:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+}
 </style>
-  <link rel="stylesheet" href="site-nav-subpage.css">
-  <link rel="stylesheet" href="case-study-shared.css">
+<link rel="stylesheet" href="case-study-shared.css">
 </head>
 <body>
 <div id="cr"></div><div id="cd"></div>
-<nav class="subpage-nav">
-  <ul class="nav-links-row">
-    <li><a href="index.html">Home</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="index.html#work" class="active">Work</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html">Know the Designer</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
-  </ul>
-</nav>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+  <a href="know-the-designer.html#dark" onclick="closeMob()">Off the Grid</a>
+</div>
+
+<div class="top">
+  <nav class="nav" id="site-nav">
+    <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="know-the-designer.html">Know the Designer</a>
+      <a href="know-the-designer.html#dark">Off the Grid</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
+      <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+      <a href="#footer-contact" class="btn-note"><img src="Asset/images/home/leave-note-avatar.svg" alt=""><span>Leave a note</span></a>
+    </div>
+  </nav>
+</div>
+
 <div class="hero">
   <div class="hero-num">06</div>
-  <div class="hero-ey">BI · Analytics · Enterprise · AMEX GBT · 2025</div>
-  <h1 class="hero-h">AMEX GBT — Hotel Rate<br>Efficiency <em>BI Dashboard</em></h1>
-  <p class="hero-sub">Designing a 6-tab, 34-KPI analytics dashboard from scratch for a $107M+ automated savings engine — in 3 weeks, as sole designer.</p>
-  <div class="hero-bar"><div class="hb-item"><div class="hb-l">Role</div><div class="hb-v">Sole Product Designer</div></div><div class="hb-item"><div class="hb-l">Timeline</div><div class="hb-v">3 weeks to HiFi</div></div><div class="hb-item"><div class="hb-l">Platform</div><div class="hb-v">Looker Studio</div></div><div class="hb-item"><div class="hb-l">Status</div><div class="hb-v">Under stakeholder review</div></div></div>
+  <div class="hero-ey">Case Study · American Express GBT · HRE Hotel Reshop</div>
+  <h1 class="hero-h">Making $107M in savings<br><em>visible</em></h1>
+  <p class="hero-sub">HRE had been quietly re-booking hotel reservations at lower rates for years. The engine worked. The problem was that no one could see how — or where — it was working.</p>
+  <div class="hero-bar">
+    <div class="hb-item"><div class="hb-l">Role</div><div class="hb-v">Product Designer</div></div>
+    <div class="hb-item"><div class="hb-l">Contribution</div><div class="hb-v">Individual contributor</div></div>
+    <div class="hb-item"><div class="hb-l">Timeline</div><div class="hb-v">2–4 months</div></div>
+    <div class="hb-item"><div class="hb-l">Status</div><div class="hb-v">Development in progress</div></div>
+  </div>
 </div>
-<div class="page">
 
-<div class="spacer"></div>
-<div class="sec-label rv">Overview</div>
-<div class="bento cols-12 rv">
-  <div class="cell white span8"><div class="img-ph"><span>HRE Dashboard · Executive Summary Tab</span></div></div>
-  <div class="cell dark span4" style="display:flex;flex-direction:column;justify-content:space-between">
-    <div>
-      <div class="cell-label">Context</div>
-      <div class="cell-title">$107M saved. Zero dashboards. Until now.</div>
-      <div class="cell-body">HRE (Hotel Rate Efficiency) is an automated engine that re-books hotel reservations when a lower rate becomes available. It had generated $107M+ in savings with no analytics surface — leadership was flying blind.</div>
+<article class="cs-article">
+
+  <section class="section rv">
+    <div class="section-label">Context</div>
+    <h2>An engine running without a dashboard</h2>
+    <p>
+      HRE is an automated system that monitors hotel bookings and re-books them when a lower rate becomes available — generating significant savings for GBT's corporate travel clients at scale. Despite this, there was no analytics surface built to track or communicate how the engine was performing.
+    </p>
+    <p>
+      Stakeholders were managing a growing operation through spreadsheets and a partial, largely non-functional Power BI dashboard. The business was expanding, the data was piling up, and the tools weren't keeping pace. Leadership had no reliable way to distinguish between monitoring the system and responding to it.
+    </p>
+    <p>
+      This project was brought in to fix that — from scratch, solo, with no dedicated research function and a data landscape that was still evolving.
+    </p>
+  </section>
+
+  <section class="section rv">
+    <div class="section-label">Problem</div>
+    <h2>Too much data. No shared understanding of what to act on.</h2>
+    <p>
+      The core problem wasn't a lack of data — it was an absence of structure around it. Stakeholders were digging through exports and half-built views to answer questions that should have been immediately surfaced. Each team came with its own interpretation of what mattered, and there was no shared frame of reference.
+    </p>
+    <div class="pull">
+      <p>The business had a clear story to tell. It just had no way of telling it — to itself, or to the people responsible for growing it.</p>
     </div>
-    <div class="pill-row"><span class="pill">BI · Analytics</span><span class="pill">Enterprise</span><span class="pill">Looker Studio</span></div>
-  </div>
-  <div class="cell span4" style="text-align:center"><div class="cell-stat">$107M+</div><div class="cell-stat-l">In savings made visible for the first time</div></div>
-  <div class="cell span4" style="text-align:center"><div class="cell-stat">34 KPIs</div><div class="cell-stat-l">Across 6 intent-based tabs</div></div>
-  <div class="cell span4" style="text-align:center"><div class="cell-stat">3 weeks</div><div class="cell-stat-l">From blank canvas to HiFi prototype for engineering</div></div>
-</div>
+    <p>
+      Two things compounded this: 34 KPIs were in scope, with no alignment on priority, and some of the underlying data was still raw and uncategorised. Any solution would need to handle ambiguity — in the data, in the requirements, and in the stakeholders' own understanding of what they needed.
+    </p>
+  </section>
 
-<div class="spacer"></div>
-<div class="sec-label rv">The Problem</div>
-<div class="bento cols-12 rv">
-  <div class="cell white span5">
-    <div class="cell-label">What was invisible</div>
-    <div class="cell-title">A system generating millions with no one watching.</div>
-    <div class="cell-body">HRE auto-rebook volume grew 64% year-over-year (307K → 504K segments). SABRE supplier source grew from 5% to 43% share. Rejection volumes spiked to 521K in Jan 2026. Leadership saw none of it.</div>
-  </div>
-  <div class="cell span7">
-    <div class="cell-label">Leadership pain points</div>
-    <div class="pt-list">
-      <div class="pt-item">No single place to monitor system performance — every question required a manual SQL pull</div>
-      <div class="pt-item">No shared vocabulary for what "system success" meant across the team</div>
-      <div class="pt-item">36,252 total booking failures with zero visibility or root-cause path</div>
-      <div class="pt-item">SABRE structural shift not visible despite data existing in tables</div>
-      <div class="pt-item">Informal monitoring no longer viable at this scale</div>
+  <section class="section rv">
+    <div class="section-label">Research &amp; Discovery</div>
+    <h2>Starting with the data, because the brief couldn't</h2>
+    <p>
+      With no research function attached to the project, the starting point was the data itself. Systematic analysis of the existing dataset surfaced three patterns that hadn't been articulated in any brief or stakeholder conversation: a clear growth trajectory in reshop volume, periodic spikes in rejection rates tied to specific supplier behaviour, and a concentration of savings in a narrow band of bookings.
+    </p>
+    <p>
+      These weren't minor observations — they shaped the entire information architecture that followed. The data told a story that no one had yet put into words.
+    </p>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Finding 01</div>
+        <div class="card-title">Growth story</div>
+        <p>Reshop volume was increasing at a rate that the existing tooling couldn't meaningfully track or communicate.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Finding 02</div>
+        <div class="card-title">Rejection spikes</div>
+        <p>Periodic rejections correlated with specific supplier behaviour — a pattern invisible in the existing dashboard.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Finding 03</div>
+        <div class="card-title">Savings concentration</div>
+        <p>A narrow band of bookings accounted for a disproportionate share of savings — useful for prioritisation.</p>
+      </div>
     </div>
-  </div>
-  <div class="cell dark span4">
-    <div class="cell-label">Scale of the problem</div>
-    <div class="pt-list">
-      <div class="pt-item">Auto-rebook volume up 64% year-over-year</div>
-      <div class="pt-item">Rejection spike to 521K in Jan 2026 — undetected</div>
-      <div class="pt-item">SABRE grew from 5% → 43% supplier mix share</div>
-      <div class="pt-item">Every performance question = engineering involvement</div>
+    <p>
+      Alongside data analysis, repeated working sessions with stakeholders helped identify not what data existed, but what decisions stakeholders were trying to make — and what they'd do differently with better visibility. This distinction drove the eventual KPI groupings.
+    </p>
+    <p>
+      One significant investment was domain learning: hotel reshop has its own terminology, supplier dynamics, and operational logic. Without at least a working understanding of what a "rejection" or "reshop attempt" actually meant in context, the design work would have been surface-level at best. The domain ramp-up extended the timeline — but it made every subsequent decision more grounded.
+    </p>
+  </section>
+
+  <section class="section rv">
+    <div class="section-label">Strategic Framing</div>
+    <h2>Not all 34 KPIs serve the same purpose</h2>
+    <p>
+      The central tension throughout the project: stakeholders wanted all 34 KPIs visible and equally accessible. That's a reasonable ask — each metric has an owner, and each owner has a use for it. But presenting 34 signals with equal weight means designing for no one in particular.
+    </p>
+    <p>
+      The position held throughout: equal weight is not neutral design. It's a choice that pushes cognitive load onto the user and makes the most important signals harder to find, not easier.
+    </p>
+    <ul class="principle-list">
+      <li>
+        <span class="pill">Principle</span>
+        <p><strong>Numbers over charts</strong> where the difference margin between data points is low enough that a visual encoding creates ambiguity rather than clarity.</p>
+      </li>
+      <li>
+        <span class="pill">Principle</span>
+        <p><strong>Clarity over aesthetics</strong> throughout. This is a working tool — its job is to inform decisions, not to demonstrate visual craft.</p>
+      </li>
+      <li>
+        <span class="pill">Principle</span>
+        <p><strong>Organise by attention type</strong>, not by data structure. The three-tab model reflects how stakeholders actually engage with the product: orientation, investigation, action.</p>
+      </li>
+    </ul>
+    <p>
+      The pushback on equal-weight KPI presentation was documented and defended across multiple reviews. The goal wasn't to remove KPIs — it was to give them appropriate context based on when and why someone would need them.
+    </p>
+  </section>
+
+  <section class="section rv">
+    <div class="section-label">Design Process</div>
+    <h2>Structuring 34 KPIs without overwhelming the people who use them</h2>
+    <p>
+      The design challenge was structural before it was visual: how do you organise a large, partially-raw dataset into something a stakeholder can act on in under a minute?
+    </p>
+    <p>
+      Earlier explorations tried a single scrollable view with progressive disclosure. Stakeholder feedback was consistent — the cognitive cost of orientation was too high. People needed to know which mode they were in before engaging with individual numbers.
+    </p>
+    <p>
+      The three-tab model emerged from that feedback. Each tab has a clear job. Nothing is hidden — the hierarchy is in the entry point, not the data itself.
+    </p>
+    <div class="tab-diagram">
+      <div class="tab-bar">
+        <div class="tab active">Summary</div>
+        <div class="tab">Insights</div>
+        <div class="tab">Attention</div>
+      </div>
+      <div class="tab-content">
+        <div class="tab-row">
+          <div class="tab-col">
+            <div class="tab-col-label">Summary</div>
+            <p>Executive orientation. Headline reshop volume, savings rate, and system-level health at a glance. Designed for speed — no drilling required.</p>
+          </div>
+          <div class="tab-col">
+            <div class="tab-col-label">Insights</div>
+            <p>Operational depth for teams managing supplier performance and reshop efficiency. Where patterns and trends live.</p>
+          </div>
+          <div class="tab-col">
+            <div class="tab-col-label">Attention</div>
+            <p>Proactively surfaced anomalies and metrics that require action — rather than leaving stakeholders to discover them in a data scan.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="cell red span4" style="display:flex;align-items:center;justify-content:center;text-align:center">
-    <div>
-      <div style="font-family:var(--M);font-weight:900;font-size:2.5rem;color:#fff;line-height:1">504K</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:.3rem">Auto-rebook segments in 2025</div>
-      <div style="font-family:var(--M);font-weight:900;font-size:2.5rem;color:#fff;line-height:1;margin-top:1rem">0</div>
-      <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:.3rem">Dashboards before this project</div>
+    <p>
+      Throughout this phase, stakeholder sessions ran in parallel — validating that the tab groupings reflected how teams actually thought about the business, and managing expectations around which KPIs were ready to surface given the state of the underlying data. Some high-value metrics weren't reliable enough to show yet. Those were flagged explicitly, not quietly dropped.
+    </p>
+  </section>
+
+  <section class="section rv">
+    <div class="section-label">Outcomes</div>
+    <h2>A working tool, and follow-on work that says more than metrics</h2>
+    <p>
+      The design phase is complete. Development is in progress. Post-launch data isn't available yet — which is the honest picture.
+    </p>
+    <p>
+      What the dashboard delivers is a structured, reliable surface that replaces ad-hoc spreadsheet analysis and a non-functional Power BI view. For the first time, stakeholders across the HRE business have a shared starting point: a place to orient quickly, investigate when needed, and act on what matters today.
+    </p>
+    <p>
+      The more meaningful signal is this: stakeholders who engaged with this work came back with new project requirements. That's not a metric — but it's evidence that the value of the work was understood. A dashboard that gets handed off and never questioned usually means one of two things. This felt like the other one.
+    </p>
+  </section>
+
+  <section class="section rv">
+    <div class="section-label">Reflection</div>
+    <h2>What held, what didn't, and what's still open</h2>
+    <div class="retro-grid">
+      <div class="retro-card">
+        <div class="retro-card-label">Do differently</div>
+        <p>Push harder for a shared requirements document in week one. Stakeholder input arrived in fragments — a structured alignment session early on would have compressed the timeline without sacrificing the depth of the conversations that followed.</p>
+      </div>
+      <div class="retro-card">
+        <div class="retro-card-label">The hard call</div>
+        <p>Equal-weight KPI display was the stakeholder ask. It wasn't the right solution. That position held — but it was relitigated more than it needed to be. Documenting the rationale formally, earlier, would have shortened those conversations.</p>
+      </div>
+      <div class="retro-card">
+        <div class="retro-card-label">What surprised</div>
+        <p>The three-tab structure came from stakeholder conversations, not the data. The data revealed what existed. The people revealed what needed to be findable — and in what order.</p>
+      </div>
+      <div class="retro-card">
+        <div class="retro-card-label">Still open</div>
+        <p>Whether the dashboard shifts stakeholder behaviour — faster decisions, fewer ad-hoc data requests — isn't measurable yet. That's the real impact question, and it belongs to what comes after launch.</p>
+      </div>
+      <div class="retro-card">
+        <div class="retro-card-label">Stand behind</div>
+        <p>The numbers-over-charts principle for low-margin comparisons, and the separation of summary / insight / action. Both were debated. Neither changed. Both were right for this product and this audience.</p>
+      </div>
     </div>
-  </div>
-  <div class="cell span4"><div class="cell-label">Why now</div><div class="pt-list"><div class="pt-item">System scale outgrew informal monitoring</div><div class="pt-item">New supplier source structurally changed the mix</div><div class="pt-item">Leadership needed self-serve insight — not SQL requests</div></div></div>
-</div>
+  </section>
 
-<div class="spacer"></div>
-<div class="sec-label rv">The Design</div>
-<div class="bento cols-3 rv">
-  <div class="cell white"><div class="cell-label">Tab 01</div><div class="cell-title" style="font-size:1rem">Executive Summary</div><div class="cell-body">KPI scorecard strip answering the headline number, followed by charts explaining it. Entry point for all senior stakeholders.</div></div>
-  <div class="cell white"><div class="cell-label">Tab 02</div><div class="cell-title" style="font-size:1rem">Rebook Trends</div><div class="cell-body">Auto-rebook volume over time, savings trend, rejection spike patterns — all with full timeline visibility to surface the Jan 2026 event.</div></div>
-  <div class="cell white"><div class="cell-label">Tab 03</div><div class="cell-title" style="font-size:1rem">Clients & Chains</div><div class="cell-body">Top clients by savings volume, hotel chain performance, geographic savings distribution (USA = 83% of total).</div></div>
-  <div class="cell white"><div class="cell-label">Tab 04</div><div class="cell-title" style="font-size:1rem">GDS & Supplier Source</div><div class="cell-body">100% stacked area chart showing SABRE's 5%→43% share growth across 2022–2026. The structural story that single-period charts cannot tell.</div></div>
-  <div class="cell white"><div class="cell-label">Tab 05</div><div class="cell-title" style="font-size:1rem">Booking Failures</div><div class="cell-body">36K+ failures categorised by type, trend, and resolution status. Drill-down from high-level signal to root cause — no SQL required.</div></div>
-  <div class="cell dark"><div class="cell-label">Tab 06</div><div class="cell-title" style="font-size:1rem;color:#fff">Rejection Analysis</div><div class="cell-body" style="color:rgba(255,255,255,.55)">521K rejection spike in Jan 2026 visualised against full historical baseline. Pattern recognition built into the layout.</div></div>
-</div>
+</article>
 
-<div class="spacer-sm"></div>
-<div class="bento cols-12 rv">
-  <div class="cell white span6"><div class="img-ph tall"><span>Rebook Trends Tab · Timeline Chart</span></div></div>
-  <div class="cell white span6"><div class="img-ph tall"><span>GDS & Supplier Source · Stacked Area</span></div></div>
-  <div class="cell white span4"><div class="img-ph sq"><span>KPI Scorecard Strip</span></div></div>
-  <div class="cell white span4"><div class="img-ph sq"><span>Booking Failures · Drill-down</span></div></div>
-  <div class="cell white span4"><div class="img-ph sq"><span>Rate Type · Bubble Chart</span></div></div>
-</div>
-
-<div class="spacer"></div>
-<div class="sec-label rv">Key Decisions</div>
-<div class="bento cols-2 rv">
-  <div class="cell white">
-    <div class="cell-label">Rejected: spec-faithful tab structure</div>
-    <div class="cell-body">The KPI spec grouped 34 KPIs into 7 data-topology categories — defined by what tables they came from. I restructured around intent-based questions instead. Leaders don't open a dashboard wondering "what are my GDS metrics?"</div>
-  </div>
-  <div class="cell white">
-    <div class="cell-label">Rejected: Sankey diagrams for rate flow</div>
-    <div class="cell-body">61.7% of booked source was labelled "UNKNOWN" and 97% of segments stayed on the same source. Sankey was visually incoherent. Replaced with a diverging bar chart that directly encodes the directional question.</div>
-  </div>
-  <div class="cell white">
-    <div class="cell-label">Rejected: donut chart for rate types</div>
-    <div class="cell-body">10 rate types with an 84% savings variance. The insight — highest-volume ≠ highest-value — is invisible in a donut. A bubble chart encodes volume, savings-per-segment, and rate type identity simultaneously.</div>
-  </div>
-  <div class="cell dark">
-    <div class="cell-label">Insight from this project</div>
-    <div class="cell-body" style="color:rgba(255,255,255,.6)">Data analysis as discovery was unexpectedly powerful. The SABRE growth story, rejection spike, and USA savings concentration all emerged from time in the data — none were in the brief. For projects without a research function, this is the honest starting point.</div>
-  </div>
-</div>
-
-<div class="spacer"></div>
-<div class="sec-label rv">Outcomes</div>
-<div class="bento cols-12 rv">
-  <div class="cell dark span8">
-    <div class="cell-label">Delivered</div>
-    <div class="outcome-row">
-      <div class="oc-item"><div class="oc-n">$107M+</div><div class="oc-l">In savings made visible for the first time via dashboard</div></div>
-      <div class="oc-item"><div class="oc-n">6 tabs</div><div class="oc-l">Intent-based — validated by leadership in stakeholder review</div></div>
-      <div class="oc-item"><div class="oc-n">HiFi PRD</div><div class="oc-l">Full prototype + Looker Studio build spec delivered to engineering</div></div>
-      <div class="oc-item"><div class="oc-n">3 weeks</div><div class="oc-l">From brief to handoff — sole designer, no research function</div></div>
-    </div>
-  </div>
-  <div class="cell white span4">
-    <div class="cell-label">What I'd do differently</div>
-    <div class="pt-list">
-      <div class="pt-item">Run 2–3 stakeholder interviews before design — not relying on spec alone</div>
-      <div class="pt-item">Prioritise 10 KPIs rigorously before designing all 34</div>
-      <div class="pt-item">Plan a structured post-launch review 3–4 weeks after go-live</div>
-    </div>
-  </div>
-</div>
-
-<div class="spacer"></div>
-</div>
 <section class="cs-more-work">
   <p class="cs-more-label">More entries</p>
   <h2 class="cs-more-title">Other case studies</h2>
   <div class="cs-more-grid">
+    <a href="case-study-gbt-finance.html" class="cs-card">
+      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-meta">
+        <span class="cs-card-year">2025</span>
+        <span class="cs-card-title">GBT Finance Billing Dashboard</span>
+      </div>
+    </a>
     <a href="case-study-cambridge.html" class="cs-card">
       <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
       <div class="cs-card-meta">
@@ -278,62 +389,60 @@ nav.dk .nav-back:hover{color:#fff}
         <span class="cs-card-title">Web3 Privacy Marketing — No Data Sold</span>
       </div>
     </a>
-    <a href="case-study-dailybloom.html" class="cs-card">
-      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
-      <div class="cs-card-meta">
-        <span class="cs-card-year">2023</span>
-        <span class="cs-card-title">DailyBloom IBS — Redesign Under Uncertainty</span>
-      </div>
-    </a>
   </div>
 </section>
-<footer id="footer-contact" class="cs-footer">
-  <div class="footer-contact">
-    <div>
-      <div class="fc-label">Location</div>
-      <div class="fc-val">Himachal Pradesh, India<br><span class="fc-sub">Available worldwide</span></div>
+
+<footer class="footer" id="footer-contact">
+  <div class="fc-row">
+    <div class="fc-col">
+      <div class="fc-l">Location</div>
+      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
     </div>
-    <div>
-      <div class="fc-label">Say Hello</div>
-      <div class="fc-val"><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    <div class="fc-col">
+      <div class="fc-l">Say Hello</div>
+      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
     </div>
-    <div>
-      <div class="fc-label">Currently at</div>
-      <div class="fc-val fc-val-right">American Express<br>Global Business Travel</div>
+    <div class="fc-col">
+      <div class="fc-l">Currently at</div>
+      <div class="fc-v">American Express<br>Global Business Travel</div>
     </div>
   </div>
-  <div class="footer-socials">
-    <a href="https://www.linkedin.com/in/parulrathour" class="fs-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a href="#" class="fs-link">Instagram</a>
-    <a href="#" class="fs-link">Behance</a>
+  <div class="fs-row">
+    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
     <a href="#" class="fs-link">Resume</a>
   </div>
   <div class="footer-big">
-    <div class="footer-big-text rv from-bottom">LET'S MAKE SOMETHING.</div>
-        <div class="footer-nav-col">
-      <a href="index.html" class="footer-nav-item"><span>Home</span></a>
-      <a href="index.html#work" class="footer-nav-item"><span>Work</span></a>
-      <a href="know-the-designer.html" class="footer-nav-item"><span>Know the Designer</span></a>
-      <a href="know-the-designer.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
+    <div class="footer-big-top">
+      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+      <div class="footer-nav">
+        <a href="index.html"><span>Home</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="know-the-designer.html"><span>Know the Designer</span></a>
+        <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
+      </div>
     </div>
     <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Parul Rathour</span>
-    <span class="footer-ftime" id="footer-time">IST —:—</span>
+    <span>© 2026 Parul Rathour</span>
+    <span id="footer-time">IST —:—</span>
   </div>
 </footer>
+
 <script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
 const ring=document.getElementById('cr'),dot=document.getElementById('cd');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 (function l(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(l)})();
 function lum(x,y){const el=document.elementFromPoint(x,y);if(!el)return 255;let n=el;while(n&&n!==document.body){const b=getComputedStyle(n).backgroundColor;if(b&&b!=='rgba(0, 0, 0, 0)'&&b!=='transparent'){const m=b.match(/\d+/g);if(m)return(+m[0]*299+ +m[1]*587+ +m[2]*114)/1000;}n=n.parentElement;}return 255;}
-document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);});
-document.querySelectorAll('a,button,.cell,.cs-card,.footer-nav-item,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
+document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);});
+document.querySelectorAll('a,button,.cs-card,.footer-nav a,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
 const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-window.addEventListener('scroll',()=>{const d=lum(mx,my)<100;document.querySelector('nav').classList.toggle('dk',d&&window.scrollY>80);},{passive:true});
 
 (function(){
   function tick(){
@@ -346,7 +455,6 @@ window.addEventListener('scroll',()=>{const d=lum(mx,my)<100;document.querySelec
   }
   tick();setInterval(tick,1000);
 })();
-
 </script>
 </body>
 </html>

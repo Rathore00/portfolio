@@ -6,7 +6,7 @@
 <title>Parul Rathour — Product Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Gochi+Hand&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -290,14 +290,14 @@ img{display:block;max-width:100%}
 .beyond{
   background:var(--green);
   position:relative;overflow:hidden;
-  height:886px;
+  height:890px;
   color:#fff;
 }
 .rip{
   position:absolute;left:0;width:100%;
   height:clamp(130px, 15vw, 210px);
   object-fit:cover;
-  z-index:30;pointer-events:none;user-select:none;display:block;
+  z-index:5;pointer-events:none;user-select:none;display:block;
 }
 /* taller rips: up.png tear sits lower; down.png tear sits higher */
 .rip-top{top:0;object-position:center top}
@@ -308,67 +308,83 @@ img{display:block;max-width:100%}
     linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
   background-size:54px 54px;
-  opacity:.8;pointer-events:none;
+  opacity:.8;pointer-events:none;z-index:1;
 }
 .beyond-inner{
-  position:relative;z-index:2;
-  padding:clamp(6.5rem,12vw,9rem) clamp(1.5rem,5vw,6rem) clamp(5.5rem,10vw,8rem);
-  height:886px;
+  position:relative;z-index:20;
+  padding:0;
+  height:890px;
+  overflow:visible;
 }
-.corner{position:absolute;width:14px;height:14px;border-color:rgba(255,255,255,.3);border-style:solid;z-index:4;cursor:grab}
-.corner:active{cursor:grabbing}
-.corner.tl{top:5.5rem;left:1.5rem;border-width:1.5px 0 0 1.5px}
-.corner.br{bottom:6rem;right:2rem;border-width:0 1.5px 1.5px 0}
-.beyond-left{
-  position:absolute;left:clamp(1.5rem,5vw,6rem);top:clamp(6.5rem,12vw,9rem);
-  max-width:345px;text-align:center;z-index:4;cursor:grab;user-select:none;
-}
-.beyond-left:active{cursor:grabbing}
-.beyond-ey{
-  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-  color:rgba(255,255,255,.8);margin-bottom:.7rem;
-}
-.beyond-headline{
-  font-family:var(--display);font-weight:900;
-  font-size:clamp(2.2rem,4.2vw,3.5rem);line-height:.95;
-  letter-spacing:-.03em;color:rgba(255,255,255,.22);
-}
-.beyond-headline .deco{
-  display:block;font-family:var(--serif);font-style:italic;font-weight:700;
-  font-size:.88em;text-transform:lowercase;letter-spacing:-.01em;
-}
-.beyond-sub{
-  margin-top:.8rem;font-family:var(--serif);font-style:italic;font-weight:700;
-  font-size:clamp(1rem,1.6vw,1.5rem);color:rgba(255,255,255,.8);
+.beyond-stage{
+  position:absolute;left:50%;top:0;
+  width:1512px;height:890px;
+  margin-left:-756px;
+  transform-origin:top center;
 }
 .beyond-title{
-  position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);
+  position:absolute;left:50%;top:calc(50% - 76px);transform:translate(-50%,-50%);
   font-family:var(--display);font-weight:900;
-  font-size:clamp(2.8rem,6.5vw,4.9rem);line-height:1;
-  letter-spacing:-.06em;text-align:center;pointer-events:none;
-  white-space:nowrap;z-index:3;
+  font-size:63px;line-height:1;
+  letter-spacing:-.058em;text-align:center;pointer-events:none;
+  white-space:nowrap;z-index:5;color:#fff;
 }
 .sticker{
   position:absolute;z-index:4;user-select:none;cursor:grab;
-  filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.28));
 }
-.sticker:active{cursor:grabbing;filter:drop-shadow(0 8px 20px rgba(0,0,0,.4))}
+.sticker:active{cursor:grabbing;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+.sticker.bx-fixed{cursor:default;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+.sticker.bx-flower{
+  filter:none;
+  box-shadow:none;
+  width:160px;height:240px;
+}
+.sticker > img,
+.bx-badge-spin > img,
+.bx-lantern-inner > img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.sticker.bx-flower > img,
+.bx-flower > img{
+  width:100%;height:100%;
+  object-fit:contain !important;
+  object-position:center;
+  pointer-events:none;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.sticker.bx-break > img{
+  width:100%;height:100%;
+  object-fit:contain !important;
+  object-position:center;
+  image-rendering:auto;
+  pointer-events:none;
+}
+.sticker.bx-clip{
+  width:127px;height:97px;padding:0;border:0;background:none;
+  object-fit:cover;filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.bx-receipt .bx-smile,
+.bx-receipt .bx-delulu,
+.bx-receipt .dino{width:auto;height:auto;object-fit:cover;pointer-events:none}
 .chip{
   display:inline-flex;align-items:center;
-  border-radius:999px;padding:6px 14px;
+  border-radius:999px;padding:9px 17px;
   font-family:var(--sans);font-size:12px;font-weight:600;
   box-shadow:0 4px 7px rgba(0,0,0,.25);white-space:nowrap;
+  border:3px solid #fff;
 }
-.chip.white{background:#fff;color:#c0392b}
-.chip.dark{background:#1a1a2e;color:#61dafb}
+.chip.white{background:#fff;color:#c0392b;border-color:#5069f3;border-width:4px;font-weight:600;padding:10px 18px}
 .chip.orange{background:#f24e1e;color:#fff}
-.chip.green{background:#0acf83;color:#fff}
-.chip.vibe{background:linear-gradient(165deg,#667eea,#764ba2);color:#fff;font-family:var(--display);font-weight:900;border-radius:8px}
+.chip.vibe{
+  background:linear-gradient(170deg,#667eea,#764ba2);color:#fff;
+  font-family:var(--display);font-weight:900;border-radius:8px;border:none;
+  padding:8px 14px;font-size:14.4px;letter-spacing:-.01em;
+  box-shadow:0 4px 16px rgba(102,126,234,.45);
+}
 .term{
   background:#1a1a2e;border:1px solid rgba(0,255,136,.2);
-  border-radius:8px;padding:12px 16px;min-width:160px;
+  border-radius:8px;padding:12px 16px;width:160px;
   font-family:var(--mono);font-size:11px;line-height:1.7;color:#888;
-  box-shadow:0 6px 12px rgba(0,0,0,.5);
+  box-shadow:0 4px 8px rgba(0,0,0,.35);
 }
 .term .g{color:#0f8}.term .b{color:#64b5f6}
 .git{
@@ -377,21 +393,114 @@ img{display:block;max-width:100%}
   font-family:var(--mono);font-size:10px;color:#7ee787;
   box-shadow:0 4px 7px rgba(0,0,0,.4);
 }
-.prompt-card{
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
-  border-radius:10px;padding:11px 15px;max-width:150px;
+.bx-hello{
+  background:#b50d0d;border:2px solid #fff;border-radius:8px;
+  width:167px;padding:3px 4px 3px;box-shadow:0 4px 4px rgba(0,0,0,.25);
+  display:flex;flex-direction:column;gap:3px;justify-content:flex-end;
 }
-.prompt-card .l{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
-.prompt-card .t{font-size:11px;color:rgba(255,255,255,.75)}
-.beyond-bottom{
-  position:absolute;left:6%;right:6%;bottom:clamp(4.5rem,9vw,6.5rem);
-  width:auto;max-width:88%;
-  border-top:.5px solid rgba(255,255,255,.12);
-  padding-top:1.4rem;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
-  z-index:4;cursor:grab;user-select:none;
+.bx-hello .hi{font-size:13.6px;color:#fff;line-height:1.2;padding:2px 4px 0}
+.bx-hello .name{
+  background:#fff;border-radius:4.6px;height:50px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Gochi Hand',cursive;font-size:24.7px;color:#000;
 }
-.beyond-bottom:active{cursor:grabbing}
+.bx-ooo{
+  background:#fff;border:4px solid #62b6ff;border-radius:5.6px;
+  width:185px;height:70px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  box-shadow:0 4px 4px rgba(0,0,0,.25);position:relative;
+  overflow:visible;
+}
+.bx-ooo .ooo-t{font-size:29.7px;letter-spacing:-1.2px;color:#000;line-height:1;white-space:nowrap}
+.bx-ooo .ooo-line{width:100%;height:1px;background:#111;opacity:.85}
+.bx-ooo .ooo-struck{
+  position:relative;
+  text-decoration:none;
+}
+.bx-ooo .ooo-struck::after{
+  content:"";
+  position:absolute;left:-2%;right:-2%;top:52%;
+  height:2.5px;background:#111;
+  transform:rotate(-6deg);
+}
+.bx-ooo .ooo-chip{
+  position:absolute;right:-10px;bottom:-12px;
+  background:#e7ff0c;border-radius:5px;padding:2px 7px;
+  font-size:16.4px;color:#000;line-height:1.3;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+  z-index:2;
+}
+.bx-receipt{
+  width:252px;height:444px;
+  position:absolute;
+  background:url('Asset/images/home/beyond/receipt-bg.svg') center/100% 100% no-repeat;
+  box-shadow:0 4px 12px rgba(0,0,0,.22);
+  filter:none;
+}
+.bx-receipt-body{
+  position:absolute;left:19px;top:34px;width:214px;
+  display:flex;flex-direction:column;align-items:center;gap:19px;
+  color:#000;
+}
+.bx-receipt-title{font-size:22px;letter-spacing:-1.3px;text-align:center;line-height:1.05}
+.bx-receipt-hr{width:100%;height:1px;background:#111}
+.bx-receipt-hr.thick{height:2px}
+.bx-receipt-rows{
+  display:flex;justify-content:space-between;gap:12px;width:100%;
+  font-size:12px;letter-spacing:-1px;line-height:1.55;position:relative;
+}
+.bx-receipt-rows .left{display:flex;flex-direction:column;gap:6.6px;align-items:flex-start}
+.bx-receipt-rows .right{display:flex;flex-direction:column;gap:6.6px;align-items:flex-end;width:70px;text-align:right}
+.bx-receipt-foot{display:flex;flex-direction:column;align-items:center;gap:0;align-self:stretch;width:100%}
+.bx-receipt-foot .dino{width:41px;height:41px;object-fit:cover;margin-bottom:-3px;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+.bx-receipt-foot .barcode{
+  width:144px !important;height:35px !important;
+  display:block;margin-left:auto;margin-right:auto;
+  align-self:center;object-fit:contain;pointer-events:none;
+}
+.bx-delulu{
+  position:absolute;left:33px;top:41px;width:29px !important;height:17px !important;
+  transform:rotate(10.6deg);object-fit:cover;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
+.bx-smile{
+  position:absolute;left:158px;top:-10px;width:57px !important;height:57px !important;
+  transform:rotate(-4deg);object-fit:cover;
+}
+.bx-clip{
+  position:absolute;width:127px;height:97px;
+  object-fit:cover;
+}
+.bx-flower{
+  position:absolute;width:160px;height:240px;
+  overflow:visible;z-index:10;
+}
+.bx-flower img{
+  object-fit:contain !important;object-position:center;height:100%;width:100%;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.bx-ooo-wrap{position:absolute;z-index:12;overflow:visible;filter:none !important}
+.bx-badge-spin{
+  width:100%;height:100%;
+  animation:badge-spin 14s linear infinite;
+  will-change:transform;
+}
+@keyframes badge-spin{to{transform:rotate(360deg)}}
+.bx-lantern-inner{
+  width:100%;height:100%;
+  transform-origin:50% 6%;
+  animation:lantern-sway 3.4s ease-in-out infinite;
+  will-change:transform;
+}
+@keyframes lantern-sway{
+  0%,100%{transform:rotate(-5deg)}
+  20%{transform:rotate(4.5deg)}
+  40%{transform:rotate(-3deg)}
+  60%{transform:rotate(5deg)}
+  80%{transform:rotate(-4deg)}
+}
+.bx-cloud{overflow:hidden}
+.bx-cloud img{object-fit:cover;object-position:center 42%;height:180%;width:100%;margin-top:-20%}
 .tag-row{display:flex;flex-wrap:wrap;gap:10px}
 .tag{
   border:.5px solid rgba(255,255,255,.2);border-radius:999px;
@@ -402,10 +511,6 @@ img{display:block;max-width:100%}
   font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:#fff;
   border-bottom:.5px solid rgba(255,255,255,.3);padding-bottom:3px;
 }
-.illust-star{width:180px;height:180px}
-.illust-star img{width:100%;height:100%}
-.folder-art{width:200px;transform:rotate(-17deg)}
-.folder-art img{width:100%}
 
 /* ══ WORK ══ */
 .work{padding:40px 64px 80px}
@@ -559,20 +664,13 @@ img{display:block;max-width:100%}
   .green-cards .g5{left:154px;top:-6px}
   .card-overlay{padding-top:6rem;padding-right:1.2rem;justify-content:center}
   .hero-row{grid-template-columns:1fr}
-  .beyond-title{font-size:clamp(2.4rem,8vw,3.5rem);white-space:normal}
+  .beyond-title{font-size:63px;white-space:nowrap}
   .work-grid{
     grid-template-columns:1fr 1fr;
     grid-auto-rows:minmax(260px,auto);
   }
   .wcard-finance{grid-column:auto}
   .wcard{min-height:280px;height:auto}
-  /* Desk stickers stay visible + draggable on tablet/mobile */
-  .sticker.desk{display:block}
-  .folder-art{width:140px}
-  .illust-star{width:120px;height:120px}
-  .term{min-width:130px;padding:10px 12px;font-size:10px}
-  .git{font-size:9px;padding:8px 10px}
-  .prompt-card{max-width:120px;padding:9px 12px}
 }
 @media(max-width:900px){
   .top{padding:12px 24px 0}
@@ -655,59 +753,7 @@ img{display:block;max-width:100%}
   }
   .skill{font-size:11px;padding:8px 14px}
 
-  /* Figma mobile green mat: 566px tall, compact stickers */
-  .beyond{
-    height:566px;min-height:566px;overflow:hidden;
-  }
-  .beyond-inner{
-    height:566px;min-height:566px;
-    padding:4.2rem 1rem 3.5rem;
-    overflow:hidden;
-  }
   .rip{height:72px}
-  .beyond-left{
-    position:absolute;
-    left:50%;top:4.6rem;
-    transform:translateX(-50%);
-    max-width:200px;margin:0;z-index:5;
-  }
-  .beyond-ey{font-size:8px;letter-spacing:.12em;margin-bottom:.45rem}
-  .beyond-headline{font-size:21px;line-height:.92}
-  .beyond-headline .deco{font-size:18.5px}
-  .beyond-sub{font-size:9px;margin-top:.45rem}
-  .beyond-title{
-    font-size:46px;letter-spacing:-.1em;line-height:1;
-    top:44%;
-  }
-  .corner{width:10px;height:10px}
-  .corner.tl{top:3.8rem;left:1rem}
-  .corner.br{bottom:4.2rem;right:1rem}
-
-  .sticker.desk{z-index:6}
-  .chip{font-size:9px;padding:4px 9px;box-shadow:0 2px 4px rgba(0,0,0,.25)}
-  .folder-art{width:78px}
-  .illust-star{width:52px;height:52px}
-  .term{
-    min-width:0;width:auto;
-    padding:6px 8px;font-size:8px;line-height:1.55;
-    border-radius:5px;
-  }
-  .git{font-size:7.5px;padding:5px 7px;border-radius:4px}
-  .prompt-card{
-    max-width:78px;padding:6px 8px;border-radius:6px;
-  }
-  .prompt-card .l{font-size:7px;margin-bottom:2px}
-  .prompt-card .t{font-size:8px}
-  .sticker.desk img[alt="Figma"]{width:22px !important;height:auto !important}
-
-  .beyond-bottom{
-    left:4%;right:4%;bottom:3.2rem;
-    padding-top:.8rem;gap:.6rem;
-    flex-direction:column;align-items:flex-start;
-  }
-  .tag{font-size:8px;padding:3px 8px;letter-spacing:.06em}
-  .explore{font-size:9px;letter-spacing:.08em}
-
   .work{padding-top:24px;padding-bottom:48px}
   .work-hdr{margin-bottom:20px}
   .work-hdr h2{font-size:clamp(1.6rem,7vw,2rem)}
@@ -749,6 +795,24 @@ img{display:block;max-width:100%}
   .footer-nav a span{order:2}
   .footer-nav a::after{order:1;content:"→"}
 }
+
+/* Mobile beyond collage (Figma 393×888) — toggled via .is-mobile on stage */
+.beyond-stage.is-mobile .bx-hello{
+  width:89px;padding:1px 2px;
+}
+.beyond-stage.is-mobile .bx-hello .hi{font-size:7.3px;padding:1px 2px 0}
+.beyond-stage.is-mobile .bx-hello .name{height:27px;font-size:13.2px;border-radius:2.5px}
+.beyond-stage.is-mobile .term{
+  width:85px;padding:6px 8px;font-size:5.9px;line-height:1.7;border-radius:4px;
+}
+.beyond-stage.is-mobile .chip{font-size:9px;padding:6px 12px;border-width:2px}
+.beyond-stage.is-mobile .chip.white{border-width:3px;padding:7px 13px}
+.beyond-stage.is-mobile .git{font-size:7.2px;padding:6px 9px;border-radius:4px}
+.beyond-stage.is-mobile .bx-flower,
+.beyond-stage.is-mobile .sticker.bx-flower{
+  width:86px;height:130px;
+}
+
 </style>
 </head>
 <body>
@@ -840,58 +904,107 @@ img{display:block;max-width:100%}
     <img class="rip rip-top" src="Asset/images/home/up.png" alt="" aria-hidden="true" draggable="false">
     <div class="beyond-grid"></div>
     <div class="beyond-inner">
-      <div class="corner tl mat-move"></div>
-      <div class="corner br mat-move"></div>
+      <div class="beyond-stage" id="beyond-stage">
+        <div class="beyond-title bx-pos" data-d="title" data-m="title">BEYOND<br>THE BRIEF.</div>
 
-      <div class="beyond-left mat-move">
-        <div class="beyond-ey">[ Philosophy · Practice ]</div>
-        <div class="beyond-headline">
-          I DON'T
-          <span class="deco">decorate -</span>
-          I SOLVE.
+        <!-- Fixed collage anchors -->
+        <div class="sticker bx-fixed bx-pos" data-d="0,1,92,146" data-m="-6,0,60,96" style="z-index:6">
+          <img src="Asset/images/home/beyond/exit-sign.png" alt="Exit">
         </div>
-        <p class="beyond-sub">Design is clarity under pressure.</p>
-      </div>
-
-      <div class="beyond-title">BEYOND<br>THE BRIEF.</div>
-
-      <div class="sticker desk mat-move" style="left:9%;top:58%;width:200px">
-        <div class="folder-art"><img src="Asset/images/home/folder.svg" alt="" width="204" height="160"></div>
-      </div>
-      <div class="sticker desk mat-move" style="left:14%;top:68%">
-        <div class="term">
-          <div>$ <span class="g">parul --design</span></div>
-          <div><span class="b">→</span> <span class="g">shipping... ✓</span></div>
-          <div>$ <span class="g">▋</span></div>
+        <div class="sticker bx-fixed bx-break bx-pos" data-d="90,235,320,224" data-m="16,125,200,140" style="z-index:5">
+          <img src="Asset/images/home/beyond/break-the-rules.png" alt="Break the rules">
         </div>
-      </div>
-      <div class="sticker desk mat-move" style="left:38%;top:18%">
-        <div class="git">git commit -m "shipped 🚀"</div>
-      </div>
-      <div class="sticker desk chip orange mat-move" style="left:36%;top:32%;transform:rotate(-3deg)">System Design</div>
-      <div class="sticker desk chip white mat-move" style="left:52%;top:28%;transform:rotate(-6deg)">Design Thinking</div>
-      <div class="sticker desk chip dark mat-move" style="left:58%;top:38%;transform:rotate(4deg)">Product Thinking</div>
-      <div class="sticker desk chip vibe mat-move" style="left:50%;top:72%;transform:rotate(4deg)">vibe coded ✦</div>
-      <div class="sticker desk mat-move" style="left:62%;top:58%">
-        <div class="prompt-card"><div class="l">Prompt</div><div class="t">"make it feel right"</div></div>
-      </div>
-      <div class="sticker desk mat-move" style="right:12%;top:22%">
-        <div class="illust-star"><img src="Asset/images/home/illustr-star.svg" alt="Illustrations" width="180" height="180"></div>
-      </div>
-      <div class="sticker desk mat-move" style="right:18%;top:48%;transform:rotate(-8deg)">
-        <img src="Asset/images/home/figma-icon.svg" alt="Figma" width="52" height="76">
-      </div>
-      <div class="sticker desk chip green mat-move" style="right:10%;top:62%;transform:rotate(7deg)">Usability</div>
-
-      <div class="beyond-bottom mat-move">
-        <div class="tag-row">
-          <span class="tag">Illustrations</span>
-          <span class="tag">Vibe Coded</span>
-          <span class="tag">Motion</span>
-          <span class="tag">3D Experiments</span>
-          <span class="tag">UI Concepts</span>
+        <div class="sticker bx-fixed bx-cloud bx-pos" data-d="136,40,302,141" data-m="64,48,165,77" style="z-index:3">
+          <img src="Asset/images/home/beyond/cloud.png" alt="">
         </div>
-        <a href="know-the-designer.html#dark" class="explore">Explore the chaos <span>→</span></a>
+        <div class="sticker bx-fixed bx-cloud bx-pos" data-d="293,102,349,121" data-m="150,82,191,66" style="z-index:3">
+          <img src="Asset/images/home/beyond/cloud.png" alt="">
+        </div>
+        <div class="sticker bx-fixed bx-pos" data-d="1185,8,190,190" data-m="277,4,99,99" style="z-index:35">
+          <div class="bx-lantern-inner">
+            <img src="Asset/images/home/beyond/lantern.png" alt="Lantern">
+          </div>
+        </div>
+
+        <!-- Receipt (fixed) -->
+        <div class="sticker bx-fixed bx-receipt bx-pos" data-d="1026,216,252,444" data-m="105,452,252,444,scale(0.743)" style="z-index:8">
+          <div class="bx-receipt-body">
+            <div class="bx-receipt-title">Majority of<br>Time spent</div>
+            <div class="bx-receipt-hr"></div>
+            <div class="bx-receipt-rows">
+              <div class="left">
+                <span>Drinking Chai</span>
+                <span>Delulu</span>
+                <span>Travelllll</span>
+                <span>Freelancing</span>
+                <span>Consumerism</span>
+                <span>Taking photos constantly</span>
+              </div>
+              <div class="right">
+                <span>all the time/-</span>
+                <span>24 hr</span>
+                <span>1 month</span>
+                <span>0.00</span>
+                <span>₹ alot</span>
+                <span>Millions</span>
+              </div>
+              <img class="bx-delulu" src="Asset/images/home/beyond/delulu-pill.png" alt="">
+            </div>
+            <div class="bx-receipt-hr thick"></div>
+            <div class="chip vibe" style="transform:rotate(4deg)">Learning vibe code ✦</div>
+            <div class="bx-receipt-foot">
+              <img class="dino" src="Asset/images/home/beyond/dino.png" alt="">
+              <img class="barcode" src="Asset/images/home/beyond/barcode.svg" alt="">
+            </div>
+            <img class="bx-smile" src="Asset/images/home/beyond/smile.png" alt="">
+          </div>
+        </div>
+        <div class="sticker bx-fixed bx-ooo-wrap bx-pos" data-d="909,172,,,rotate(-11deg)" data-m="19,430,,,rotate(-11deg) scale(0.64)" style="z-index:14">
+          <div class="bx-ooo">
+            <div class="ooo-line"></div>
+            <div class="ooo-t">Out of <span class="ooo-struck">Office</span></div>
+            <div class="ooo-line"></div>
+            <div class="ooo-chip">my mind</div>
+          </div>
+        </div>
+        <img class="sticker bx-fixed bx-clip bx-pos" src="Asset/images/home/beyond/clip.png" alt="" data-d="1193,144,127,97,rotate(35deg)" data-m="229,398,94,72,rotate(35deg)" style="z-index:15">
+        <div class="sticker bx-fixed bx-flower bx-pos" data-d="910,430,160,240" data-m="40,667,86,130" style="z-index:10">
+          <img src="Asset/images/home/beyond/flower.png?v=2" alt="">
+        </div>
+
+        <!-- Draggable extras -->
+        <div class="sticker mat-move bx-pos" data-d="313,208,117,117" data-m="138,115,62,62" style="z-index:9">
+          <div class="bx-badge-spin">
+            <img src="Asset/images/home/beyond/rotating-badge.svg" alt="Thank you for your time">
+          </div>
+        </div>
+        <div class="sticker mat-move bx-pos" data-d="287,360,114,114" data-m="124,196,61,61" style="z-index:6">
+          <img src="Asset/images/home/beyond/clover.png" alt="">
+        </div>
+        <div class="sticker mat-move bx-pos" data-d="470,629,172,172" data-m="304,262,92,92" style="z-index:6">
+          <img src="Asset/images/home/beyond/capybara.png" alt="" style="transform:scaleX(-1)">
+        </div>
+        <div class="sticker mat-move bx-pos bx-hello-wrap" data-d="99,500,,,rotate(-1deg)" data-m="277,148,,,rotate(15deg)" style="z-index:7">
+          <div class="bx-hello">
+            <div class="hi">Hello, I am</div>
+            <div class="name">User friendly</div>
+          </div>
+        </div>
+        <div class="sticker mat-move bx-pos bx-term-wrap" data-d="249,572,,,rotate(-4deg)" data-m="212,199,,,rotate(-4deg)" style="z-index:7">
+          <div class="term">
+            <div>$ <span class="g">parul --design</span></div>
+            <div><span class="b">→</span> <span class="g">shipping... ✓</span></div>
+            <div>$ <span class="g">▋</span></div>
+          </div>
+        </div>
+        <div class="sticker chip orange mat-move bx-pos" data-d="513,335,,,rotate(-15deg)" data-m="34,250,,,rotate(-15deg)" style="z-index:6">System Design</div>
+        <div class="sticker chip white mat-move bx-pos" data-d="764,500,,,rotate(8deg)" data-m="236,384,,,rotate(8deg)" style="z-index:6">Design Thinking</div>
+        <div class="sticker mat-move bx-pos bx-git-wrap" data-d="1090,701,,,rotate(-3deg)" data-m="106,797,,,rotate(-3deg)" style="z-index:6">
+          <div class="git">git commit -m "shipped 🚀"</div>
+        </div>
+        <div class="sticker mat-move bx-pos" data-d="1246,660,212,212" data-m="276,756,117,117" style="z-index:6">
+          <img src="Asset/images/home/beyond/smiski.png" alt="">
+        </div>
       </div>
     </div>
     <img class="rip rip-bottom" src="Asset/images/home/down.png" alt="" aria-hidden="true" draggable="false">
@@ -1195,26 +1308,29 @@ tick();setInterval(tick,1000);
   cards.forEach(c=>io.observe(c));
 })();
 
-/* Green mat: drag everything except title + rip edges */
+/* Green mat: drag stickers (accounts for stage scale) */
 (function(){
-  function enableDrag(el, keepRotation){
+  let dragZ = 60;
+  function getStageScale(){
+    const stage = document.getElementById('beyond-stage');
+    if(!stage) return 1;
+    const t = getComputedStyle(stage).transform;
+    if(!t || t === 'none') return 1;
+    const m = t.match(/matrix\(([^,]+)/);
+    if(m) return Math.abs(parseFloat(m[1])) || 1;
+    const s = t.match(/scale\(([^)]+)\)/);
+    if(s) return Math.abs(parseFloat(s[1])) || 1;
+    return 1;
+  }
+
+  function enableDrag(el){
     function pinToLeftTop(){
-      const par = el.offsetParent || el.parentElement;
-      const pr  = par.getBoundingClientRect();
-      const er  = el.getBoundingClientRect();
-      el.style.left   = (er.left - pr.left) + 'px';
-      el.style.top    = (er.top  - pr.top)  + 'px';
-      el.style.right  = 'auto';
+      // Use layout offsets (unscaled) — getBoundingClientRect jumps under CSS scale
+      el.style.left = el.offsetLeft + 'px';
+      el.style.top = el.offsetTop + 'px';
+      el.style.right = 'auto';
       el.style.bottom = 'auto';
-      if(!keepRotation) el.style.transform = 'none';
-      if(keepRotation){
-        if(!el.dataset.rot){
-          const inlineT = el.getAttribute('style') || '';
-          const rm = inlineT.match(/rotate\([^)]+\)/);
-          el.dataset.rot = rm ? rm[0] : '';
-        }
-        el.style.transform = el.dataset.rot || '';
-      }
+      el.style.transform = el.dataset.rot || '';
     }
 
     let active = false, moved = false;
@@ -1228,11 +1344,13 @@ tick();setInterval(tick,1000);
       startElLeft = parseFloat(el.style.left) || 0;
       startElTop  = parseFloat(el.style.top)  || 0;
       el.style.transition = 'none';
-      el.style.zIndex = '40';
+      el.style.zIndex = String(++dragZ);
     }
     function onMove(cx, cy){
       if(!active) return;
-      const dx = cx - startMouseX, dy = cy - startMouseY;
+      const scale = getStageScale() || 1;
+      const dx = (cx - startMouseX) / scale;
+      const dy = (cy - startMouseY) / scale;
       if(Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
       const par  = el.offsetParent || el.parentElement;
       const maxX = Math.max(0, par.offsetWidth  - el.offsetWidth);
@@ -1247,7 +1365,7 @@ tick();setInterval(tick,1000);
     function onUp(){
       if(!active) return;
       active = false;
-      el.style.zIndex = '';
+      // keep elevated z-index so sticker stays on top after drop
       el.style.transition = '';
     }
 
@@ -1267,18 +1385,98 @@ tick();setInterval(tick,1000);
     }, {passive:false});
     document.addEventListener('touchend', onUp);
 
-    // allow links inside movable blocks only if not dragged
     el.querySelectorAll('a').forEach(a=>{
       a.addEventListener('click', e=>{ if(moved) e.preventDefault(); });
     });
   }
 
   document.querySelectorAll('.mat-move').forEach(el=>{
-    const inlineT = el.getAttribute('style') || '';
-    const rm = inlineT.match(/rotate\([^)]+\)/);
-    el.dataset.rot = rm ? rm[0] : '';
-    enableDrag(el, !!el.dataset.rot);
+    enableDrag(el);
   });
+})();
+
+/* Scale / switch green-mat stage: desktop 1512×890, mobile 393×888 */
+(function(){
+  const stage = document.getElementById('beyond-stage');
+  const inner = stage && stage.parentElement;
+  const beyond = document.querySelector('.beyond');
+  if(!stage || !inner || !beyond) return;
+
+  const DESK = { w: 1512, h: 890 };
+  const MOB  = { w: 393,  h: 888 };
+  let mode = '';
+
+  function parsePos(str){
+    if(!str || str === 'title') return null;
+    const p = String(str).split(',');
+    return {
+      left: p[0] !== undefined && p[0] !== '' ? p[0] + 'px' : '',
+      top:  p[1] !== undefined && p[1] !== '' ? p[1] + 'px' : '',
+      width: p[2] !== undefined && p[2] !== '' ? p[2] + 'px' : '',
+      height: p[3] !== undefined && p[3] !== '' ? p[3] + 'px' : '',
+      transform: (p[4] || '').trim()
+    };
+  }
+
+  function applyPositions(isMobile){
+    stage.querySelectorAll('.bx-pos').forEach(el => {
+      if(el.classList.contains('beyond-title')){
+        el.style.left = '50%';
+        el.style.top = isMobile ? 'calc(50% - 157px)' : 'calc(50% - 76px)';
+        // Figma mobile anchors title by top edge (x only); desktop centers both axes
+        el.style.transform = isMobile ? 'translateX(-50%)' : 'translate(-50%, -50%)';
+        el.style.fontSize = isMobile ? '46px' : '63px';
+        el.style.letterSpacing = isMobile ? '-0.1em' : '-0.058em';
+        return;
+      }
+      const raw = isMobile ? (el.getAttribute('data-m') || el.getAttribute('data-d')) : el.getAttribute('data-d');
+      const pos = parsePos(raw);
+      if(!pos) return;
+      if(pos.left) el.style.left = pos.left;
+      if(pos.top) el.style.top = pos.top;
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      if(pos.width) el.style.width = pos.width;
+      else if(el.classList.contains('bx-clip') || el.querySelector('img')) { /* keep */ }
+      if(pos.height) el.style.height = pos.height;
+      if(pos.transform){
+        el.style.transform = pos.transform;
+        el.style.transformOrigin = pos.transform.indexOf('scale') !== -1 ? 'top left' : '';
+        el.dataset.rot = (pos.transform.match(/rotate\([^)]+\)/) || [''])[0];
+      } else {
+        el.style.transform = '';
+        el.style.transformOrigin = '';
+        el.dataset.rot = '';
+      }
+    });
+  }
+
+  function fit(){
+    const w = beyond.clientWidth || window.innerWidth;
+    const isMobile = w <= 900;
+    const next = isMobile ? 'mobile' : 'desktop';
+    const dim = isMobile ? MOB : DESK;
+
+    if(mode !== next){
+      mode = next;
+      stage.classList.toggle('is-mobile', isMobile);
+      applyPositions(isMobile);
+    }
+
+    const scale = Math.min(1, w / dim.w);
+    stage.style.width = dim.w + 'px';
+    stage.style.height = dim.h + 'px';
+    stage.style.transformOrigin = 'top center';
+    stage.style.transform = 'scale(' + scale + ')';
+    stage.style.left = '50%';
+    stage.style.marginLeft = (-dim.w / 2) + 'px';
+    const h = Math.round(dim.h * scale);
+    inner.style.height = h + 'px';
+    beyond.style.height = h + 'px';
+  }
+
+  fit();
+  window.addEventListener('resize', fit);
 })();
 
 /* Namskar particle effect — layout locked by in-flow SVG; particles sample that same SVG */

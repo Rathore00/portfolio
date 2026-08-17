@@ -6,7 +6,7 @@
 <title>Admin Panel — Parul Rathour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=Inter:wght@400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -31,18 +31,6 @@ body{background:var(--bg);color:var(--black);font-family:var(--B);overflow-x:hid
 #cr.hv{width:50px;height:50px}
 
 /* nav */
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;justify-content:space-between;align-items:center;
-  padding:1.1rem 3rem;
-  background:rgba(255,255,255,.85);
-  backdrop-filter:blur(14px);
-  border-bottom:.5px solid var(--border);
-}
-.nav-logo{font-family:var(--B);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--black);text-decoration:none}
-.nav-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-.nav-back{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid);text-decoration:none;transition:color .2s;display:flex;align-items:center;gap:5px}
-.nav-back:hover{color:var(--black)}
 
 /* ── HERO ── */
 .hero{
@@ -213,7 +201,7 @@ nav{
 
 /* responsive */
 @media(max-width:900px){
-  nav{padding:1rem 1.4rem}
+  
   .hero{padding:7rem 1.4rem 2.5rem}
   .hero-bar{grid-template-columns:1fr 1fr}
   .hero-num{display:none}
@@ -230,15 +218,8 @@ nav{
   .outcome-row{grid-template-columns:1fr 1fr}
 }
 
-.footer-wordmark{position:relative;z-index:1;width:100%;margin-top:clamp(1.5rem,3vw,2.5rem);line-height:0;overflow:hidden;pointer-events:none;user-select:none}
-.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
-.footer-big{overflow:hidden}
-.footer-nav-item{display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.footer-nav-item span{order:1}
-.footer-nav-item::after{content:"→";order:2}
 
 </style>
-  <link rel="stylesheet" href="site-nav-subpage.css">
   <link rel="stylesheet" href="case-study-shared.css">
 </head>
 <body>
@@ -246,20 +227,33 @@ nav{
 <div id="cr"></div>
 <div id="cd"></div>
 
-<nav class="subpage-nav">
-  <ul class="nav-links-row">
-    <li><a href="index.html">Home</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="index.html#work" class="active">Work</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html">Know the Designer</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
-    <li><span class="nav-dot" aria-hidden="true"></span></li>
-    <li><a href="know-the-designer.html#dark">Off the Grid</a></li>
-  </ul>
-</nav>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+  <a href="know-the-designer.html#dark" onclick="closeMob()">Off the Grid</a>
+</div>
 
+<div class="top">
+  <nav class="nav" id="site-nav">
+    <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="know-the-designer.html">Know the Designer</a>
+      <a href="know-the-designer.html#dark">Off the Grid</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
+      <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+      <a href="#footer-contact" class="btn-note"><img src="Asset/images/home/leave-note-avatar.svg" alt=""><span>Leave a note</span></a>
+    </div>
+  </nav>
+</div>
 <!-- HERO -->
 <div class="hero">
   <div class="hero-num">01</div>
@@ -550,50 +544,55 @@ nav{
     </a>
   </div>
 </section>
-<footer id="footer-contact" class="cs-footer">
-  <div class="footer-contact">
-    <div>
-      <div class="fc-label">Location</div>
-      <div class="fc-val">Himachal Pradesh, India<br><span class="fc-sub">Available worldwide</span></div>
+<footer class="footer" id="footer-contact">
+  <div class="fc-row">
+    <div class="fc-col">
+      <div class="fc-l">Location</div>
+      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
     </div>
-    <div>
-      <div class="fc-label">Say Hello</div>
-      <div class="fc-val"><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    <div class="fc-col">
+      <div class="fc-l">Say Hello</div>
+      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
     </div>
-    <div>
-      <div class="fc-label">Currently at</div>
-      <div class="fc-val fc-val-right">American Express<br>Global Business Travel</div>
+    <div class="fc-col">
+      <div class="fc-l">Currently at</div>
+      <div class="fc-v">American Express<br>Global Business Travel</div>
     </div>
   </div>
-  <div class="footer-socials">
-    <a href="https://www.linkedin.com/in/parulrathour" class="fs-link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-    <a href="#" class="fs-link">Instagram</a>
-    <a href="#" class="fs-link">Behance</a>
+  <div class="fs-row">
+    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
     <a href="#" class="fs-link">Resume</a>
   </div>
   <div class="footer-big">
-    <div class="footer-big-text rv from-bottom">LET'S MAKE SOMETHING.</div>
-        <div class="footer-nav-col">
-      <a href="index.html" class="footer-nav-item"><span>Home</span></a>
-      <a href="index.html#work" class="footer-nav-item"><span>Work</span></a>
-      <a href="know-the-designer.html" class="footer-nav-item"><span>Know the Designer</span></a>
-      <a href="know-the-designer.html#dark" class="footer-nav-item"><span>Off the Grid</span></a>
+    <div class="footer-big-top">
+      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+      <div class="footer-nav">
+        <a href="index.html"><span>Home</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="know-the-designer.html"><span>Know the Designer</span></a>
+        <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
+      </div>
     </div>
     <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
   </div>
   <div class="footer-bottom">
-    <span class="footer-copy">© 2025 Parul Rathour</span>
-    <span class="footer-ftime" id="footer-time">IST —:—</span>
+    <span>© 2026 Parul Rathour</span>
+    <span id="footer-time">IST —:—</span>
   </div>
 </footer>
+
 <script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
 const ring=document.getElementById('cr'),dot=document.getElementById('cd');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
 (function l(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(l)})();
 function lum(x,y){const el=document.elementFromPoint(x,y);if(!el)return 255;let n=el;while(n&&n!==document.body){const b=getComputedStyle(n).backgroundColor;if(b&&b!=='rgba(0, 0, 0, 0)'&&b!=='transparent'){const m=b.match(/\d+/g);if(m)return(+m[0]*299+ +m[1]*587+ +m[2]*114)/1000;}n=n.parentElement;}return 255;}
 document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);});
-document.querySelectorAll('a,button,.cell,.cs-card,.footer-nav-item,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
+document.querySelectorAll('a,button,.cell,.cs-card,.footer-nav a,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
 const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 
