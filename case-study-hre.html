@@ -3,138 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HRE Hotel Reshop — Parul Rathour</title>
+<title>Hotel Rate Efficiency BI Dashboard — Parul Rathour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700;1,900&family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --red:#C0392B;--black:#0C0C0C;--white:#fff;--bg:#fff;
-  --off:#F5F3EE;--mid:#999;--border:#E4E2DC;
-  --M:'Montserrat',sans-serif;--S:'Playfair Display',serif;--B:'DM Sans',sans-serif;
-  --ink:#1a1a18;--ink-mid:#4a4a47;--ink-light:#8a8a86;--rule:#e4e2dc;
-  --cs-bg:#f9f8f5;--cs-card:#fff;--accent:#2d5be3;--accent-pale:#eef1fc;--tag-bg:#f0efeb;
-  --font-display:'DM Serif Display',Georgia,serif;
-  --font-body:'Inter',system-ui,sans-serif;
-  --max:760px;--gutter:clamp(1.25rem,5vw,2.5rem);
+  --ink:#0c0c0c;
+  --text:#1a1a1a;
+  --mid:#555;
+  --muted:#999;
+  --line:#e6e6e6;
+  --soft:#f2f2f2;
+  --paper:#fafafa;
+  --white:#fff;
+  --red:#c00000;
+  --green:#142b1d;
+  --blue:#0057ff;
+  --I:'DM Sans',system-ui,sans-serif;
+  --S:'Playfair Display',Georgia,serif;
+  --C:'Caveat',cursive;
+  --D:'DM Sans',system-ui,sans-serif;
+  --pad:clamp(1.25rem,4.5vw,5rem);
+  --max:1180px;
 }
 html{scroll-behavior:smooth}
-body{background:var(--cs-bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;cursor:none;line-height:1.75;-webkit-font-smoothing:antialiased}
-#cr{position:fixed;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--black);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .18s,height .18s,border-color .15s}
-#cd{position:fixed;width:4px;height:4px;background:var(--black);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background .12s}
-#cr.dk{border-color:#fff}#cd.dk{background:#fff}
-#cr.hv{width:50px;height:50px}
-
-/* Hero */
-.hero{background:var(--black);min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 0;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);background-size:52px 52px;pointer-events:none}
-.hero-num{position:absolute;right:2.5rem;top:7rem;font-family:var(--M);font-weight:900;font-size:14rem;color:rgba(255,255,255,.03);line-height:1;letter-spacing:-.04em;user-select:none;pointer-events:none}
-.hero-ey{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:1.2rem;opacity:0;animation:up .6s ease .1s forwards}
-.hero-h{font-family:var(--M);font-weight:900;font-size:clamp(2.6rem,5.2vw,5.2rem);color:#fff;line-height:1.02;letter-spacing:-.025em;max-width:820px;opacity:0;animation:up .9s cubic-bezier(.22,1,.36,1) .2s forwards}
-.hero-h em{font-family:var(--S);font-style:italic;font-weight:700;color:rgba(255,255,255,.5)}
-.hero-sub{font-family:var(--S);font-style:italic;font-size:clamp(.9rem,1.3vw,1rem);color:rgba(255,255,255,.4);max-width:560px;line-height:1.75;margin-top:1.2rem;opacity:0;animation:up .7s ease .38s forwards}
-.hero-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:.5px solid rgba(255,255,255,.08);margin-top:2.5rem;opacity:0;animation:up .7s ease .5s forwards}
-.hb-item{padding:1.2rem 0;border-right:.5px solid rgba(255,255,255,.06)}
-.hb-item:last-child{border-right:none}
-.hb-l{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
-.hb-v{font-size:13px;font-weight:500;color:rgba(255,255,255,.75)}
-@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
-
-/* Case study body (from hre-case-study.html) */
-.cs-article{
-  max-width:var(--max);
-  margin:0 auto;
-  padding:clamp(2.5rem,6vw,4rem) var(--gutter) clamp(3rem,8vw,5rem);
+body{
+  font-family:var(--I);color:var(--text);background:var(--white);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
 }
-.cs-article .section{margin-bottom:clamp(2.5rem,6vw,3.5rem)}
-.section-label{
-  display:flex;align-items:center;gap:.75rem;
-  font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--accent);margin-bottom:.85rem;
-}
-.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
-.cs-article h2{
-  font-family:var(--font-display);font-size:clamp(1.4rem,2.8vw,1.85rem);
-  font-weight:400;line-height:1.2;color:var(--ink);margin-bottom:1rem;
-}
-.cs-article p{font-size:.97rem;color:var(--ink-mid);margin-bottom:1rem;line-height:1.78}
-.cs-article p:last-child{margin-bottom:0}
-.cs-article p strong{font-weight:600;color:var(--ink)}
-
-.pull{
-  margin:2rem 0;padding:1.25rem 1.5rem;
-  border-left:2px solid var(--accent);background:var(--accent-pale);
-  border-radius:0 6px 6px 0;
-}
-.pull p{
-  font-family:var(--font-display);font-size:1.1rem;font-style:italic;
-  color:var(--ink);margin:0;line-height:1.55;
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+#cr,#cd{display:none}
+@media(pointer:fine){
+  #cr{display:block;position:fixed;width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
+  #cd{display:block;position:fixed;width:5px;height:5px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  #cr.hv{width:52px;height:52px}#cr.dk{border-color:#fff}#cd.dk{background:#fff}
+  body,a,button{cursor:none}
 }
 
-.card-grid{
-  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:1px;background:var(--rule);border:1px solid var(--rule);
-  border-radius:10px;overflow:hidden;margin:1.75rem 0;
+.hre{padding-top:0}
+.hre-inner{width:min(100% - 2*var(--pad),var(--max));margin:0 auto}
+.hre-label{
+  font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.85rem;
 }
-.card{background:var(--cs-card);padding:1.25rem 1.25rem 1.35rem}
-.card-label{font-size:.68rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.5rem}
-.card-title{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:.35rem;line-height:1.3}
-.card p{font-size:.85rem;line-height:1.6;margin:0}
-
-.tab-diagram{
-  background:var(--cs-card);border:1px solid var(--rule);
-  border-radius:10px;overflow:hidden;margin:1.75rem 0;
+.hre-h{
+  font-family:var(--I);font-weight:800;letter-spacing:-.035em;line-height:1.08;
+  color:var(--ink);font-size:clamp(1.85rem,3.6vw,2.85rem);
 }
-.tab-bar{display:flex;border-bottom:1px solid var(--rule);background:var(--tag-bg)}
-.tab{padding:.65rem 1.25rem;font-size:.82rem;font-weight:500;color:var(--ink-light);border-right:1px solid var(--rule)}
-.tab.active{background:var(--cs-card);color:var(--ink);border-bottom:1px solid var(--cs-card);margin-bottom:-1px}
-.tab-content{padding:1.25rem 1.5rem}
-.tab-content p{font-size:.87rem;margin-bottom:0}
-.tab-row{display:flex;gap:1.5rem;flex-wrap:wrap}
-.tab-col{flex:1;min-width:160px}
-.tab-col-label{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.4rem}
-.tab-col p{font-size:.85rem}
-
-.principle-list{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin:1.25rem 0}
-.principle-list li{display:flex;gap:.85rem;align-items:flex-start}
-.principle-list .pill{
-  flex-shrink:0;margin-top:.15rem;display:inline-block;
-  padding:.2rem .65rem;border-radius:100px;background:var(--tag-bg);
-  font-size:.72rem;font-weight:600;color:var(--ink-mid);letter-spacing:.03em;
-}
-.principle-list p{font-size:.9rem;margin:0}
-
-.retro-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.85rem;margin:1.5rem 0}
-.retro-card{background:var(--cs-card);border:1px solid var(--rule);border-radius:8px;padding:1.1rem 1.15rem 1.2rem}
-.retro-card-label{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-light);margin-bottom:.55rem}
-.retro-card p{font-size:.88rem;line-height:1.65;margin:0}
-
-.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.hre-p{font-size:clamp(.92rem,1.15vw,1.02rem);line-height:1.65;color:var(--mid)}
+.hre-sec{padding:clamp(3.75rem,8vw,7rem) 0}
+.hre-sec + .hre-sec{border-top:none}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .rv.vis{opacity:1;transform:none}
 
-.cs-more-work{padding:4rem clamp(1.4rem,5vw,3rem);background:var(--off);border-top:.5px solid var(--border)}
-.cs-more-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mid);margin-bottom:.8rem}
-.cs-more-title{font-family:var(--M);font-weight:900;font-size:clamp(1.8rem,4vw,3.2rem);letter-spacing:-.025em;line-height:1.05;margin-bottom:1.5rem}
-.cs-more-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
-.cs-card{display:block;text-decoration:none;color:inherit;background:#fff;border:.5px solid var(--border);border-radius:8px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+/* ══ HERO ══ */
+.hre-hero{
+  padding:calc(92px + clamp(2.25rem,5vw,3.75rem)) var(--pad) 0;
+  text-align:center;background:var(--paper);
+}
+.hre-tags{
+  font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1.35rem;
+}
+.hre-title{
+  font-family:var(--I);font-weight:800;
+  font-size:clamp(2.2rem,5.2vw,3.75rem);
+  letter-spacing:-.04em;line-height:1.05;color:var(--ink);
+  max-width:14ch;margin:0 auto;
+}
+.hre-sub{
+  margin:1.15rem auto 0;max-width:36rem;
+  font-size:clamp(.95rem,1.35vw,1.05rem);line-height:1.55;color:var(--mid);
+}
+.hre-hero-stage{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,min(42%,420px)) minmax(0,1fr);
+  gap:1.25rem 1.5rem;align-items:center;
+  margin:clamp(2.25rem,5vw,3.5rem) auto 0;
+  max-width:var(--max);text-align:left;
+}
+.hre-side{max-width:14rem}
+.hre-side-r{justify-self:end;text-align:right}
+.hre-side-k{font-size:.95rem;font-weight:700;margin-bottom:.4rem;color:var(--ink)}
+.hre-side-v{font-size:.88rem;line-height:1.45;color:var(--mid)}
+.hre-hero-img{
+  border-radius:18px;overflow:hidden;
+  box-shadow:0 18px 50px rgba(0,0,0,.1);
+}
+.hre-hero-img img{width:100%;aspect-ratio:303/377;object-fit:cover}
+.hre-meta{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  max-width:var(--max);margin:clamp(2.5rem,5vw,3.75rem) auto 0;
+  border-top:1px solid #ccc;border-bottom:1px solid #ccc;
+}
+.hre-meta-item{padding:1.35rem 1.25rem;text-align:left}
+.hre-meta-item + .hre-meta-item{border-left:1px solid #ccc}
+.hre-meta-l{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.45rem}
+.hre-meta-v{font-size:.95rem;font-weight:500;color:var(--ink);line-height:1.35}
+
+/* ══ CONTEXT ══ */
+.hre-ctx-top{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:2rem 3rem;align-items:start;margin-bottom:clamp(2rem,4vw,3rem);
+}
+.hre-ctx-body{
+  display:grid;grid-template-columns:1.05fr .95fr;
+  gap:2rem 3rem;align-items:center;
+}
+.hre-ctx-img{border-radius:28px;overflow:hidden}
+.hre-ctx-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.hre-num-list{list-style:none;border-top:1px solid var(--line)}
+.hre-num-list li{
+  display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:center;
+  padding:1.15rem 0;border-bottom:1px solid var(--line);
+  font-size:.95rem;line-height:1.5;color:var(--mid);
+}
+.hre-num-list .n{
+  font-family:var(--I);font-weight:700;font-size:1.35rem;color:var(--ink);letter-spacing:-.02em;
+}
+
+/* ══ PROBLEMS ══ */
+.hre-prob-top{
+  display:grid;grid-template-columns:1.1fr .9fr;
+  gap:2rem 3rem;align-items:start;margin-bottom:clamp(1.75rem,4vw,2.75rem);
+}
+.hre-prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.hre-prob-card{
+  background:var(--soft);border-radius:28px;
+  padding:1.4rem 1.25rem 1.35rem;
+  min-height:240px;display:flex;flex-direction:column;
+}
+.hre-prob-toprow{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:1.5rem}
+.hre-dot{width:28px;height:28px;border-radius:50%;background:#3a3a3a;flex-shrink:0}
+.hre-badge{
+  font-size:10px;letter-spacing:.02em;color:var(--muted);
+  background:rgba(255,255,255,.85);border-radius:999px;padding:.35rem .65rem;white-space:nowrap;
+}
+.hre-prob-card p{font-size:.92rem;line-height:1.45;color:var(--ink);font-weight:500;flex:1}
+.hre-prob-foot{margin-top:1.25rem;font-size:10px;letter-spacing:.04em;color:var(--muted)}
+
+/* ══ DISCOVERY ══ */
+.hre-disc-top{
+  display:grid;grid-template-columns:1.15fr .85fr;
+  gap:1.5rem 2.5rem;align-items:start;margin-bottom:clamp(1.75rem,4vw,2.5rem);
+}
+.hre-disc-top .hre-p{text-align:right}
+.hre-disc-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,1.05fr);
+  gap:1rem 1.15rem;align-items:stretch;
+}
+.hre-disc-notes{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.35rem .85rem;align-content:start;
+  padding-top:.15rem;
+}
+.hre-disc-notes .note{font-size:.88rem;line-height:1.5;color:var(--mid)}
+.hre-disc-notes .note-n{
+  display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:.4rem;letter-spacing:.04em;
+}
+.hre-disc-notes .note:nth-child(1){grid-column:1 / -1;max-width:32ch}
+.hre-disc-notes .note:nth-child(2){grid-column:1}
+.hre-disc-notes .note:nth-child(3){grid-column:2}
+.hre-find-stack{display:flex;flex-direction:column;gap:1rem;min-height:100%}
+.hre-find{
+  background:var(--white);border-radius:24px;overflow:hidden;
+  border:1px solid rgba(0,0,0,.04);
+  display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.04);
+  height:100%;
+}
+.hre-find-media{position:relative;overflow:hidden;background:var(--soft);flex:1 1 auto}
+.hre-find-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.hre-find-tall .hre-find-media{min-height:280px}
+.hre-find-wide{flex:1}
+.hre-find-wide .hre-find-media{min-height:110px}
+.hre-find-copy{padding:1.1rem 1.15rem 1.25rem;background:#fff;flex-shrink:0}
+.hre-find-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.hre-find-t{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem;color:var(--ink)}
+.hre-find-copy p{font-size:.88rem;line-height:1.45;color:var(--mid)}
+
+/* ══ QUOTE ══ */
+.hre-quote-sec{padding:clamp(2.5rem,5vw,4rem) 0}
+.hre-quote{
+  font-family:var(--I);font-weight:700;
+  font-size:clamp(1.25rem,2.4vw,1.85rem);
+  letter-spacing:-.025em;line-height:1.4;color:var(--ink);
+  max-width:48rem;
+}
+
+/* ══ WHY NOW ══ */
+.hre-why-top{
+  display:grid;grid-template-columns:1fr 1.1fr;
+  gap:2rem;align-items:start;margin-bottom:clamp(2rem,4vw,3rem);
+}
+.hre-why-h{
+  font-family:var(--S);font-weight:700;
+  font-size:clamp(2.4rem,5vw,3.75rem);letter-spacing:-.03em;line-height:1;
+  color:var(--ink);
+}
+.hre-why-h em{
+  font-family:var(--C);font-style:normal;font-weight:600;
+  font-size:1.15em;
+}
+.hre-why-list{list-style:none;border-top:1px solid var(--line)}
+.hre-why-list li{
+  display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;align-items:center;
+  padding:1.1rem 0;border-bottom:1px solid var(--line);
+  text-align:right;
+}
+.hre-why-list .n{font-size:.95rem;color:var(--muted);font-weight:500;text-align:left}
+.hre-why-list p{font-size:1rem;font-weight:600;color:#444;line-height:1.4}
+.hre-why-frame{
+  position:relative;background:linear-gradient(135deg,#ececec 0%,#f6f6f6 55%,#e8e8e8 100%);
+  border-radius:48px;overflow:hidden;padding:clamp(1.5rem,4vw,2.75rem);
+  min-height:320px;display:flex;align-items:center;justify-content:center;
+}
+.hre-why-frame img{
+  width:min(100%,720px);margin:0 auto;
+  filter:drop-shadow(0 24px 40px rgba(0,0,0,.18));
+}
+.hre-why-dot{
+  position:absolute;top:1.35rem;left:1.5rem;
+  width:22px;height:22px;border-radius:50%;background:#3a3a3a;
+}
+.hre-why-pill{
+  position:absolute;top:1.25rem;right:1.5rem;
+  background:rgba(255,255,255,.9);border-radius:999px;
+  padding:.4rem .85rem;font-size:12px;color:#666;font-weight:500;
+}
+
+/* ══ PROCESS ══ */
+.hre-proc-copy{max-width:48rem;margin-bottom:clamp(2rem,4vw,3rem)}
+.hre-proc-copy .hre-p{margin-top:1.15rem;max-width:42rem}
+.hre-proc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 2.5rem;
+  border-top:1px solid var(--line);padding-top:1.75rem;
+}
+.hre-proc-item h3{font-size:1.05rem;font-weight:700;margin-bottom:.55rem;color:var(--ink)}
+.hre-proc-item p{font-size:.95rem;line-height:1.55;color:var(--mid)}
+
+/* ══ OUTCOMES ══ */
+.hre-out-grid{
+  display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+  gap:clamp(2rem,4vw,3.5rem);align-items:stretch;
+}
+.hre-out-left{display:flex;flex-direction:column;min-height:100%}
+.hre-status{
+  display:inline-flex;align-items:center;gap:.55rem;align-self:flex-start;
+  margin-top:1.25rem;background:var(--red);color:#fff;
+  border-radius:999px;padding:.65rem 1.1rem;
+  font-size:.88rem;font-weight:500;
+}
+.hre-status::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;flex-shrink:0}
+.hre-out-left .hre-p{margin-top:auto;padding-top:3rem;max-width:28rem}
+.hre-out-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.hre-out-card{
+  background:var(--soft);border-radius:28px;padding:1.25rem 1.2rem 1.35rem;
+  min-height:200px;display:flex;flex-direction:column;
+}
+.hre-out-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;padding-bottom:1.5rem}
+.hre-out-card .hre-badge{background:#fff;color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
+.hre-out-card p{font-size:.9rem;line-height:1.45;color:#444;font-weight:500}
+
+/* ══ REFLECTION ══ */
+.hre-ref-top{
+  display:grid;grid-template-columns:1.1fr .9fr;
+  gap:1.5rem 2.5rem;align-items:end;margin-bottom:clamp(1.5rem,3vw,2.25rem);
+}
+.hre-ref-top .hre-p{text-align:right}
+.hre-bento{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;
+}
+.hre-bento > *{border-radius:20px;overflow:hidden;min-height:200px}
+.hre-bento figure{margin:0;background:#ddd}
+.hre-bento figure img{width:100%;height:100%;object-fit:cover;min-height:200px}
+.hre-card{
+  padding:1.35rem 1.25rem 1.45rem;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:200px;
+}
+.hre-card-l{
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.65rem;
+}
+.hre-card p{font-size:.88rem;line-height:1.5}
+.hre-card.white{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.hre-card.white .hre-card-l{color:var(--ink)}
+.hre-card.white p{color:#444}
+.hre-card.green{background:var(--green);color:#fff}
+.hre-card.blue{background:var(--blue);color:#fff}
+.hre-card.red{background:#d11111;color:#fff}
+
+/* more work */
+.cs-more-work{padding:4rem var(--pad) 5rem;border-top:1px solid var(--line)}
+.cs-more-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.cs-more-title{font-family:var(--I);font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.03em;margin-bottom:1.75rem}
+.cs-more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:var(--max)}
+.cs-card{display:block;text-decoration:none;color:inherit;background:#fff;border:.5px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .2s,box-shadow .2s}
 .cs-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
 .cs-card-img{aspect-ratio:16/10;background:#ddd center/cover no-repeat}
 .cs-card-meta{padding:1rem 1.1rem 1.2rem}
 .cs-card-year{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-.cs-card-title{font-family:var(--M);font-weight:700;font-size:.95rem;letter-spacing:-.01em;margin-top:.35rem;line-height:1.3}
+.cs-card-title{font-family:var(--D);font-weight:700;font-size:.95rem;letter-spacing:-.01em;margin-top:.35rem;line-height:1.3}
 
-@media(max-width:900px){
-  .hero{padding:7rem 1.4rem 0}
-  .hero-bar{grid-template-columns:1fr 1fr}
-  .hero-num{display:none}
+@media(max-width:1020px){
+  .hre-hero-stage{grid-template-columns:1fr 1fr;max-width:560px}
+  .hre-hero-img{grid-column:1 / -1;grid-row:1;max-width:360px;margin:0 auto;width:100%}
+  .hre-side{max-width:none}
+  .hre-side-r{justify-self:stretch;text-align:left}
+  .hre-ctx-top,.hre-ctx-body,.hre-prob-top,.hre-disc-top,.hre-why-top,.hre-out-grid,.hre-ref-top{grid-template-columns:1fr}
+  .hre-disc-top .hre-p,.hre-ref-top .hre-p{text-align:left}
+  .hre-disc-grid{grid-template-columns:1fr 1fr}
+  .hre-disc-notes{grid-column:1 / -1;grid-template-columns:1fr 1fr}
+  .hre-find-tall{grid-row:auto}
+  .hre-prob-grid{grid-template-columns:1fr 1fr}
+  .hre-bento{grid-template-columns:1fr 1fr}
+  .cs-more-grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:580px){
-  .hero-bar{grid-template-columns:1fr 1fr}
-  .tab-bar{overflow-x:auto}
+@media(max-width:640px){
+  .hre-meta{grid-template-columns:1fr 1fr}
+  .hre-meta-item:nth-child(odd){border-left:none}
+  .hre-meta-item:nth-child(3),.hre-meta-item:nth-child(4){border-top:1px solid #ccc}
+  .hre-hero-stage{grid-template-columns:1fr}
+  .hre-prob-grid,.hre-proc-grid,.hre-out-cards,.hre-disc-grid,.hre-disc-notes,.hre-bento,.cs-more-grid{grid-template-columns:1fr}
+  .hre-why-frame{border-radius:28px}
+  .hre-why-list li{text-align:left}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{transition:none!important;animation:none!important}
+  .rv{opacity:1;transform:none}
 }
 </style>
 <link rel="stylesheet" href="case-study-shared.css">
@@ -169,214 +366,359 @@ body{background:var(--cs-bg);color:var(--ink);font-family:var(--font-body);overf
   </nav>
 </div>
 
-<div class="hero">
-  <div class="hero-num">06</div>
-  <div class="hero-ey">Case Study · American Express GBT · HRE Hotel Reshop</div>
-  <h1 class="hero-h">Making $107M in savings<br><em>visible</em></h1>
-  <p class="hero-sub">HRE had been quietly re-booking hotel reservations at lower rates for years. The engine worked. The problem was that no one could see how — or where — it was working.</p>
-  <div class="hero-bar">
-    <div class="hb-item"><div class="hb-l">Role</div><div class="hb-v">Product Designer</div></div>
-    <div class="hb-item"><div class="hb-l">Contribution</div><div class="hb-v">Individual contributor</div></div>
-    <div class="hb-item"><div class="hb-l">Timeline</div><div class="hb-v">2–4 months</div></div>
-    <div class="hb-item"><div class="hb-l">Status</div><div class="hb-v">Development in progress</div></div>
-  </div>
-</div>
+<main class="hre">
 
-<article class="cs-article">
+  <!-- HERO -->
+  <header class="hre-hero">
+    <p class="hre-tags">BI Platform · Analytics · Enterprise · Amex GBT · 2025</p>
+    <h1 class="hre-title">Hotel Rate Efficiency BI Dashboard</h1>
+    <p class="hre-sub">HRE had been quietly re-booking hotel reservations at lower rates for years. The engine worked. The problem was that no one could see how — or where.</p>
 
-  <section class="section rv">
-    <div class="section-label">Context</div>
-    <h2>An engine running without a dashboard</h2>
-    <p>
-      HRE is an automated system that monitors hotel bookings and re-books them when a lower rate becomes available — generating significant savings for GBT's corporate travel clients at scale. Despite this, there was no analytics surface built to track or communicate how the engine was performing.
-    </p>
-    <p>
-      Stakeholders were managing a growing operation through spreadsheets and a partial, largely non-functional Power BI dashboard. The business was expanding, the data was piling up, and the tools weren't keeping pace. Leadership had no reliable way to distinguish between monitoring the system and responding to it.
-    </p>
-    <p>
-      This project was brought in to fix that — from scratch, solo, with no dedicated research function and a data landscape that was still evolving.
-    </p>
-  </section>
-
-  <section class="section rv">
-    <div class="section-label">Problem</div>
-    <h2>Too much data. No shared understanding of what to act on.</h2>
-    <p>
-      The core problem wasn't a lack of data — it was an absence of structure around it. Stakeholders were digging through exports and half-built views to answer questions that should have been immediately surfaced. Each team came with its own interpretation of what mattered, and there was no shared frame of reference.
-    </p>
-    <div class="pull">
-      <p>The business had a clear story to tell. It just had no way of telling it — to itself, or to the people responsible for growing it.</p>
-    </div>
-    <p>
-      Two things compounded this: 34 KPIs were in scope, with no alignment on priority, and some of the underlying data was still raw and uncategorised. Any solution would need to handle ambiguity — in the data, in the requirements, and in the stakeholders' own understanding of what they needed.
-    </p>
-  </section>
-
-  <section class="section rv">
-    <div class="section-label">Research &amp; Discovery</div>
-    <h2>Starting with the data, because the brief couldn't</h2>
-    <p>
-      With no research function attached to the project, the starting point was the data itself. Systematic analysis of the existing dataset surfaced three patterns that hadn't been articulated in any brief or stakeholder conversation: a clear growth trajectory in reshop volume, periodic spikes in rejection rates tied to specific supplier behaviour, and a concentration of savings in a narrow band of bookings.
-    </p>
-    <p>
-      These weren't minor observations — they shaped the entire information architecture that followed. The data told a story that no one had yet put into words.
-    </p>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-label">Finding 01</div>
-        <div class="card-title">Growth story</div>
-        <p>Reshop volume was increasing at a rate that the existing tooling couldn't meaningfully track or communicate.</p>
+    <div class="hre-hero-stage">
+      <div class="hre-side">
+        <div class="hre-side-k">Overview</div>
+        <p class="hre-side-v">A structured approach to managing complex infrastructure systems.</p>
       </div>
-      <div class="card">
-        <div class="card-label">Finding 02</div>
-        <div class="card-title">Rejection spikes</div>
-        <p>Periodic rejections correlated with specific supplier behaviour — a pattern invisible in the existing dashboard.</p>
-      </div>
-      <div class="card">
-        <div class="card-label">Finding 03</div>
-        <div class="card-title">Savings concentration</div>
-        <p>A narrow band of bookings accounted for a disproportionate share of savings — useful for prioritisation.</p>
+      <figure class="hre-hero-img">
+        <img src="Asset/images/work/hre/hero-laptop.png" alt="Hotel Reshop dashboard on a laptop" width="303" height="377">
+      </figure>
+      <div class="hre-side hre-side-r">
+        <div class="hre-side-k">Designed</div>
+        <p class="hre-side-v">No single place to monitor system performance — every question required a manual SQL pull</p>
       </div>
     </div>
-    <p>
-      Alongside data analysis, repeated working sessions with stakeholders helped identify not what data existed, but what decisions stakeholders were trying to make — and what they'd do differently with better visibility. This distinction drove the eventual KPI groupings.
-    </p>
-    <p>
-      One significant investment was domain learning: hotel reshop has its own terminology, supplier dynamics, and operational logic. Without at least a working understanding of what a "rejection" or "reshop attempt" actually meant in context, the design work would have been surface-level at best. The domain ramp-up extended the timeline — but it made every subsequent decision more grounded.
-    </p>
-  </section>
 
-  <section class="section rv">
-    <div class="section-label">Strategic Framing</div>
-    <h2>Not all 34 KPIs serve the same purpose</h2>
-    <p>
-      The central tension throughout the project: stakeholders wanted all 34 KPIs visible and equally accessible. That's a reasonable ask — each metric has an owner, and each owner has a use for it. But presenting 34 signals with equal weight means designing for no one in particular.
-    </p>
-    <p>
-      The position held throughout: equal weight is not neutral design. It's a choice that pushes cognitive load onto the user and makes the most important signals harder to find, not easier.
-    </p>
-    <ul class="principle-list">
-      <li>
-        <span class="pill">Principle</span>
-        <p><strong>Numbers over charts</strong> where the difference margin between data points is low enough that a visual encoding creates ambiguity rather than clarity.</p>
-      </li>
-      <li>
-        <span class="pill">Principle</span>
-        <p><strong>Clarity over aesthetics</strong> throughout. This is a working tool — its job is to inform decisions, not to demonstrate visual craft.</p>
-      </li>
-      <li>
-        <span class="pill">Principle</span>
-        <p><strong>Organise by attention type</strong>, not by data structure. The three-tab model reflects how stakeholders actually engage with the product: orientation, investigation, action.</p>
-      </li>
-    </ul>
-    <p>
-      The pushback on equal-weight KPI presentation was documented and defended across multiple reviews. The goal wasn't to remove KPIs — it was to give them appropriate context based on when and why someone would need them.
-    </p>
-  </section>
-
-  <section class="section rv">
-    <div class="section-label">Design Process</div>
-    <h2>Structuring 34 KPIs without overwhelming the people who use them</h2>
-    <p>
-      The design challenge was structural before it was visual: how do you organise a large, partially-raw dataset into something a stakeholder can act on in under a minute?
-    </p>
-    <p>
-      Earlier explorations tried a single scrollable view with progressive disclosure. Stakeholder feedback was consistent — the cognitive cost of orientation was too high. People needed to know which mode they were in before engaging with individual numbers.
-    </p>
-    <p>
-      The three-tab model emerged from that feedback. Each tab has a clear job. Nothing is hidden — the hierarchy is in the entry point, not the data itself.
-    </p>
-    <div class="tab-diagram">
-      <div class="tab-bar">
-        <div class="tab active">Summary</div>
-        <div class="tab">Insights</div>
-        <div class="tab">Attention</div>
+    <div class="hre-meta">
+      <div class="hre-meta-item">
+        <div class="hre-meta-l">Role</div>
+        <div class="hre-meta-v">Sole Product Designer</div>
       </div>
-      <div class="tab-content">
-        <div class="tab-row">
-          <div class="tab-col">
-            <div class="tab-col-label">Summary</div>
-            <p>Executive orientation. Headline reshop volume, savings rate, and system-level health at a glance. Designed for speed — no drilling required.</p>
+      <div class="hre-meta-item">
+        <div class="hre-meta-l">Timeline</div>
+        <div class="hre-meta-v">3 months</div>
+      </div>
+      <div class="hre-meta-item">
+        <div class="hre-meta-l">Tools</div>
+        <div class="hre-meta-v">Figma</div>
+      </div>
+      <div class="hre-meta-item">
+        <div class="hre-meta-l">Status</div>
+        <div class="hre-meta-v">Tableau Development In progress</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTEXT -->
+  <section class="hre-sec" id="context">
+    <div class="hre-inner">
+      <div class="hre-ctx-top rv">
+        <div>
+          <div class="hre-label">Context</div>
+          <h2 class="hre-h">Millions of $ saved. Zero visibility. Until now.</h2>
+        </div>
+        <p class="hre-p">HRE (Hotel Rate Efficiency) is an automated engine that re-books hotel reservations when a lower rate becomes available. It had generated $107M+ in savings with no analytics surface, leadership was flying blind.</p>
+      </div>
+      <div class="hre-ctx-body">
+        <figure class="hre-ctx-img rv">
+          <img src="Asset/images/work/hre/dashboard-exec.png" alt="Hotel Reshop executive dashboard on a laptop" width="787" height="711">
+        </figure>
+        <ul class="hre-num-list rv">
+          <li>
+            <span>Stakeholders managed a growing operation through spreadsheets and a non-functional Power BI dashboard</span>
+            <span class="n">01</span>
+          </li>
+          <li>
+            <span>No shared view of system performance, rejection trends, or savings distribution</span>
+            <span class="n">02</span>
+          </li>
+          <li>
+            <span>Informal monitoring no longer viable at this scale</span>
+            <span class="n">03</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMS -->
+  <section class="hre-sec" id="problems" style="background:var(--paper)">
+    <div class="hre-inner">
+      <div class="hre-prob-top rv">
+        <div>
+          <div class="hre-label">Problems &amp; Constraints</div>
+          <h2 class="hre-h">Too much data. No shared understanding of what to act on.</h2>
+        </div>
+        <p class="hre-p">The issue wasn’t a lack of data — it was an absence of structure around it. Each team interpreted the numbers differently, and there was no shared frame of reference for what required attention.</p>
+      </div>
+      <div class="hre-prob-grid">
+        <article class="hre-prob-card rv">
+          <div class="hre-prob-toprow">
+            <span class="hre-dot" aria-hidden="true"></span>
+            <span class="hre-badge">Leadership pain points</span>
           </div>
-          <div class="tab-col">
-            <div class="tab-col-label">Insights</div>
-            <p>Operational depth for teams managing supplier performance and reshop efficiency. Where patterns and trends live.</p>
+          <p>Underlying data partially raw and uncategorised — not ready to visualise uniformly</p>
+          <div class="hre-prob-foot">Designed to Work at Scale</div>
+        </article>
+        <article class="hre-prob-card rv">
+          <div class="hre-prob-toprow">
+            <span class="hre-dot" aria-hidden="true"></span>
+            <span class="hre-badge">Leadership pain points</span>
           </div>
-          <div class="tab-col">
-            <div class="tab-col-label">Attention</div>
-            <p>Proactively surfaced anomalies and metrics that require action — rather than leaving stakeholders to discover them in a data scan.</p>
+          <p>No clear distinction between metrics for monitoring vs metrics requiring action</p>
+          <div class="hre-prob-foot">Designed to Work at Scale</div>
+        </article>
+        <article class="hre-prob-card rv">
+          <div class="hre-prob-toprow">
+            <span class="hre-dot" aria-hidden="true"></span>
+            <span class="hre-badge">Leadership pain points</span>
           </div>
+          <p>Stakeholder requirements arrived late and in fragments, extending the project timeline</p>
+          <div class="hre-prob-foot">Designed to Work at Scale</div>
+        </article>
+        <article class="hre-prob-card rv">
+          <div class="hre-prob-toprow">
+            <span class="hre-dot" aria-hidden="true"></span>
+            <span class="hre-badge">Leadership pain points</span>
+          </div>
+          <p>34 KPIs in scope with no stakeholder alignment on priority</p>
+          <div class="hre-prob-foot">Designed to Work at Scale</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCOVERY -->
+  <section class="hre-sec" id="discovery">
+    <div class="hre-inner">
+      <div class="hre-disc-top rv">
+        <div>
+          <div class="hre-label">Research &amp; Discovery</div>
+          <h2 class="hre-h">Starting with the data, because the brief couldn’t</h2>
+        </div>
+        <p class="hre-p">With no research function on the project, discovery started with systematic data analysis. Three patterns emerged that hadn’t been articulated in any brief — and each shaped the information architecture that followed.</p>
+      </div>
+      <div class="hre-disc-grid">
+        <div class="hre-disc-notes rv">
+          <div class="note">
+            <span class="note-n">01</span>
+            Repeated stakeholder sessions identified not just what data existed, but what decisions stakeholders were trying to make with it
+          </div>
+          <div class="note">
+            <span class="note-n">02</span>
+            Domain learning was a necessary investment — hotel reshop terminology, supplier dynamics, and operational logic all informed design decisions
+          </div>
+          <div class="note">
+            <span class="note-n">03</span>
+            The ramp-up extended the timeline but grounded every subsequent call in context rather than assumption
+          </div>
+        </div>
+        <article class="hre-find hre-find-tall rv">
+          <div class="hre-find-media">
+            <img src="Asset/images/work/hre/insight-green.png" alt="" width="280" height="374">
+          </div>
+          <div class="hre-find-copy">
+            <div class="hre-find-l">Finding 01</div>
+            <div class="hre-find-t">Growth story</div>
+            <p>Reshop volume was growing at a rate the existing tooling couldn’t track or communicate.</p>
+          </div>
+        </article>
+        <div class="hre-find-stack">
+          <article class="hre-find hre-find-wide rv">
+            <div class="hre-find-media">
+              <img src="Asset/images/work/hre/insight-warm.png" alt="" width="280" height="374">
+            </div>
+            <div class="hre-find-copy">
+              <div class="hre-find-l">Finding 02</div>
+              <div class="hre-find-t">Rejection spikes</div>
+              <p>Periodic rejection spikes correlated with specific supplier behaviour — invisible in the previous dashboard.</p>
+            </div>
+          </article>
+          <article class="hre-find hre-find-wide rv">
+            <div class="hre-find-media">
+              <img src="Asset/images/work/hre/insight-purple.png" alt="" width="280" height="374">
+            </div>
+            <div class="hre-find-copy">
+              <div class="hre-find-l">Finding 03</div>
+              <div class="hre-find-t">Savings concentration</div>
+              <p>A narrow band of bookings accounted for a disproportionate share of savings — relevant for prioritisation.</p>
+            </div>
+          </article>
         </div>
       </div>
     </div>
-    <p>
-      Throughout this phase, stakeholder sessions ran in parallel — validating that the tab groupings reflected how teams actually thought about the business, and managing expectations around which KPIs were ready to surface given the state of the underlying data. Some high-value metrics weren't reliable enough to show yet. Those were flagged explicitly, not quietly dropped.
-    </p>
   </section>
 
-  <section class="section rv">
-    <div class="section-label">Outcomes</div>
-    <h2>A working tool, and follow-on work that says more than metrics</h2>
-    <p>
-      The design phase is complete. Development is in progress. Post-launch data isn't available yet — which is the honest picture.
-    </p>
-    <p>
-      What the dashboard delivers is a structured, reliable surface that replaces ad-hoc spreadsheet analysis and a non-functional Power BI view. For the first time, stakeholders across the HRE business have a shared starting point: a place to orient quickly, investigate when needed, and act on what matters today.
-    </p>
-    <p>
-      The more meaningful signal is this: stakeholders who engaged with this work came back with new project requirements. That's not a metric — but it's evidence that the value of the work was understood. A dashboard that gets handed off and never questioned usually means one of two things. This felt like the other one.
-    </p>
+  <!-- QUOTE -->
+  <section class="hre-quote-sec">
+    <div class="hre-inner rv">
+      <div class="hre-label">Research &amp; Discovery</div>
+      <p class="hre-quote">Data analysis as discovery was unexpectedly powerful. The growth story, rejection spike, and savings concentration all emerged from time in the data — none were in the brief. For projects without a research function, this is the honest starting point.</p>
+    </div>
   </section>
 
-  <section class="section rv">
-    <div class="section-label">Reflection</div>
-    <h2>What held, what didn't, and what's still open</h2>
-    <div class="retro-grid">
-      <div class="retro-card">
-        <div class="retro-card-label">Do differently</div>
-        <p>Push harder for a shared requirements document in week one. Stakeholder input arrived in fragments — a structured alignment session early on would have compressed the timeline without sacrificing the depth of the conversations that followed.</p>
+  <!-- WHY NOW -->
+  <section class="hre-sec" id="why-now" style="background:var(--paper)">
+    <div class="hre-inner">
+      <div class="hre-why-top rv">
+        <h2 class="hre-why-h">Why <em>now?</em></h2>
+        <ul class="hre-why-list">
+          <li>
+            <span class="n">01</span>
+            <p>System scale outgrew informal monitoring</p>
+          </li>
+          <li>
+            <span class="n">02</span>
+            <p>Leadership needed self-serve insight — not SQL requests</p>
+          </li>
+          <li>
+            <span class="n">03</span>
+            <p>Every performance question = engineering involvement</p>
+          </li>
+        </ul>
       </div>
-      <div class="retro-card">
-        <div class="retro-card-label">The hard call</div>
-        <p>Equal-weight KPI display was the stakeholder ask. It wasn't the right solution. That position held — but it was relitigated more than it needed to be. Documenting the rationale formally, earlier, would have shortened those conversations.</p>
-      </div>
-      <div class="retro-card">
-        <div class="retro-card-label">What surprised</div>
-        <p>The three-tab structure came from stakeholder conversations, not the data. The data revealed what existed. The people revealed what needed to be findable — and in what order.</p>
-      </div>
-      <div class="retro-card">
-        <div class="retro-card-label">Still open</div>
-        <p>Whether the dashboard shifts stakeholder behaviour — faster decisions, fewer ad-hoc data requests — isn't measurable yet. That's the real impact question, and it belongs to what comes after launch.</p>
-      </div>
-      <div class="retro-card">
-        <div class="retro-card-label">Stand behind</div>
-        <p>The numbers-over-charts principle for low-margin comparisons, and the separation of summary / insight / action. Both were debated. Neither changed. Both were right for this product and this audience.</p>
+      <div class="hre-why-frame rv">
+        <span class="hre-why-dot" aria-hidden="true"></span>
+        <span class="hre-why-pill">GDS Insight</span>
+        <img src="Asset/images/work/hre/impact-laptop.png" alt="GDS Insight dashboard on a laptop" width="1024" height="669">
       </div>
     </div>
   </section>
 
-</article>
+  <!-- PROCESS -->
+  <section class="hre-sec" id="process">
+    <div class="hre-inner">
+      <div class="hre-proc-copy rv">
+        <div class="hre-label">Design Process &amp; Collaboration</div>
+        <h2 class="hre-h">Structuring volume without overwhelming the people who need to act on it</h2>
+        <p class="hre-p">Earlier explorations used a single scrollable view with progressive disclosure. Consistent stakeholder feedback revealed the orientation cost was too high — people needed to know which mode they were in before engaging with individual metrics.</p>
+      </div>
+      <div class="hre-proc-grid rv">
+        <div class="hre-proc-item">
+          <h3>Executive Summary</h3>
+          <p>Executive orientation — headline volume, savings rate, system health. Designed for speed, no drilling required.</p>
+        </div>
+        <div class="hre-proc-item">
+          <h3>Rebook Summary</h3>
+          <p>Operational depth for teams tracking supplier performance and reshop efficiency over time.</p>
+        </div>
+        <div class="hre-proc-item">
+          <h3>Management</h3>
+          <p>Proactively surfaced anomalies and metrics requiring action — not buried in a full data scan.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTCOMES -->
+  <section class="hre-sec" id="outcomes" style="background:var(--paper)">
+    <div class="hre-inner">
+      <div class="hre-out-grid">
+        <div class="hre-out-left rv">
+          <div class="hre-label">Outcomes</div>
+          <h2 class="hre-h">Design complete. Impact pending launch.</h2>
+          <div class="hre-status">Development in progress • Awaiting UAT</div>
+          <p class="hre-p">The design phase is complete. Development is underway and the project is pending UAT and launch. Post-launch behavioural data is not yet available.</p>
+        </div>
+        <div class="hre-out-cards">
+          <article class="hre-out-card rv">
+            <div class="hre-out-card-top">
+              <span class="hre-dot" aria-hidden="true"></span>
+              <span class="hre-badge">Outcome 01</span>
+            </div>
+            <p>Replaces fragmented Excel analysis and a non-functional Power BI dashboard with a structured, purpose-built surface</p>
+          </article>
+          <article class="hre-out-card rv">
+            <div class="hre-out-card-top">
+              <span class="hre-dot" aria-hidden="true"></span>
+              <span class="hre-badge">Outcome 02</span>
+            </div>
+            <p>Three distinct tabs give stakeholders a shared starting point — oriented by use case, not data volume</p>
+          </article>
+          <article class="hre-out-card rv">
+            <div class="hre-out-card-top">
+              <span class="hre-dot" aria-hidden="true"></span>
+              <span class="hre-badge">Outcome 03</span>
+            </div>
+            <p>Establishes a clear separation between monitoring the system and acting on it — a distinction the previous tooling couldn’t support</p>
+          </article>
+          <article class="hre-out-card rv">
+            <div class="hre-out-card-top">
+              <span class="hre-dot" aria-hidden="true"></span>
+              <span class="hre-badge">Outcome 04</span>
+            </div>
+            <p>Whether the dashboard shifts decision speed or reduces ad-hoc data requests is the real impact question — and it belongs to what comes after launch</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFLECTION -->
+  <section class="hre-sec" id="reflection">
+    <div class="hre-inner">
+      <div class="hre-ref-top rv">
+        <div>
+          <div class="hre-label">Reflection</div>
+          <h2 class="hre-h">What held, what didn’t, and what’s still open</h2>
+        </div>
+        <p class="hre-p">The issue wasn’t a lack of data — it was an absence of structure around it. Each team interpreted the numbers differently, and there was no shared frame of reference for what required attention.</p>
+      </div>
+      <div class="hre-bento">
+        <figure class="rv">
+          <img src="Asset/images/work/hre/dashboard-monitor.png" alt="Executive summary on a desktop monitor" width="735" height="575">
+        </figure>
+        <div class="hre-card white rv">
+          <div class="hre-card-l">Do differently</div>
+          <p>Push harder for a shared requirements document in week one. Input arrived in fragments — a structured alignment session early on would have compressed the timeline without losing the depth of conversations that followed.</p>
+        </div>
+        <figure class="rv">
+          <img src="Asset/images/work/hre/dashboard-trends.png" alt="Trends dashboard on a laptop" width="736" height="736">
+        </figure>
+        <div class="hre-card green rv">
+          <div class="hre-card-l">Still open</div>
+          <p>Real impact, faster decisions, fewer ad-hoc requests, better supplier response will only be measurable post-launch. The design is ready. The signal is pending.</p>
+        </div>
+        <div class="hre-card blue rv">
+          <div class="hre-card-l">The hard call</div>
+          <p>Equal-weight KPI display was the stakeholder ask. It wasn’t the right solution. The position held — but documenting the rationale formally, earlier, would have shortened the review cycles.</p>
+        </div>
+        <figure class="rv">
+          <img src="Asset/images/work/hre/dashboard-exec-2.png" alt="Hotel Reshop dashboard detail" width="594" height="487">
+        </figure>
+        <div class="hre-card white rv">
+          <div class="hre-card-l">What surprised</div>
+          <p>The three-tab structure came from stakeholder conversations, not from the data. The data surfaced what existed. The people revealed what needed to be findable — and in what order.</p>
+        </div>
+        <div class="hre-card red rv">
+          <div class="hre-card-l">Stand behind</div>
+          <p>Numbers over charts for low-margin comparisons. Three-tab separation of summary, insight, and action. Both were debated, both held, and both remain the right call for this product and audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <section class="cs-more-work">
   <p class="cs-more-label">More entries</p>
   <h2 class="cs-more-title">Other case studies</h2>
   <div class="cs-more-grid">
     <a href="case-study-gbt-finance.html" class="cs-card">
-      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
       <div class="cs-card-meta">
-        <span class="cs-card-year">2025</span>
-        <span class="cs-card-title">GBT Finance Billing Dashboard</span>
+        <span class="cs-card-year">2024</span>
+        <span class="cs-card-title">GBT Finance Ops Dashboard</span>
       </div>
     </a>
     <a href="case-study-cambridge.html" class="cs-card">
       <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
       <div class="cs-card-meta">
-        <span class="cs-card-year">2024</span>
-        <span class="cs-card-title">Cambridge School — Digital Admissions</span>
+        <span class="cs-card-year">2023</span>
+        <span class="cs-card-title">Cambridge Assessment — Learning Platform</span>
       </div>
     </a>
     <a href="case-study-admin_2.html" class="cs-card">
-      <div class="cs-card-img" style="background-image:url('Asset/images/homabanner.png')"></div>
+      <div class="cs-card-img" style="background-image:url('Asset/images/test.jpeg')"></div>
       <div class="cs-card-meta">
         <span class="cs-card-year">2024</span>
         <span class="cs-card-title">E-Commerce Admin Panel for Indian SMBs</span>
@@ -433,7 +775,6 @@ body{background:var(--cs-bg);color:var(--ink);font-family:var(--font-body);overf
 
 <script>
 function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
-
 const ring=document.getElementById('cr'),dot=document.getElementById('cd');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
@@ -443,15 +784,11 @@ document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList
 document.querySelectorAll('a,button,.cs-card,.footer-nav a,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
 const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
-
 (function(){
   function tick(){
     const ist=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
-    const h=ist.getHours().toString().padStart(2,"0");
-    const m=ist.getMinutes().toString().padStart(2,"0");
-    const s=ist.getSeconds().toString().padStart(2,"0");
     const ft=document.getElementById("footer-time");
-    if(ft) ft.textContent=`${h}:${m}:${s} IST`;
+    if(ft) ft.textContent=`${String(ist.getHours()).padStart(2,"0")}:${String(ist.getMinutes()).padStart(2,"0")}:${String(ist.getSeconds()).padStart(2,"0")} IST`;
   }
   tick();setInterval(tick,1000);
 })();
