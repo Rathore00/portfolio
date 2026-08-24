@@ -103,7 +103,7 @@ img{display:block;max-width:100%}
   position:absolute;
   left:0;right:0;
   top:-8px;bottom:-8px;
-  z-index:3;
+  z-index:4;
   cursor:pointer;
 }
 /* In-flow SVG locks size (alt-shift pattern). Canvas overlays — never drives layout. */
@@ -122,27 +122,28 @@ img{display:block;max-width:100%}
   padding:0;
   border:0;
   vertical-align:top;
-  transition:opacity .12s linear;
   pointer-events:none;
   user-select:none;
   position:relative;
   z-index:1;
 }
-.namskar.is-active .namskar-img{
-  opacity:0;
-  /* keep in layout — opacity only; never visibility:hidden / position:absolute */
-}
-.namskar-canvas{
+.namskar-afterprint{
   position:absolute;
   left:0;top:0;
   width:100%;
   height:100%;
+  margin:0;padding:0;border:0;
+  display:none;
+  pointer-events:none;
+  z-index:0;
+}
+.namskar-canvas{
+  position:absolute;
   display:block;
   pointer-events:none;
   opacity:0;
   z-index:2;
 }
-.namskar.is-active .namskar-canvas{opacity:1}
 .namskar-fallback{
   font-family:var(--display);font-weight:900;
   font-size:clamp(4rem,14vw,11rem);line-height:.9;
@@ -631,9 +632,23 @@ img{display:block;max-width:100%}
 .footer-wordmark{
   position:relative;z-index:1;
   width:100%;margin:0;line-height:0;
-  overflow:hidden;pointer-events:none;user-select:none;
+  overflow:visible;
+  pointer-events:auto;
+  cursor:pointer;
+  user-select:none;
 }
-.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-wordmark img,.footer-wordmark svg{
+  display:block;width:100%;height:auto;
+  position:relative;z-index:1;pointer-events:none;
+  object-fit:fill;object-position:0 0;
+}
+.footer-wordmark .wm-canvas{
+  position:absolute;
+  display:block;pointer-events:none;opacity:0;z-index:2;
+}
+.footer-wordmark .wm-hit{
+  position:absolute;inset:0;z-index:4;cursor:pointer;
+}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase;
@@ -883,9 +898,10 @@ img{display:block;max-width:100%}
       <span id="hero-date">11 August 2026</span>
       <span id="hero-time">00:00:00 IST</span>
     </div>
-    <div class="namskar" id="namskar-burst" aria-label="Namskar">
+    <div class="namskar" id="namskar-burst" data-wm-burst data-wm-src="Asset/images/home/namskar.svg" data-wm-exclude=".green-cards .gcard" aria-label="Namskar">
       <div class="namskar-stage">
         <img class="namskar-img" src="Asset/images/home/namskar.svg?v=3" alt="Namskar" width="1237" height="204" draggable="false">
+        <img class="namskar-afterprint" src="Asset/images/home/namskar.svg?v=3" alt="" width="1237" height="204" draggable="false" aria-hidden="true">
         <canvas class="namskar-canvas" aria-hidden="true"></canvas>
       </div>
       <div class="namskar-hit" aria-hidden="true"></div>
@@ -1131,7 +1147,11 @@ img{display:block;max-width:100%}
           <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
         </div>
       </div>
-      <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+      <div class="footer-wordmark" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
+        <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
+        <canvas class="wm-canvas" aria-hidden="true"></canvas>
+        <div class="wm-hit" aria-hidden="true"></div>
+      </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Parul Rathour</span>
@@ -1515,465 +1535,8 @@ tick();setInterval(tick,1000);
   window.addEventListener('resize', fit);
 })();
 
-/* Namskar particle effect — layout locked by in-flow SVG; particles sample that same SVG */
-(function(){
-  const root = document.getElementById('namskar-burst');
-  if(!root) return;
-  const stage = root.querySelector('.namskar-stage') || root;
-  const img = root.querySelector('.namskar-img');
-  const canvas = root.querySelector('.namskar-canvas');
-  if(!img || !canvas) return;
-  const ctx = canvas.getContext('2d', { alpha: true });
-  if(!ctx) return;
-
-  // Clear leftover layout locks from older builds
-  stage.style.height = '';
-  stage.style.minHeight = '';
-  stage.style.aspectRatio = '';
-  root.style.minHeight = '';
-  img.style.width = '100%';
-  img.style.height = 'auto';
-
-  const COLOR = '#000';
-  const SVG_URL = 'Asset/images/home/namskar.svg';
-  const PNG_URL = 'Asset/images/home/namskar-particle-source.png';
-  const MOUSE_RADIUS = 130;
-  const MAX_PARTICLES = 3200;
-
-  function pickShape(){
-    const r = Math.random();
-    // ~97% dots (varied sizes); sparse accents — no squares or triangles
-    if(r < 0.78) return 'grain';
-    if(r < 0.97) return 'dot';
-    if(r < 0.982) return 'x';
-    if(r < 0.992) return 'ring';
-    if(r < 0.997) return 'plus';
-    return 'dash';
-  }
-
-  function sizeForShape(shape, step){
-    if(shape === 'grain') return 0.7 + Math.random() * 0.35;
-    if(shape === 'dot'){
-      // Most tiny; some medium/large dots for rhythm
-      const t = Math.random();
-      if(t < 0.7) return 0.9 + Math.random() * 0.5;
-      if(t < 0.9) return 1.8 + Math.random() * 1.2;
-      return 3.2 + Math.random() * 2.2;
-    }
-    if(shape === 'x') return step * 1.15 + Math.random() * 1.4;
-    if(shape === 'ring') return step * 1.25 + Math.random() * 1.6;
-    if(shape === 'plus') return step * 1.1 + Math.random() * 1.3;
-    return step * 1.35 + Math.random() * 1.5; // dash
-  }
-  let particles = [];
-  let raf = 0;
-  let hovering = false;
-  let ready = false;
-  let reforming = false;
-  let dpr = 1;
-  let cw = 0, ch = 0;
-  let padX = 0, padY = 0;
-  let textW = 0, textH = 0;
-  let sampleImg = null; // untainted blob-loaded SVG or PNG
-  let lastW = 0, lastH = 0;
-  const mouse = { x: -9999, y: -9999, active: false };
-  let idleBox = null;
-
-  // #region agent log
-  function dbg(msg, data, hid){
-    fetch('http://127.0.0.1:7248/ingest/d5761c31-5fde-4e62-8b7b-20c20b037c93',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','X-Debug-Session-Id':'297722'},
-      body:JSON.stringify({sessionId:'297722',location:'namskar.js',message:msg,data:data,timestamp:Date.now(),hypothesisId:hid,runId:'downsize-fix2'})
-    }).catch(()=>{});
-  }
-  function measure(tag, hid){
-    const sr = stage.getBoundingClientRect();
-    const ir = img.getBoundingClientRect();
-    const hr = document.querySelector('.hero-copy')?.getBoundingClientRect();
-    let pMinX=1e9,pMaxX=-1e9,pMinY=1e9,pMaxY=-1e9;
-    for(let i=0;i<particles.length;i++){
-      const p=particles[i];
-      if(p.bx<pMinX)pMinX=p.bx; if(p.bx>pMaxX)pMaxX=p.bx;
-      if(p.by<pMinY)pMinY=p.by; if(p.by>pMaxY)pMaxY=p.by;
-    }
-    const glyphW = pMaxX>=pMinX ? (pMaxX-pMinX) : 0;
-    const payload = {
-      tag,
-      stage:{w:+sr.width.toFixed(2),h:+sr.height.toFixed(2)},
-      img:{w:+ir.width.toFixed(2),h:+ir.height.toFixed(2)},
-      heroCopyTop: hr ? +hr.top.toFixed(2) : null,
-      active: root.classList.contains('is-active'),
-      particles: particles.length,
-      glyphW:+glyphW.toFixed(1),
-      glyphFrac: ir.width ? +(glyphW/ir.width).toFixed(3) : null,
-      sample: root.dataset.sample || '',
-      textWH:[+textW.toFixed(1),+textH.toFixed(1)]
-    };
-    if(idleBox && tag==='hover'){
-      payload.deltaStageH = +(sr.height - idleBox.stage.h).toFixed(2);
-      payload.deltaHeroTop = hr && idleBox.heroCopyTop!=null ? +(hr.top - idleBox.heroCopyTop).toFixed(2) : null;
-    }
-    dbg(tag, payload, hid);
-    return payload;
-  }
-  // #endregion
-
-  function loadImageBlob(url){
-    return new Promise((resolve) => {
-      fetch(url)
-        .then(r => { if(!r.ok) throw new Error('bad'); return r.blob(); })
-        .then(b => {
-          const im = new Image();
-          const obj = URL.createObjectURL(b);
-          im.onload = () => resolve(im.naturalWidth > 0 ? im : null);
-          im.onerror = () => resolve(null);
-          im.src = obj;
-        })
-        .catch(() => resolve(null));
-    });
-  }
-
-  // Last-resort: full-width "Namskar" (never a small centered word)
-  function makeFullWidthText(drawW, drawH){
-    const c = document.createElement('canvas');
-    c.width = drawW; c.height = drawH;
-    const x = c.getContext('2d');
-    x.clearRect(0,0,drawW,drawH);
-    x.fillStyle = '#fff';
-    x.textAlign = 'left';
-    x.textBaseline = 'middle';
-    let size = Math.floor(drawH * 0.92);
-    x.font = '900 ' + size + 'px Montserrat, Inter, Arial Black, sans-serif';
-    let tw = x.measureText('Namskar').width;
-    if(tw > 0 && tw < drawW * 0.98){
-      size = Math.floor(size * (drawW * 0.98) / tw);
-      x.font = '900 ' + size + 'px Montserrat, Inter, Arial Black, sans-serif';
-      tw = x.measureText('Namskar').width;
-    }
-    x.fillText('Namskar', (drawW - tw) / 2, drawH * 0.52);
-    return c;
-  }
-
-  function buildParticles(source, drawW, drawH){
-    // Wider spacing so larger accents don't crowd
-    const step = Math.max(6, Math.round(Math.min(drawW, drawH) / 32));
-    const off = document.createElement('canvas');
-    off.width = drawW; off.height = drawH;
-    const octx = off.getContext('2d', { willReadFrequently: true });
-    octx.clearRect(0,0,drawW,drawH);
-    try { octx.drawImage(source, 0, 0, drawW, drawH); }
-    catch(e){ return []; }
-    let data;
-    try { data = octx.getImageData(0, 0, drawW, drawH).data; }
-    catch(e){ return []; }
-
-    const list = [];
-    for(let y = 0; y < drawH; y += step){
-      for(let x = 0; x < drawW; x += step){
-        const i = (y * drawW + x) * 4;
-        const a = data[i+3];
-        if(a < 30) continue;
-        const lum = (data[i] + data[i+1] + data[i+2]) / 3;
-        if(lum < 85) continue;
-
-        const shape = pickShape();
-        const isAccent = shape !== 'grain' && shape !== 'dot';
-        // Accents scatter farther from the glyph; dots stay tighter to the form
-        const spread = isAccent ? step * 2.4 : step * 1.35;
-        const jx = (Math.random()-0.5) * spread;
-        const jy = (Math.random()-0.5) * spread;
-        const bx = x + padX + jx;
-        const by = y + padY + jy;
-        list.push({
-          x: bx, y: by,
-          bx: bx, by: by,
-          vx: 0, vy: 0,
-          shape: shape,
-          rot: Math.random() * Math.PI * 2,
-          size: sizeForShape(shape, step),
-          dens: 6 + Math.random() * 16
-        });
-      }
-    }
-    if(list.length > MAX_PARTICLES){
-      const keep = [];
-      const chance = MAX_PARTICLES / list.length;
-      for(let i=0;i<list.length;i++){
-        if(Math.random() < chance) keep.push(list[i]);
-      }
-      return keep.length > 200 ? keep : list.slice(0, MAX_PARTICLES);
-    }
-    return list;
-  }
-
-  function sizeCanvas(){
-    const rect = img.getBoundingClientRect();
-    if(rect.width < 40 || rect.height < 20) return false;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-    textW = rect.width;
-    textH = rect.height;
-    // Overflow pad for scatter — accents need room outside the glyph
-    padX = Math.round(textW * 0.07);
-    padY = Math.round(textH * 0.7);
-    cw = textW + padX * 2;
-    ch = textH + padY * 2;
-    lastW = textW;
-    lastH = textH;
-
-    canvas.style.width = cw + 'px';
-    canvas.style.height = ch + 'px';
-    canvas.style.left = (-padX) + 'px';
-    canvas.style.top = (-padY) + 'px';
-    canvas.width = Math.max(1, Math.round(cw * dpr));
-    canvas.height = Math.max(1, Math.round(ch * dpr));
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    return true;
-  }
-
-  function glyphSpan(list){
-    if(!list.length) return 0;
-    let minX=1e9, maxX=-1e9;
-    for(let i=0;i<list.length;i++){
-      if(list[i].bx<minX)minX=list[i].bx;
-      if(list[i].bx>maxX)maxX=list[i].bx;
-    }
-    return maxX - minX;
-  }
-
-  function rebuild(){
-    if(!sizeCanvas()) return;
-    const drawW = Math.max(1, Math.round(textW));
-    const drawH = Math.max(1, Math.round(textH));
-
-    let src = sampleImg;
-    let sampleKind = sampleImg ? (root.dataset.samplePref || 'blob') : '';
-    let list = src ? buildParticles(src, drawW, drawH) : [];
-
-    // Reject undersized glyph clouds (the old fillText bug looked like "downsizing")
-    let span = glyphSpan(list);
-    if(!list.length || span < drawW * 0.85){
-      const full = makeFullWidthText(drawW, drawH);
-      const list2 = buildParticles(full, drawW, drawH);
-      if(glyphSpan(list2) > span){
-        list = list2;
-        sampleKind = 'fullwidth-text';
-        span = glyphSpan(list);
-      }
-    }
-
-    particles = list;
-    ready = particles.length > 80 && span >= drawW * 0.75;
-    root.dataset.ready = ready ? '1' : '0';
-    root.dataset.particles = String(particles.length);
-    root.dataset.sample = sampleKind;
-    root.dataset.glyphFrac = drawW ? (span / drawW).toFixed(3) : '0';
-    // #region agent log
-    dbg('rebuild', {ready, n:particles.length, drawW, drawH, span:+span.toFixed(1), frac:drawW?+(span/drawW).toFixed(3):0, sample:sampleKind}, 'H2');
-    // #endregion
-    if(ready && !raf) loop();
-  }
-
-  function activate(){
-    if(!ready) rebuild();
-    if(!ready) return;
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
-      p.x = p.bx; p.y = p.by; p.vx = 0; p.vy = 0;
-    }
-    hovering = true;
-    reforming = false;
-    mouse.active = true;
-    root.classList.add('is-active');
-    // #region agent log
-    requestAnimationFrame(() => measure('hover', 'H1'));
-    // #endregion
-  }
-
-  function deactivate(){
-    if(!root.classList.contains('is-active')) return;
-    hovering = false;
-    reforming = true;
-    mouse.active = false;
-    mouse.x = -9999; mouse.y = -9999;
-  }
-
-  function drawParticle(p){
-    const s = p.size;
-    ctx.save();
-    ctx.translate(p.x, p.y);
-    ctx.rotate(p.rot);
-    ctx.fillStyle = COLOR;
-    ctx.strokeStyle = COLOR;
-    ctx.lineCap = 'square';
-
-    switch(p.shape){
-      case 'grain':
-        ctx.fillRect(-0.4, -0.4, 0.8, 0.8);
-        break;
-      case 'dot':
-        ctx.beginPath();
-        ctx.arc(0, 0, Math.max(0.55, s * 0.28), 0, Math.PI * 2);
-        ctx.fill();
-        break;
-      case 'x': {
-        ctx.lineWidth = Math.max(0.9, s * 0.14);
-        const d = s * 0.55;
-        ctx.beginPath();
-        ctx.moveTo(-d, -d); ctx.lineTo(d, d);
-        ctx.moveTo(d, -d); ctx.lineTo(-d, d);
-        ctx.stroke();
-        break;
-      }
-      case 'ring':
-        ctx.lineWidth = Math.max(0.85, s * 0.12);
-        ctx.beginPath();
-        ctx.arc(0, 0, s * 0.48, 0, Math.PI * 2);
-        ctx.stroke();
-        break;
-      case 'plus': {
-        ctx.lineWidth = Math.max(0.9, s * 0.14);
-        const l = s * 0.55;
-        ctx.beginPath();
-        ctx.moveTo(-l, 0); ctx.lineTo(l, 0);
-        ctx.moveTo(0, -l); ctx.lineTo(0, l);
-        ctx.stroke();
-        break;
-      }
-      case 'dash':
-        ctx.lineWidth = Math.max(0.9, s * 0.13);
-        ctx.beginPath();
-        ctx.moveTo(-s * 0.6, 0);
-        ctx.lineTo(s * 0.6, 0);
-        ctx.stroke();
-        break;
-      default:
-        ctx.fillRect(-0.4, -0.4, 0.8, 0.8);
-    }
-    ctx.restore();
-  }
-
-  function nearlyHome(){
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
-      if(Math.abs(p.x-p.bx)+Math.abs(p.y-p.by) > 1.2) return false;
-    }
-    return true;
-  }
-
-  function loop(){
-    raf = requestAnimationFrame(loop);
-    if(!root.classList.contains('is-active')) return;
-    ctx.clearRect(0, 0, cw, ch);
-
-    for(let i=0;i<particles.length;i++){
-      const p = particles[i];
-      p.vx += (p.bx - p.x) * 0.085;
-      p.vy += (p.by - p.y) * 0.085;
-
-      if(mouse.active){
-        const dx = p.x - mouse.x;
-        const dy = p.y - mouse.y;
-        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
-        if(dist < MOUSE_RADIUS){
-          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
-          const f = force * force * p.dens * 0.08;
-          p.vx += (dx / dist) * f;
-          p.vy += (dy / dist) * f;
-        }
-      }
-
-      p.vx *= 0.72;
-      p.vy *= 0.72;
-      p.x += p.vx;
-      p.y += p.vy;
-      drawParticle(p);
-    }
-
-    if(reforming && nearlyHome()){
-      reforming = false;
-      root.classList.remove('is-active');
-      ctx.clearRect(0, 0, cw, ch);
-    }
-  }
-
-  function localMouse(clientX, clientY){
-    const r = canvas.getBoundingClientRect();
-    mouse.x = (clientX - r.left) * (cw / (r.width || 1));
-    mouse.y = (clientY - r.top) * (ch / (r.height || 1));
-  }
-
-  function overPoint(x, y){
-    const r = img.getBoundingClientRect();
-    return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-  }
-
-  window.addEventListener('pointermove', (e) => {
-    const over = overPoint(e.clientX, e.clientY);
-    if(over){
-      if(!hovering) activate();
-      localMouse(e.clientX, e.clientY);
-      mouse.active = true;
-    } else if(hovering){
-      deactivate();
-    }
-  }, {passive:true});
-
-  root.addEventListener('pointerenter', (e) => {
-    activate();
-    localMouse(e.clientX, e.clientY);
-  });
-  root.addEventListener('pointerleave', () => deactivate());
-  root.addEventListener('touchstart', (e) => {
-    const t = e.touches[0];
-    if(!t) return;
-    if(hovering) deactivate();
-    else { activate(); localMouse(t.clientX, t.clientY); }
-  }, {passive:true});
-
-  let resizeT = 0;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeT);
-    resizeT = setTimeout(() => {
-      const r = img.getBoundingClientRect();
-      if(Math.abs(r.width - lastW) <= 2 && Math.abs(r.height - lastH) <= 2) return;
-      const was = hovering;
-      root.classList.remove('is-active');
-      hovering = false;
-      reforming = false;
-      rebuild();
-      idleBox = measure('resize-idle', 'H5');
-      if(was) activate();
-    }, 120);
-  });
-
-  async function boot(){
-    const waitImg = img.complete && img.naturalWidth > 0
-      ? Promise.resolve()
-      : new Promise(res => img.addEventListener('load', res, {once:true}));
-    const waitFonts = (document.fonts && document.fonts.ready)
-      ? document.fonts.ready
-      : Promise.resolve();
-    await Promise.all([waitImg, waitFonts]);
-
-    // Blob-load SVG first so sampling matches the idle wordmark 1:1 and canvas isn't tainted
-    sampleImg = await loadImageBlob(SVG_URL);
-    root.dataset.samplePref = 'svg';
-    if(!sampleImg){
-      sampleImg = await loadImageBlob(PNG_URL);
-      root.dataset.samplePref = 'png';
-    }
-    rebuild();
-    // #region agent log
-    idleBox = measure('idle-boot', 'H1');
-    // #endregion
-  }
-  boot();
-})();
-
-
 </script>
+<script src="wordmark-particles.js?v=3" defer></script>
 <script src="contact-modal.js?v=13" defer></script>
 </body>
 </html>

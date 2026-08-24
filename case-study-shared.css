@@ -136,9 +136,23 @@
 .footer-wordmark{
   position:relative;z-index:1;
   width:100%;margin:0;line-height:0;
-  overflow:hidden;pointer-events:none;user-select:none;
+  overflow:visible;
+  pointer-events:auto;
+  cursor:pointer;
+  user-select:none;
 }
-.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-wordmark img,.footer-wordmark svg{
+  display:block;width:100%;height:auto;
+  position:relative;z-index:1;pointer-events:none;
+  object-fit:fill;object-position:0 0;
+}
+.footer-wordmark .wm-canvas{
+  position:absolute;
+  display:block;pointer-events:none;opacity:0;z-index:2;
+}
+.footer-wordmark .wm-hit{
+  position:absolute;inset:0;z-index:4;cursor:pointer;
+}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase;

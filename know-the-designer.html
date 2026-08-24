@@ -382,9 +382,23 @@ img{display:block;max-width:100%}
 .footer-wordmark{
   position:relative;z-index:1;
   width:100%;margin:0;line-height:0;
-  overflow:hidden;pointer-events:none;user-select:none;
+  overflow:visible;
+  pointer-events:auto;
+  cursor:pointer;
+  user-select:none;
 }
-.footer-wordmark img,.footer-wordmark svg{display:block;width:100%;height:auto}
+.footer-wordmark img,.footer-wordmark svg{
+  display:block;width:100%;height:auto;
+  position:relative;z-index:1;pointer-events:none;
+  object-fit:fill;object-position:0 0;
+}
+.footer-wordmark .wm-canvas{
+  position:absolute;
+  display:block;pointer-events:none;opacity:0;z-index:2;
+}
+.footer-wordmark .wm-hit{
+  position:absolute;inset:0;z-index:4;cursor:pointer;
+}
 .footer-bottom{
   display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
   padding:1.2rem 3rem 2rem;font-size:11px;color:#888;letter-spacing:.06em;text-transform:uppercase;
@@ -762,7 +776,11 @@ img{display:block;max-width:100%}
           <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
         </div>
       </div>
-      <div class="footer-wordmark rv" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+      <div class="footer-wordmark rv" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
+        <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
+        <canvas class="wm-canvas" aria-hidden="true"></canvas>
+        <div class="wm-hit" aria-hidden="true"></div>
+      </div>
     </div>
     <div class="footer-bottom rv">
       <span>© 2026 Parul Rathour</span>
@@ -884,6 +902,7 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
   tick();setInterval(tick,1000);
 })();
 </script>
+<script src="wordmark-particles.js?v=3" defer></script>
 <script src="contact-modal.js?v=13" defer></script>
 </body>
 </html>
