@@ -22,7 +22,7 @@ img{display:block;max-width:100%}
 /* Fixed nav */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:300;
-  padding:16px clamp(24px,5vw,80px) 0;pointer-events:none;
+  padding:16px 74px 0;pointer-events:none;
 }
 .top .nav{pointer-events:auto;max-width:1512px;margin:0 auto;width:100%}
 .nav{
@@ -47,7 +47,8 @@ img{display:block;max-width:100%}
   display:flex;flex-direction:row;align-items:stretch;
   height:100vh;width:100%;
   overflow-x:auto;overflow-y:hidden;
-  scroll-snap-type:none;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;scrollbar-color:#cfcfcf transparent;
   position:relative;z-index:10;
@@ -61,6 +62,7 @@ img{display:block;max-width:100%}
   position:relative;
   padding:100px clamp(24px,4vw,64px) 40px;
   overflow:visible;
+  scroll-snap-align:start;
 }
 
 /* Fixed wordmark — bottom of viewport; cards scroll over it */
@@ -86,7 +88,7 @@ img{display:block;max-width:100%}
 /* Panel 1 — Hero — Figma 204:9912 exact column layout */
 .panel-hero{
   width:auto;
-  min-width:max-content;
+  min-width:max(max-content,100vw);
   height:100%;
   display:flex;
   flex-direction:row;
@@ -197,7 +199,6 @@ img{display:block;max-width:100%}
 .tool{display:flex;align-items:center;gap:12px}
 .tool-ico{width:30px;height:30px;border-radius:6px;border:1px solid #f3f4f6;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#fff}
 .tool-ico img{width:100%;height:100%;object-fit:cover}
-.tool-ico.cursor-ico img{width:16px;height:16px;object-fit:contain}
 .tool-n{font-family:var(--inter);font-weight:700;font-size:11px;color:#1e293b}
 .tool-s{font-family:var(--inter);font-size:9px;color:var(--soft)}
 
@@ -246,8 +247,9 @@ img{display:block;max-width:100%}
 
 /* Panel 2 — Sketchbooks (Figma flex mosaic) */
 .panel-sketch{
-  width:1084px;
-  min-width:1084px;
+  width:max(1084px,100vw);
+  min-width:max(1084px,100vw);
+  scroll-snap-align:start;
   background:rgba(242,242,242,.28);
   backdrop-filter:blur(28px) saturate(1.05);
   -webkit-backdrop-filter:blur(28px) saturate(1.05);
@@ -290,39 +292,37 @@ img{display:block;max-width:100%}
 
 /* Panel 3 — Frame */
 .panel-frame{
-  width:min(900px, 72vw);
-  min-width:520px;
+  width:100vw;
+  min-width:100vw;
+  flex:0 0 100vw;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
   display:flex;align-items:center;justify-content:center;
   background:transparent;
   z-index:3;
 }
 .frame-wrap{
   width:min(640px,82%);
-  aspect-ratio:1144/787;
+  aspect-ratio:1000/690;
   max-height:68vh;
   position:relative;
   filter:drop-shadow(0 12px 80px rgba(0,0,0,.4));
 }
-.frame-photo{
-  position:absolute;
-  left:11%;top:10%;
-  width:78%;height:80%;
-  object-fit:cover;object-position:center 35%;
-  border-radius:2px;
-}
 .frame-ornament{
-  position:absolute;left:50%;top:50%;
-  width:calc(100% * 787 / 1144);
-  height:calc(100% * 1144 / 787);
-  max-width:none;
-  object-fit:contain;pointer-events:none;
-  transform:translate(-50%,-50%) rotate(90deg);
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
 }
 
 /* Panel 4 — Footer (same as homepage) */
 .panel.footer{
-  width:min(1400px,100vw);
-  min-width:720px;
+  width:100vw;
+  min-width:100vw;
+  flex:0 0 100vw;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
   padding:88px 0 0;
   background:#fff;
   border-top:.5px solid #ddd;
@@ -402,6 +402,18 @@ img{display:block;max-width:100%}
   background:rgba(12,12,12,.88);color:#fff;border-radius:999px;
   padding:10px 16px;font-size:12px;letter-spacing:.04em;
   pointer-events:none;opacity:.85;
+}
+
+/* Scroll-appear — same .rv pattern as case studies, axis-aware */
+.rv{
+  opacity:0;
+  transform:translateX(22px);
+  transition:opacity .55s ease,transform .55s ease;
+  transition-delay:var(--d,0s);
+}
+.rv.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
 }
 
 .mob-menu{
@@ -506,7 +518,7 @@ img{display:block;max-width:100%}
   .sk-fixed{flex:0 0 132px}
 
   .panel-frame{
-    width:88vw;min-width:300px;
+    width:100vw;min-width:100vw;flex:0 0 100vw;
     justify-content:center;align-items:center;
   }
   .frame-wrap{width:100%;max-height:55vh;margin:0 auto}
@@ -536,6 +548,8 @@ img{display:block;max-width:100%}
   .hint{display:none}
 }
 </style>
+<link rel="stylesheet" href="contact-modal.css?v=10">
+<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 <div class="mob-menu" id="mobMenu">
@@ -578,11 +592,11 @@ img{display:block;max-width:100%}
     <div class="hero-cluster">
       <!-- Col 1: intro + stats (pb 30 like Figma) -->
       <div class="col col-stats">
-        <div class="hero-copy">
+        <div class="hero-copy rv">
           <h2>From mountains to digital Product Designing</h2>
           <p>Himachal, IN</p>
         </div>
-        <div class="card stats">
+        <div class="card stats rv">
           <div class="stat-row">
             <div class="stat">
               <div class="stat-n">6+</div>
@@ -595,7 +609,7 @@ img{display:block;max-width:100%}
               <div class="stat-s">Across 5 product teams</div>
             </div>
           </div>
-          <a class="resume" href="#">
+          <a class="resume" href="resume.html">
             <span class="resume-play"><img src="Asset/images/know/icon-play.svg" alt=""></span>
             <span>
               <span class="resume-t">Resume</span>
@@ -607,7 +621,7 @@ img{display:block;max-width:100%}
 
       <!-- Col 2: Images (pt 30) + Top Tools -->
       <div class="col col-media">
-        <div class="card photos-card">
+        <div class="card photos-card rv">
           <div class="card-label">Images</div>
           <img class="photo-hero" src="Asset/images/know/hero-mountain.png" alt="Himachal mountains" loading="lazy">
           <div class="fan" aria-hidden="true">
@@ -618,10 +632,10 @@ img{display:block;max-width:100%}
             <img src="Asset/images/home/cards/card-1.png" alt="">
           </div>
         </div>
-        <div class="card tools">
+        <div class="card tools rv">
           <div class="sec-head"><span class="dot orange"></span><span class="card-label">Top Tools</span></div>
           <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-figma.png" alt=""></div><div><div class="tool-n">Figma</div><div class="tool-s">Design</div></div></div>
-          <div class="tool"><div class="tool-ico cursor-ico"><img src="Asset/images/home/icon-cursor.svg" alt=""></div><div><div class="tool-n">Cursor</div><div class="tool-s">Vibe code</div></div></div>
+          <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-cursor.svg" alt=""></div><div><div class="tool-n">Cursor</div><div class="tool-s">Vibe code</div></div></div>
           <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-claude.png" alt=""></div><div><div class="tool-n">Claude</div><div class="tool-s">Usability testing &amp; brainstorming</div></div></div>
           <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-notion.png" alt=""></div><div><div class="tool-n">Notion</div><div class="tool-s">Documentation</div></div></div>
           <div class="tool"><div class="tool-ico"><img src="Asset/images/know/tool-sheets.png" alt=""></div><div><div class="tool-n">Sheets</div><div class="tool-s">Data</div></div></div>
@@ -630,7 +644,7 @@ img{display:block;max-width:100%}
 
       <!-- Col 3: Work History (stretches full row height) -->
       <div class="col col-history">
-        <div class="card history">
+        <div class="card history rv">
           <div class="sec-head"><span class="dot blue"></span><span class="card-label">Work History</span></div>
           <div class="hist">
             <div class="hist-item h1"><div class="when">2025 — Present</div><div class="who">Amex GBT</div></div>
@@ -644,12 +658,12 @@ img{display:block;max-width:100%}
 
       <!-- Col 4: Quote + Wishlist (vertically centered in row) -->
       <div class="col col-quote">
-        <div class="card quote">
+        <div class="card quote rv">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
           <p>Most people called it “just a hobby.” Thank goodness I didn’t listen. Every sketch, illustration, and late-night experiment eventually became the foundation of the designer I am today.</p>
           <div class="card-label">Personal Projects</div>
         </div>
-        <div class="card wishlist">
+        <div class="card wishlist rv">
           <div class="card-label">Design Wishlist</div>
           <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
           <label class="wish"><input type="checkbox"><span>Participate in a design hackathon</span></label>
@@ -658,12 +672,12 @@ img{display:block;max-width:100%}
 
       <!-- Col 5: Coming soon + Services (pb 38) -->
       <div class="col col-projects">
-        <div class="card coming">
+        <div class="card coming rv">
           <div class="card-label">Personal Projects</div>
           <img src="Asset/images/know/coming-soon-card.png" alt="Personal project preview" loading="lazy">
           <span class="coming-tag">Coming soon</span>
         </div>
-        <div class="card services">
+        <div class="card services rv">
           <div class="card-label">Services</div>
           <div class="svc-tags">
             <span class="svc-tag">Design Strategy</span>
@@ -680,10 +694,10 @@ img{display:block;max-width:100%}
 
   <!-- PANEL 2 -->
   <section class="panel panel-sketch" id="sketch" aria-label="Sketchbooks">
-    <div class="sketch-ey">Hobby to skills</div>
+    <div class="sketch-ey rv">Hobby to skills</div>
     <div class="sketch-top">
-      <h2 class="sketch-h">Sketchbooks keep my<br><em>imagination</em><br>employed.</h2>
-      <div class="sketch-lede">
+      <h2 class="sketch-h rv">Sketchbooks keep my<br><em>imagination</em><br>employed.</h2>
+      <div class="sketch-lede rv">
         <p>Design systems pay the bills. Sketchbooks keep my imagination employed.</p>
         <p style="margin-top:1rem">These illustrations are digital experiments, visual stories, character studies, and occasional midnight ideas that refused to stay inside my head. Different medium. Same designer.</p>
       </div>
@@ -691,73 +705,72 @@ img{display:block;max-width:100%}
     <div class="sketch-mosaic">
       <div class="sk-col sk-col-a">
         <div class="sk-row">
-          <div class="sk"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s1.png" alt="" loading="lazy"></div>
-          <div class="sk"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s2.png" alt="" loading="lazy"></div>
+          <div class="sk rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s1.png" alt="" loading="lazy"></div>
+          <div class="sk rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s2.png" alt="" loading="lazy"></div>
         </div>
-        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s3.png" alt="" loading="lazy"></div>
+        <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s3.png" alt="" loading="lazy"></div>
       </div>
       <div class="sk-col sk-col-b">
         <div class="sk-sub">
-          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s4.png" alt="" loading="lazy"></div>
-          <div class="sk sk-fixed"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s5.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s4.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fixed rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s5.png" alt="" loading="lazy"></div>
         </div>
         <div class="sk-sub">
-          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s6.png" alt="" loading="lazy"></div>
-          <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s7.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s6.png" alt="" loading="lazy"></div>
+          <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s7.png" alt="" loading="lazy"></div>
         </div>
       </div>
       <div class="sk-col sk-col-c">
-        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s8.png" alt="" loading="lazy"></div>
+        <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Drawing</span><img src="Asset/images/know/sketch/s8.png" alt="" loading="lazy"></div>
       </div>
       <div class="sk-col sk-col-d">
-        <div class="sk sk-fill"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s9.png" alt="" loading="lazy"></div>
+        <div class="sk sk-fill rv"><span class="sk-dot"></span><span class="sk-tag">Illustration</span><img src="Asset/images/know/sketch/s9.png" alt="" loading="lazy"></div>
       </div>
     </div>
   </section>
 
   <!-- PANEL 3 -->
   <section class="panel panel-frame" aria-label="Portrait">
-    <div class="frame-wrap">
-      <img class="frame-photo" src="Asset/images/know/portrait-inner.png" alt="Parul in Himachal" loading="lazy">
-      <img class="frame-ornament" src="Asset/images/know/frame-ornate.png" alt="" aria-hidden="true">
+    <div class="frame-wrap rv">
+      <img class="frame-ornament" src="Asset/images/know/framed-portrait-landscape.png" alt="Parul in Himachal" loading="lazy">
     </div>
   </section>
 
   <!-- PANEL 4 — Homepage footer -->
   <footer class="panel footer" id="footer-contact">
     <div class="fc-row">
-      <div class="fc-col">
+      <div class="fc-col rv">
         <div class="fc-l">Location</div>
         <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
       </div>
-      <div class="fc-col">
+      <div class="fc-col rv">
         <div class="fc-l">Say Hello</div>
         <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
       </div>
-      <div class="fc-col">
+      <div class="fc-col rv">
         <div class="fc-l">Currently at</div>
         <div class="fc-v">American Express<br>Global Business Travel</div>
       </div>
     </div>
-    <div class="fs-row">
+    <div class="fs-row rv">
       <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
       <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
-      <a href="#" class="fs-link">Resume</a>
+      <a href="resume.html" class="fs-link">Resume</a>
     </div>
     <div class="footer-big">
       <div class="footer-big-top">
-        <div class="footer-cta">LET'S MAKE SOMETHING.</div>
-        <div class="footer-nav">
+        <div class="footer-cta rv">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav rv">
           <a href="index.html"><span>Home</span></a>
           <a href="work.html"><span>Work</span></a>
           <a href="know-the-designer.html"><span>Know the Designer</span></a>
           <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
         </div>
       </div>
-      <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+      <div class="footer-wordmark rv" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
     </div>
-    <div class="footer-bottom">
+    <div class="footer-bottom rv">
       <span>© 2026 Parul Rathour</span>
       <span id="footer-time">IST —:—</span>
     </div>
@@ -785,6 +798,7 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 
   // Smooth-scroll Get In Touch / #footer-contact into the horizontal track
   document.querySelectorAll('a[href="#footer-contact"]').forEach(function(a){
+    if(a.classList.contains('btn-touch')) return;
     a.addEventListener('click',function(e){
       e.preventDefault();
       if(!cta) return;
@@ -824,6 +838,48 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 })();
 
 (function(){
+  const items=document.querySelectorAll('.rv');
+  if(!items.length) return;
+  const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(el,d){
+    if(d) el.style.setProperty('--d',d);
+    el.classList.add('vis');
+  }
+  function showAll(){items.forEach(function(el){show(el)})}
+  if(reduce||!('IntersectionObserver' in window)){showAll();return}
+
+  const scroller=document.getElementById('hscroll');
+  const io=new IntersectionObserver(function(entries){
+    entries.filter(function(e){return e.isIntersecting})
+      .sort(function(a,b){return a.target.getBoundingClientRect().left-b.target.getBoundingClientRect().left})
+      .forEach(function(e,i){
+        show(e.target,(Math.min(i,7)*55)+'ms');
+        io.unobserve(e.target);
+      });
+  },{threshold:.08,rootMargin:'0px -4% 0px 0px'});
+  items.forEach(function(el){io.observe(el)});
+
+  // IO can miss the first paint inside a horizontal scroller — reveal what's already on screen
+  function flushVisible(){
+    const rr=(scroller||document.documentElement).getBoundingClientRect();
+    const ready=[];
+    items.forEach(function(el){
+      if(el.classList.contains('vis')) return;
+      const r=el.getBoundingClientRect();
+      const ox=Math.min(r.right,rr.right)-Math.max(r.left,rr.left);
+      const oy=Math.min(r.bottom,rr.bottom)-Math.max(r.top,rr.top);
+      if(ox>Math.max(12,r.width*.08)&&oy>0) ready.push(el);
+    });
+    ready.sort(function(a,b){return a.getBoundingClientRect().left-b.getBoundingClientRect().left})
+      .forEach(function(el,i){
+        show(el,(Math.min(i,7)*55)+'ms');
+        io.unobserve(el);
+      });
+  }
+  requestAnimationFrame(function(){requestAnimationFrame(flushVisible)});
+})();
+
+(function(){
   const ft=document.getElementById('footer-time');
   function tick(){
     const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(new Date());
@@ -833,5 +889,6 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
   tick();setInterval(tick,1000);
 })();
 </script>
+<script src="contact-modal.js?v=10" defer></script>
 </body>
 </html>

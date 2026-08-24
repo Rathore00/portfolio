@@ -6,7 +6,7 @@
 <title>Hotel Rate Efficiency BI Dashboard — Parul Rathour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@400;500;600;700;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -23,15 +23,24 @@
   --blue:#0057ff;
   --I:'DM Sans',system-ui,sans-serif;
   --S:'Playfair Display',Georgia,serif;
-  --C:'Caveat',cursive;
   --D:'DM Sans',system-ui,sans-serif;
   --pad:clamp(1.25rem,4.5vw,5rem);
   --max:1180px;
+  --h-size:clamp(32px,5.2vw,52px);
+  --h-track:-3px;
+  --t-track:-1.2px;
 }
 html{scroll-behavior:smooth}
 body{
   font-family:var(--I);color:var(--text);background:var(--white);
   -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+/* HRE type only — never inherit into homepage-matching .footer */
+.hre,.cs-more-work{letter-spacing:var(--t-track)}
+.hre :is(h1,h2,.hre-h,.hre-title,.hre-why-h),
+.cs-more-title{
+  font-family:var(--I);font-weight:400;font-size:var(--h-size);
+  letter-spacing:var(--h-track);line-height:1.08;color:var(--ink);
 }
 img{max-width:100%;display:block;height:auto}
 a{color:inherit}
@@ -50,8 +59,8 @@ a{color:inherit}
   color:var(--muted);margin-bottom:.85rem;
 }
 .hre-h{
-  font-family:var(--I);font-weight:800;letter-spacing:-.035em;line-height:1.08;
-  color:var(--ink);font-size:clamp(1.85rem,3.6vw,2.85rem);
+  font-family:var(--I);font-weight:400;letter-spacing:var(--h-track);line-height:1.08;
+  color:var(--ink);font-size:var(--h-size);
 }
 .hre-p{font-size:clamp(.92rem,1.15vw,1.02rem);line-height:1.65;color:var(--mid)}
 .hre-sec{padding:clamp(3.75rem,8vw,7rem) 0}
@@ -69,10 +78,10 @@ a{color:inherit}
   color:var(--muted);margin-bottom:1.35rem;
 }
 .hre-title{
-  font-family:var(--I);font-weight:800;
-  font-size:clamp(2.2rem,5.2vw,3.75rem);
-  letter-spacing:-.04em;line-height:1.05;color:var(--ink);
-  max-width:14ch;margin:0 auto;
+  font-family:var(--I);font-weight:400;
+  font-size:var(--h-size);
+  letter-spacing:var(--h-track);line-height:1.08;color:var(--ink);
+  max-width:16ch;margin:0 auto;
 }
 .hre-sub{
   margin:1.15rem auto 0;max-width:36rem;
@@ -90,10 +99,15 @@ a{color:inherit}
 .hre-side-k{font-size:.95rem;font-weight:700;margin-bottom:.4rem;color:var(--ink)}
 .hre-side-v{font-size:.88rem;line-height:1.45;color:var(--mid)}
 .hre-hero-img{
-  border-radius:18px;overflow:hidden;
+  position:relative;border-radius:18px;overflow:hidden;
   box-shadow:0 18px 50px rgba(0,0,0,.1);
+  aspect-ratio:303/377;
 }
-.hre-hero-img img{width:100%;aspect-ratio:303/377;object-fit:cover}
+.hre-hero-img img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 40%;
+  transform:scale(1.3);transform-origin:center 40%;
+}
 .hre-meta{
   display:grid;grid-template-columns:repeat(4,1fr);
   max-width:var(--max);margin:clamp(2.5rem,5vw,3.75rem) auto 0;
@@ -107,14 +121,18 @@ a{color:inherit}
 /* ══ CONTEXT ══ */
 .hre-ctx-top{
   display:grid;grid-template-columns:1.05fr .95fr;
-  gap:2rem 3rem;align-items:start;margin-bottom:clamp(2rem,4vw,3rem);
+  gap:2rem 3rem;align-items:flex-end;margin-bottom:clamp(2rem,4vw,3rem);
 }
 .hre-ctx-body{
   display:grid;grid-template-columns:1.05fr .95fr;
   gap:2rem 3rem;align-items:center;
 }
-.hre-ctx-img{border-radius:28px;overflow:hidden}
-.hre-ctx-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.hre-ctx-img{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/3}
+.hre-ctx-img img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 36%;
+  transform:scale(1.48);transform-origin:center 38%;
+}
 .hre-num-list{list-style:none;border-top:1px solid var(--line)}
 .hre-num-list li{
   display:grid;grid-template-columns:1fr auto;gap:1.25rem;align-items:center;
@@ -122,39 +140,40 @@ a{color:inherit}
   font-size:.95rem;line-height:1.5;color:var(--mid);
 }
 .hre-num-list .n{
-  font-family:var(--I);font-weight:700;font-size:1.35rem;color:var(--ink);letter-spacing:-.02em;
+  font-family:var(--I);font-weight:700;font-size:1.35rem;color:var(--ink);
 }
 
 /* ══ PROBLEMS ══ */
 .hre-prob-top{
   display:grid;grid-template-columns:1.1fr .9fr;
-  gap:2rem 3rem;align-items:start;margin-bottom:clamp(1.75rem,4vw,2.75rem);
+  gap:2rem 3rem;align-items:flex-end;margin-bottom:clamp(1.75rem,4vw,2.75rem);
 }
 .hre-prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
 .hre-prob-card{
   background:var(--soft);border-radius:28px;
-  padding:1.4rem 1.25rem 1.35rem;
-  min-height:240px;display:flex;flex-direction:column;
+  padding:1.25rem 1.15rem 1.2rem;
+  aspect-ratio:319/302;width:100%;
+  display:flex;flex-direction:column;justify-content:space-between;
+  overflow:hidden;
 }
-.hre-prob-toprow{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:1.5rem}
+.hre-prob-toprow{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem}
 .hre-dot{width:28px;height:28px;border-radius:50%;background:#3a3a3a;flex-shrink:0}
 .hre-badge{
-  font-size:10px;letter-spacing:.02em;color:var(--muted);
+  font-size:10px;color:var(--muted);
   background:rgba(255,255,255,.85);border-radius:999px;padding:.35rem .65rem;white-space:nowrap;
 }
-.hre-prob-card p{font-size:.92rem;line-height:1.45;color:var(--ink);font-weight:500;flex:1}
-.hre-prob-foot{margin-top:1.25rem;font-size:10px;letter-spacing:.04em;color:var(--muted)}
+.hre-prob-card p{font-size:.92rem;line-height:1.45;color:var(--ink);font-weight:500;margin-top:auto}
 
 /* ══ DISCOVERY ══ */
 .hre-disc-top{
   display:grid;grid-template-columns:1.15fr .85fr;
-  gap:1.5rem 2.5rem;align-items:start;margin-bottom:clamp(1.75rem,4vw,2.5rem);
+  gap:1.5rem 2.5rem;align-items:flex-end;margin-bottom:clamp(1.75rem,4vw,2.5rem);
 }
-.hre-disc-top .hre-p{text-align:right}
+.hre-disc-top .hre-p{width:min(370px,100%);max-width:370px;text-align:left;justify-self:end}
 .hre-disc-grid{
   display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,1.05fr);
-  gap:1rem 1.15rem;align-items:stretch;
+  grid-template-columns:minmax(0,1fr) minmax(0,412px) minmax(0,363px);
+  gap:1rem 1.15rem;align-items:start;
 }
 .hre-disc-notes{
   display:grid;grid-template-columns:1fr 1fr;gap:1.35rem .85rem;align-content:start;
@@ -162,50 +181,58 @@ a{color:inherit}
 }
 .hre-disc-notes .note{font-size:.88rem;line-height:1.5;color:var(--mid)}
 .hre-disc-notes .note-n{
-  display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:.4rem;letter-spacing:.04em;
+  display:block;font-size:12px;font-weight:600;color:var(--ink);margin-bottom:.4rem;
 }
 .hre-disc-notes .note:nth-child(1){grid-column:1 / -1;max-width:32ch}
 .hre-disc-notes .note:nth-child(2){grid-column:1}
 .hre-disc-notes .note:nth-child(3){grid-column:2}
-.hre-find-stack{display:flex;flex-direction:column;gap:1rem;min-height:100%}
+.hre-find-stack{display:flex;flex-direction:column;gap:1rem}
 .hre-find{
-  background:var(--white);border-radius:24px;overflow:hidden;
-  border:1px solid rgba(0,0,0,.04);
-  display:flex;flex-direction:column;box-shadow:0 8px 28px rgba(0,0,0,.04);
-  height:100%;
+  position:relative;border-radius:24px;overflow:hidden;isolation:isolate;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  box-shadow:0 8px 28px rgba(0,0,0,.04);
+  background:#ddd;
 }
-.hre-find-media{position:relative;overflow:hidden;background:var(--soft);flex:1 1 auto}
-.hre-find-media img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-.hre-find-tall .hre-find-media{min-height:280px}
-.hre-find-wide{flex:1}
-.hre-find-wide .hre-find-media{min-height:110px}
-.hre-find-copy{padding:1.1rem 1.15rem 1.25rem;background:#fff;flex-shrink:0}
+.hre-find-media{position:absolute;inset:0;overflow:hidden;z-index:0}
+.hre-find-media img{
+  position:absolute;left:0;top:0;width:100%;height:180%;
+  object-fit:cover;object-position:center top;
+}
+.hre-find-tall{aspect-ratio:412/564;width:100%;height:auto}
+.hre-find-wide{aspect-ratio:363/273;width:100%;min-height:0}
+.hre-find-copy{
+  position:relative;z-index:1;flex-shrink:0;text-align:left;
+  padding:1.05rem 1.1rem 1.15rem;
+  background:rgba(255,255,255,.14);
+  backdrop-filter:blur(18px) saturate(1.55);
+  -webkit-backdrop-filter:blur(18px) saturate(1.55);
+  border-top:1px solid rgba(255,255,255,.32);
+}
 .hre-find-l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
-.hre-find-t{font-size:1.15rem;font-weight:700;letter-spacing:-.02em;margin-bottom:.4rem;color:var(--ink)}
+.hre-find-t{font-size:1.15rem;font-weight:700;margin-bottom:.4rem;color:var(--ink)}
 .hre-find-copy p{font-size:.88rem;line-height:1.45;color:var(--mid)}
 
 /* ══ QUOTE ══ */
 .hre-quote-sec{padding:clamp(2.5rem,5vw,4rem) 0}
 .hre-quote{
   font-family:var(--I);font-weight:700;
-  font-size:clamp(1.25rem,2.4vw,1.85rem);
-  letter-spacing:-.025em;line-height:1.4;color:var(--ink);
-  max-width:48rem;
+  font-size:clamp(1.4rem,2.8vw,2.1rem);
+  line-height:1.35;color:var(--ink);
+  width:100%;max-width:none;
 }
 
 /* ══ WHY NOW ══ */
 .hre-why-top{
   display:grid;grid-template-columns:1fr 1.1fr;
-  gap:2rem;align-items:start;margin-bottom:clamp(2rem,4vw,3rem);
+  gap:2rem;align-items:flex-end;margin-bottom:clamp(2rem,4vw,3rem);
 }
 .hre-why-h{
-  font-family:var(--S);font-weight:700;
-  font-size:clamp(2.4rem,5vw,3.75rem);letter-spacing:-.03em;line-height:1;
+  font-family:var(--I);font-weight:400;
+  font-size:var(--h-size);letter-spacing:var(--h-track);line-height:1.08;
   color:var(--ink);
 }
 .hre-why-h em{
-  font-family:var(--C);font-style:normal;font-weight:600;
-  font-size:1.15em;
+  font-family:var(--S);font-style:italic;font-weight:400;
 }
 .hre-why-list{list-style:none;border-top:1px solid var(--line)}
 .hre-why-list li{
@@ -216,27 +243,27 @@ a{color:inherit}
 .hre-why-list .n{font-size:.95rem;color:var(--muted);font-weight:500;text-align:left}
 .hre-why-list p{font-size:1rem;font-weight:600;color:#444;line-height:1.4}
 .hre-why-frame{
-  position:relative;background:linear-gradient(135deg,#ececec 0%,#f6f6f6 55%,#e8e8e8 100%);
-  border-radius:48px;overflow:hidden;padding:clamp(1.5rem,4vw,2.75rem);
-  min-height:320px;display:flex;align-items:center;justify-content:center;
+  position:relative;border-radius:48px;overflow:hidden;
+  aspect-ratio:16/9;min-height:320px;background:#e4e4e4;
 }
 .hre-why-frame img{
-  width:min(100%,720px);margin:0 auto;
-  filter:drop-shadow(0 24px 40px rgba(0,0,0,.18));
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:38% 68%;
+  transform:scale(2.25);transform-origin:38% 68%;
 }
 .hre-why-dot{
-  position:absolute;top:1.35rem;left:1.5rem;
+  position:absolute;top:1.35rem;left:1.5rem;z-index:2;
   width:22px;height:22px;border-radius:50%;background:#3a3a3a;
 }
 .hre-why-pill{
-  position:absolute;top:1.25rem;right:1.5rem;
+  position:absolute;top:1.25rem;right:1.5rem;z-index:2;
   background:rgba(255,255,255,.9);border-radius:999px;
   padding:.4rem .85rem;font-size:12px;color:#666;font-weight:500;
 }
 
 /* ══ PROCESS ══ */
-.hre-proc-copy{max-width:48rem;margin-bottom:clamp(2rem,4vw,3rem)}
-.hre-proc-copy .hre-p{margin-top:1.15rem;max-width:42rem}
+.hre-proc-copy{width:100%;max-width:none;margin-bottom:clamp(2rem,4vw,3rem)}
+.hre-proc-copy .hre-p{margin-top:1.15rem;width:100%;max-width:none}
 .hre-proc-grid{
   display:grid;grid-template-columns:repeat(3,1fr);gap:2rem 2.5rem;
   border-top:1px solid var(--line);padding-top:1.75rem;
@@ -260,33 +287,42 @@ a{color:inherit}
 .hre-out-left .hre-p{margin-top:auto;padding-top:3rem;max-width:28rem}
 .hre-out-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .hre-out-card{
-  background:var(--soft);border-radius:28px;padding:1.25rem 1.2rem 1.35rem;
-  min-height:200px;display:flex;flex-direction:column;
+  background:var(--soft);border-radius:28px;padding:1.2rem 1.15rem 1.2rem;
+  aspect-ratio:319/302;width:100%;
+  display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
 }
-.hre-out-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;padding-bottom:1.5rem}
-.hre-out-card .hre-badge{background:#fff;color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase}
-.hre-out-card p{font-size:.9rem;line-height:1.45;color:#444;font-weight:500}
+.hre-out-card-top{display:flex;justify-content:space-between;align-items:flex-start}
+.hre-out-card .hre-badge{background:#fff;color:var(--muted);font-size:10px;text-transform:uppercase}
+.hre-out-card p{font-size:.9rem;line-height:1.45;color:#444;font-weight:500;margin-top:auto}
 
 /* ══ REFLECTION ══ */
 .hre-ref-top{
   display:grid;grid-template-columns:1.1fr .9fr;
-  gap:1.5rem 2.5rem;align-items:end;margin-bottom:clamp(1.5rem,3vw,2.25rem);
+  gap:1.5rem 2.5rem;align-items:flex-end;margin-bottom:clamp(1.5rem,3vw,2.25rem);
 }
-.hre-ref-top .hre-p{text-align:right}
+.hre-ref-top .hre-p{text-align:left;justify-self:end}
 .hre-bento{
   display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;
+  grid-auto-rows:1fr;
 }
-.hre-bento > *{border-radius:20px;overflow:hidden;min-height:200px}
-.hre-bento figure{margin:0;background:#ddd}
-.hre-bento figure img{width:100%;height:100%;object-fit:cover;min-height:200px}
+.hre-bento > *{
+  border-radius:20px;overflow:hidden;
+  aspect-ratio:319/302;min-height:0;height:auto;
+}
+.hre-bento figure{margin:0;background:#ddd;position:relative}
+.hre-bento figure img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  transform:scale(1.12);transform-origin:center;
+}
 .hre-card{
-  padding:1.35rem 1.25rem 1.45rem;display:flex;flex-direction:column;justify-content:flex-end;
-  min-height:200px;
+  padding:1.2rem 1.15rem 1.25rem;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:0;height:100%;
 }
 .hre-card-l{
-  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.65rem;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.55rem;
 }
-.hre-card p{font-size:.88rem;line-height:1.5}
+.hre-card p{font-size:.82rem;line-height:1.42}
 .hre-card.white{background:#fff;border:1px solid var(--line);color:var(--ink)}
 .hre-card.white .hre-card-l{color:var(--ink)}
 .hre-card.white p{color:#444}
@@ -297,14 +333,14 @@ a{color:inherit}
 /* more work */
 .cs-more-work{padding:4rem var(--pad) 5rem;border-top:1px solid var(--line)}
 .cs-more-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
-.cs-more-title{font-family:var(--I);font-weight:800;font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.03em;margin-bottom:1.75rem}
+.cs-more-title{font-family:var(--I);font-weight:400;font-size:var(--h-size);letter-spacing:var(--h-track);line-height:1.08;margin-bottom:1.75rem}
 .cs-more-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;max-width:var(--max)}
 .cs-card{display:block;text-decoration:none;color:inherit;background:#fff;border:.5px solid var(--line);border-radius:8px;overflow:hidden;transition:transform .2s,box-shadow .2s}
 .cs-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.06)}
 .cs-card-img{aspect-ratio:16/10;background:#ddd center/cover no-repeat}
 .cs-card-meta{padding:1rem 1.1rem 1.2rem}
 .cs-card-year{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mid)}
-.cs-card-title{font-family:var(--D);font-weight:700;font-size:.95rem;letter-spacing:-.01em;margin-top:.35rem;line-height:1.3}
+.cs-card-title{font-family:var(--D);font-weight:700;font-size:.95rem;margin-top:.35rem;line-height:1.3}
 
 @media(max-width:1020px){
   .hre-hero-stage{grid-template-columns:1fr 1fr;max-width:560px}
@@ -312,10 +348,10 @@ a{color:inherit}
   .hre-side{max-width:none}
   .hre-side-r{justify-self:stretch;text-align:left}
   .hre-ctx-top,.hre-ctx-body,.hre-prob-top,.hre-disc-top,.hre-why-top,.hre-out-grid,.hre-ref-top{grid-template-columns:1fr}
-  .hre-disc-top .hre-p,.hre-ref-top .hre-p{text-align:left}
+  .hre-disc-top .hre-p,.hre-ref-top .hre-p{text-align:left;justify-self:start;width:100%;max-width:none}
   .hre-disc-grid{grid-template-columns:1fr 1fr}
   .hre-disc-notes{grid-column:1 / -1;grid-template-columns:1fr 1fr}
-  .hre-find-tall{grid-row:auto}
+  .hre-find-tall,.hre-find-wide{max-width:none}
   .hre-prob-grid{grid-template-columns:1fr 1fr}
   .hre-bento{grid-template-columns:1fr 1fr}
   .cs-more-grid{grid-template-columns:1fr 1fr}
@@ -335,6 +371,7 @@ a{color:inherit}
 }
 </style>
 <link rel="stylesheet" href="case-study-shared.css">
+<link rel="stylesheet" href="contact-modal.css?v=10">
 </head>
 <body>
 <div id="cr"></div><div id="cd"></div>
@@ -380,7 +417,7 @@ a{color:inherit}
         <p class="hre-side-v">A structured approach to managing complex infrastructure systems.</p>
       </div>
       <figure class="hre-hero-img">
-        <img src="Asset/images/work/hre/hero-laptop.png" alt="Hotel Reshop dashboard on a laptop" width="303" height="377">
+        <img src="Asset/images/work/hre/hero-laptop.png" alt="Hotel Reshop dashboard on a laptop" width="1212" height="1508">
       </figure>
       <div class="hre-side hre-side-r">
         <div class="hre-side-k">Designed</div>
@@ -457,7 +494,6 @@ a{color:inherit}
             <span class="hre-badge">Leadership pain points</span>
           </div>
           <p>Underlying data partially raw and uncategorised — not ready to visualise uniformly</p>
-          <div class="hre-prob-foot">Designed to Work at Scale</div>
         </article>
         <article class="hre-prob-card rv">
           <div class="hre-prob-toprow">
@@ -465,7 +501,6 @@ a{color:inherit}
             <span class="hre-badge">Leadership pain points</span>
           </div>
           <p>No clear distinction between metrics for monitoring vs metrics requiring action</p>
-          <div class="hre-prob-foot">Designed to Work at Scale</div>
         </article>
         <article class="hre-prob-card rv">
           <div class="hre-prob-toprow">
@@ -473,7 +508,6 @@ a{color:inherit}
             <span class="hre-badge">Leadership pain points</span>
           </div>
           <p>Stakeholder requirements arrived late and in fragments, extending the project timeline</p>
-          <div class="hre-prob-foot">Designed to Work at Scale</div>
         </article>
         <article class="hre-prob-card rv">
           <div class="hre-prob-toprow">
@@ -481,7 +515,6 @@ a{color:inherit}
             <span class="hre-badge">Leadership pain points</span>
           </div>
           <p>34 KPIs in scope with no stakeholder alignment on priority</p>
-          <div class="hre-prob-foot">Designed to Work at Scale</div>
         </article>
       </div>
     </div>
@@ -493,7 +526,7 @@ a{color:inherit}
       <div class="hre-disc-top rv">
         <div>
           <div class="hre-label">Research &amp; Discovery</div>
-          <h2 class="hre-h">Starting with the data, because the brief couldn’t</h2>
+          <h2 class="hre-h">Starting with the data,<br>because the brief couldn’t</h2>
         </div>
         <p class="hre-p">With no research function on the project, discovery started with systematic data analysis. Three patterns emerged that hadn’t been articulated in any brief — and each shaped the information architecture that followed.</p>
       </div>
@@ -514,7 +547,7 @@ a{color:inherit}
         </div>
         <article class="hre-find hre-find-tall rv">
           <div class="hre-find-media">
-            <img src="Asset/images/work/hre/insight-green.png" alt="" width="280" height="374">
+            <img src="Asset/images/work/hre/insight-green.png" alt="" width="1120" height="1496">
           </div>
           <div class="hre-find-copy">
             <div class="hre-find-l">Finding 01</div>
@@ -525,7 +558,7 @@ a{color:inherit}
         <div class="hre-find-stack">
           <article class="hre-find hre-find-wide rv">
             <div class="hre-find-media">
-              <img src="Asset/images/work/hre/insight-warm.png" alt="" width="280" height="374">
+              <img src="Asset/images/work/hre/insight-warm.png" alt="" width="1120" height="1496">
             </div>
             <div class="hre-find-copy">
               <div class="hre-find-l">Finding 02</div>
@@ -535,7 +568,7 @@ a{color:inherit}
           </article>
           <article class="hre-find hre-find-wide rv">
             <div class="hre-find-media">
-              <img src="Asset/images/work/hre/insight-purple.png" alt="" width="280" height="374">
+              <img src="Asset/images/work/hre/insight-purple.png" alt="" width="1120" height="1496">
             </div>
             <div class="hre-find-copy">
               <div class="hre-find-l">Finding 03</div>
@@ -753,7 +786,7 @@ a{color:inherit}
     <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
     <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
     <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
-    <a href="#" class="fs-link">Resume</a>
+    <a href="resume.html" class="fs-link">Resume</a>
   </div>
   <div class="footer-big">
     <div class="footer-big-top">
@@ -793,5 +826,6 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
   tick();setInterval(tick,1000);
 })();
 </script>
+<script src="contact-modal.js?v=10" defer></script>
 </body>
 </html>

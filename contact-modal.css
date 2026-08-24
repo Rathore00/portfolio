@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&family=Playfair+Display:wght@400;500;600;700&display=swap");
+
+.cm-root{
+  position:fixed;
+  inset:0;
+  z-index:20000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .38s ease,visibility .38s ease;
+}
+.cm-root.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.cm-backdrop{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:#000;
+  opacity:.04;
+  cursor:pointer;
+}
+.cm-card{
+  position:relative;
+  z-index:1;
+  width:506px;
+  height:286px;
+  max-width:calc(100vw - 24px);
+  max-height:calc(100vh - 24px);
+  overflow:visible;
+  background:#9D033B;
+  color:#fff;
+  border-radius:0;
+  padding:22px 24px 18px;
+  box-sizing:border-box;
+  box-shadow:0 16px 48px rgba(0,0,0,.22);
+  transform:translateY(72px);
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.cm-root.is-open .cm-card{transform:translateY(0)}
+
+.cm-title{
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-weight:500;
+  font-size:46px;
+  letter-spacing:-.02em;
+  line-height:1;
+  margin:0 0 14px;
+  color:#fff;
+}
+
+.cm-info{
+  display:grid;
+  grid-template-columns:1.2fr .9fr;
+  gap:14px 28px;
+  align-items:start;
+}
+.cm-block{margin:0}
+.cm-label{
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  margin:0 0 .55rem;
+}
+.cm-mail{
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:16px;
+  color:#fff;
+  text-decoration:none;
+  border-bottom:.5px solid rgba(255,255,255,.85);
+  padding-bottom:1px;
+  display:inline-block;
+  word-break:break-word;
+}
+.cm-mail:hover{opacity:.75}
+.cm-socials{display:flex;align-items:center;gap:8px}
+.cm-social{
+  width:28px;height:28px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  flex-shrink:0;
+}
+.cm-social img{
+  width:13px;height:13px;display:block;
+  filter:brightness(0) invert(1);
+  opacity:1;
+}
+.cm-social:hover{opacity:.78}
+
+.cm-text-link{
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:16px;
+  color:#fff;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+}
+.cm-text-link::after{content:"↗";font-size:12px;opacity:.5}
+.cm-text-link:hover{opacity:.75}
+.cm-resume{
+  font-family:'DM Sans',system-ui,sans-serif;
+  font-size:16px;
+  color:#fff;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.cm-resume:hover{opacity:.75}
+.cm-resume-ico{
+  width:22px;height:22px;border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.cm-resume-ico img{
+  width:11px;height:11px;display:block;
+  filter:brightness(0) invert(1);
+}
+
+.cm-foot{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:18px;
+  min-height:0;
+  position:relative;
+}
+.cm-note{
+  font-family:'Covered By Your Grace',cursive;
+  font-size:22px;
+  font-weight:400;
+  color:#fff;
+  transform:rotate(-4deg);
+  transform-origin:left bottom;
+  line-height:1.15;
+  margin:0;
+}
+
+.cm-badge{
+  position:absolute;
+  right:-18px;
+  bottom:-18px;
+  width:108px;height:108px;
+  flex-shrink:0;
+}
+.cm-badge-spin{
+  width:100%;height:100%;
+  animation:cm-badge-spin 14s linear infinite;
+  will-change:transform;
+}
+@keyframes cm-badge-spin{to{transform:rotate(360deg)}}
+.cm-badge-svg{display:block;width:100%;height:100%}
+.cm-badge-text{
+  font-family:'Playfair Display',Georgia,serif;
+  font-style:normal;
+  font-weight:400;
+  letter-spacing:0;
+  fill:#2a0a18;
+}
+
+html.cm-lock,html.cm-lock body{overflow:hidden}
+
+@media(max-width:540px){
+  .cm-card{width:100%;height:auto;padding:20px 18px 16px}
+  .cm-title{font-size:36px;margin-bottom:12px}
+  .cm-info{grid-template-columns:1fr;gap:14px}
+  .cm-foot{margin-top:16px;padding-bottom:72px}
+  .cm-badge{width:88px;height:88px;right:-8px;bottom:-8px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .cm-root,.cm-card{transition:none}
+  .cm-card{transform:none}
+  .cm-badge-spin{animation:none}
+}

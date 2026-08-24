@@ -33,12 +33,12 @@ body{
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
-.page{width:100%;max-width:1512px;margin:0 auto}
+.page{width:100%;max-width:none;margin:0}
 
 /* ══ NAV ══ */
 .top{
   position:fixed;top:0;left:0;right:0;z-index:300;
-  padding:16px 64px 0;
+  padding:16px 74px 0;
   pointer-events:none;
 }
 .top .nav{pointer-events:auto;max-width:1512px;margin:0 auto;width:100%}
@@ -85,14 +85,14 @@ img{display:block;max-width:100%}
 .nav-burger span{display:block;width:12px;height:1.5px;background:#fff;border-radius:1px}
 
 /* ══ HERO ══ */
-.hero{padding:36px 64px 80px;position:relative;overflow:visible}
+.hero{padding:36px 74px 80px;position:relative;overflow:visible}
 .hero-meta{
   display:flex;justify-content:space-between;
   font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:#888;
   padding:14px 0 8px;
 }
 .namskar{
-  width:100%;max-width:1240px;margin:0 auto 40px;
+  width:100%;max-width:none;margin:0 auto 40px;
   position:relative;
   overflow:visible;
   cursor:pointer;
@@ -286,7 +286,7 @@ img{display:block;max-width:100%}
 }
 
 /* ══ BEYOND / GREEN ══ */
-.beyond-wrap{background:var(--bg);position:relative}
+.beyond-wrap{background:var(--green);position:relative;width:100%;margin:0}
 .beyond{
   background:var(--green);
   position:relative;overflow:hidden;
@@ -513,7 +513,7 @@ img{display:block;max-width:100%}
 }
 
 /* ══ WORK ══ */
-.work{padding:40px 64px 80px}
+.work{padding:40px 74px 80px}
 .work-hdr{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:36px}
 .work-hdr h2{
   font-family:var(--inter);font-weight:400;font-size:clamp(1.8rem,3.2vw,2.625rem);
@@ -577,7 +577,7 @@ img{display:block;max-width:100%}
 .wcard-finance{grid-column:3}
 
 /* ══ FOOTER ══ */
-.footer{background:#fff;border-top:.5px solid #ddd}
+.footer{background:#fff;border-top:.5px solid #ddd;width:100%;margin:0}
 .fc-row{
   display:grid;grid-template-columns:1fr 1fr 1fr;
   border-bottom:.5px solid #ddd;
@@ -848,6 +848,7 @@ img{display:block;max-width:100%}
 }
 
 </style>
+<link rel="stylesheet" href="contact-modal.css?v=10">
 </head>
 <body>
 <div class="mob-menu" id="mobMenu">
@@ -1120,7 +1121,7 @@ img{display:block;max-width:100%}
       <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
       <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
-      <a href="#" class="fs-link">Resume</a>
+      <a href="resume.html" class="fs-link">Resume</a>
     </div>
     <div class="footer-big">
       <div class="footer-big-top">
@@ -1975,5 +1976,6 @@ tick();setInterval(tick,1000);
 
 
 </script>
+<script src="contact-modal.js?v=10" defer></script>
 </body>
 </html>

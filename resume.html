@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resume — Parul Rathour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study-shared.css">
+<link rel="stylesheet" href="contact-modal.css?v=10">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#f2f2f2;
+  color:#0c0c0c;
+  font-family:'DM Sans',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+.page{width:100%;max-width:1512px;margin:0 auto}
+
+.resume-wrap{
+  padding:24px clamp(16px,4vw,48px) 80px;
+}
+.resume-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  max-width:1100px;margin:0 auto 18px;
+}
+.resume-bar p{font-size:13px;color:#6b7280}
+.resume-dl{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#0c0c0c;color:#fff;border-radius:999px;
+  padding:10px 18px;font-size:12px;letter-spacing:.02em;
+}
+.resume-dl:hover{background:#2a2a2a}
+
+.sheet{
+  max-width:1100px;margin:0 auto;
+  background:#fff;
+  padding:clamp(28px,4vw,56px) clamp(22px,4vw,52px) clamp(28px,4vw,48px);
+  box-shadow:0 8px 40px rgba(0,0,0,.06);
+}
+.sheet-grid{
+  display:grid;
+  grid-template-columns:minmax(220px,.38fr) 1px minmax(0,1fr);
+  gap:0 36px;
+  min-height:720px;
+}
+.rule{
+  background:#d9d9d9;
+  width:1px;
+}
+.sec{margin-bottom:2rem}
+.sec-h{
+  font-size:15px;font-weight:700;letter-spacing:.01em;
+  padding-bottom:8px;margin-bottom:14px;
+  border-bottom:1px solid #111;
+}
+.sec p,.job li,.edu,.skills p{
+  font-size:13.5px;line-height:1.55;color:#1a1a1a;
+}
+.edu + .edu{margin-top:1rem}
+.edu strong{display:block;font-weight:600;font-size:14px}
+.edu span{color:#444}
+
+.job{margin-bottom:1.35rem}
+.job-top{
+  display:flex;justify-content:space-between;gap:.75rem;flex-wrap:wrap;
+  margin-bottom:.45rem;
+}
+.job-top h3{font-size:14px;font-weight:700}
+.job-top time{font-size:13px;color:#333;white-space:nowrap}
+.job ul{padding-left:1.1rem}
+.job li{margin:.28rem 0}
+
+.contact{
+  margin-top:auto;
+  padding-top:2.5rem;
+}
+.col-left{
+  display:flex;flex-direction:column;
+}
+.role{font-size:13px;color:#333;margin-bottom:.15rem}
+.name{
+  font-size:clamp(2rem,5vw,3.1rem);
+  font-weight:700;letter-spacing:-.04em;line-height:1;
+  margin-bottom:1rem;
+}
+.contact-list{font-size:13.5px;line-height:1.7}
+.contact-list a{border-bottom:1px solid #111}
+.socials{
+  display:flex;flex-wrap:wrap;gap:14px 18px;
+  margin-top:14px;font-size:13px;
+}
+.socials a{
+  display:inline-flex;align-items:center;gap:6px;
+}
+.socials svg{width:14px;height:14px}
+
+@media(max-width:800px){
+  .sheet-grid{grid-template-columns:1fr;gap:2rem}
+  .rule{display:none}
+  .contact{padding-top:1rem}
+}
+</style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+  <a href="know-the-designer.html#dark" onclick="closeMob()">Off the Grid</a>
+</div>
+
+<div class="page">
+  <div class="top">
+    <nav class="nav" id="site-nav">
+      <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="know-the-designer.html">Know the Designer</a>
+        <a href="know-the-designer.html#dark">Off the Grid</a>
+      </div>
+      <div class="nav-right">
+        <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+        <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+        <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+        <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
+        <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+        <a href="#footer-contact" class="btn-note"><img src="Asset/images/home/leave-note-avatar.svg" alt=""><span>Leave a note</span></a>
+      </div>
+    </nav>
+  </div>
+  <div class="nav-spacer" aria-hidden="true"></div>
+
+  <main class="resume-wrap">
+    <div class="resume-bar">
+      <p>Product Designer — CV</p>
+      <a class="resume-dl" href="Asset/Resume_Parul_Rathour.pdf" download>Download PDF</a>
+    </div>
+
+    <article class="sheet" aria-label="Resume">
+      <div class="sheet-grid">
+        <div class="col-left">
+          <section class="sec">
+            <h2 class="sec-h">Profile</h2>
+            <p>Product Designer with 5 years of experience in B2B, D2C business and industries like healthcare, ed-tech, and venture architectures — consistently pushing boundaries to discover novel approaches for enhancing user experiences and product functionality. Adept at translating creative insights into tangible designs that address evolving market needs and user expectations.</p>
+          </section>
+
+          <section class="sec">
+            <h2 class="sec-h">Education</h2>
+            <p class="edu"><strong>Chitkara University, Rajpura</strong><span>M.Des (User Experience)</span></p>
+            <p class="edu"><strong>Jaypee University, Anoopshahr (U.P)</strong><span>B. Tech (Computer Science and Eng.)</span></p>
+          </section>
+
+          <div class="contact">
+            <div class="role">Product Designer</div>
+            <div class="name">Parul Rathour</div>
+            <div class="contact-list">
+              <div><a href="tel:+919418277040">+91 9418277040</a></div>
+              <div><a href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+              <div><a href="index.html">Portfolio</a></div>
+            </div>
+            <div class="socials">
+              <a href="https://www.behance.net/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.2 10.2c.9 0 1.5-.5 1.5-1.3S9 7.6 8.1 7.6H4.8v2.6h3.4zm.1 4.8c1 0 1.7-.6 1.7-1.5s-.7-1.5-1.8-1.5H4.8V15h3.5zM22 12.7c0-2.4-1.5-4.4-4.1-4.4-2.8 0-4.6 2-4.6 4.7s1.8 4.7 4.7 4.7c2.1 0 3.6-1 4.2-2.6h-2.2c-.3.6-.9.9-1.9.9-1.3 0-2.1-.8-2.3-2h6.1c0-.4.1-.8.1-1.3zm-6.1-.8c.2-1.1 1-1.8 2.1-1.8 1.2 0 1.9.7 2 1.8h-4.1zM4.2 5.4h4.3c2.3 0 3.8 1.3 3.8 3.3 0 1.4-.8 2.4-1.9 2.9 1.5.4 2.4 1.6 2.4 3.2 0 2.3-1.8 3.7-4.4 3.7H4.2V5.4zM16.6 7.1h4.7V8.6h-4.7V7.1z"/></svg>
+                Behance
+              </a>
+              <a href="https://www.linkedin.com/in/parul-rathour-74174917a" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 9H3.8v11.2H6.5V9zM5.1 3.8C4.2 3.8 3.5 4.5 3.5 5.4s.7 1.6 1.6 1.6 1.6-.7 1.6-1.6-.7-1.6-1.6-1.6zM20.2 12.7c0-2.4-1.5-4-3.8-4-1.5 0-2.4.7-2.9 1.5h-.1V8.9H10.8v11.3h2.7v-5.6c0-1.5.3-2.9 2.1-2.9s1.9 1.7 1.9 3v5.5h2.7v-6.5z"/></svg>
+                LinkedIn
+              </a>
+              <a href="https://x.com/ParulRath0ur" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 3.5h2.9l-6.4 7.3 7.5 9.7h-5.9l-4.6-6-5.3 6H2.9l6.8-7.8L2.4 3.5h6l4.2 5.5 5-5.5zm-1 15.3h1.6L7.5 5.1H5.8l10.8 13.7z"/></svg>
+                X
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule" aria-hidden="true"></div>
+
+        <div>
+          <section class="sec">
+            <h2 class="sec-h">Work Experience</h2>
+
+            <article class="job">
+              <div class="job-top">
+                <h3>Product Designer, AMEX GBT</h3>
+                <time>July, 2025 – Present</time>
+              </div>
+              <ul>
+                <li>Collaborated with engineers and stakeholders to define design goals and align product features with business objectives and user needs.</li>
+                <li>Led end-to-end design processes, from concept to delivery, ensuring seamless and engaging user experiences.</li>
+                <li>Conducted user research and usability testing to gather insights, validate design decisions, and improve user interactions.</li>
+                <li>Designed and maintained scalable design systems in Figma, ensuring consistency and efficiency across products.</li>
+                <li>Designed intuitive dashboards and reports, enhancing data visualisation and user engagement.</li>
+                <li>Worked effectively in an international, cross-functional team, navigating time zone differences and cultural diversity.</li>
+              </ul>
+            </article>
+
+            <article class="job">
+              <div class="job-top">
+                <h3>Senior Product Designer, GrowthJockey</h3>
+                <time>August, 2024 – July, 2025</time>
+              </div>
+              <ul>
+                <li>Developed product vision, roadmap, and conducted in-depth market research to identify opportunities and challenges.</li>
+                <li>Led end-to-end design processes, from concept to delivery, ensuring seamless and engaging user experiences.</li>
+                <li>Ensured accessibility compliance by designing products aligned with WCAG 2.2 standards for an inclusive user experience.</li>
+                <li>Conducted user research and usability testing to gather insights, validate design decisions, and improve user interactions.</li>
+                <li>Designed and maintained scalable design systems, ensuring consistency across products.</li>
+                <li>Designed intuitive dashboards and reports, enhancing data visualisation and user engagement.</li>
+              </ul>
+            </article>
+
+            <article class="job">
+              <div class="job-top">
+                <h3>UX Designer, Tech Mahindra</h3>
+                <time>June, 2023 – July 2024</time>
+              </div>
+              <ul>
+                <li>Conducted comprehensive usability analysis using VIMM &amp; NCPI across multiple touch points (mobile, web, in-store), ensuring seamless omnichannel experiences that led to securing 2 major clients.</li>
+                <li>Created wireframes, prototypes, and high-fidelity designs to communicate design concepts and user flows.</li>
+                <li>Synthesized user research from various channels to create cohesive, data-driven designs that improved overall brand consistency and customer satisfaction by 30%.</li>
+                <li>Developed a comprehensive design system for an employee online learning platform, analyzed the existing platform using atomic design principles, created a reusable UI component library, and established design guidelines.</li>
+              </ul>
+            </article>
+
+            <article class="job">
+              <div class="job-top">
+                <h3>Visual Designer, BYJU’s</h3>
+                <time>October, 2020 – September 2022</time>
+              </div>
+              <ul>
+                <li>Designed and structured 80+ YouTube sessions, driving a 60% increase in engagement for CAT/CLAT/MAT &amp; Aakash Byju’s K12 programs.</li>
+                <li>Collaborated on 60+ final YouTube live sessions, including layout design for 200+ print and digital materials.</li>
+                <li>Managed the end-to-end design process from concept to delivery.</li>
+                <li>Mentored junior designers, providing constructive feedback and fostering a collaborative design environment.</li>
+                <li>Orchestrated a comprehensive social media strategy, generating 200+ content pieces including posts, thumbnails, and short-form videos — culminating in a 30% boost in audience engagement.</li>
+              </ul>
+            </article>
+          </section>
+
+          <section class="sec skills">
+            <h2 class="sec-h">Skills</h2>
+            <p><strong>Technical Skills:</strong> User Centric Design Research, Strategic Thinking, Design Thinking, Agile Methodology, Usability And Accessibility.</p>
+            <p style="margin-top:.7rem"><strong>Soft Skills:</strong> Product Thinking, Design System Development, User Experience Design, UX Architecture, User Interface Design, Interaction Design, User Testing.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="footer" id="footer-contact">
+    <div class="fc-row">
+      <div class="fc-col">
+        <div class="fc-l">Location</div>
+        <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Say Hello</div>
+        <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+      </div>
+      <div class="fc-col">
+        <div class="fc-l">Currently at</div>
+        <div class="fc-v">American Express<br>Global Business Travel</div>
+      </div>
+    </div>
+    <div class="fs-row">
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+      <a href="resume.html" class="fs-link">Resume</a>
+    </div>
+    <div class="footer-big">
+      <div class="footer-big-top">
+        <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+        <div class="footer-nav">
+          <a href="index.html"><span>Home</span></a>
+          <a href="work.html"><span>Work</span></a>
+          <a href="know-the-designer.html"><span>Know the Designer</span></a>
+          <a href="know-the-designer.html#dark"><span>Off the Grid</span></a>
+        </div>
+      </div>
+      <div class="footer-wordmark" aria-hidden="true"><img src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205"></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Parul Rathour</span>
+      <span id="footer-time">IST —:—</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+(function(){
+  const ft=document.getElementById('footer-time');
+  function tick(){
+    const d=new Date();
+    const parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(d);
+    const get=t=>parts.find(p=>p.type===t)?.value||'00';
+    if(ft) ft.textContent=get('hour')+':'+get('minute')+':'+get('second')+' IST';
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+<script src="contact-modal.js?v=10" defer></script>
+</body>
+</html>
