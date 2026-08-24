@@ -11,6 +11,7 @@
 <div class="cm-root" id="contact-modal" aria-hidden="true">
   <div class="cm-backdrop" data-cm-close tabindex="-1"></div>
   <div class="cm-card" role="dialog" aria-modal="true" aria-labelledby="cm-title" tabindex="-1">
+    <button class="cm-close" type="button" data-cm-close aria-label="Close">×</button>
     <h2 class="cm-title" id="cm-title">Get In Touch</h2>
     <div class="cm-info">
       <div class="cm-block">
