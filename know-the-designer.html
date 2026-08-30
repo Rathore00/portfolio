@@ -19,7 +19,17 @@
   --display:'Montserrat',sans-serif;--serif:'Playfair Display',Georgia,serif;
 }
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
-body{overflow:hidden}
+body{
+  overflow:hidden;
+  background-image:repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 95px,
+    rgba(80,80,80,.16) 95px,
+    rgba(80,80,80,.16) 96px
+  );
+  background-attachment:fixed;
+}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 
@@ -76,19 +86,26 @@ img{display:block;max-width:100%}
   z-index:2;
   font-family:var(--sans);font-weight:900;
   font-size:200px;letter-spacing:-9px;
-  line-height:.88;color:#a0a0a0;
+  line-height:.88;
   pointer-events:none;
   display:flex;flex-direction:column;
   transition:opacity .45s ease, transform .45s ease;
   will-change:opacity,transform;
 }
-.hero-name span{display:block}
+.hero-name span{
+  display:block;
+  background-image:linear-gradient(0.67deg, rgba(160,160,160,.85) 40%, rgba(255,255,255,.92) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  -webkit-text-fill-color:transparent;
+}
 .hero-name.is-out{
   opacity:0;
   transform:translateY(28px);
 }
 
-/* Panel 1 — Hero — Figma 204:9912 exact column layout */
+/* Panel 1 — Hero collage (Figma 204:9912) */
 .panel-hero{
   width:auto;
   min-width:max(max-content,100vw);
@@ -100,47 +117,143 @@ img{display:block;max-width:100%}
   padding:100px 190px 48px 0;
   background:transparent;
   box-sizing:border-box;
+  overflow:visible;
 }
 .hero-cluster{
-  position:relative;z-index:1;
-  width:1188px;
-  margin-left:570px;
+  position:relative;
+  isolation:isolate;
+  z-index:4;
+  width:1899px;
+  margin-left:88px;
+  min-height:568px;
   display:flex;
-  align-items:flex-end;
-  gap:10.6px;
+  align-items:flex-start;
+  gap:24px;
   transform-origin:left center;
-  transform:scale(min(1, calc((100vh - 180px) / 640px)));
+  transform:scale(min(1, calc((100vh - 180px) / 620px)));
+  overflow:visible;
+}
+
+/* Fixed pills — stay on screen while cards scroll */
+.float-pills{
+  position:fixed;inset:0;z-index:250;
+  pointer-events:none;
+  transition:opacity .45s ease;
+}
+.float-pills.is-out{opacity:0}
+.float-pill{
+  position:absolute;
+  background:#fff;
+  color:#000;
+  border-radius:45px;
+  padding:10px 22px;
+  font-family:var(--sans);
+  font-size:12px;
+  font-weight:400;
+  line-height:1.2;
+  white-space:nowrap;
+  box-shadow:-3px 4px 2px rgba(0,0,0,.25);
+  pointer-events:auto;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.float-pills.is-out .float-pill{pointer-events:none}
+.float-pill:hover{
+  transform:translateY(-2px);
+  box-shadow:-3px 6px 10px rgba(0,0,0,.22);
+}
+.pill-substack{left:clamp(16px,7vw,110px);top:clamp(200px,38vh,320px)}
+.pill-pexel{right:clamp(16px,7vw,90px);top:clamp(120px,16vh,180px);left:auto}
+.pill-resume{left:clamp(42%,48vw,920px);bottom:clamp(56px,12vh,110px);top:auto}
+
+.notes-card{
+  position:absolute;
+  left:0;top:46px;
+  width:261px;height:232px;
+  background:#667eea;
+  color:#fff;
+  padding:43px 12px 18px 18px;
+  z-index:2;
+}
+.notes-card ul{list-style:disc;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.notes-card li{font-family:var(--sans);font-weight:600;font-size:12px;line-height:1.35}
+.notes-tape{
+  position:absolute;
+  left:77px;top:-32px;
+  width:89px;height:49px;
+  transform:rotate(-10.82deg);
+  overflow:hidden;
+  opacity:.7;
+  pointer-events:none;
+}
+.notes-tape img{width:100%;height:100%;object-fit:cover;max-width:none}
+
+.bio-card{
+  position:relative;
+  width:453px;
+  margin-left:482px;
+  flex-shrink:0;
+  background:#9d033b;
+  backdrop-filter:blur(37px);
+  -webkit-backdrop-filter:blur(37px);
+  color:#fff;
+  padding:24px 26px;
+  z-index:4;
+}
+.bio-loc{font-family:var(--inter);font-size:11px;line-height:1.5;margin-bottom:6px}
+.bio-title{
+  font-family:var(--sans);font-weight:900;font-size:30px;line-height:36px;
+  letter-spacing:-2px;max-width:313px;margin-bottom:8px;
+}
+.bio-title em{font-family:var(--serif);font-style:italic;font-weight:700;letter-spacing:-2px}
+.bio-body{
+  font-family:var(--sans);font-size:16px;line-height:1.35;letter-spacing:-.64px;
+  text-transform:capitalize;
+}
+.bio-body em{font-family:var(--serif);font-style:italic;font-weight:700;letter-spacing:-.96px;text-transform:none}
+.bio-clip{
+  position:absolute;right:-46px;top:-72px;
+  width:127px;height:97px;
+  transform:rotate(34.78deg);
+  object-fit:contain;max-width:none;
+  pointer-events:none;z-index:5;
+}
+.bio-smile{
+  position:absolute;right:13px;top:43px;
+  width:57px;height:57px;
+  transform:rotate(-4.1deg);
+  object-fit:contain;max-width:none;
+  pointer-events:none;z-index:5;
+}
+
+.sip-tea{
+  position:absolute;
+  left:381px;top:294px;
+  width:75px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  z-index:3;pointer-events:none;
+}
+.sip-tea img{display:block;width:100%;height:auto}
+
+.hero-side{
+  display:flex;align-items:flex-end;gap:10.6px;
+  height:568px;flex-shrink:0;width:940px;
+  position:relative;z-index:3;
 }
 .col{display:flex;flex-direction:column;gap:10.6px;flex-shrink:0}
-.col-stats{
-  align-self:flex-start;
-  margin-top:12px;
-  padding-bottom:0;
-}
 .col-media{justify-content:center}
 .col-media .photos-card{padding-top:0;margin-top:30px}
 .col-history{
-  align-self:flex-start; /* pin to top of cluster */
-  display:flex;
-  align-items:flex-start;
+  align-self:stretch;
+  display:flex;align-items:center;
 }
 .col-history .history{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  height:auto;
-  padding:10px 12px;
+  display:flex;flex-direction:column;gap:10px;
+  height:auto;padding:10px 12px;
 }
-.col-history .hist{
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-}
+.col-history .hist{display:flex;flex-direction:column;gap:5px}
 .col-history .hist-item{
   flex:0 0 auto;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  display:flex;flex-direction:column;justify-content:center;
   padding:7px 10px;
 }
 .col-quote{
@@ -157,27 +270,9 @@ img{display:block;max-width:100%}
 .card{
   background:#fff;border:1px solid #f3f4f6;border-radius:9px;
   box-shadow:-4.5px 4.5px 15px rgba(0,0,0,.08);padding:12px;
+  position:relative;z-index:1;
 }
 .card-label{font-family:var(--inter);font-weight:700;font-size:7px;letter-spacing:.09em;text-transform:uppercase;color:var(--soft)}
-.hero-copy{width:238px;margin-bottom:2px}
-.hero-copy h2{font-family:var(--inter);font-weight:400;font-size:15px;color:#202020;line-height:1.4;margin-bottom:6px}
-.hero-copy p{font-family:var(--inter);font-size:11px;color:#202020}
-
-.stats{padding:0;overflow:hidden;width:238px}
-.stat-row{display:flex;height:103px}
-.stat{flex:1;padding:14px 11px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid #d0d1d3}
-.stat:last-child{border-right:none}
-.stat-n{font-family:var(--inter);font-weight:700;font-size:27px;color:#676767;line-height:1.2}
-.stat-l{font-family:var(--inter);font-weight:700;font-size:8px;letter-spacing:.05em;text-transform:uppercase;color:var(--soft);margin-top:6px}
-.stat-s{font-family:var(--inter);font-size:9px;color:var(--muted);margin-top:2px}
-.resume{
-  display:flex;align-items:center;gap:11px;
-  border-top:1px solid #d0d1d3;padding:17px 14px;
-}
-.resume-play{width:18px;height:18px;border-radius:50%;background:#676767;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.resume-play img{width:12px;height:12px;filter:brightness(10)}
-.resume-t{font-family:var(--inter);font-weight:700;font-size:18px;color:#676767}
-.resume-s{font-size:11px;color:var(--muted);margin-top:2px}
 
 .photos-card{width:236px}
 .photo-hero{width:100%;height:129px;object-fit:cover;border-radius:16px;box-shadow:0 8px 8px rgba(0,0,0,.25);margin:8px 0 10px}
@@ -416,16 +511,17 @@ img{display:block;max-width:100%}
   pointer-events:none;opacity:.85;
 }
 
-/* Scroll-appear — same .rv pattern as case studies, axis-aware */
+/* Scroll-appear — cards enter from top or bottom */
 .rv{
   opacity:0;
-  transform:translateX(22px);
-  transition:opacity .55s ease,transform .55s ease;
+  transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1);
   transition-delay:var(--d,0s);
 }
+.rv-top{transform:translateY(-42px)}
+.rv-bot{transform:translateY(42px)}
 .rv.vis{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
-  .rv{opacity:1;transform:none;transition:none}
+  .rv,.rv-top,.rv-bot{opacity:1;transform:none;transition:none}
 }
 
 .mob-menu{
@@ -457,25 +553,41 @@ img{display:block;max-width:100%}
     padding:90px 40px 40px 0;
   }
   .hero-name{
-    font-size:clamp(64px,18vw,96px);
-    left:12px;
-    bottom:16px;
-    letter-spacing:-.03em;
+    font-size:clamp(64px,22vw,90px);
+    left:16px;
+    bottom:18px;
+    letter-spacing:-.04em;
   }
   .hero-cluster{
-    width:auto;
-    margin-left:clamp(110px,28vw,200px);
-    display:flex;align-items:flex-end;gap:10px;
+    width:max-content;
+    margin-left:8px;
     transform:scale(min(1, calc((100vh - 140px) / 560px)));
   }
-  .col-stats{margin-top:20px;padding-bottom:0}
-  .col-media .photos-card{margin-top:16px}
-  .col-projects{padding-bottom:20px}
+  .notes-card{
+    width:156px;height:139px;top:8px;left:0;
+    padding:28px 10px 12px 12px;
+  }
+  .notes-card li{font-size:10px;font-weight:600}
+  .notes-tape{left:46px;top:-20px;width:53px;height:29px}
+  .bio-card{
+    margin-left:48px;
+    width:264px;
+    padding:16px 18px;
+  }
+  .bio-title{font-size:20px;line-height:25px;letter-spacing:-1.3px;max-width:214px}
+  .bio-body{font-size:12px;letter-spacing:-.48px}
+  .bio-clip{width:87px;height:66px;right:-32px;top:-49px}
+  .bio-smile{width:39px;height:39px;right:6px;top:28px}
+  .sip-tea{left:8px;top:auto;bottom:24px;width:56px}
+  .hero-side{height:auto;width:auto;align-self:center}
   .col{width:auto;flex-shrink:0}
-  .stats,.hero-copy{width:240px}
   .tools,.history,.quote,.wishlist,.coming,.services,.photos-card{width:240px}
   .services{height:240px}
   .svc-tags{height:110px}
+  .float-pill{padding:8px 16px;font-size:12px;border-radius:24px}
+  .pill-substack{left:34px;top:228px;right:auto}
+  .pill-pexel{left:auto;right:18px;top:143px}
+  .pill-resume{left:auto;right:20px;top:427px;bottom:auto}
 
   /* Sketch — blur bg, left-aligned horizontal masonry strip (not centered) */
   .panel-sketch{
@@ -561,7 +673,7 @@ img{display:block;max-width:100%}
 }
 </style>
 <link rel="stylesheet" href="contact-modal.css?v=13">
-<noscript><style>.rv{opacity:1;transform:none}</style></noscript>
+<noscript><style>.rv,.rv-top,.rv-bot{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 <div class="mob-menu" id="mobMenu">
@@ -596,44 +708,66 @@ img{display:block;max-width:100%}
   <span>Rathour</span>
 </div>
 
+<div class="float-pills" id="float-pills">
+  <a class="float-pill pill-substack" href="https://entangledbrain.substack.com/" target="_blank" rel="noopener">Read substack</a>
+  <a class="float-pill pill-pexel" href="https://www.pexels.com/@parul-rathore-2163791580/" target="_blank" rel="noopener">Pexel</a>
+  <a class="float-pill pill-resume" href="resume.html">Resume</a>
+</div>
+
 <div class="hscroll" id="hscroll">
   <!-- PANEL 1 -->
   <section class="panel panel-hero" aria-label="About">
     <div class="hero-cluster">
-      <!-- Col 1: intro + stats (pb 30 like Figma) -->
-      <div class="col col-stats">
-        <div class="hero-copy rv">
-          <h2>From mountains to digital Product Designing</h2>
-          <p>Himachal, IN</p>
+      <article class="notes-card rv">
+        <div class="notes-tape" aria-hidden="true"><img src="Asset/images/know/stickers/tape.png" alt="" width="89" height="49"></div>
+        <ul>
+          <li>Document observations, epiphanies- everything</li>
+          <li>Write articles on substack- to be more articulate</li>
+        </ul>
+      </article>
+
+      <article class="bio-card rv">
+        <img class="bio-clip" src="Asset/images/know/stickers/clip.png" alt="" width="127" height="97">
+        <img class="bio-smile" src="Asset/images/know/stickers/smile.png" alt="" width="57" height="57">
+        <p class="bio-loc">Himachal, IN</p>
+        <h2 class="bio-title">From <em>mountains</em> to digital <em>Product Designing</em></h2>
+        <div class="bio-body">
+          Travels for the views, stays for the <em>stories,</em>
+          <em>People-watcher</em>, without the creepy part,
+          Notices faces more than words,
+          Will photograph <em>everything</em> &amp; delete <em>nothing</em>,
+          2 Dogs &amp; a <em>permanent</em> affection for cats,
+          Draws when <em>words</em> aren’t enough,
+          Chai is <em>emotional support</em> system,
+          Freelance when work feels too <em>familiar,</em>
+          <em>Side quest</em> - Read more, write more, draw more, learn more
         </div>
-        <div class="card stats rv">
-          <div class="stat-row">
-            <div class="stat">
-              <div class="stat-n">6+</div>
-              <div class="stat-l">Years Experience</div>
-              <div class="stat-s">Product · UX · Data Viz</div>
-            </div>
-            <div class="stat">
-              <div class="stat-n">12+</div>
-              <div class="stat-l">Projects Shipped</div>
-              <div class="stat-s">Across 5 product teams</div>
-            </div>
-          </div>
-          <a class="resume" href="resume.html">
-            <span class="resume-play"><img src="Asset/images/know/icon-play.svg" alt=""></span>
-            <span>
-              <span class="resume-t">Resume</span>
-              <div class="resume-s">View or download</div>
-            </span>
-          </a>
+      </article>
+
+      <div class="sip-tea" aria-hidden="true">
+        <img src="Asset/images/know/stickers/sip-tea.svg" alt="" width="72" height="24">
+        <img src="Asset/images/know/stickers/design.svg" alt="" width="66" height="24">
+        <img src="Asset/images/know/stickers/repeat.svg" alt="" width="71" height="22">
+      </div>
+
+      <div class="hero-side">
+      <div class="col col-quote">
+        <div class="card quote rv">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
+          <p>Leaving home once makes you appreciate it twice as much- Because sometimes you have to go far away to understand where you came from</p>
+          <div class="card-label">Personal Projects</div>
+        </div>
+        <div class="card wishlist rv">
+          <div class="card-label">Wishlist</div>
+          <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
+          <label class="wish"><input type="checkbox"><span>Work abroad at least once</span></label>
         </div>
       </div>
 
-      <!-- Col 2: Images (pt 30) + Top Tools -->
       <div class="col col-media">
         <div class="card photos-card rv">
           <div class="card-label">Images</div>
-          <img class="photo-hero" src="Asset/images/know/hero-mountain.png" alt="Himachal mountains" loading="lazy">
+          <img class="photo-hero" src="Asset/images/know/hero-mountain.png" alt="Dogs in the yard, Himachal" loading="lazy">
           <div class="fan" aria-hidden="true">
             <img src="Asset/images/home/cards/card-3.png" alt="">
             <img src="Asset/images/home/cards/card-4.png" alt="">
@@ -652,7 +786,6 @@ img{display:block;max-width:100%}
         </div>
       </div>
 
-      <!-- Col 3: Work History (stretches full row height) -->
       <div class="col col-history">
         <div class="card history rv">
           <div class="sec-head"><span class="dot blue"></span><span class="card-label">Work History</span></div>
@@ -666,21 +799,6 @@ img{display:block;max-width:100%}
         </div>
       </div>
 
-      <!-- Col 4: Quote + Wishlist (vertically centered in row) -->
-      <div class="col col-quote">
-        <div class="card quote rv">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 8H5v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8zm11 0h-4v4h3c0 2-1 4-3 5l1 2c3-1 5-4 5-7V8z" fill="#109c67"/></svg>
-          <p>Most people called it “just a hobby.” Thank goodness I didn’t listen. Every sketch, illustration, and late-night experiment eventually became the foundation of the designer I am today.</p>
-          <div class="card-label">Personal Projects</div>
-        </div>
-        <div class="card wishlist rv">
-          <div class="card-label">Design Wishlist</div>
-          <label class="wish"><input type="checkbox"><span>Attend Figma Config</span></label>
-          <label class="wish"><input type="checkbox"><span>Participate in a design hackathon</span></label>
-        </div>
-      </div>
-
-      <!-- Col 5: Coming soon + Services (pb 38) -->
       <div class="col col-projects">
         <div class="card coming rv">
           <div class="card-label">Personal Projects</div>
@@ -698,6 +816,7 @@ img{display:block;max-width:100%}
             <span class="svc-tag">Data Viz</span>
           </div>
         </div>
+      </div>
       </div>
     </div>
   </section>
@@ -766,7 +885,6 @@ img{display:block;max-width:100%}
       <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
       <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
-      <a href="resume.html" class="fs-link">Resume</a>
     </div>
     <div class="footer-big">
       <div class="footer-big-top">
@@ -797,6 +915,7 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
   const scroller=document.getElementById('hscroll');
   const hint=document.getElementById('scroll-hint');
   const nameEl=document.getElementById('hero-name');
+  const pills=document.getElementById('float-pills');
   const cta=document.getElementById('footer-contact');
   if(!scroller) return;
 
@@ -835,6 +954,10 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
     nameEl.style.opacity=String(1-t);
     nameEl.style.transform='translateY('+(t*28)+'px)';
     nameEl.classList.toggle('is-out', t>0.95);
+    if(pills){
+      pills.style.opacity=String(1-t);
+      pills.classList.toggle('is-out', t>0.85);
+    }
   }
 
   scroller.addEventListener('scroll',function(){
@@ -863,6 +986,11 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
   if(reduce||!('IntersectionObserver' in window)){showAll();return}
 
   const scroller=document.getElementById('hscroll');
+  const mid=window.innerHeight*.52;
+  items.forEach(function(el){
+    const r=el.getBoundingClientRect();
+    el.classList.add((r.top+r.height/2)<mid?'rv-top':'rv-bot');
+  });
   const io=new IntersectionObserver(function(entries){
     entries.filter(function(e){return e.isIntersecting})
       .sort(function(a,b){return a.target.getBoundingClientRect().left-b.target.getBoundingClientRect().left})
