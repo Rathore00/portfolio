@@ -112,8 +112,10 @@
   margin-bottom:clamp(1.5rem,4vw,3rem);
 }
 .footer-cta{
-  font-family:var(--cs-display);font-weight:900;
-  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;
+  font-family:'Bricolage Grotesque',var(--cs-display),sans-serif;font-weight:800;
+  font-variation-settings:'wght' 800;
+  -webkit-text-stroke:.6px currentColor;
+  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:normal;line-height:.95;
   max-width:12ch;text-transform:uppercase;color:var(--cs-ink);
 }
 .footer-nav{

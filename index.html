@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Gochi+Hand&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Gochi+Hand&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -24,6 +24,7 @@
   --sans:'DM Sans',system-ui,sans-serif;
   --inter:'Inter',system-ui,sans-serif;
   --display:'Montserrat',sans-serif;
+  --brico:'Bricolage Grotesque',sans-serif;
   --serif:'Playfair Display',Georgia,serif;
   --mono:'Cousine',monospace;
 }
@@ -159,9 +160,9 @@ img{display:block;max-width:100%}
   gap:2rem;align-items:end;position:relative;
 }
 .hero-copy{
-  font-family:var(--inter);font-weight:700;
+  font-family:var(--brico);font-weight:700;
   font-size:clamp(1.75rem,3.4vw,3rem);
-  line-height:1.15;letter-spacing:-2px;color:#111827;
+  line-height:1.15;letter-spacing:-.04em;color:#111827;
   max-width:46rem;
   min-height:4.8em;
 }
@@ -524,8 +525,8 @@ img{display:block;max-width:100%}
   padding:0 74px;margin-bottom:8px;width:100%;
 }
 .work-hdr h2{
-  font-family:var(--inter);font-weight:400;font-size:clamp(1.8rem,3.2vw,2.625rem);
-  letter-spacing:-.02em;color:#000;
+  font-family:var(--brico);font-weight:500;font-size:clamp(1.8rem,3.2vw,2.625rem);
+  letter-spacing:-.03em;color:#000;
 }
 .work-view-all{
   display:inline-flex;align-items:center;
@@ -576,11 +577,13 @@ a.cs-seq-card:hover,a.cs-seq-card:focus-visible{
 a.cs-seq-card:focus-visible{outline:2px solid #141414;outline-offset:3px}
 .cs-seq-tx{padding:26px 24px 14px;display:flex;flex-direction:column;gap:10px}
 .cs-seq-tx h2{
-  margin:0;font-family:'Bricolage Grotesque','IBM Plex Sans',var(--sans),sans-serif;
-  font-weight:500;font-size:30px;line-height:1.05;letter-spacing:-.03em;padding-right:44px;color:#141414;
+  margin:0;font-family:var(--brico),'IBM Plex Sans',var(--sans),sans-serif;
+  font-weight:700;font-size:30px;line-height:1.05;letter-spacing:-.03em;padding-right:44px;color:#141414;
 }
 .cs-seq-tx p{margin:0;font-size:15px;line-height:1.5;color:#8A8F97}
-.cs-seq-tx p b{color:#141414;font-weight:600}
+.cs-seq-tx p b,.cs-seq-tx p strong{
+  font-family:var(--brico),'IBM Plex Sans',sans-serif;color:#141414;font-weight:700;
+}
 .cs-seq-metas{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
 .cs-seq-mchip{
   font-size:12px;font-weight:600;padding:6px 14px;border-radius:99px;
@@ -629,9 +632,17 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
 @media (prefers-reduced-motion:reduce){.cs-seq-mq-row{animation:none!important}}
 @media (max-width:700px){
   .cs-seq-slot{--x:calc(var(--xs) * .5)}
-  .cs-seq-pile{height:min(540px,78vh)}
-  .cs-seq-tx h2{font-size:24px}
-  .cs-seq-info .cs-seq-tx h2{font-size:32px}
+  .cs-seq-pile{width:min(248px,70vw);height:min(340px,52vh)}
+  .cs-seq-tx{padding:14px 14px 8px;gap:6px}
+  .cs-seq-tx h2{font-size:16px;padding-right:32px}
+  .cs-seq-info .cs-seq-tx h2{font-size:20px}
+  .cs-seq-tx p{font-size:11px;line-height:1.4}
+  .cs-seq-mchip{font-size:9px;padding:4px 8px}
+  .cs-seq-go{width:28px;height:28px;top:12px;right:12px}
+  .cs-seq-go svg{width:12px;height:12px}
+  .cs-seq-cf{font-size:10px;padding:4px 9px;border-radius:9px}
+  .cs-seq-gfx{margin:0 6px 6px;border-radius:14px}
+  .cs-seq-mq-row span{font-size:clamp(64px,16vw,110px);margin-top:0}
 }
 
 /* ══ FOOTER ══ */
@@ -665,8 +676,10 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
   margin-bottom:clamp(1.5rem, 4vw, 3rem);
 }
 .footer-cta{
-  font-family:var(--display);font-weight:900;
-  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;
+  font-family:var(--brico);font-weight:800;
+  font-variation-settings:'wght' 800;
+  -webkit-text-stroke:.6px currentColor;
+  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:normal;line-height:.95;
   max-width:12ch;
 }
 .footer-nav{

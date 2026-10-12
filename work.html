@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -21,6 +21,7 @@
   --sans:'DM Sans',system-ui,sans-serif;
   --inter:'Inter',system-ui,sans-serif;
   --display:'Montserrat',sans-serif;
+  --brico:'Bricolage Grotesque',sans-serif;
   --serif:'Playfair Display',Georgia,serif;
 }
 html{scroll-behavior:smooth}
@@ -99,8 +100,8 @@ img{display:block;max-width:100%}
   color:#6a6a6a;letter-spacing:-.02em;
 }
 .work-title{
-  font-family:var(--inter);font-weight:700;font-size:clamp(3.2rem,7vw,82px);
-  letter-spacing:-.02em;color:#000;line-height:1.05;margin-top:2px;
+  font-family:var(--brico);font-weight:700;font-size:clamp(3.2rem,7vw,82px);
+  letter-spacing:-.03em;color:#000;line-height:1.05;margin-top:2px;
 }
 .work-lede{
   font-family:var(--inter);font-size:18px;font-weight:400;
@@ -138,14 +139,14 @@ img{display:block;max-width:100%}
 .cs-badge-solid{background:#fff}
 .cs-body{padding:22px 0 42px;position:relative;z-index:1}
 .cs-card-title{
-  font-family:var(--sans);font-size:22px;letter-spacing:-.02em;color:#2e2d2d;
-  margin-bottom:8px;line-height:1.25;font-weight:400;
+  font-family:var(--brico);font-size:22px;letter-spacing:-.03em;color:#2e2d2d;
+  margin-bottom:8px;line-height:1.25;font-weight:500;
 }
 .cs-card-sub{font-family:var(--sans);font-size:12px;letter-spacing:-.02em;color:#2e2d2d;line-height:1.45}
 .cs-card-featured{
   color:#2e2d2d;
 }
-.cs-card-featured .cs-card-title{font-family:var(--inter);font-weight:500}
+.cs-card-featured .cs-card-title{font-family:var(--brico);font-weight:700}
 .cs-card-featured .cs-card-sub{font-family:var(--inter)}
 .cs-card-bg{
   position:absolute;inset:0;border-radius:32px;overflow:hidden;pointer-events:none;
@@ -190,8 +191,10 @@ img{display:block;max-width:100%}
   margin-bottom:clamp(1.5rem,4vw,3rem);
 }
 .footer-cta{
-  font-family:var(--display);font-weight:900;
-  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:-.04em;line-height:.95;
+  font-family:var(--brico);font-weight:800;
+  font-variation-settings:'wght' 800;
+  -webkit-text-stroke:.6px currentColor;
+  font-size:clamp(2.4rem,6vw,5rem);letter-spacing:normal;line-height:.95;
   max-width:12ch;
 }
 .footer-nav{
