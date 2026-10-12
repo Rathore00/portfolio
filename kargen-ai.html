@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kargen AI · Case study</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="Asset/images/home/favicon-32.png">
+<link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=Montserrat:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="case-study-shared.css">
+<link rel="stylesheet" href="contact-modal.css?v=13">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#FFFFFF}
+.pg{--bg:#FFFFFF;--tile:#F2F2F2;--inner:#FFFFFF;--ink:#141414;--mute:#5F6670;--faint:#8A8F97;--pill:#EDEDED;--line:rgba(20,20,20,.1);--neon:#41CD43;--forest:#203A2B;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.pg *{box-sizing:border-box}
+.disp{font-family:'Bricolage Grotesque','IBM Plex Sans',system-ui,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:24px}
+h1,h2,h3,p{margin:0}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--pill);color:var(--mute);border-radius:99px;padding:8px 22px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--neon)}
+.sechead{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;max-width:680px;margin:0 auto}
+h1{font-size:clamp(60px,11vw,132px);line-height:.92;letter-spacing:-.04em;font-weight:500;text-wrap:balance}
+h1 span{color:var(--forest)}
+h2{font-size:clamp(32px,4.4vw,52px);line-height:1.05;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+h3{font-size:22px;line-height:1.2;letter-spacing:-.015em;font-weight:700}
+.sub{font-size:18px;line-height:1.5;color:var(--mute)}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.meta div{background:var(--tile);border-radius:20px;padding:14px 24px;min-width:200px}
+.meta dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.meta dd{margin:2px 0 0;font-size:16px;font-weight:600}
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.t{background:var(--tile);border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:20px;min-width:0}
+.big{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:clamp(24px,2.6vw,32px);line-height:1.12;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.big em{font-style:normal;color:var(--faint)}
+.small{font-size:15px;color:var(--mute)}
+.inner{background:var(--inner);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.sw{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500}
+.sw i{display:block;width:44px;height:44px;border-radius:12px;flex:none;border:1px solid var(--line)}
+.sw small{display:block;color:var(--mute);font-size:13px;font-weight:400}
+.spec{border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.spec small{color:var(--mute);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:14px;background:var(--inner);border-radius:99px;padding:6px 14px;font-weight:500}
+.tool{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.04em;font-weight:500}
+.c7{grid-column:span 7}.c5{grid-column:span 5}.c6{grid-column:span 6}
+.ta{grid-column:span 7;grid-row:span 2}
+.stage{flex:1;display:flex;align-items:center;justify-content:center;padding-inline:4px}
+.cap p{color:var(--mute);font-size:15px;margin-top:4px}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-block:12px;border-top:1px solid var(--line);font-size:16px;font-weight:500}
+.row small{color:var(--mute);font-size:13px;text-align:right;font-weight:400}
+.statn{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:clamp(64px,8vw,96px);line-height:.9;letter-spacing:-.05em;font-weight:500}
+.lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:96px}
+.card{display:flex;flex-direction:column;gap:20px;background:var(--tile);border-radius:28px;padding:20px;text-decoration:none;color:inherit}
+.card:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+.thumbw{height:190px;border-radius:18px;overflow:hidden;background:#fff}
+.thumb{width:100%;height:100%;display:flex}
+.crow{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 6px 6px}
+.arr{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;transition:background .3s,color .3s,transform .3s}
+.card:hover .arr,.card:focus-visible .arr{background:var(--ink);color:#fff;transform:translateX(4px)}
+.lap{transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s}
+.lap:hover{transform:translateY(-6px) scale(1.03);filter:drop-shadow(0 24px 30px rgba(20,20,20,.2))}
+@keyframes enter{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+@supports (animation-timeline:view()){
+.sechead,.t{animation:enter linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+}
+}
+.cards{background:#F2F2F2;border-radius:36px;padding:24px;margin-bottom:96px;gap:20px}
+.rc{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:24px;box-shadow:0 1px 2px rgba(20,30,60,.04),0 12px 32px rgba(20,20,20,.1);text-decoration:none;color:inherit;overflow:hidden}
+.rc:focus-visible{outline:2px solid #141414;outline-offset:3px}
+.ill{position:relative;height:236px;overflow:hidden;background:radial-gradient(120% 95% at 50% 105%,#D9D9DB 0%,#EDEDEE 48%,#FAFAFA 100%)}
+.ill:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(20,20,20,.2) 1px,transparent 1.3px);background-size:12px 12px;-webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%)}
+.ill svg.arcs{position:absolute;inset:0;width:100%;height:100%}
+.rb{padding:22px 84px 28px 28px;display:flex;flex-direction:column;gap:6px}
+.rb h3{font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
+.rb p{font-size:15px;color:var(--mute);line-height:1.5}
+.rgo{position:absolute;right:24px;bottom:26px;width:44px;height:44px;border-radius:50%;background:#F2F2F2;display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s}
+.rc:hover .rgo,.rc:focus-visible .rgo{background:#141414;color:#fff}
+.cf{position:absolute;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:9px 16px;border-radius:13px;white-space:nowrap}
+.cf.b{background:linear-gradient(#4A4A4A,#141414);color:#fff;box-shadow:0 10px 20px rgba(20,20,20,.3),inset 0 1px 0 rgba(255,255,255,.55)}
+.cf.w{background:#fff;color:#141414;box-shadow:0 10px 24px rgba(20,20,20,.16)}
+.cf.d{border:1.5px dashed rgba(20,20,20,.4);color:rgba(20,20,20,.6);background:rgba(255,255,255,.5)}
+.sc{position:absolute;background:#fff;border-radius:16px;box-shadow:0 14px 34px rgba(20,20,20,.16);padding:14px;display:flex;flex-direction:column;gap:9px}
+.sc i{display:block;height:8px;border-radius:99px;background:#E6E6E6}
+.sc i.h{background:linear-gradient(90deg,#4A4A4A,#141414)}
+.bar{position:absolute;bottom:0;width:11%;border-radius:12px 12px 0 0;background:linear-gradient(#CFCFD2,rgba(207,207,210,.15))}
+.bar.hi{background:linear-gradient(#141414,rgba(20,20,20,.15));box-shadow:0 0 28px rgba(20,20,20,.28)}
+@media (max-width:860px){
+.cards{grid-template-columns:minmax(0,1fr)}
+.ta,.c7,.c5,.c6{grid-column:span 12;grid-row:auto}
+.t{padding:20px}
+}
+/* laptop mockup, sized in container units so it scales with its tile */
+.lap{width:100%;container-type:inline-size}
+.lid{background:#0B120E;border:1px solid rgba(20,20,20,.35);border-radius:2.4cqw 2.4cqw .6cqw .6cqw;padding:1.8cqw 1.8cqw 2.2cqw}
+.scr{position:relative;aspect-ratio:16/10;overflow:hidden;border-radius:.8cqw;container-type:inline-size;background:#203A2B}
+.base{position:relative;height:2.2cqw;width:108%;margin-left:-4%;background:linear-gradient(#D9DBDD,#B4B8BB);border-radius:0 0 3cqw 3cqw}
+.base:after{content:"";position:absolute;left:50%;top:0;width:14cqw;height:.9cqw;transform:translateX(-50%);background:#9A9FA3;border-radius:0 0 1cqw 1cqw}
+/* mock site pieces (units resolve against the screen) */
+.site{position:absolute;inset:0;background:#203A2B;overflow:hidden;color:#EAF3EA}
+.site .nav{display:flex;align-items:center;justify-content:space-between;padding:2.6cqw 3.6cqw}
+.logo{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-weight:700;font-size:3.2cqw;color:#41CD43;letter-spacing:-.02em}
+.nb{display:flex;gap:1.8cqw;align-items:center}
+.nb i{display:block;width:5cqw;height:.8cqw;border-radius:1cqw;background:rgba(234,243,234,.4)}
+.bar{height:1.5cqw;border-radius:1cqw;background:rgba(234,243,234,.5)}
+.bar.s{height:.9cqw;background:rgba(234,243,234,.28)}
+.bar.h{height:3.6cqw;background:#EAF3EA}
+.mpill{display:inline-block;background:#41CD43;color:#0E1A14;border-radius:5cqw;font-size:2.2cqw;font-weight:600;padding:1.2cqw 3cqw;line-height:1.2}
+.col{display:flex;flex-direction:column;gap:1.7cqw;align-items:flex-start}
+/* A: hero flip */
+.heroA{display:grid;grid-template-columns:1.15fr .85fr;gap:4cqw;align-items:center;padding:4cqw 3.6cqw}
+.flipwrap{perspective:90cqw}
+.flipper{position:relative;width:100%;aspect-ratio:1;transform-style:preserve-3d;animation:flip 7s ease-in-out infinite}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:2.2cqw;display:flex;align-items:center;justify-content:center;font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-weight:700;letter-spacing:-.03em}
+.f1{background:#41CD43;color:#0E1A14;font-size:7cqw}
+.f2{background:#0E1A14;color:#41CD43;font-size:12cqw;transform:rotateX(180deg);border:.3cqw solid rgba(65,205,67,.5)}
+@keyframes flip{0%,36%{transform:rotateX(0)}50%,86%{transform:rotateX(180deg)}100%{transform:rotateX(360deg)}}
+/* B: text micro animation */
+.heroB{padding:6cqw 3.6cqw;display:flex;flex-direction:column;gap:2.4cqw;align-items:flex-start}
+.hl{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-weight:700;font-size:8.4cqw;line-height:1.05;letter-spacing:-.02em;display:flex;flex-wrap:wrap;gap:0 2cqw}
+.w{display:inline-block;overflow:hidden;padding-bottom:.9cqw}
+.w span{display:inline-block;animation:rise 5.5s cubic-bezier(.2,.7,.2,1) infinite;animation-delay:calc(var(--i) * .14s)}
+.w.n span{color:#41CD43}
+@keyframes rise{0%{transform:translateY(115%)}16%,78%{transform:translateY(0)}92%,100%{transform:translateY(-115%)}}
+.fadeB{animation:fadeB 5.5s ease-out infinite;animation-delay:.7s}
+@keyframes fadeB{0%{opacity:0;transform:translateY(2cqw)}18%,78%{opacity:1;transform:none}92%,100%{opacity:0}}
+/* C: on-scroll */
+.scroller{position:absolute;left:0;right:0;top:0;animation:sc 9s ease-in-out infinite}
+@keyframes sc{0%,10%{transform:translateY(0)}42%,62%{transform:translateY(-32cqw)}92%,100%{transform:translateY(0)}}
+.blk{padding:0 3.6cqw;margin-bottom:3cqw}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8cqw}
+.cd{background:#2B4A39;border-radius:1.6cqw;height:15cqw;padding:2cqw;display:flex;flex-direction:column;gap:1.2cqw}
+.rv1{animation:rv1 9s ease-in-out infinite}
+.rv2{animation:rv2 9s ease-in-out infinite}
+@keyframes rv1{0%,16%{opacity:.12;transform:translateY(3cqw)}30%,64%{opacity:1;transform:none}82%,100%{opacity:.12;transform:translateY(3cqw)}}
+@keyframes rv2{0%,28%{opacity:.12;transform:translateY(3cqw)}42%,64%{opacity:1;transform:none}80%,100%{opacity:.12;transform:translateY(3cqw)}}
+.band{background:#41CD43;border-radius:1.8cqw;height:16cqw;padding:2.4cqw;display:flex;flex-direction:column;gap:1.4cqw;justify-content:flex-end}
+.band .bar{background:rgba(14,26,20,.8)}
+.band .bar.s{background:rgba(14,26,20,.4)}
+.track{position:absolute;right:1.2cqw;top:9cqw;bottom:2cqw;width:.7cqw;border-radius:1cqw;background:rgba(234,243,234,.15)}
+.thumb{position:absolute;left:0;right:0;top:0;height:11cqw;border-radius:1cqw;background:#41CD43;animation:th 9s ease-in-out infinite}
+@keyframes th{0%,10%{transform:translateY(0)}42%,62%{transform:translateY(20cqw)}92%,100%{transform:translateY(0)}}
+/* D: bento grid build */
+.heroD{padding:0 3.6cqw}
+.bg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(3,11.5cqw);gap:1.6cqw;margin-top:1.8cqw}
+.cell{border-radius:1.8cqw;padding:1.8cqw;display:flex;flex-direction:column;justify-content:flex-end;gap:1cqw;animation:pop 8s cubic-bezier(.2,.8,.2,1) infinite;animation-delay:calc(var(--i) * .16s)}
+.c1{grid-column:1 / span 2;grid-row:1 / span 2;background:#41CD43;color:#0E1A14;font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-weight:700;font-size:6cqw;letter-spacing:-.03em;line-height:1}
+.c2{grid-column:3 / span 2;grid-row:1;background:#2B4A39}
+.c3{grid-column:3;grid-row:2;background:#EAF3EA}
+.c4{grid-column:4;grid-row:2;background:#16291F;border:.25cqw solid rgba(65,205,67,.5)}
+.c5x{grid-column:1 / span 2;grid-row:3;background:#2B4A39}
+.c6x{grid-column:3 / span 2;grid-row:3;background:#0E1A14}
+.c3 .bar{background:rgba(14,26,20,.7)}
+@keyframes pop{0%{opacity:0;transform:scale(.72)}14%,84%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.96)}}
+@media (prefers-reduced-motion:reduce){.pg *{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+</div>
+<div class="top">
+  <nav class="nav" id="site-nav">
+    <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="know-the-designer.html">Know the Designer</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
+      <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+    </div>
+  </nav>
+</div>
+<div class="nav-spacer" aria-hidden="true"></div>
+<div class="pg">
+<div class="wrap">
+
+  <header style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;padding-block:72px 96px">
+    <span class="pill">Case study</span>
+    <h1 class="disp">Kargen <span>AI</span></h1>
+    <p class="sub" style="max-width:600px">A motion-led, interactive website for an AI workforce built for freight brokerages: a flipping hero, a bento grid, micro animations on text and effects on scroll.</p>
+    <dl class="meta" style="margin:8px 0 0">
+      <div><dt>Role</dt><dd>Website designer, freelance</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Cursor AI</dd></div>
+      <div><dt>Focus</dt><dd>Prototype and animation</dd></div>
+    </dl>
+  </header>
+
+  <section style="display:flex;flex-direction:column;gap:48px;padding-bottom:112px">
+    <div class="sechead">
+      <span class="pill">The brief</span>
+      <h2 class="disp">Motion is hard to approve from a still frame</h2>
+      <p class="sub">What Kargen asked for, and what it needed from the design.</p>
+    </div>
+    <div class="bento">
+      <div class="t c7" style="padding:32px;justify-content:space-between;gap:48px">
+        <p class="big" style="font-size:clamp(26px,3vw,38px)">Kargen asked for a motion-led, interactive website. <em>The motion had to help busy freight brokers understand what Kargen does within seconds.</em></p>
+        <p class="small" style="max-width:520px">Developers also had to be able to replicate the motion easily. So the animations were judged in motion, early, with the real code running, instead of being imagined from a still frame.</p>
+      </div>
+      <div class="t c5" style="gap:16px">
+        <div class="inner" style="gap:16px">
+          <span class="small" style="text-transform:uppercase;letter-spacing:.1em;font-size:12px">What Kargen is</span>
+          <p style="font-size:17px;font-weight:500">Kargen is an AI-powered automation platform built exclusively for freight brokerages. It gives small and mid-sized brokers an AI workforce that manages the carrier side of every load, from carrier sourcing and rate negotiation to dispatch, compliance verification and invoice settlement.</p>
+        </div>
+        <div class="inner">
+          <div class="sw"><i style="background:#41CD43"></i><span>Neon Green<small>#41CD43</small></span></div>
+          <div class="sw"><i style="background:#203A2B"></i><span>Dark Green<small>#203A2B</small></span></div>
+        </div>
+        <div class="inner" style="gap:10px">
+          <div class="spec" style="border:0;padding:0"><span class="disp" style="font-size:24px;font-weight:700;letter-spacing:-.02em">Bricolage Grotesque</span><small>Headings</small></div>
+          <div class="spec"><span style="font-size:19px">IBM Plex Sans</span><small>Everything else</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:48px;padding-bottom:112px">
+    <div class="sechead">
+      <span class="pill">Process</span>
+      <h2 class="disp">Figma for the decisions, Cursor AI for the motion</h2>
+      <p class="sub">Two tools, one job each.</p>
+    </div>
+    <div class="bento">
+      <div class="t c6" style="padding:32px;gap:20px;justify-content:space-between;min-height:340px">
+        <div style="display:flex;flex-direction:column;gap:12px"><span class="pill" style="align-self:flex-start;background:var(--inner)">Design</span><p class="tool">Figma</p></div>
+        <p class="big" style="font-size:clamp(22px,2.3vw,28px)">Moodboard variations compared side by side. <em>Variation 2, the minimal direction, became the UI direction.</em></p>
+        <p class="small">Color, type and layout were settled here first, so every prototype started from decisions instead of guesses.</p>
+      </div>
+      <div class="t c6" style="padding:32px;gap:20px;justify-content:space-between;min-height:340px">
+        <div style="display:flex;flex-direction:column;gap:12px"><span class="pill" style="align-self:flex-start;background:var(--inner)">Prototype and animation</span><p class="tool">Cursor AI</p></div>
+        <p class="big" style="font-size:clamp(22px,2.3vw,28px)">Each animation was prototyped in code. <em>Developers can open the working code and see exactly how every animation runs.</em></p>
+        <div class="chips">
+          <span class="chip">Hero flip</span><span class="chip">Bento grid</span><span class="chip">Text micro animations</span><span class="chip">On-scroll effects</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:48px;padding-bottom:112px">
+    <div class="sechead">
+      <span class="pill">The result</span>
+      <h2 class="disp">The motion, on screen</h2>
+      <p class="sub">The four animations from the client brief, each running on a laptop.</p>
+    </div>
+
+    <div class="bento">
+
+      <div class="t ta">
+        <div class="stage">
+          <div class="lap" role="img" aria-label="Laptop showing the hero card flipping between two faces">
+            <div class="lid"><div class="scr"><div class="site">
+              <div class="nav"><span class="logo">kargen</span><span class="nb"><i></i><i></i><i></i></span></div>
+              <div class="heroA">
+                <div class="col">
+                  <div class="bar s" style="width:28%"></div>
+                  <div class="bar h" style="width:96%"></div>
+                  <div class="bar h" style="width:74%"></div>
+                  <div class="bar h" style="width:50%"></div>
+                  <div class="bar s" style="width:86%"></div>
+                  <div class="bar s" style="width:64%"></div>
+                  <span class="mpill">Get started</span>
+                </div>
+                <div class="flipwrap"><div class="flipper"><div class="face f1">kargen</div><div class="face f2">AI</div></div></div>
+              </div>
+            </div></div></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="cap"><h3 class="disp">Hero flip</h3><p>The hero card turns over to reveal a second face of the brand.</p></div>
+      </div>
+
+      <div class="t c5">
+        <div class="stage">
+          <div class="lap" role="img" aria-label="Laptop showing headline words rising into place one by one">
+            <div class="lid"><div class="scr"><div class="site">
+              <div class="nav"><span class="logo">kargen</span><span class="nb"><i></i><i></i><i></i></span></div>
+              <div class="heroB">
+                <div class="hl">
+                  <span class="w"><span style="--i:0">Words</span></span>
+                  <span class="w"><span style="--i:1">rise</span></span>
+                  <span class="w"><span style="--i:2">into</span></span>
+                  <span class="w n"><span style="--i:3">place</span></span>
+                </div>
+                <div class="col fadeB" style="width:70%">
+                  <div class="bar s" style="width:100%"></div>
+                  <div class="bar s" style="width:78%"></div>
+                </div>
+              </div>
+            </div></div></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="cap"><h3 class="disp">Text micro animations</h3><p>Headline words rise in one at a time, then clear for the next pass.</p></div>
+      </div>
+
+      <div class="t c5">
+        <div class="stage">
+          <div class="lap" role="img" aria-label="Laptop showing page sections fading in as the page scrolls">
+            <div class="lid"><div class="scr"><div class="site">
+              <div class="scroller">
+                <div class="nav"><span class="logo">kargen</span><span class="nb"><i></i><i></i><i></i></span></div>
+                <div class="blk col" style="padding-top:1cqw">
+                  <div class="bar h" style="width:70%"></div>
+                  <div class="bar h" style="width:44%"></div>
+                  <div class="bar s" style="width:62%"></div>
+                </div>
+                <div class="blk rv1"><div class="cards3">
+                  <div class="cd"><div class="bar" style="width:60%"></div><div class="bar s" style="width:90%"></div><div class="bar s" style="width:70%"></div></div>
+                  <div class="cd"><div class="bar" style="width:50%"></div><div class="bar s" style="width:85%"></div><div class="bar s" style="width:60%"></div></div>
+                  <div class="cd"><div class="bar" style="width:66%"></div><div class="bar s" style="width:80%"></div><div class="bar s" style="width:72%"></div></div>
+                </div></div>
+                <div class="blk rv2"><div class="band"><div class="bar h" style="width:52%;background:rgba(14,26,20,.9)"></div><div class="bar s" style="width:70%"></div></div></div>
+              </div>
+              <div class="track"><div class="thumb"></div></div>
+            </div></div></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="cap"><h3 class="disp">On-scroll effects</h3><p>Sections fade up as the page scrolls them into view.</p></div>
+      </div>
+
+      <div class="t c7">
+        <div class="stage">
+          <div class="lap" role="img" aria-label="Laptop showing a bento grid building itself cell by cell">
+            <div class="lid"><div class="scr"><div class="site">
+              <div class="nav"><span class="logo">kargen</span><span class="nb"><i></i><i></i><i></i></span></div>
+              <div class="heroD"><div class="bg">
+                <div class="cell c1" style="--i:0">kargen</div>
+                <div class="cell c2" style="--i:1"><div class="bar" style="width:55%"></div><div class="bar s" style="width:80%"></div></div>
+                <div class="cell c3" style="--i:2"><div class="bar" style="width:70%"></div></div>
+                <div class="cell c4" style="--i:3"><div class="bar s" style="width:60%"></div></div>
+                <div class="cell c5x" style="--i:4"><div class="bar" style="width:40%"></div><div class="bar s" style="width:75%"></div></div>
+                <div class="cell c6x" style="--i:5"><div class="bar" style="width:48%"></div><div class="bar s" style="width:66%"></div></div>
+              </div></div>
+            </div></div></div>
+            <div class="base"></div>
+          </div>
+        </div>
+        <div class="cap"><h3 class="disp">Bento grid</h3><p>Cells scale in one after another to build the layout.</p></div>
+      </div>
+
+      <div class="t c5" style="justify-content:space-between;gap:24px;padding:32px">
+        <div style="display:flex;align-items:flex-end;gap:16px">
+          <span class="statn">4</span>
+          <span class="small" style="padding-bottom:6px">animations in the client brief</span>
+        </div>
+        <div class="inner" style="padding:8px 20px">
+          <div class="row" style="border:0"><span>Hero flip</span><small>Hero section</small></div>
+          <div class="row"><span>Bento grid</span><small>Layout</small></div>
+          <div class="row"><span>Text micro animations</span><small>Headlines</small></div>
+          <div class="row"><span>On-scroll effects</span><small>Whole page</small></div>
+        </div>
+        <p class="big" style="font-size:20px">Timing and easing get refined <em>once the client's real content arrives.</em></p>
+      </div>
+
+    </div>
+  </section>
+
+  <section aria-label="More case studies">
+    <div class="sechead" style="margin-bottom:40px">
+      <span class="pill">More work</span>
+      <h2 class="disp">More case studies</h2>
+    </div>
+    <div class="cards">
+      <a class="rc" href="bi-platform.html">
+        <div class="ill" aria-hidden="true"><div style="position:absolute;left:8%;right:8%;top:70px;border-top:1.5px dashed rgba(20,20,20,.28)"></div><span class="bar" style="left:9%;height:70px"></span><span class="bar" style="left:23%;height:96px"></span><span class="bar hi" style="left:37%;height:152px"></span><span class="bar" style="left:51%;height:62px"></span><span class="bar" style="left:65%;height:112px"></span><span class="bar" style="left:79%;height:80px"></span><span class="cf b" style="left:calc(37% - 16px);top:26px">Better +12%</span></div>
+        <div class="rb"><h3 class="disp">BI Platform</h3><p>Redesigning an internal analytics product three times.<br>Product design · GBT</p></div>
+        <span class="rgo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="rc" href="admin-panel.html">
+        <div class="ill" aria-hidden="true"><svg class="arcs" viewBox="0 0 560 236" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="none" stroke="rgba(20,20,20,.15)"><circle cx="280" cy="300" r="190"/><circle cx="280" cy="300" r="140"/><circle cx="280" cy="300" r="90"/></svg><span class="cf b" style="left:9%;top:38px">Products</span><span class="cf w" style="left:40%;top:96px">Orders</span><span class="cf b" style="right:9%;top:50px">Customers</span><span class="cf d" style="left:15%;bottom:40px">Add product</span><span class="cf w" style="right:14%;bottom:38px">Reviews</span></div>
+        <div class="rb"><h3 class="disp">Admin panel for small Indian online stores</h3><p>Setting up and running a store without five other apps.<br>Product design · GrowthJockey</p></div>
+        <span class="rgo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<footer class="footer" id="footer-contact">
+  <div class="fc-row">
+    <div class="fc-col">
+      <div class="fc-l">Location</div>
+      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Say Hello</div>
+      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Currently at</div>
+      <div class="fc-v">American Express<br>Global Business Travel</div>
+    </div>
+  </div>
+  <div class="fs-row">
+    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+    <a href="resume.html" class="fs-link">Resume</a>
+  </div>
+  <div class="footer-big">
+    <div class="footer-big-top">
+      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+      <div class="footer-nav">
+        <a href="index.html"><span>Home</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="know-the-designer.html"><span>Know the Designer</span></a>
+      </div>
+    </div>
+    <div class="footer-wordmark" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
+      <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
+      <canvas class="wm-canvas" aria-hidden="true"></canvas>
+      <div class="wm-hit" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Parul Rathour</span>
+    <span id="footer-time">IST —:—</span>
+  </div>
+</footer>
+
+<script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+document.querySelectorAll('.t, .sechead, .rc, header').forEach(function(el){
+  el.classList.add('mo-reveal');
+});
+document.querySelectorAll('.lap').forEach(function(el){ el.classList.add('mo-laptop'); });
+(function(){
+  function tick(){
+    const ist=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+    const ft=document.getElementById("footer-time");
+    if(ft) ft.textContent=`${String(ist.getHours()).padStart(2,"0")}:${String(ist.getMinutes()).padStart(2,"0")}:${String(ist.getSeconds()).padStart(2,"0")} IST`;
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+<script src="motion.js" defer></script>
+<script src="wordmark-particles.js?v=3" defer></script>
+<script src="contact-modal.js?v=13" defer></script>
+</body>
+</html>

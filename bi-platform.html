@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BI Platform · Case study</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="Asset/images/home/favicon-32.png">
+<link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=Montserrat:wght@700;900&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="motion.css">
+<link rel="stylesheet" href="case-study-shared.css">
+<link rel="stylesheet" href="contact-modal.css?v=13">
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#FFFFFF}
+.pg{--bg:#FFFFFF;--tile:#F2F2F2;--inner:#FFFFFF;--ink:#141414;--mute:#5F6670;--faint:#8A8F97;--pill:#EDEDED;--line:rgba(20,20,20,.1);--accent:#2F6BFF;--pos:#1E9E5A;--neg:#D6453D;--warn:#E8A317;background:var(--bg);color:var(--ink);font-family:'IBM Plex Sans',system-ui,sans-serif;font-size:16px;line-height:1.55}
+.pg *{box-sizing:border-box}
+.disp{font-family:'Bricolage Grotesque','IBM Plex Sans',system-ui,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding-inline:24px}
+h1,h2,h3,p{margin:0}
+.pill{display:inline-flex;align-items:center;gap:8px;background:var(--pill);color:var(--mute);border-radius:99px;padding:8px 22px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.pill:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.pill.plain:before{display:none}
+.pill.sm{padding:5px 14px;background:var(--inner)}
+.sechead{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;max-width:700px;margin:0 auto}
+.sec{display:flex;flex-direction:column;gap:48px;padding-bottom:112px}
+h1{font-size:clamp(56px,10vw,120px);line-height:.92;letter-spacing:-.04em;font-weight:500;text-wrap:balance}
+h2{font-size:clamp(30px,4.2vw,50px);line-height:1.06;letter-spacing:-.03em;font-weight:500;text-wrap:balance}
+h3{font-size:20px;line-height:1.2;letter-spacing:-.015em;font-weight:700}
+.sub{font-size:18px;line-height:1.5;color:var(--mute)}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:0}
+.meta div{background:var(--tile);border-radius:20px;padding:14px 24px;min-width:200px}
+.meta dt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.meta dd{margin:2px 0 0;font-size:16px;font-weight:600}
+.bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.t{background:var(--tile);border-radius:28px;padding:24px;display:flex;flex-direction:column;gap:18px;min-width:0}
+.t.pad{padding:32px}
+.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+.big{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:clamp(22px,2.4vw,30px);line-height:1.14;letter-spacing:-.025em;font-weight:700;color:var(--ink);text-wrap:balance}
+.big em{font-style:normal;color:var(--faint)}
+.small{font-size:15px;color:var(--mute)}
+.lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.statn{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:clamp(72px,9vw,112px);line-height:.88;letter-spacing:-.05em;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:14px;background:var(--inner);border-radius:99px;padding:6px 14px;font-weight:500}
+.note{font-size:12px;color:var(--faint)}
+.step{background:var(--inner);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.step .big{font-size:20px}
+.hin{display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:12px}
+.hin p{font-size:16px;font-weight:500;line-height:1.4}
+.hin.q p{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.hin.first{border-top:0;padding-top:0}
+/* mock UI, illustrative */
+.mk{background:#fff;border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.gl{height:8px;border-radius:99px;background:#E4E6EA}
+.gl.m{background:#C9CDD4}
+.ico{width:14px;height:14px;border:1.5px solid #9AA0A9;border-radius:4px;flex:none}
+.dl{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dl-h{display:flex;align-items:center;gap:8px}
+.dl-h .gl{flex:1;max-width:60%}
+.dl-h .sp{flex:1}
+.num{font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif;font-size:26px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.bars{display:flex;align-items:flex-end;gap:6px;height:84px}
+.bars i{flex:1;border-radius:4px 4px 0 0;display:block}
+.mono i{background:#2E4F8A}
+.mono i:nth-child(odd){background:#355A9C}
+.donut{width:76px;height:76px;border-radius:50%;position:relative;flex:none;background:conic-gradient(var(--accent) 0 44%,var(--pos) 0 70%,var(--warn) 0 86%,var(--neg) 0 100%)}
+.donut:after{content:"";position:absolute;inset:18px;border-radius:50%;background:#fff}
+.lg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+.lg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.app{display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;background:#fff;border-radius:20px;padding:16px}
+.side{display:flex;flex-direction:column;gap:10px;align-items:center;padding-top:4px}
+.side i{display:block;width:26px;height:26px;border-radius:8px;background:#E4E6EA}
+.side i:first-child{background:var(--accent)}
+.apptop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fchip{border:1px solid #D5D8DD;border-radius:99px;padding:4px 12px;font-size:12px;color:var(--mute)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.fl{display:flex;gap:8px;align-items:center}
+.sel{border:1px solid #D5D8DD;border-radius:8px;padding:7px 10px;font-size:13px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sel.v{background:#EAF0FF;border-color:#BFD0FF;color:#1D4ED8;font-weight:500}
+.seg{display:inline-flex;background:#EEF0F3;border-radius:99px;padding:3px;align-self:flex-start;font-size:12px;font-weight:600}
+.seg span{padding:4px 14px;border-radius:99px;color:#5F6670}
+.seg .on{background:var(--accent);color:#fff}
+.md{background:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 24px rgba(20,20,20,.08)}
+.md h4{margin:0;font-size:16px;font-weight:700}
+.tiles4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.mt{background:#F2F2F2;border-radius:10px;padding:8px 4px;text-align:center}
+.mt b{display:block;font-size:18px;font-family:'Bricolage Grotesque','IBM Plex Sans',sans-serif}
+.mt small{font-size:11px;color:var(--mute)}
+.ok{background:#E3F4EA;color:#14573A;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:500}
+.btns{display:flex;gap:8px;justify-content:flex-end}
+.btn{border-radius:99px;padding:8px 16px;font-size:13px;font-weight:600;background:#EEE;color:var(--ink)}
+.btn.d{background:#C23A32;color:#fff}
+.tabs{display:flex;gap:18px;border-bottom:1px solid var(--line);font-size:13px;color:var(--mute);flex-wrap:wrap}
+.tabs span{padding-bottom:10px}
+.tabs .on{color:var(--ink);font-weight:600;border-bottom:2px solid var(--accent)}
+.lrow{display:flex;align-items:center;gap:12px;padding-block:6px}
+.lrow .gl{flex:1}
+.tag2{font-size:11px;font-weight:600;border-radius:99px;padding:3px 10px;background:#EEF0F3;color:#5F6670}
+.row2{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:16px}
+.gain{display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--line);padding-block:14px}
+.gain:first-child{border-top:0;padding-top:0}
+.gain b{font-size:16px;font-weight:600}
+.gain span{font-size:15px;color:var(--mute)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{display:flex;flex-direction:column;gap:20px;background:var(--tile);border-radius:28px;padding:20px;text-decoration:none;color:inherit}
+.card:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.thumbw{height:190px;border-radius:18px;overflow:hidden;background:#fff}
+.thumb{width:100%;height:100%;display:flex}
+.crow{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:0 6px 6px}
+.arr{width:44px;height:44px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;flex:none;transition:background .3s,color .3s,transform .3s}
+.card:hover .arr,.card:focus-visible .arr{background:var(--ink);color:#fff;transform:translateX(4px)}
+.mk,.md,.app{transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.t:hover .mk,.t:hover .md,.t:hover .app{transform:scale(1.035)}
+.dl{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s}
+.dl:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(20,20,20,.12)}
+@keyframes rise{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleY(.06)}to{transform:scaleY(1)}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sweep{from{opacity:0;transform:rotate(-140deg) scale(.7)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+@supports (animation-timeline:view()){
+.sechead,.t{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 40%}
+}
+}
+@media (prefers-reduced-motion:no-preference){
+@keyframes barloop{0%,100%{transform:scaleY(.5)}50%{transform:scaleY(1)}}
+@keyframes drawloop{0%{stroke-dashoffset:1}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@keyframes donutloop{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(30deg) scale(1.07)}}
+@keyframes segA{0%,45%{background:#2F6BFF;color:#fff}55%,95%{background:transparent;color:#5F6670}100%{background:#2F6BFF;color:#fff}}
+@keyframes segB{0%,45%{background:transparent;color:#5F6670}55%,95%{background:#2F6BFF;color:#fff}100%{background:transparent;color:#5F6670}}
+@keyframes okp{0%,100%{box-shadow:0 0 0 0 rgba(30,158,90,0)}50%{box-shadow:0 0 0 7px rgba(30,158,90,.2)}}
+@keyframes shim{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes cnt{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.bars i{transform-origin:bottom;animation:barloop 3.6s ease-in-out infinite}
+.bars i:nth-child(2n){animation-delay:-1.2s}.bars i:nth-child(3n){animation-delay:-2.1s}.bars i:nth-child(5n){animation-delay:-.6s}
+.draw{stroke-dasharray:1;animation:drawloop 4.5s ease-in-out infinite}
+.donut{animation:donutloop 5s ease-in-out infinite}
+.seg span:nth-child(1){animation:segA 4s ease-in-out infinite}
+.seg span:nth-child(2){animation:segB 4s ease-in-out infinite}
+.ok{animation:okp 2.6s ease-in-out infinite}
+.lrow .gl.m{animation:shim 2.8s ease-in-out infinite}
+.lrow:nth-of-type(2) .gl.m{animation-delay:-.9s}.lrow:nth-of-type(3) .gl.m{animation-delay:-1.8s}
+.mt b{animation:cnt 3s ease-in-out infinite;display:inline-block}
+.mt:nth-child(2) b{animation-delay:-.7s}.mt:nth-child(3) b{animation-delay:-1.4s}.mt:nth-child(4) b{animation-delay:-2.1s}
+.t:hover .bars i,.t:hover .donut{animation-play-state:paused}
+}
+.cards{background:#F2F2F2;border-radius:36px;padding:24px;margin-bottom:96px;gap:20px}
+.rc{position:relative;display:flex;flex-direction:column;background:#fff;border-radius:24px;box-shadow:0 1px 2px rgba(20,30,60,.04),0 12px 32px rgba(20,20,20,.1);text-decoration:none;color:inherit;overflow:hidden}
+.rc:focus-visible{outline:2px solid #141414;outline-offset:3px}
+.ill{position:relative;height:236px;overflow:hidden;background:radial-gradient(120% 95% at 50% 105%,#D9D9DB 0%,#EDEDEE 48%,#FAFAFA 100%)}
+.ill:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(20,20,20,.2) 1px,transparent 1.3px);background-size:12px 12px;-webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%)}
+.ill svg.arcs{position:absolute;inset:0;width:100%;height:100%}
+.rb{padding:22px 84px 28px 28px;display:flex;flex-direction:column;gap:6px}
+.rb h3{font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.15}
+.rb p{font-size:15px;color:var(--mute);line-height:1.5}
+.rgo{position:absolute;right:24px;bottom:26px;width:44px;height:44px;border-radius:50%;background:#F2F2F2;display:flex;align-items:center;justify-content:center;transition:background .25s,color .25s}
+.rc:hover .rgo,.rc:focus-visible .rgo{background:#141414;color:#fff}
+.cf{position:absolute;display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:9px 16px;border-radius:13px;white-space:nowrap}
+.cf.b{background:linear-gradient(#4A4A4A,#141414);color:#fff;box-shadow:0 10px 20px rgba(20,20,20,.3),inset 0 1px 0 rgba(255,255,255,.55)}
+.cf.w{background:#fff;color:#141414;box-shadow:0 10px 24px rgba(20,20,20,.16)}
+.cf.d{border:1.5px dashed rgba(20,20,20,.4);color:rgba(20,20,20,.6);background:rgba(255,255,255,.5)}
+.sc{position:absolute;background:#fff;border-radius:16px;box-shadow:0 14px 34px rgba(20,20,20,.16);padding:14px;display:flex;flex-direction:column;gap:9px}
+.sc i{display:block;height:8px;border-radius:99px;background:#E6E6E6}
+.sc i.h{background:linear-gradient(90deg,#4A4A4A,#141414)}
+.bar{position:absolute;bottom:0;width:11%;border-radius:12px 12px 0 0;background:linear-gradient(#CFCFD2,rgba(207,207,210,.15))}
+.bar.hi{background:linear-gradient(#141414,rgba(20,20,20,.15));box-shadow:0 0 28px rgba(20,20,20,.28)}
+@media (max-width:860px){
+.row2,.cards{grid-template-columns:minmax(0,1fr)}
+.c4,.c5,.c6,.c7,.c8{grid-column:span 12}
+.t.pad{padding:24px}
+.grid3{grid-template-columns:minmax(0,1fr)}
+.app{grid-template-columns:minmax(0,1fr)}
+.side{flex-direction:row}
+}
+</style>
+</head>
+<body>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="document.getElementById('mobMenu').classList.remove('open')">Close</button>
+  <a href="index.html" onclick="closeMob()">Home</a>
+  <a href="work.html" onclick="closeMob()">Work</a>
+  <a href="know-the-designer.html" onclick="closeMob()">Know the Designer</a>
+</div>
+<div class="top">
+  <nav class="nav" id="site-nav">
+    <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="work.html" class="active">Work</a>
+      <a href="know-the-designer.html">Know the Designer</a>
+    </div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener"><img src="Asset/images/home/icon-ig.svg" alt="" width="16" height="16"></a>
+      <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener"><img src="Asset/images/home/icon-linkedin.svg" alt="" width="16" height="16"></a>
+      <a href="https://x.com/ParulRath0ur" class="social-btn" aria-label="X" target="_blank" rel="noopener"><img src="Asset/images/home/icon-x.svg" alt="" width="16" height="16"></a>
+      <a href="mailto:parulrathore365@gmail.com" class="social-btn social-mail-only" aria-label="Email"><img src="Asset/images/home/icon-mail.svg" alt="" width="16" height="16"></a>
+      <a href="#footer-contact" class="btn-touch">Get In Touch</a>
+    </div>
+  </nav>
+</div>
+<div class="nav-spacer" aria-hidden="true"></div>
+<div class="pg">
+<div class="wrap">
+
+  <header class="mo-reveal" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px;padding-block:64px 56px">
+    <span class="pill">Product design</span>
+    <h1 class="disp">BI Platform</h1>
+    <p class="sub" style="max-width:640px">Redesigning an internal analytics product three times, and changing nearly everything without breaking what users already knew.</p>
+    <dl class="meta" style="margin-top:8px">
+      <div><dt>Company</dt><dd>GBT</dd></div>
+      <div><dt>Role</dt><dd>Product designer</dd></div>
+      <div><dt>Scope</dt><dd>Full product redesign</dd></div>
+      <div><dt>Users</dt><dd>Internal and external, 500+</dd></div>
+      <div><dt>Status</dt><dd>Live, rollout ongoing</dd></div>
+    </dl>
+  </header>
+
+  <section class="sec" style="padding-bottom:96px">
+    <div class="t mo-reveal mo-tile" style="padding:24px">
+      <div class="app" aria-hidden="true">
+        <div class="side"><i></i><i></i><i></i><i></i><i></i></div>
+        <div style="display:flex;flex-direction:column;gap:14px;min-width:0">
+          <div class="apptop"><span class="gl m" style="width:150px;height:12px"></span><span style="flex:1"></span><span class="fchip">Date range</span><span class="fchip">Region</span><span class="fchip">Team</span></div>
+          <div class="grid3">
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div><div class="num">1,284</div>
+              <div class="bars"><i style="height:45%;background:var(--pos)"></i><i style="height:62%;background:var(--pos)"></i><i style="height:38%;background:var(--neg)"></i><i style="height:74%;background:var(--pos)"></i><i style="height:30%;background:var(--neg)"></i><i style="height:88%;background:var(--pos)"></i><i style="height:54%;background:var(--accent)"></i></div></div>
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div><div class="num">86%</div>
+              <svg viewBox="0 0 120 50" width="100%" height="84" preserveAspectRatio="none" aria-hidden="true"><polyline class="draw" pathLength="1" points="0,40 20,32 40,36 60,20 80,24 100,10 120,14" fill="none" stroke="#2F6BFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></div>
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div>
+              <div style="display:flex;align-items:center;gap:14px;height:110px"><div class="donut"></div><div class="lg" style="flex-direction:column;gap:6px"><span><i style="background:var(--accent)"></i>Open</span><span><i style="background:var(--pos)"></i>Done</span><span><i style="background:var(--warn)"></i>Waiting</span><span><i style="background:var(--neg)"></i>Late</span></div></div></div>
+          </div>
+          <div class="dl"><div class="dl-h"><span class="gl m"></span></div><div class="lrow"><span class="gl"></span><span class="gl" style="max-width:20%"></span><span class="gl" style="max-width:12%"></span></div><div class="lrow"><span class="gl"></span><span class="gl" style="max-width:20%"></span><span class="gl" style="max-width:12%"></span></div></div>
+        </div>
+      </div>
+      <p class="note" style="text-align:center">Illustrative screen with placeholder data.</p>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead mo-reveal">
+      <span class="pill">Overview</span>
+      <h2 class="disp">An internal platform that lets any team build its own dashboards</h2>
+      <p class="sub">What the product does, and what I was asked to change.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t pad c7" style="justify-content:space-between;gap:32px">
+        <p class="big" style="font-size:clamp(24px,2.8vw,36px)">Teams create dashboards and reports without waiting for a developer. <em>They schedule reports to suit each user and group dashboards into collections.</em></p>
+        <div class="chips"><span class="chip">Dashboards</span><span class="chip">Reports</span><span class="chip">Scheduled reports</span><span class="chip">Dashboard collections</span><span class="chip">Reporting hub</span></div>
+      </div>
+      <div class="t pad c5" style="justify-content:space-between;gap:24px">
+        <div style="display:flex;align-items:flex-end;gap:16px"><span class="statn">3</span><span class="small" style="padding-bottom:6px">redesigns, all by me</span></div>
+        <span class="pill" style="font-family: &quot;IBM Plex Sans&quot;, system-ui, sans-serif; line-height: 1.55; text-align: center; width: 163px; background-color: #ffffff">ACTION AREAS</span><p class="big" style="font-size:20px">Home page, My Content, Reporting Hub, Dashboard, Collections <em>and every access, error, loading and empty state.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead mo-reveal">
+      <span class="pill">Pain points</span>
+      <h2 class="disp">Where it hurt for the people using it</h2>
+      <p class="sub">Three problems that showed up in the data, the screens and the room.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t c4">
+        <div class="mk" aria-hidden="true" style="height: 146px; justify-content: flex-end"><div class="bars mono" style="height:90px"><i style="height: 40%; color: #233757; background-color: #233757"></i><i style="height:70%"></i><i style="height: 55%; color: #233757; background-color: #233757"></i><i style="height:85%"></i><i style="height: 35%; color: #233757; background-color: #233757"></i><i style="height:65%"></i><i style="height: 50%; color: #233757; background-color: #233757"></i></div></div>
+        <h3 class="disp">One shade of blue</h3>
+        <p class="small">Contrast fell short for users over 50, and the whole product felt like a retro artifact.</p>
+      </div>
+      <div class="t c4">
+        <div class="mk" aria-hidden="true"><div class="lg"><span>Good?</span><span>Bad?</span></div><div class="bars mono" style="height:90px"><i style="height: 78%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 30%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 30%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 30%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 39px; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 66%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 66%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 66%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 86px; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 24%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 24%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 24%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 31px; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 72%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 72%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 72%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 94px; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 36%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 36%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 36%; border-top-right-radius: 2px; border-top-left-radius: 2px"></i><i style="height: 47px; border-top-right-radius: 2px; border-top-left-radius: 2px"></i></div></div>
+        <h3 class="disp">No way to tell good from bad</h3>
+        <p class="small">Across 30+ data visualizations, positive and negative areas looked identical.</p>
+      </div>
+      <div class="t c4">
+        <div class="mk" aria-hidden="true"><div class="fl"><span class="sel">Field</span><span class="sel">Operator</span><span class="sel v">Value</span></div><div class="fl"><span class="sel">Field</span><span class="sel">Operator</span><span class="sel v">Value</span></div><span class="note">AND / OR logic hidden in a menu</span></div>
+        <h3 class="disp">Filters cost too many clicks</h3>
+        <p class="small">A newly integrated project, mostly users over 50, exposed friction in the AND/OR filter in the reporting hub.</p>
+      </div>
+      <div class="t pad c12" style="gap:12px">
+        <p class="big" style="font-size: clamp(24px,3vw,38px); max-width: 1100px; width: 1158px">The business does not prioritize easy user journeys, only outcomes. <em style="width: 1103px">So usability alone would never win the argument. The design had to prove credibility and capability too.</em></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead mo-reveal">
+      <span class="pill">Feedback to insights</span>
+      <h2 class="disp">Feedback is a symptom. I look for the cause.</h2>
+      <p class="sub">Three pieces of feedback, what I read in them, and what I did.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t pad c4" style="gap:18px">
+        <div class="hin first"><span class="lbl">Heard</span><div class="hin q" style="border:0;padding:0"><p>"Make it lively. Add color."</p></div></div>
+        <div class="hin"><span class="lbl">Insight</span><p>Color was missing meaning, not decoration. Contrast and positive versus negative were the real gaps.</p></div>
+        <div class="hin"><span class="lbl">Decision</span><p>I pitched a new palette on purpose, even though it sat outside the design system.</p></div>
+      </div>
+      <div class="t pad c4" style="gap:18px">
+        <div class="hin first"><span class="lbl">Observed</span><div class="hin q" style="border:0;padding:0"><p>Users over 50 struggled with AND/OR filters.</p></div></div>
+        <div class="hin"><span class="lbl">Insight</span><p>The filters were hard to spot and took too many clicks to operate.</p></div>
+        <div class="hin"><span class="lbl">Decision</span><p>I cut the clicks and made the filters easier to see.</p></div>
+      </div>
+      <div class="t pad c4" style="gap:18px">
+        <div class="hin first"><span class="lbl">Heard</span><div class="hin q" style="border:0;padding:0"><p>"The review points in the delete modal are wrong."</p></div></div>
+        <div class="hin"><span class="lbl">Insight</span><p>A warning that always looks the same teaches people to ignore it. It should reflect the real impact.</p></div>
+        <div class="hin"><span class="lbl">Decision</span><p>I made the impact messaging dynamic, with a green no-impact state.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead mo-reveal">
+      <span class="pill">How I worked</span>
+      <h2 class="disp">A small team and three honest iterations</h2>
+      <p class="sub">The constraints I worked inside, and how the design moved.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t pad c4"><span class="lbl">Team</span><p class="big" style="font-size:22px">No PM. <em>I worked directly with the developer lead, who knew the reasoning behind every feature.</em></p></div>
+      <div class="t pad c4"><span class="lbl">System</span><p class="big" style="font-size:22px">A B2C design system only. <em>I built a mini Enterprise Layer in DS for internal tools.</em></p></div>
+      <div class="t pad c4"><span class="lbl">Users</span><p class="big" style="font-size:22px">Aged 24 to 50+. <em>Internal and external, and many already familiar from earlier projects.</em></p></div>
+      <div class="t c12">
+        <div class="bento" style="gap:12px">
+          <div class="step c4"><span class="pill sm plain">Iteration 1</span><div style="box-sizing: border-box; display: flex; flex-direction: column; gap: 2px"><p class="big" style="color: #141414">I had less product knowledge&nbsp;</p><p class="big" style="color: #8a8f97">so the ideation didn't&nbsp;</p><p class="big" style="color: #8a8f97">pan out as requested</p></div></div>
+          <div class="step c4"><span class="pill sm plain">Iteration 2</span><p class="big">Homepage only. <em>Rushed.</em></p></div>
+          <div class="step c4"><span class="pill sm plain">Iteration 3</span><p class="big">A complete rethink of style and feature arrangement. <em>Deliberately outside the design system.</em></p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="sechead mo-reveal">
+      <span class="pill">The solution</span>
+      <h2 class="disp">Change everything necessary, keep it familiar</h2>
+      <p class="sub">The goal was a new look and a better product that existing users could still navigate by habit.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t c7">
+        <div class="mk" aria-hidden="true">
+          <div class="grid3">
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div><div class="num">+12%</div>
+              <div class="bars"><i style="height:50%;background:var(--pos)"></i><i style="height:66%;background:var(--pos)"></i><i style="height:32%;background:var(--neg)"></i><i style="height:80%;background:var(--pos)"></i><i style="height:28%;background:var(--neg)"></i><i style="height:70%;background:var(--pos)"></i></div></div>
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div><div class="num">-4%</div>
+              <div class="bars"><i style="height:70%;background:var(--neg)"></i><i style="height:55%;background:var(--neg)"></i><i style="height:60%;background:var(--warn)"></i><i style="height:34%;background:var(--neg)"></i><i style="height:48%;background:var(--warn)"></i><i style="height:26%;background:var(--neg)"></i></div></div>
+            <div class="dl"><div class="dl-h"><span class="gl m"></span><span class="sp"></span><span class="ico"></span><span class="ico"></span></div>
+              <div style="display:flex;align-items:center;gap:12px;height:110px"><div class="donut"></div></div></div>
+          </div>
+          <div class="lg"><span><i style="background:var(--pos)"></i>Better</span><span><i style="background:var(--neg)"></i>Worse</span><span><i style="background:var(--warn)"></i>Watch</span><span><i style="background:var(--accent)"></i>Neutral</span></div>
+        </div>
+        <div><h3 class="disp">Color that carries meaning</h3><p class="small" style="margin-top:4px">Positive and negative areas are now distinct, and the palette is built for readable contrast.</p><p class="note" style="margin-top:6px">Illustrative data.</p></div>
+      </div>
+      <div class="t c5">
+        <div class="mk" aria-hidden="true">
+          <div class="fl"><span class="sel">Status</span><span class="sel">is</span><span class="sel v">Open</span></div>
+          <div class="seg"><span class="on">AND</span><span>OR</span></div>
+          <div class="fl"><span class="sel">Team</span><span class="sel">is</span><span class="sel v">Support</span></div>
+        </div>
+        <div><h3 class="disp">Filters you can find</h3><p class="small" style="margin-top:4px">The AND/OR choice sits in plain view, and building a rule takes fewer clicks.</p></div>
+      </div>
+      <div class="t c5">
+        <div class="md" aria-hidden="true">
+          <h4>Delete team</h4>
+          <div class="tiles4"><div class="mt"><b>0</b><small>Members</small></div><div class="mt"><b>0</b><small>Dashboards</small></div><div class="mt"><b>0</b><small>Collections</small></div><div class="mt"><b>0</b><small>Reports</small></div></div>
+          <div class="ok">No impact. Nobody loses access.</div>
+          <div class="btns"><span class="btn">Cancel</span><span class="btn d">Delete team</span></div>
+        </div>
+        <div><h3 class="disp">Impact that tells the truth</h3><p class="small" style="margin-top:4px">Review points change with each count. When nothing is affected, the modal says so in green.</p></div>
+      </div>
+      <div class="t c7">
+        <div class="mk" aria-hidden="true">
+          <div class="tabs"><span class="on">Saved content</span><span>Shared content</span><span>Subscriptions</span><span>Teams</span></div>
+          <div class="lrow"><span class="ico"></span><span class="gl m"></span><span class="tag2">Dashboard</span></div>
+          <div class="lrow"><span class="ico"></span><span class="gl m" style="max-width:70%"></span><span class="tag2">Report</span></div>
+          <div class="lrow"><span class="ico"></span><span class="gl m" style="max-width:55%"></span><span class="tag2">Collection</span></div>
+        </div>
+        <div><h3 class="disp">A familiar structure, rebuilt</h3><p class="small" style="margin-top:4px">Tabs, names and places stayed where users expected them, so the new look did not break old habits.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-bottom:96px">
+    <div class="sechead mo-reveal">
+      <span class="pill">Outcome</span>
+      <h2 class="disp">Live, with work still ahead</h2>
+      <p class="sub">Where the redesign stands today.</p>
+    </div>
+    <div class="bento" data-mo-stagger>
+      <div class="t pad c4" style="gap:12px"><span class="lbl">Live</span><p class="big">The reporting hub and almost all major phases are in use. <em>Third iteration approved.</em></p></div>
+      <div class="t pad c4" style="gap:12px"><span class="lbl">Rolling out</span><p class="big">The platform handles a lot of data. <em>Migration takes time and some bugs still surface.</em></p></div>
+      <div class="t pad c4" style="gap:12px"><span class="lbl">Next</span><p class="big">The new design sits outside the design system. <em>Formal adoption is the next step.</em></p></div>
+      <div class="t pad c7" style="justify-content:space-between;gap:24px">
+        <span class="lbl">What I took from it</span>
+        <p class="big" style="font-size:clamp(24px,2.8vw,36px)">Change what you must and keep the rest familiar. <em>Prove value through credibility and capability, then usability follows.</em></p>
+      </div>
+      <div class="t pad c5" style="justify-content:space-between;gap:16px">
+        <span class="lbl">Results</span>
+        <p class="big" style="font-size: 30px">People can read the data, find the filters and trust the warnings. <em>And I am still finding more to fix.</em></p>
+      </div>
+      <div class="t pad c12" style="gap:24px">
+        <div class="row2">
+          <div style="display:flex;flex-direction:column">
+            <span class="lbl" style="margin-bottom:16px">How the experience got better</span>
+            <div class="gain"><b>Easier to read</b><span>Color now carries meaning, and contrast is built for users over 50.</span></div>
+            <div class="gain"><b>Easier to find</b><span>The AND/OR choice is visible and a rule takes fewer clicks.</span></div>
+            <div class="gain"><b>Easier to trust</b><span>Delete warnings match the real impact, so people read them again.</span></div>
+            <div class="gain"><b>Easier to move around</b><span>Tabs, names and places stayed put, across every access, error, loading and empty state.</span></div>
+          </div>
+          <div class="step" style="padding:24px;gap:14px;justify-content:flex-start">
+            <span class="pill sm plain">Still figuring out</span>
+            <p class="big">More areas that need fixing. <em>I am watching where people get stuck as more teams move over.</em></p>
+            <div class="chips"><span class="chip">Bugs from data migration</span><span class="chip">Design system adoption</span><span class="chip">Gaps not found yet</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-bottom:96px">
+    <div class="sechead mo-reveal">
+      <span class="pill">More work</span>
+      <h2 class="disp">More case studies</h2>
+    </div>
+    <div class="cards">
+      <a class="rc" href="kargen-ai.html">
+        <div class="ill" aria-hidden="true"><svg class="arcs" viewBox="0 0 560 236" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="none" stroke="rgba(20,20,20,.15)"><circle cx="280" cy="300" r="190"/><circle cx="280" cy="300" r="140"/><circle cx="280" cy="300" r="90"/></svg><div class="sc" style="left:33%;top:46px;width:34%;height:116px"><i class="h" style="width:55%;height:10px"></i><i style="width:85%"></i><i style="width:70%"></i><div style="display:flex;gap:6px;margin-top:4px"><i style="flex:1;height:30px;border-radius:8px"></i><i style="flex:1;height:30px;border-radius:8px"></i></div></div><span class="cf b" style="left:7%;top:44px">Hero flip</span><span class="cf w" style="right:7%;top:76px">Text rise</span><span class="cf b" style="left:12%;bottom:34px">On scroll</span><span class="cf w" style="right:12%;bottom:30px">Bento build</span></div>
+        <div class="rb"><h3 class="disp">Kargen AI</h3><p>A marketing site with animated laptop mockups.<br>Website design · Freelance</p></div>
+        <span class="rgo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="rc" href="admin-panel.html">
+        <div class="ill" aria-hidden="true"><svg class="arcs" viewBox="0 0 560 236" preserveAspectRatio="xMidYMax slice" aria-hidden="true" fill="none" stroke="rgba(20,20,20,.15)"><circle cx="280" cy="300" r="190"/><circle cx="280" cy="300" r="140"/><circle cx="280" cy="300" r="90"/></svg><span class="cf b" style="left:9%;top:38px">Products</span><span class="cf w" style="left:40%;top:96px">Orders</span><span class="cf b" style="right:9%;top:50px">Customers</span><span class="cf d" style="left:15%;bottom:40px">Add product</span><span class="cf w" style="right:14%;bottom:38px">Reviews</span></div>
+        <div class="rb"><h3 class="disp">Admin panel for small Indian online stores</h3><p>Setting up and running a store without five other apps.<br>Product design · GrowthJockey</p></div>
+        <span class="rgo" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<footer class="footer" id="footer-contact">
+  <div class="fc-row">
+    <div class="fc-col">
+      <div class="fc-l">Location</div>
+      <div class="fc-v">Himachal Pradesh, India<small>Available worldwide</small></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Say Hello</div>
+      <div class="fc-v"><a class="fc-mail" href="mailto:parulrathore365@gmail.com">parulrathore365@gmail.com</a></div>
+    </div>
+    <div class="fc-col">
+      <div class="fc-l">Currently at</div>
+      <div class="fc-v">American Express<br>Global Business Travel</div>
+    </div>
+  </div>
+  <div class="fs-row">
+    <a href="https://www.linkedin.com/in/parul-rathour-74174917a" class="fs-link" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://www.instagram.com/canvas_0ff?igsh=dnFib3htNXloamF5" class="fs-link" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://x.com/ParulRath0ur" class="fs-link" target="_blank" rel="noopener">X</a>
+    <a href="resume.html" class="fs-link">Resume</a>
+  </div>
+  <div class="footer-big">
+    <div class="footer-big-top">
+      <div class="footer-cta">LET'S MAKE SOMETHING.</div>
+      <div class="footer-nav">
+        <a href="index.html"><span>Home</span></a>
+        <a href="work.html"><span>Work</span></a>
+        <a href="know-the-designer.html"><span>Know the Designer</span></a>
+      </div>
+    </div>
+    <div class="footer-wordmark" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
+      <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
+      <canvas class="wm-canvas" aria-hidden="true"></canvas>
+      <div class="wm-hit" aria-hidden="true"></div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Parul Rathour</span>
+    <span id="footer-time">IST —:—</span>
+  </div>
+</footer>
+
+<script>
+function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+document.querySelectorAll('.t, .sechead, .rc').forEach(function(el){
+  el.classList.add('mo-reveal');
+});
+document.querySelectorAll('.t').forEach(function(el){ el.classList.add('mo-tile'); });
+document.querySelectorAll('.mk, .md, .app').forEach(function(el){ el.classList.add('mo-media'); });
+(function(){
+  function tick(){
+    const ist=new Date(new Date().toLocaleString("en-US",{timeZone:"Asia/Kolkata"}));
+    const ft=document.getElementById("footer-time");
+    if(ft) ft.textContent=`${String(ist.getHours()).padStart(2,"0")}:${String(ist.getMinutes()).padStart(2,"0")}:${String(ist.getSeconds()).padStart(2,"0")} IST`;
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+<script src="motion.js" defer></script>
+<script src="wordmark-particles.js?v=3" defer></script>
+<script src="contact-modal.js?v=13" defer></script>
+</body>
+</html>
