@@ -130,6 +130,13 @@ img{display:block;max-width:100%}
 .cs-card-narrow{flex:0 0 259.5px;max-width:100%}
 .cs-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;position:relative;z-index:1}
 .cs-dot{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:block;object-fit:cover}
+.cs-lock{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:#414141;color:#fff;
+}
+.cs-lock svg{width:16px;height:16px;display:block}
+.cs-lock-light{background:#fff;color:#414141}
 .cs-badge{
   backdrop-filter:blur(2px);background:rgba(255,255,255,.36);
   border-radius:22px;padding:10px;
@@ -138,6 +145,15 @@ img{display:block;max-width:100%}
 }
 .cs-badge-solid{background:#fff}
 .cs-body{padding:22px 0 42px;position:relative;z-index:1}
+.cs-soon{
+  display:inline-flex;align-items:center;
+  backdrop-filter:blur(2px);background:rgba(255,255,255,.56);
+  border:1px solid #d6d6d6;border-radius:22px;
+  padding:5px 10px;margin-bottom:8px;
+  font-family:var(--inter);font-size:10px;font-weight:600;color:#6a6a6a;
+  letter-spacing:-.02em;white-space:nowrap;
+}
+.cs-soon-solid{background:#fff}
 .cs-card-title{
   font-family:var(--brico);font-size:22px;letter-spacing:-.03em;color:#2e2d2d;
   margin-bottom:8px;line-height:1.25;font-weight:500;
@@ -299,8 +315,11 @@ img{display:block;max-width:100%}
     padding:14px 16px 0;
   }
   .cs-dot{width:22px;height:22px}
+  .cs-lock{width:22px;height:22px}
+  .cs-lock svg{width:11px;height:11px}
   .cs-badge{padding:6px;font-size:8px;letter-spacing:-.02em}
   .cs-body{padding:22px 0}
+  .cs-soon{padding:3px 8px;font-size:8px;margin-bottom:6px}
   .cs-card-title{font-size:14px;letter-spacing:-.02em;margin-bottom:4px}
   .cs-card-sub{font-size:8px;letter-spacing:-.02em}
   .cs-card-bg{border-radius:14px}
@@ -424,68 +443,74 @@ img{display:block;max-width:100%}
       </div>
 
       <div class="cs-row">
-        <a class="cs-card cs-digitizing" href="case-study-cambridge.html">
+        <div class="cs-card cs-card-static cs-digitizing" role="article" aria-label="Digitizing Legacy Systems, coming soon">
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-lock" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon">Coming soon</span>
             <div class="cs-card-title">Digitizing Legacy Systems</div>
             <div class="cs-card-sub">From Paper Trails to Seamless Digital Journeys</div>
           </div>
-        </a>
-        <div class="cs-card cs-card-static cs-ai" role="article">
+        </div>
+        <div class="cs-card cs-card-static cs-ai" role="article" aria-label="AI Load Calculator, coming soon">
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-lock" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon">Coming soon</span>
             <div class="cs-card-title">AI Load Calculator</div>
             <div class="cs-card-sub">AI Load Calculator That Turns “Power Confusion” into Confident Purchases</div>
           </div>
         </div>
-        <a class="cs-card cs-daily" href="case-study-dailybloom.html">
+        <div class="cs-card cs-card-static cs-daily" role="article" aria-label="DailyBloom IBS, coming soon">
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-lock" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon">Coming soon</span>
             <div class="cs-card-title">DailyBloom IBS</div>
             <div class="cs-card-sub">Adapting the DailyBloom IBS Landing Page for a Recipe Ebook Experience</div>
           </div>
-        </a>
-        <a class="cs-card cs-smb" href="case-study-admin_2.html">
+        </div>
+        <div class="cs-card cs-card-static cs-smb" role="article" aria-label="SMB Global Admin Panel, coming soon">
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-lock" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge">GrowthJockey</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon">Coming soon</span>
             <div class="cs-card-title">SMB Global Admin Panel</div>
             <div class="cs-card-sub">One console for managing SMB accounts across every region.</div>
           </div>
-        </a>
+        </div>
       </div>
 
       <div class="cs-row">
-        <div class="cs-card cs-card-featured cs-card-static cs-featured" role="article">
+        <div class="cs-card cs-card-featured cs-card-static cs-featured" role="article" aria-label="Designed to Work at Scale, coming soon">
           <div class="cs-card-bg" aria-hidden="true">
             <img src="Asset/images/work/featured-scale.png" alt="">
           </div>
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-light.svg" alt="" width="36" height="36">
+            <span class="cs-lock cs-lock-light" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge cs-badge-solid">BYJUS</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon cs-soon-solid">Coming soon</span>
             <div class="cs-card-title">Designed to Work at Scale</div>
             <div class="cs-card-sub">Designed to Work at Scale</div>
           </div>
         </div>
-        <div class="cs-card cs-card-narrow cs-card-static cs-ui" role="article">
+        <div class="cs-card cs-card-narrow cs-card-static cs-ui" role="article" aria-label="UI Design, coming soon">
           <div class="cs-card-top">
-            <img class="cs-dot" src="Asset/images/work/dot-dark.svg" alt="" width="36" height="36">
+            <span class="cs-lock" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M5.25 7.15V5.4a2.75 2.75 0 0 1 5.5 0v1.75" stroke="currentColor" stroke-width="1.55" stroke-linecap="round"/><rect x="3.35" y="7.05" width="9.3" height="6.7" rx="1.7" fill="currentColor"/></svg></span>
             <span class="cs-badge">BYJUS</span>
           </div>
           <div class="cs-body">
+            <span class="cs-soon">Coming soon</span>
             <div class="cs-card-title">UI Design</div>
             <div class="cs-card-sub">Coming Soon</div>
           </div>
