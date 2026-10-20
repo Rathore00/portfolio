@@ -6,6 +6,8 @@
  * (porto.css and the sprites in Asset/images/porto/ are loaded automatically.)
  *
  * Everything you are likely to edit lives in section 1 (CONFIG) and section 2 (COPY).
+ * Porto stays silent until someone clicks him. A click opens a glass chat panel;
+ * the replies are quick-reply buttons (no text input).
  * Console helpers while testing:  Porto.reset()  Porto.chaos()  Porto.say("hi")
  */
 (function () {
@@ -18,11 +20,10 @@
   const CONFIG = {
     dock: 'right',                 // 'right' | 'left' — which bottom corner Porto sits in
     ball: { desktop: 118, mobile: 88 },   // body size in px
-    idleSwapMs: [15000, 20000],    // change expression every 15–20 s while idle (+ a few seconds when he mutters)
-    idleQuipChance: 0.35,          // chance he mutters something when the pose changes
-    typeMs: 22,                    // typewriter speed per character
-    askTimeoutMs: 60000,           // buttons disappear if nobody answers for this long
-    greetDelayMs: 1600,            // wait before the first-visit greeting
+    idleSwapMs: [15000, 20000],    // change expression every 15–20 s while he is idle (silently)
+    idleQuipChance: 0.75,          // chance he mutters a small bubble each time his expression changes
+    typeMs: 17,                    // typewriter speed per character
+    panel: { width: 360, height: 600 },   // glass chat panel size in px (shrinks to fit small screens)
 
     // The section where Porto runs wild. Matches your green "Beyond the brief" grid.
     zone: {
@@ -57,53 +58,63 @@
      ═══════════════════════════════════════════════════════════ */
   const COPY = {
     intro: [
-      "Hi! I'm Porto 👋 Welcome to the portfolio of Parul Rathour.",
-      "She's been “almost done” with this website since forever. I live here now. Rent-free.",
-      'Anyway — who’s visiting?',
+      'Hi, I\u2019m Porto \u{1F44B} Parul\u2019s unofficial tour guide.',
+      'I live down here, so I know where everything is.',
+      'So, who\u2019s visiting today?',
     ],
+    newChat: 'Fresh start. Who\u2019s visiting?',
+    menuHello: 'Welcome back! What would you like to do?',
     who: [
-      { v: 'hire',   label: '💼 Here to hire' },
-      { v: 'friend', label: '🫶 Friend of Parul' },
-      { v: 'family', label: '🏠 Family' },
-      { v: 'wander', label: '🌍 Just wandering' },
+      { v: 'hire',   label: '\u{1F4BC} Here to hire' },
+      { v: 'friend', label: '\u{1FAF6} Friend of Parul' },
+      { v: 'family', label: '\u{1F3E0} Family' },
+      { v: 'wander', label: '\u{1F30D} Just wandering' },
     ],
-    skipLine: 'No pressure. I’ll be chilling down here. 😌',
+    skipLine: 'No pressure. I\u2019ll be right here if you need me. \u{1F60C}',
+    heroTitle: ['Hi, I\u2019m Porto.', 'Let me show you around.'],
+    heroText: 'Ask about Parul\u2019s work and experience, or just hang out. Pick an option and I\u2019ll take it from there.',
 
-    // shown once per page per session after the first greeting (file name → lines)
-    pageQuips: {
-      'work.html': ['Ooh, the good stuff. 👀'],
-      'know-the-designer.html': ['Plot twist: she’s a real person.'],
-      'resume.html': ['Yes, it’s one page. She’s efficient.'],
-      'kargen-ai.html': ['Motion-heavy. I got dizzy. In a good way.'],
-      'bi-platform.html': ['Three redesigns. Zero rage-quits. Allegedly.'],
-      'admin-panel.html': ['Small stores, big ambitions. 🛍️'],
+    // small hello when a new browsing session starts (new tab / browser reopened)
+    hi: {
+      first: ['Hi! I\u2019m Porto \u{1F44B} Click me, I don\u2019t bite.', 'Hello, stranger! Welcome in. \u{1F44B}'],
+      back: ['Hey, you\u2019re back! \u{1F44B}', 'Welcome back! I kept your spot warm.', 'Oh hi again! Missed me? \u{1F60E}', 'Hi hi! Glad you\u2019re here again.'],
     },
 
-    pokes: [
-      'Hey! Personal space. 😤',
-      'Boop received.',
-      'I’m a professional mascot, you know.',
-      'Again? Really?',
-      'That tickles. Stop. Don’t stop.',
-    ],
-    shoves: ['Oops.', 'Not my fault!', 'Whee!', 'Chaos!', 'It was like that already.', 'Sorry (not sorry)', 'Gravity did it.'],
-
-    // random mutters when he changes pose (pose name → lines)
+    // small speech bubbles (they never open the chat panel)
     idleQuips: {
-      music: ['Currently vibing. Don’t mind me. 🎧'],
+      music: ['Currently vibing. Don\u2019t mind me. \u{1F3A7}'],
       phone: ['Just scrolling. Totally research.'],
       tablet: ['Reviewing the Figma files. Looks good.'],
-      paint: ['Pixel-perfect or nothing. 🎨'],
-      noodles: ['Research. Very important research. 🍜'],
-      tea: ['Chai o’clock. Always.'],
-      think: ['Is black a color though…'],
-      sleepy: ['…just resting my eyes.'],
-      pahadi: ['Straight from the mountains 🏔️'],
+      paint: ['Pixel-perfect or nothing. \u{1F3A8}'],
+      noodles: ['Research. Very important research. \u{1F35C}'],
+      tea: ['Chai o\u2019clock. Always.'],
+      think: ['Is black a color though\u2026'],
+      sleepy: ['\u2026just resting my eyes.'],
+      pahadi: ['Straight from the mountains \u{1F3D4}\uFE0F'],
       ladder: ['Climbing the design system. One rung at a time.'],
-      rain: ['Rain check on productivity ☔'],
+      rain: ['Rain check on productivity \u2614'],
       snow: ['Brrr. Wearing every layer I own.'],
-      travel: ['Bags packed. Ideas travel light. ✈️'],
-      blanket: ['Five more minutes…'],
+      travel: ['Bags packed. Ideas travel light. \u2708\uFE0F'],
+      blanket: ['Five more minutes\u2026'],
+    },
+    randomQuips: [
+      'Is black a color though?',
+      'Do you think fish know they\u2019re wet?',
+      'Is cereal a soup? Asking for a friend.',
+      'I\u2019m 90% dough and 10% opinions.',
+      'Psst. The stickers in the green grid are movable. \u{1F440}',
+      'Still here. Still round.',
+      'Click me if you\u2019re bored. I\u2019m bored.',
+      'Do you ever just stare at a loading bar?',
+      'Hydrate. Or chai. Chai counts. \u2615',
+      'Would a hot dog be a sandwich if you squinted?',
+      'I wonder what\u2019s in the footer\u2026',
+      'Nobody tell the pixels I\u2019m not aligned to the grid.',
+    ],
+    chaos: {
+      start: ['Ooh, a grid. Nobody look. \u{1F608}', 'Don\u2019t mind me\u2026', 'Time for a tiny rampage.'],
+      shoves: ['Oops.', 'Not my fault!', 'Whee!', 'Chaos!', 'It was like that already.', 'Sorry (not sorry)', 'Gravity did it.'],
+      done: ['Done. I regret nothing. \u{1F60C}', 'That was therapeutic.', 'Okay, I\u2019m tired. Anyone have chai? \u2615', 'Parul will never know. Shh. \u{1F92B}', 'Everything was like that before. Probably.'],
     },
 
     hire: {
@@ -195,27 +206,57 @@
   root.setAttribute('aria-label', 'Porto, the portfolio mascot');
   root.style.visibility = 'hidden';
 
-  const bubble = el('div', 'porto-bubble');
+  // small reaction bubble (only used after a direct click, e.g. "I'm back!")
+  const bubble = el('div', 'porto-bubble is-tiny');
   bubble.setAttribute('role', 'status');
   bubble.setAttribute('aria-live', 'polite');
-  const xBtn = el('button', 'porto-x'); xBtn.type = 'button'; xBtn.setAttribute('aria-label', 'Close'); xBtn.textContent = '×';
-  const who = el('div', 'porto-who'); who.textContent = 'Porto';
   const textEl = el('p', 'porto-text');
   const ghost = el('span', 'porto-ghost'); ghost.setAttribute('aria-hidden', 'true');
   const typed = el('span', 'porto-typed'); typed.setAttribute('aria-hidden', 'true');
   const sr = el('span', 'porto-sr');
   textEl.append(ghost, typed, sr);
-  const choicesEl = el('div', 'porto-choices');
   const tail = el('span', 'porto-tail');
-  bubble.append(xBtn, who, textEl, choicesEl, tail);
+  bubble.append(textEl, tail);
 
   const shadow = el('span', 'porto-shadow');
-  const hit = el('button', 'porto-hit'); hit.type = 'button'; hit.setAttribute('aria-label', 'Talk to Porto');
+  const hit = el('button', 'porto-hit'); hit.type = 'button';
+  hit.setAttribute('aria-label', 'Talk to Porto');
+  hit.setAttribute('aria-haspopup', 'dialog'); hit.setAttribute('aria-expanded', 'false');
   const flip = el('span', 'porto-flip');
   const hop = el('span', 'porto-hop');
   const breathe = el('span', 'porto-breathe');
   hop.appendChild(breathe); flip.appendChild(hop); hit.appendChild(flip);
-  root.append(bubble, shadow, hit);
+
+  // glass chat panel: header, scrolling thread, and a footer where Porto stands (no input field)
+  const panel = el('section', 'porto-panel');
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-label', 'Chat with Porto');
+  panel.inert = true;
+  const head = el('header', 'porto-head');
+  const ava = el('span', 'porto-ava'); ava.style.backgroundImage = 'url(' + ASSET + 'idle.webp?v=1)';
+  const idBox = el('div', 'porto-id');
+  const idName = el('span', 'porto-id-name'); idName.textContent = 'Porto';
+  const idSub = el('span', 'porto-id-sub'); idSub.textContent = 'Portfolio guide';
+  idBox.append(idName, idSub);
+  const newBtn = el('button', 'porto-pill'); newBtn.type = 'button';
+  newBtn.innerHTML = '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 2.5H4.2A1.7 1.7 0 0 0 2.5 4.2v7.6a1.7 1.7 0 0 0 1.7 1.7h7.6a1.7 1.7 0 0 0 1.7-1.7V9"/><path d="m10.2 2.6 3.2 3.2M13.6 2.4a1.1 1.1 0 0 1 0 1.6L8 9.6 5.6 10.4l.8-2.4 5.6-5.6a1.1 1.1 0 0 1 1.6 0Z"/></svg><span>New chat</span>';
+  const closeBtn = el('button', 'porto-round'); closeBtn.type = 'button'; closeBtn.setAttribute('aria-label', 'Close chat');
+  closeBtn.innerHTML = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="m3.5 3.5 9 9m0-9-9 9"/></svg>';
+  head.append(ava, idBox, newBtn, closeBtn);
+  const thread = el('div', 'porto-thread');
+  thread.setAttribute('role', 'log'); thread.setAttribute('aria-live', 'polite'); thread.setAttribute('aria-label', 'Conversation with Porto');
+  const hero = el('div', 'porto-hero');
+  const heroIco = el('span', 'porto-ava sm'); heroIco.style.backgroundImage = ava.style.backgroundImage;
+  const heroH = el('h2', 'porto-hero-h');
+  COPY.heroTitle.forEach((line) => { const l = el('span'); l.textContent = line; heroH.appendChild(l); });
+  const heroP = el('p', 'porto-hero-p'); heroP.textContent = COPY.heroText;
+  hero.append(heroIco, heroH, heroP);
+  const foot = el('div', 'porto-foot');
+  const footHint = el('span', 'porto-foot-hint'); footHint.textContent = 'Tap Porto to close';
+  foot.appendChild(footHint);
+  panel.append(head, thread, foot);
+
+  root.append(bubble, shadow, hit, panel);
 
   const probe = el('div'); // reads the iPhone safe-area inset
   probe.style.cssText = 'position:fixed;left:0;bottom:0;width:0;height:0;visibility:hidden;padding-bottom:env(safe-area-inset-bottom,0px)';
@@ -230,6 +271,7 @@
     running: false,                  // he is leaving the dock
     chaos: false,
     minimized: store.get('min') === '1',
+    panel: false,                    // chat panel is open
   };
   let vw = 0, vh = 0, ball = 118, W = 236, H = 224;
   const pos = { x: 0, y: 0 };
@@ -253,7 +295,7 @@
     pos.x = x; pos.y = y;
     root.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)';
   }
-  const homePos = () => ({ x: dock.x, y: S.minimized ? peekY : dock.y });
+  const homePos = () => ({ x: dock.x, y: S.minimized ? peekY : dock.y - (S.panel ? 16 : 0) });
 
   function glide(tx, ty, ms, ease) {
     const token = ++runToken;
@@ -347,7 +389,7 @@
   function face(dir) { root.style.setProperty('--face', String(dir)); }
 
   /* ═══════════════════════════════════════════════════════════
-     7. SPEECH BUBBLE — placement, typewriter, buttons
+     7. REACTION BUBBLE + CHAT PANEL
      ═══════════════════════════════════════════════════════════ */
   function placeBubble() {
     const rr = root.getBoundingClientRect();
@@ -359,79 +401,127 @@
     else if (cx + bw / 2 > vw - m) shift = vw - m - (cx + bw / 2);
     bubble.style.setProperty('--shift', shift.toFixed(1) + 'px');
   }
-  function showBubble(tiny) {
-    bubble.classList.toggle('is-tiny', !!tiny);
-    placeBubble();
-    bubble.classList.add('is-open');
-  }
+  function showBubble() { placeBubble(); bubble.classList.add('is-open'); }
   function hideBubble() { bubble.classList.remove('is-open'); clearTimeout(tinyTimer); }
   let tinyTimer = 0;
   let skipTyping = false;
 
-  function setText(text) {
-    ghost.textContent = text; sr.textContent = text; typed.textContent = '';
-  }
   const guard = (t) => { if (t !== flowToken) throw CANCEL; };
   const sleep = (ms, t) => new Promise((res, rej) => setTimeout(() => (t === undefined || t === flowToken) ? res() : rej(CANCEL), ms));
 
-  async function typeText(t, text) {
-    if (reduced()) { typed.textContent = text; return; }
+  /** One-off line in the small bubble. Only ever used right after a click. */
+  function tiny(text, ms) {
+    if (S.panel) return;
+    clearTimeout(tinyTimer);
+    ghost.textContent = text; sr.textContent = text; typed.textContent = text;
+    showBubble();
+    tinyTimer = setTimeout(hideBubble, ms || 2400);
+  }
+  function quip(text, pose, ms) {
+    if (S.panel) return;
+    if (pose) setPose(pose, { hop: true });
+    tiny(text, ms || 2600);
+  }
+
+  /* — thread helpers — */
+  function scrollThread(instant) {
+    requestAnimationFrame(() => thread.scrollTo({ top: thread.scrollHeight, behavior: (instant || reduced()) ? 'auto' : 'smooth' }));
+  }
+  function resetThread() { thread.replaceChildren(hero); thread.scrollTop = 0; }
+  function addMsg(who) {
+    const row = el('div', 'porto-msg from-' + who);
+    const b = el('div', 'porto-msg-b');
+    row.appendChild(b); thread.appendChild(row);
+    return { row, b };
+  }
+  function dotsInto(b) {
+    b.classList.add('is-dots'); b.textContent = '';
+    for (let i = 0; i < 3; i++) b.appendChild(el('i'));
+  }
+  /** Reserve the final size of a message (invisible ghost) so it never jumps while it types. */
+  function fillMsg(m, text) {
+    m.b.classList.remove('is-dots'); m.b.textContent = '';
+    const wrap = el('span', 'porto-msg-t');
+    const gh = el('span', 'porto-ghost'); gh.setAttribute('aria-hidden', 'true'); gh.textContent = text;
+    const ty = el('span', 'porto-typed'); ty.setAttribute('aria-hidden', 'true');
+    const s2 = el('span', 'porto-sr'); s2.textContent = text;
+    wrap.append(gh, ty, s2); m.b.appendChild(wrap);
+    return ty;
+  }
+  async function typeText(t, target, text) {
+    if (reduced()) { target.textContent = text; return; }
     skipTyping = false;
     const chars = Array.from(text);
     let out = '';
     for (let i = 0; i < chars.length; i++) {
       guard(t);
-      if (skipTyping) { typed.textContent = text; return; }
+      if (skipTyping) { target.textContent = text; return; }
       out += chars[i];
-      typed.textContent = out;
+      target.textContent = out;
       const c = chars[i];
-      await sleep(c === ' ' ? CONFIG.typeMs * .5 : /[.!?…]/.test(c) ? CONFIG.typeMs * 6 : /[,—]/.test(c) ? CONFIG.typeMs * 3 : CONFIG.typeMs, t);
+      await sleep(c === ' ' ? CONFIG.typeMs * .5 : /[.!?…]/.test(c) ? CONFIG.typeMs * 4 : /[,—]/.test(c) ? CONFIG.typeMs * 2 : CONFIG.typeMs, t);
     }
   }
 
-  function clearChoices() { choicesEl.textContent = ''; }
-
-  /** Say a line. Resolves after the text has been typed and given a moment to be read. */
+  /** Porto says something: typing dots, then the text types out. */
   async function say(t, text, o) {
     o = o || {};
     guard(t);
-    clearTimeout(tinyTimer);
     if (o.pose) setPose(o.pose, { hop: o.hop });
-    clearChoices();
-    setText(text);
-    showBubble(o.tiny);
-    await typeText(t, text);
-    const hold = o.hold != null ? o.hold : clamp(text.length * 38, 900, 2700);
+    const m = addMsg('porto');
+    dotsInto(m.b);
+    scrollThread();
+    await sleep(reduced() ? 0 : clamp(260 + text.length * 4, 320, 680), t);
+    const ty = fillMsg(m, text);
+    await typeText(t, ty, text);
+    const hold = o.hold != null ? o.hold : 380;
     if (hold > 0) await sleep(hold, t);
   }
 
+  let kbd = false;
+  root.addEventListener('keydown', () => { kbd = true; }, true);
+  root.addEventListener('pointerdown', () => { kbd = false; }, true);
+
+  function makeChip(opt, i) {
+    let c;
+    if (opt.href) {
+      c = el('a', 'porto-chip'); c.href = opt.href;
+      if (opt.external) { c.target = '_blank'; c.rel = 'noopener'; }
+    } else { c = el('button', 'porto-chip'); c.type = 'button'; }
+    if (opt.cls) c.classList.add(...opt.cls.split(' '));
+    c.textContent = opt.label;
+    c.style.setProperty('--i', String(i));
+    return c;
+  }
+
   let pendingAsk = null;
-  /** Show buttons and wait for a click. Resolves with the chosen option (or {v:'__timeout'}). */
-  function ask(t, options, o) {
-    o = o || {};
+  /** Quick replies under Porto's last message. Resolves with the option the visitor picked. */
+  function ask(t, options) {
     guard(t);
-    if (o.pose) setPose(o.pose);
     return new Promise((resolve, reject) => {
-      clearChoices();
-      const done = (opt) => { clearTimeout(timer); pendingAsk = null; resolve(opt); };
+      const row = el('div', 'porto-choices');
+      pendingAsk = { reject: (e) => { row.remove(); reject(e); } };
       options.forEach((opt, i) => {
-        let c;
-        if (opt.href) {
-          c = el('a', 'porto-chip'); c.href = opt.href;
-          if (opt.external) { c.target = '_blank'; c.rel = 'noopener'; }
-        } else { c = el('button', 'porto-chip'); c.type = 'button'; }
-        if (opt.cls) c.classList.add(...opt.cls.split(' '));
-        c.textContent = opt.label;
-        c.style.setProperty('--i', String(i));
-        c.addEventListener('click', () => done(opt));
-        choicesEl.appendChild(c);
+        const c = makeChip(opt, i);
+        c.addEventListener('click', () => {
+          pendingAsk = null;
+          if (opt.href) {                       // a link: the page / anchor takes over
+            if (!opt.external) setTimeout(() => closePanel(), 60);
+            return resolve(opt);
+          }
+          row.remove();
+          addMsg('you').b.textContent = opt.label;
+          scrollThread();
+          resolve(opt);
+        });
+        row.appendChild(c);
       });
-      placeBubble();
-      const timer = setTimeout(() => done({ v: '__timeout' }), CONFIG.askTimeoutMs);
-      pendingAsk = { reject: (e) => { clearTimeout(timer); reject(e); } };
+      thread.appendChild(row);
+      scrollThread();
+      if (kbd) { const f = row.querySelector('.porto-chip'); if (f) f.focus({ preventScroll: true }); }
     });
   }
-  const gone = (c) => !c || c.v === '__timeout';
+  const gone = (c) => !c;
 
   function cancelFlow() {
     flowToken++;
@@ -447,28 +537,64 @@
       .then(() => { if (t === flowToken) { S.busy = false; afterFlow(); } });
   }
   function afterFlow() {
-    hideBubble();
-    scheduleIdle();
-    tryChaos();
+    if (S.panel) return endRow();
+    scheduleIdle(); tryChaos();
+  }
+  /** When a conversation ends, offer to keep going or close. */
+  function endRow() {
+    const row = el('div', 'porto-choices end');
+    const again = makeChip({ label: '↺ Chat again', cls: 'primary' }, 0);
+    again.addEventListener('click', () => { row.remove(); addMsg('you').b.textContent = 'Chat again'; newFlow(flowMenu); });
+    const close = makeChip({ label: 'Close', cls: 'ghost' }, 1);
+    close.addEventListener('click', () => closePanel());
+    row.append(again, close);
+    thread.appendChild(row);
+    scrollThread();
   }
 
-  /** Short throw-away line (no buttons). Used for idle mutters and chaos. */
-  function tiny(text, ms) {
-    clearTimeout(tinyTimer);
-    clearChoices();
-    setText(text); typed.textContent = text;
-    showBubble(true);
-    tinyTimer = setTimeout(hideBubble, ms || 2400);
+  /* — open / close — */
+  function placePanel() {
+    const m = vw <= 560 ? 12 : 16;
+    const safe = parseFloat(getComputedStyle(probe).paddingBottom) || 0;
+    const pw = Math.min(CONFIG.panel.width, vw - 2 * m);
+    const ph = Math.min(CONFIG.panel.height, vh - 2 * m - safe);
+    const left = CONFIG.dock === 'left' ? m - dock.x : vw - m - pw - dock.x;
+    panel.style.width = pw + 'px';
+    panel.style.left = left.toFixed(1) + 'px';
+    panel.style.setProperty('--ph', ph + 'px');
+    panel.style.setProperty('--foot', (ball * 1.42).toFixed(0) + 'px');
   }
-  function quip(text, pose, ms) {
-    newFlow(async (t) => { await say(t, text, { pose: pose, tiny: true, hold: ms || 2600 }); });
+  function openPanel() {
+    S.panel = true; store.set('opened', '1');
+    root.classList.remove('is-new'); root.classList.add('is-chat');
+    hit.setAttribute('aria-expanded', 'true');
+    clearTimeout(idleTimer); hideBubble();
+    resetThread(); placePanel();
+    panel.inert = false;
+    panel.classList.add('is-open');
+    const h = homePos(); glide(h.x, h.y, 320);
+    newFlow(S.visitor ? flowMenu : flowIntro);
   }
-
-  bubble.addEventListener('click', (e) => { if (!e.target.closest('.porto-chip, .porto-x')) skipTyping = true; });
-  xBtn.addEventListener('click', () => { cancelFlow(); hideBubble(); scheduleIdle(); });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && bubble.classList.contains('is-open') && !bubble.classList.contains('is-tiny')) { cancelFlow(); hideBubble(); scheduleIdle(); }
-  });
+  function closePanel(keepPos) {
+    if (!S.panel) return;
+    cancelFlow();
+    S.panel = false;
+    panel.classList.remove('is-open'); panel.inert = true;
+    root.classList.remove('is-chat');
+    hit.setAttribute('aria-expanded', 'false');
+    if (!keepPos) { const h = homePos(); glide(h.x, h.y, 320); }
+    if (kbd) hit.focus({ preventScroll: true });
+    scheduleIdle(); tryChaos();
+  }
+  function newChat() {
+    if (!S.panel) return;
+    cancelFlow(); resetThread();
+    newFlow(async (t) => { await flowChoose(t, COPY.newChat); });
+  }
+  newBtn.addEventListener('click', newChat);
+  closeBtn.addEventListener('click', () => closePanel());
+  thread.addEventListener('click', (e) => { if (!e.target.closest('.porto-chip')) skipTyping = true; });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && S.panel) closePanel(); });
 
   /* ═══════════════════════════════════════════════════════════
      8. CONVERSATIONS
@@ -476,15 +602,18 @@
   const mailto = () => 'mailto:' + CONFIG.facts.email;
   const contactHref = () => (document.querySelector(CONFIG.links.contactAnchor) ? CONFIG.links.contactAnchor : mailto());
 
-  async function flowIntro(t) {
-    store.set('greeted', '1');
-    await say(t, COPY.intro[0], { pose: 'wave' });
-    await say(t, COPY.intro[1], { pose: 'idle' });
-    await say(t, COPY.intro[2], { pose: 'curious', hold: 0 });
+  async function flowChoose(t, lead) {
+    await say(t, lead, { pose: 'curious', hold: 0 });
     const c = await ask(t, COPY.who.concat([{ v: 'skip', label: 'Skip', cls: 'ghost' }]));
     if (gone(c)) return;
     if (c.v === 'skip') { await say(t, COPY.skipLine, { pose: 'idle' }); return; }
     await runVisitor(t, c.v, true);
+  }
+  async function flowIntro(t) {
+    store.set('greeted', '1');
+    await say(t, COPY.intro[0], { pose: 'wave' });
+    await say(t, COPY.intro[1], { pose: 'idle' });
+    await flowChoose(t, COPY.intro[2]);
   }
 
   async function runVisitor(t, v, first) {
@@ -624,11 +753,11 @@
 
   /* ── Menu when you click him ─────────────────────────────── */
   async function flowMenu(t) {
-    await say(t, 'Hey! Need something?', { pose: 'wave', hold: 0 });
+    await say(t, COPY.menuHello, { pose: 'wave', hold: 0 });
     const c = await ask(t, [
       { v: 'ask', label: '💬 Ask me stuff', cls: 'primary' },
       { v: 'who', label: '🔄 I’m someone else' },
-      { v: 'hide', label: '🤫 Shh, hide', cls: 'ghost' },
+      { v: 'hide', label: '🤫 Hide Porto', cls: 'ghost' },
     ]);
     if (gone(c)) return;
     if (c.v === 'ask') return runVisitor(t, S.visitor, false);
@@ -638,7 +767,7 @@
       if (gone(w)) return;
       return runVisitor(t, w.v, true);
     }
-    if (c.v === 'hide') { await say(t, 'Fine. I’ll be right here. Quietly. 🤐', { pose: 'view-back', hold: 900 }); minimize(); }
+    if (c.v === 'hide') { await say(t, 'Fine. I’ll be right here. Quietly. 🤐', { pose: 'view-back', hold: 700 }); minimize(); }
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -656,11 +785,17 @@
     return base;
   }
   function idleTick() {
-    if (document.hidden || S.busy || S.running || S.minimized) return scheduleIdle();
+    if (document.hidden || S.busy || S.panel || S.running || S.minimized) return scheduleIdle();
     const next = weighted(poolFor(), S.pose);
-    setPose(next, { hop: true });
-    const lines = COPY.idleQuips[next];
-    if (lines && Math.random() < CONFIG.idleQuipChance) setTimeout(() => { if (!S.busy && !S.running && !S.minimized && S.pose === next) quip(pick(lines), null, 3200); }, 650);
+    const speak = Math.random() < CONFIG.idleQuipChance;
+    const own = COPY.idleQuips[next];
+    const lines = (own && Math.random() < .6) ? own : COPY.randomQuips;
+    setPose(next, { hop: true }).then(() => {          // speak once the new expression is showing
+      if (!speak) return;
+      setTimeout(() => {
+        if (!S.busy && !S.panel && !S.running && !S.minimized && S.pose === next) tiny(pick(lines), 3400);
+      }, 550);
+    });
     scheduleIdle();
   }
 
@@ -791,7 +926,7 @@
     const sc = stage && stage.offsetWidth ? stage.getBoundingClientRect().width / stage.offsetWidth : 1;
     const speed = rand(760, 1250);
     launch(node, dir.x * speed / sc, dir.y * speed / sc, rand(-460, 460));
-    tiny(pick(COPY.shoves), 1100);
+    if (Math.random() < .7) tiny(pick(COPY.chaos.shoves), 1100);
   }
 
   let chaosAbort = false, lastChaosEnd = 0, chaosPending = false;
@@ -815,7 +950,7 @@
     await warmRun();
     if (rt !== runToken) return;
     setPoseNow('chaos'); doHop(1.2);
-    tiny('Ooh, a grid. Nobody look. 😈', 2000);
+    tiny(pick(COPY.chaos.start), 2000);
     if (!(await wait(1100, rt))) return;
     const count = randInt(CONFIG.zone.shoves[0], CONFIG.zone.shoves[1]);
     for (let i = 0; i < count && !chaosAbort && rt === runToken; i++) {
@@ -826,7 +961,7 @@
       await shove(node, rt);
       if (!(await wait(rand(350, 650), rt))) return;
     }
-    await goHome(rt, chaosAbort ? null : 'Done. I regret nothing. 😌');
+    await goHome(rt, pick(COPY.chaos.done));
   }
   async function goHome(rt, line) {
     if (rt !== runToken) return;
@@ -836,22 +971,22 @@
     S.chaos = false; S.running = false; lastChaosEnd = Date.now();
     root.classList.remove('is-running');
     setPoseNow('cheer'); doHop();
-    if (line) tiny(line, 2600);
+    if (line) tiny(line, 3200);
     scheduleIdle();
   }
   function stopChaos(line) {
     chaosAbort = true;
     const rt = ++runToken;
     hideBubble();
-    goHome(rt, line);
+    return goHome(rt, line);
   }
   /** Easter egg: poke him six times fast and he does a lap of the screen. */
   async function lap() {
+    if (S.panel) closePanel(true);
     cancelFlow(); hideBubble();
     const rt = ++runToken;
     S.running = true; root.classList.add('is-running');
     await warmRun();
-    tiny('WHEEEEE', 1500);
     const left = CONFIG.dock === 'left';
     await runTo(left ? vw - W - 6 : 6, dock.y, rt, ball * 6);
     await runTo(dock.x, dock.y, rt, ball * 6);
@@ -865,13 +1000,12 @@
   /* zone watcher — start the chaos when the grid section scrolls into view */
   let zoneInView = false;
   function tryChaos() {
-    if (!zoneInView || S.chaos || S.busy || S.minimized || reduced() || chaosPending) return;
-    if (!store.get('greeted')) return;            // first visit: the greeting always goes first
+    if (!zoneInView || S.chaos || S.busy || S.panel || S.minimized || reduced() || chaosPending) return;
     if (Date.now() - lastChaosEnd < CONFIG.zone.cooldownMs) return;
     chaosPending = true;
     setTimeout(() => {
       chaosPending = false;
-      if (zoneInView && !S.chaos && !S.busy && !S.minimized && document.hidden !== true) chaos().catch(recover);
+      if (zoneInView && !S.chaos && !S.busy && !S.panel && !S.minimized && document.hidden !== true) chaos().catch(recover);
     }, 900);
   }
   function watchZone() {
@@ -890,6 +1024,7 @@
   function minimize() {
     cancelFlow(); hideBubble();
     S.minimized = true; store.set('min', '1');
+    closePanel(true);
     root.classList.add('is-min');
     hit.setAttribute('aria-label', 'Bring Porto back');
     setPose('idle', { hop: false });
@@ -900,40 +1035,30 @@
     root.classList.remove('is-min');
     hit.setAttribute('aria-label', 'Talk to Porto');
     glide(dock.x, dock.y, 520, (p) => { const c1 = 1.7; return 1 + (c1 + 1) * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); })
-      .then(() => { doHop(1.2); quip('I’m back! Miss me? 😎', 'wave'); });
+      .then(() => { doHop(1.2); });
   }
 
-  let pokes = [];
+  let clicks = [];
   hit.addEventListener('click', () => {
     if (S.minimized) return unminimize();
-    if (S.chaos) return stopChaos('Okay, okay. I’ll stop. 😇');
+    if (S.chaos) return stopChaos(null).then(() => { if (!S.panel && !S.running && !S.chaos && !S.minimized) openPanel(); });   // stop the romp, then chat
     if (S.running) return;
     const now = Date.now();
-    pokes = pokes.filter((x) => now - x < 4500); pokes.push(now);
-    if (pokes.length >= 6) { pokes = []; return lap().catch(recover); }
-    const open = bubble.classList.contains('is-open') && !bubble.classList.contains('is-tiny');
-    if (open) { cancelFlow(); hideBubble(); scheduleIdle(); return; }
-    if (pokes.length >= 3) { wiggle(); return quip(pick(COPY.pokes), pick(['cheer', 'wave', 'chaos', 'sassy-cross', 'curious']), 1900); }
-    newFlow(S.visitor ? flowMenu : flowIntro);
+    clicks = clicks.filter((x) => now - x < 3500); clicks.push(now);
+    if (clicks.length >= 6) { clicks = []; return lap().catch(recover); }   // easter egg: six fast clicks
+    if (S.panel) return closePanel();
+    openPanel();
   });
-  hit.addEventListener('pointerenter', () => { if (!S.busy && !S.running && !S.minimized) wiggle(); });
+  hit.addEventListener('pointerenter', () => { if (!S.busy && !S.panel && !S.running && !S.minimized) wiggle(); });
 
   function onResize() {
     metrics();
     if (!S.running) { const h = homePos(); setPos(h.x, h.y); }
     if (bubble.classList.contains('is-open')) placeBubble();
+    if (S.panel) placePanel();
   }
   window.addEventListener('resize', onResize);
   document.addEventListener('visibilitychange', () => { if (!document.hidden) scheduleIdle(); });
-
-  function pageQuip() {
-    const file = (location.pathname.split('/').pop() || 'index.html');
-    const lines = COPY.pageQuips[file];
-    const key = 'q:' + file;
-    if (!lines || store.get(key) || S.minimized) return;
-    store.set(key, '1');
-    setTimeout(() => { if (!S.busy && !S.running) quip(pick(lines), 'curious', 2800); }, 2200);
-  }
 
   async function boot() {
     document.body.append(root, probe);
@@ -943,10 +1068,19 @@
     showPose('idle', true);
     root.style.visibility = '';
     if (S.minimized) { root.classList.add('is-min'); hit.setAttribute('aria-label', 'Bring Porto back'); }
+    else if (!store.get('opened')) root.classList.add('is-new');   // quiet pulse so people know he is clickable
     // slide up from below the fold with a little overshoot
     const h = homePos();
     await glide(h.x, h.y, 800, (p) => { const c1 = 1.5; return 1 + (c1 + 1) * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); });
     doHop(.8);
+    if (!S.minimized && !store.get('hi')) {          // new session: wave and say hi once
+      store.set('hi', '1');
+      let back = false;
+      try { back = !!localStorage.getItem('porto.seen'); localStorage.setItem('porto.seen', '1'); } catch (e) { /* storage blocked */ }
+      setPose('wave', { hop: false });
+      setTimeout(() => { if (!S.busy && !S.panel && !S.running && !S.minimized) tiny(pick(back ? COPY.hi.back : COPY.hi.first), 4200); }, 500);
+      setTimeout(() => { if (!S.busy && !S.panel && !S.running && S.pose === 'wave') setPose('idle', { hop: false }); }, 4800);
+    }
     watchZone();
     scheduleIdle();
     // preload everything else quietly so crossfades are instant later
@@ -955,17 +1089,17 @@
     const pump = () => { const n = queue.shift(); if (!n) return; warm(n).then(() => setTimeout(pump, 90)); };
     (window.requestIdleCallback || setTimeout)(() => setTimeout(pump, 400), { timeout: 3000 });
 
-    if (!store.get('greeted') && !S.minimized) setTimeout(() => { if (!S.busy && !S.running) newFlow(flowIntro); }, CONFIG.greetDelayMs);
-    else pageQuip();
   }
 
   /* public handles for testing in the console */
   window.Porto = {
-    say: (text, pose) => quip(text, pose || null, 3200),
+    say: (text, pose) => quip(text, pose || null, 3200),   // small reaction bubble
     chaos: () => { zoneInView = true; lastChaosEnd = 0; if (!S.chaos) chaos().catch(recover); },
     lap: () => lap().catch(recover),
     pose: (n) => setPose(n, { hop: true }),
-    reset: () => { try { Object.keys(sessionStorage).filter((k) => k.indexOf('porto.') === 0).forEach((k) => sessionStorage.removeItem(k)); } catch (e) { /* ignore */ } S.visitor = null; S.minimized = false; root.classList.remove('is-min'); onResize(); newFlow(flowIntro); },
+    reset: () => { try { Object.keys(sessionStorage).filter((k) => k.indexOf('porto.') === 0).forEach((k) => sessionStorage.removeItem(k)); } catch (e) { /* ignore */ } S.visitor = null; S.minimized = false; root.classList.remove('is-min'); onResize(); if (S.panel) { cancelFlow(); resetThread(); newFlow(flowIntro); } else openPanel(); },
+    open: () => { if (!S.panel && !S.running && !S.minimized) openPanel(); },
+    close: () => closePanel(),
     minimize: minimize,
   };
 

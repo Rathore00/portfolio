@@ -244,3 +244,236 @@
   .porto-chip { animation: none; }
 }
 @media print { .porto { display: none !important; } }
+
+/* ═════════════════════════════════════════════════════════════
+   Chat panel (glass). Opens only when someone clicks Porto.
+   Porto himself stands in the footer, where an input field would be.
+   ═════════════════════════════════════════════════════════════ */
+.porto-hit { z-index: 3; }
+.porto-shadow { z-index: 2; }
+
+.porto-panel {
+  --ph: 600px;
+  --foot: 168px;
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 360px;
+  height: var(--ph);
+  overflow: hidden;
+  color: #0c0c0c;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  background:
+    radial-gradient(120% 60% at 0% 0%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(165deg, rgba(255, 255, 255, .72), rgba(250, 248, 243, .56));
+  -webkit-backdrop-filter: blur(26px) saturate(1.6);
+  backdrop-filter: blur(26px) saturate(1.6);
+  box-shadow:
+    0 30px 70px rgba(8, 28, 20, .30),
+    0 3px 10px rgba(8, 28, 20, .12),
+    inset 0 1px 0 rgba(255, 255, 255, .9);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(16px) scale(.97);
+  transform-origin: 88% 100%;
+  transition:
+    opacity .22s ease,
+    transform .34s cubic-bezier(.2, .9, .3, 1.15),
+    visibility 0s linear .34s;
+}
+.porto-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition-delay: 0s;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .porto-panel { background: rgba(252, 250, 246, .95); }
+}
+
+/* header */
+.porto-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 14px 12px 16px;
+  flex: none;
+}
+.porto-ava {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f3e9d8;
+  background-repeat: no-repeat;
+  background-size: 196% auto;
+  background-position: 50% 62%;
+  box-shadow: inset 0 0 0 1px rgba(12, 12, 12, .06);
+}
+.porto-ava::after {
+  content: '';
+  position: absolute;
+  right: -1px;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2fbf71;
+  border: 2px solid #fff;
+}
+.porto-ava.sm { width: 30px; height: 30px; }
+.porto-ava.sm::after { display: none; }
+.porto-id { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.25; }
+.porto-id-name { font-size: 14.5px; font-weight: 700; letter-spacing: -.005em; }
+.porto-id-sub { font-size: 12px; color: #5f666d; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.porto-pill,
+.porto-round {
+  border: 1px solid rgba(12, 12, 12, .1);
+  background: rgba(255, 255, 255, .6);
+  color: #0c0c0c;
+  cursor: pointer;
+  font: 600 12.5px/1 var(--sans, 'DM Sans', system-ui, sans-serif);
+  transition: background .15s, border-color .15s;
+}
+.porto-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 13px; border-radius: 999px; white-space: nowrap;
+}
+.porto-round {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0; border-radius: 50%;
+}
+.porto-pill:hover, .porto-round:hover { background: #fff; border-color: rgba(12, 12, 12, .25); }
+.porto-pill:focus-visible, .porto-round:focus-visible, .porto-chip:focus-visible {
+  outline: 2px solid #134535; outline-offset: 2px;
+}
+
+/* thread */
+.porto-thread {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px 16px 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(12, 12, 12, .18) transparent;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 26px), transparent);
+}
+.porto-hero { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 2px 18px; }
+.porto-hero-h { margin: 0; font-size: 28px; line-height: 1.1; font-weight: 400; letter-spacing: -.025em; }
+.porto-hero-h span { display: block; }
+.porto-hero-p { margin: 0; max-width: 31ch; font-size: 13.5px; line-height: 1.5; color: #4b525a; }
+
+.porto-msg { display: flex; animation: porto-msg-in .3s cubic-bezier(.2, .9, .3, 1.1) both; }
+.porto-msg.from-you { justify-content: flex-end; }
+.porto-msg-b {
+  position: relative;
+  max-width: 86%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  font-size: 14.5px;
+  line-height: 1.45;
+  font-weight: 500;
+  letter-spacing: -.005em;
+  text-wrap: pretty;
+  overflow-wrap: anywhere;
+}
+.porto-msg.from-porto .porto-msg-b {
+  border-bottom-left-radius: 7px;
+  background: rgba(255, 255, 255, .78);
+  border: 1px solid rgba(255, 255, 255, .85);
+  box-shadow: 0 2px 10px rgba(8, 28, 20, .07);
+}
+.porto-msg.from-you .porto-msg-b {
+  border-bottom-right-radius: 7px;
+  background: #0c0c0c;
+  color: #fff;
+  font-weight: 500;
+}
+.porto-msg-t { position: relative; display: block; }
+.porto-msg-b .porto-ghost { visibility: hidden; display: block; }
+.porto-msg-b .porto-typed { position: absolute; inset: 0; display: block; }
+.porto-msg-b.is-dots { display: inline-flex; gap: 4px; align-items: center; padding: 14px 16px; }
+.porto-msg-b.is-dots i {
+  width: 6px; height: 6px; border-radius: 50%; background: #8a9096; opacity: .5;
+  animation: porto-dot 1s ease-in-out infinite;
+}
+.porto-msg-b.is-dots i:nth-child(2) { animation-delay: .15s; }
+.porto-msg-b.is-dots i:nth-child(3) { animation-delay: .3s; }
+@keyframes porto-dot { 0%, 70%, 100% { transform: translateY(0); opacity: .45; } 35% { transform: translateY(-4px); opacity: 1; } }
+@keyframes porto-msg-in { from { opacity: 0; transform: translateY(8px) scale(.98); } to { opacity: 1; transform: none; } }
+
+/* quick replies (inside the thread, under Porto's message) */
+.porto-panel .porto-choices { margin-top: 2px; padding-bottom: 2px; }
+.porto-panel .porto-chip {
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, .6);
+  border: 1px solid rgba(12, 12, 12, .13);
+  font-size: 13px;
+}
+.porto-panel .porto-chip:hover { background: #0c0c0c; border-color: #0c0c0c; color: #fff; transform: translateY(-1px); }
+.porto-panel .porto-chip.primary { background: #0c0c0c; border-color: #0c0c0c; color: #fff; }
+.porto-panel .porto-chip.primary:hover { background: #134535; border-color: #134535; }
+.porto-panel .porto-chip.ghost { background: transparent; border-color: transparent; color: #5f666d; padding-left: 8px; padding-right: 8px; }
+.porto-panel .porto-chip.ghost:hover { background: rgba(255, 255, 255, .7); color: #0c0c0c; }
+
+/* footer: empty space where Porto stands */
+.porto-foot {
+  flex: none;
+  height: var(--foot);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 18px 16px;
+  border-top: 1px solid rgba(12, 12, 12, .05);
+  background: linear-gradient(to top, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+.porto-foot-hint { font-size: 11.5px; letter-spacing: .02em; color: #6b7178; }
+
+/* quiet "click me" cue until the first click */
+.porto.is-new .porto-hit::before,
+.porto.is-new .porto-hit::after {
+  content: '';
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.porto.is-new .porto-hit::after { background: #2fbf71; border: 2px solid #fff; box-sizing: border-box; z-index: 5; }
+.porto.is-new .porto-hit::before { background: #2fbf71; z-index: 4; animation: porto-ping 2.2s ease-out infinite; }
+@keyframes porto-ping { 0% { transform: scale(1); opacity: .55; } 80%, 100% { transform: scale(2.6); opacity: 0; } }
+
+/* the tiny reaction bubble never shows while the panel is open */
+.porto.is-chat .porto-bubble { display: none; }
+
+@media (max-width: 560px) {
+  .porto-hero-h { font-size: 25px; }
+  .porto-head { padding: 12px 12px 10px 14px; }
+  .porto-pill span { display: none; }
+  .porto-pill { padding: 0 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .porto-panel { transform: none; transition-duration: .01s; }
+  .porto-msg { animation: none; }
+  .porto-msg-b.is-dots i { animation: none; opacity: .7; }
+  .porto.is-new .porto-hit::before { animation: none; display: none; }
+}
+
+/* thread children keep their natural height and the thread scrolls (no flex shrinking) */
+.porto-thread > * { flex: none; }
