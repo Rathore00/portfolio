@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Gochi+Hand&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,800;0,900;1,800&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Inter:wght@400;500;600;700;900&family=Cousine&family=Gochi+Hand&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -518,133 +518,6 @@ img{display:block;max-width:100%}
   border-bottom:.5px solid rgba(255,255,255,.3);padding-bottom:3px;
 }
 
-/* ══ WORK (sticky case-study pile) ══ */
-.work{padding:40px 0 0;background:#fff;scroll-margin-top:92px}
-.work-hdr{
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  padding:0 74px;margin-bottom:8px;width:100%;
-}
-.work-hdr h2{
-  font-family:var(--brico);font-weight:500;font-size:clamp(1.8rem,3.2vw,2.625rem);
-  letter-spacing:-.03em;color:#000;
-}
-.work-view-all{
-  display:inline-flex;align-items:center;
-  background:#0c0c0c;color:#fff;
-  border-radius:45px;padding:10px 22px;
-  font-family:var(--sans);font-size:12px;white-space:nowrap;
-  transition:opacity .2s,transform .2s;
-}
-.work-view-all:hover{opacity:.88;transform:translateY(-1px)}
-.cs-seq-track{height:2800px;view-timeline:--seq block;background:#fff}
-.cs-seq-stage{
-  position:sticky;top:0;height:100vh;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-  font-family:'IBM Plex Sans',var(--sans),system-ui,sans-serif;
-}
-.cs-seq-mq{
-  position:absolute;left:0;top:50%;margin-top:-110px;z-index:0;
-  pointer-events:none;user-select:none;
-}
-.cs-seq-mq-row{display:flex;width:max-content;animation:cs-seq-mq 50s linear infinite}
-.cs-seq-mq-row span{
-  flex:none;white-space:nowrap;
-  font-family:'Bricolage Grotesque','IBM Plex Sans',var(--sans),sans-serif;
-  font-weight:700;font-size:clamp(140px,15vw,220px);line-height:1;letter-spacing:-.04em;
-  color:#EDEDEF;padding-right:.4em;
-}
-@keyframes cs-seq-mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.cs-seq-pile{position:relative;z-index:1;width:min(400px,86vw);height:540px}
-.cs-seq-slot{
-  position:absolute;inset:0;z-index:var(--z,1);
-  --t:1;
-  transform:translate(
-    calc(var(--x) * (0.3 + 0.7 * var(--t))),
-    calc(var(--y) + 1000px * (1 - var(--t)))
-  ) rotate(calc(var(--r) * (-4 + 5 * var(--t))));
-}
-.cs-seq-card{
-  position:relative;display:flex;flex-direction:column;height:100%;
-  background:#fff;border-radius:26px;
-  box-shadow:0 2px 4px rgba(20,30,60,.05),0 18px 44px rgba(20,20,20,.14);
-  color:inherit;text-decoration:none;overflow:hidden;min-width:0;
-  transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s;
-}
-a.cs-seq-card:hover,a.cs-seq-card:focus-visible{
-  transform:translateY(-6px);
-  box-shadow:0 2px 4px rgba(20,30,60,.05),0 26px 56px rgba(20,20,20,.2);
-}
-a.cs-seq-card:focus-visible{outline:2px solid #141414;outline-offset:3px}
-.cs-seq-tx{padding:26px 24px 14px;display:flex;flex-direction:column;gap:10px}
-.cs-seq-tx h2{
-  margin:0;font-family:var(--brico),'IBM Plex Sans',var(--sans),sans-serif;
-  font-weight:700;font-size:30px;line-height:1.05;letter-spacing:-.03em;padding-right:44px;color:#141414;
-}
-.cs-seq-tx p{margin:0;font-size:15px;line-height:1.5;color:#8A8F97}
-.cs-seq-tx p b,.cs-seq-tx p strong{
-  font-family:var(--brico),'IBM Plex Sans',sans-serif;color:#141414;font-weight:700;
-}
-.cs-seq-metas{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
-.cs-seq-mchip{
-  font-size:12px;font-weight:600;padding:6px 14px;border-radius:99px;
-  background:#F2F2F2;color:#141414;white-space:nowrap;
-  font-family:'IBM Plex Sans',var(--sans),sans-serif;
-}
-.cs-seq-mchip.d{background:#141414;color:#fff}
-.cs-seq-go{
-  position:absolute;top:22px;right:22px;width:40px;height:40px;border-radius:50%;
-  background:#F2F2F2;display:flex;align-items:center;justify-content:center;
-  transition:background .25s,color .25s;
-}
-a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background:#141414;color:#fff}
-.cs-seq-gfx{position:relative;flex:1;min-height:0;margin:0 8px 8px;border-radius:18px;overflow:hidden}
-.cs-seq-ill{background:radial-gradient(120% 95% at 50% 105%,#D9D9DB 0%,#EDEDEE 48%,#FAFAFA 100%)}
-.cs-seq-ill:before{
-  content:"";position:absolute;inset:0;
-  background-image:radial-gradient(rgba(20,20,20,.2) 1px,transparent 1.3px);background-size:12px 12px;
-  -webkit-mask-image:linear-gradient(#000,transparent 80%);mask-image:linear-gradient(#000,transparent 80%);
-}
-.cs-seq-cf{
-  position:absolute;display:inline-flex;align-items:center;
-  font-size:13px;font-weight:600;padding:8px 15px;border-radius:13px;white-space:nowrap;
-  font-family:'IBM Plex Sans',var(--sans),sans-serif;
-}
-.cs-seq-cf.d{background:linear-gradient(#4A4A4A,#141414);color:#fff;box-shadow:0 10px 20px rgba(20,20,20,.3),inset 0 1px 0 rgba(255,255,255,.35)}
-.cs-seq-cf.l{background:#fff;color:#141414;box-shadow:0 10px 24px rgba(20,20,20,.16)}
-.cs-seq-cf.g{border:1.5px dashed rgba(20,20,20,.4);color:rgba(20,20,20,.6);background:rgba(255,255,255,.5)}
-.cs-seq-bar{position:absolute;bottom:0;width:11%;border-radius:10px 10px 0 0;background:linear-gradient(#CFCFD2,rgba(207,207,210,.15))}
-.cs-seq-bar.hi{background:linear-gradient(#141414,rgba(20,20,20,.15));box-shadow:0 0 28px rgba(20,20,20,.25)}
-.cs-seq-info .cs-seq-tx{margin-top:auto;padding-bottom:30px}
-.cs-seq-info .cs-seq-tx h2{font-size:42px;padding-right:0}
-@keyframes cs-seq-up{
-  from{transform:translate(calc(var(--x) * .3),1000px) rotate(calc(var(--r) * -4))}
-  to{transform:translate(var(--x),var(--y)) rotate(var(--r))}
-}
-@media (prefers-reduced-motion:no-preference){
-@supports (animation-timeline:view()){
-  .cs-seq-slot{animation:cs-seq-up linear both;animation-timeline:--seq}
-  .cs-seq-s1{animation-range:cover 26% cover 36%}
-  .cs-seq-s2{animation-range:cover 37% cover 47%}
-  .cs-seq-s3{animation-range:cover 48% cover 58%}
-  .cs-seq-s4{animation-range:cover 59% cover 69%}
-}
-}
-@media (prefers-reduced-motion:reduce){.cs-seq-mq-row{animation:none!important}}
-@media (max-width:700px){
-  .cs-seq-slot{--x:calc(var(--xs) * .5)}
-  .cs-seq-pile{width:min(248px,70vw);height:min(340px,52vh)}
-  .cs-seq-tx{padding:14px 14px 8px;gap:6px}
-  .cs-seq-tx h2{font-size:16px;padding-right:32px}
-  .cs-seq-info .cs-seq-tx h2{font-size:20px}
-  .cs-seq-tx p{font-size:11px;line-height:1.4}
-  .cs-seq-mchip{font-size:9px;padding:4px 8px}
-  .cs-seq-go{width:28px;height:28px;top:12px;right:12px}
-  .cs-seq-go svg{width:12px;height:12px}
-  .cs-seq-cf{font-size:10px;padding:4px 9px;border-radius:9px}
-  .cs-seq-gfx{margin:0 6px 6px;border-radius:14px}
-  .cs-seq-mq-row span{font-size:clamp(64px,16vw,110px);margin-top:0}
-}
-
 /* ══ FOOTER ══ */
 .footer{background:#fff;border-top:.5px solid #ddd;width:100%;margin:0}
 .fc-row{
@@ -750,13 +623,11 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
   .card-overlay{padding-top:6rem;padding-right:1.2rem;justify-content:center}
   .hero-row{grid-template-columns:1fr}
   .beyond-title{font-size:63px;white-space:nowrap}
-  .work-hdr{padding-left:36px;padding-right:36px}
 }
 @media(max-width:900px){
   .top{padding:12px 24px 0}
   .nav-spacer{height:76px}
   .top,.hero{padding-left:24px;padding-right:24px}
-  .work-hdr{padding-left:24px;padding-right:24px}
   .hero{padding-top:12px;padding-bottom:40px}
   .nav{
     padding:14px 16px;border-radius:70px;
@@ -836,10 +707,6 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
 
   /* Keep full tear edge on iPad — don't squash rip to 72px */
   .rip{height:120px}
-  .work{padding-top:24px}
-  .work-hdr{margin-bottom:4px}
-  .work-hdr h2{font-size:clamp(1.6rem,7vw,2rem)}
-
   .fc-row{
     grid-template-columns:1fr;
     gap:1.5rem;
@@ -885,6 +752,7 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
 
 </style>
 <link rel="stylesheet" href="contact-modal.css?v=13">
+<link rel="stylesheet" href="cube-work.css">
 </head>
 <body>
 <div class="mob-menu" id="mobMenu">
@@ -923,7 +791,7 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
         <img class="namskar-afterprint" src="Asset/images/home/namskar.svg?v=3" alt="" width="1237" height="204" draggable="false" aria-hidden="true">
         <canvas class="namskar-canvas" aria-hidden="true"></canvas>
       </div>
-      <div class="namskar-hit" aria-hidden="true"></div>
+      <div class="namskar-hit" aria-hidden="true" data-cursor-grow></div>
     </div>
 
     <div class="green-cards" aria-label="Photo cards">
@@ -1041,36 +909,36 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
         </div>
 
         <!-- Draggable extras -->
-        <div class="sticker mat-move bx-pos" data-d="313,208,117,117" data-m="138,115,62,62" style="z-index:9">
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="313,208,117,117" data-m="138,115,62,62" style="z-index:9">
           <div class="bx-badge-spin">
             <img src="Asset/images/home/beyond/rotating-badge.svg" alt="Thank you for your time">
           </div>
         </div>
-        <div class="sticker mat-move bx-pos" data-d="287,360,114,114" data-m="124,196,61,61" style="z-index:6">
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="287,360,114,114" data-m="124,196,61,61" style="z-index:6">
           <img src="Asset/images/home/beyond/clover.png" alt="">
         </div>
-        <div class="sticker mat-move bx-pos" data-d="470,629,172,172" data-m="304,262,92,92" style="z-index:6">
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="470,629,172,172" data-m="304,262,92,92" style="z-index:6">
           <img src="Asset/images/home/beyond/capybara.png" alt="" style="transform:scaleX(-1)">
         </div>
-        <div class="sticker mat-move bx-pos bx-hello-wrap" data-d="99,500,,,rotate(-1deg)" data-m="277,148,,,rotate(15deg)" style="z-index:7">
+        <div class="sticker mat-move bx-pos bx-hello-wrap" data-cursor-grow data-d="99,500,,,rotate(-1deg)" data-m="277,148,,,rotate(15deg)" style="z-index:7">
           <div class="bx-hello">
             <div class="hi">Hello, I am</div>
             <div class="name">User friendly</div>
           </div>
         </div>
-        <div class="sticker mat-move bx-pos bx-term-wrap" data-d="249,572,,,rotate(-4deg)" data-m="212,199,,,rotate(-4deg)" style="z-index:7">
+        <div class="sticker mat-move bx-pos bx-term-wrap" data-cursor-grow data-d="249,572,,,rotate(-4deg)" data-m="212,199,,,rotate(-4deg)" style="z-index:7">
           <div class="term">
             <div>$ <span class="g">parul --design</span></div>
             <div><span class="b">→</span> <span class="g">shipping... ✓</span></div>
             <div>$ <span class="g">▋</span></div>
           </div>
         </div>
-        <div class="sticker chip orange mat-move bx-pos" data-d="513,335,,,rotate(-15deg)" data-m="34,250,,,rotate(-15deg)" style="z-index:6">System Design</div>
-        <div class="sticker chip white mat-move bx-pos" data-d="764,500,,,rotate(8deg)" data-m="236,384,,,rotate(8deg)" style="z-index:6">Design Thinking</div>
-        <div class="sticker mat-move bx-pos bx-git-wrap" data-d="1090,701,,,rotate(-3deg)" data-m="106,797,,,rotate(-3deg)" style="z-index:6">
+        <div class="sticker chip orange mat-move bx-pos" data-cursor-grow data-d="513,335,,,rotate(-15deg)" data-m="34,250,,,rotate(-15deg)" style="z-index:6">System Design</div>
+        <div class="sticker chip white mat-move bx-pos" data-cursor-grow data-d="764,500,,,rotate(8deg)" data-m="236,384,,,rotate(8deg)" style="z-index:6">Design Thinking</div>
+        <div class="sticker mat-move bx-pos bx-git-wrap" data-cursor-grow data-d="1090,701,,,rotate(-3deg)" data-m="106,797,,,rotate(-3deg)" style="z-index:6">
           <div class="git">git commit -m "shipped 🚀"</div>
         </div>
-        <div class="sticker mat-move bx-pos" data-d="1246,660,212,212" data-m="276,756,117,117" style="z-index:6">
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="1246,660,212,212" data-m="276,756,117,117" style="z-index:6">
           <img src="Asset/images/home/beyond/smiski.png" alt="">
         </div>
       </div>
@@ -1079,88 +947,61 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
   </div>
 </section>
 
-<div class="page">
-  <section class="work" id="work">
-    <div class="work-hdr">
-      <h2>Selected Work</h2>
-      <a class="work-view-all" href="work.html">View All</a>
-    </div>
-    <div class="cs-seq-track">
-      <div class="cs-seq-stage">
-        <div class="cs-seq-mq" aria-hidden="true">
-          <div class="cs-seq-mq-row">
+<section id="work" aria-label="Selected work">
+    <div class="cube-track" id="cube-track">
+      <div class="cube-stage" id="cube-stage" data-theme="glass">
+        <button class="cube-tg" id="cube-tg" type="button" aria-pressed="false"><span>Light theme</span><span class="sw"></span></button>
+        <div class="cube-mq" aria-hidden="true">
+          <div class="cube-mq-row">
             <span>Brief to Shipped · Case studies · Kargen AI · BI Platform · Admin panel ·</span>
             <span>Brief to Shipped · Case studies · Kargen AI · BI Platform · Admin panel ·</span>
           </div>
         </div>
-        <div class="cs-seq-pile">
-          <div class="cs-seq-slot cs-seq-s1" style="--x:0px;--y:0px;--r:-5deg;--xs:0px;--z:1">
-            <a class="cs-seq-card" href="kargen-ai.html">
-              <div class="cs-seq-tx">
-                <h2>Kargen AI</h2>
-                <p><b>Motion-led</b> website for an AI workforce built for <b>freight brokerages.</b></p>
-                <span class="cs-seq-metas"><span class="cs-seq-mchip d">Website design</span><span class="cs-seq-mchip">Freelance</span></span>
-              </div>
-              <span class="cs-seq-go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
-              <div class="cs-seq-gfx cs-seq-ill" aria-hidden="true">
-                <span class="cs-seq-cf d" style="left:7%;top:12%">Hero flip</span>
-                <span class="cs-seq-cf l" style="right:8%;top:34%">Text rise</span>
-                <span class="cs-seq-cf g" style="left:12%;bottom:30%">On scroll</span>
-                <span class="cs-seq-cf l" style="right:12%;bottom:10%">Bento build</span>
-              </div>
-            </a>
-          </div>
-          <div class="cs-seq-slot cs-seq-s2" style="--x:0px;--y:0px;--r:4deg;--xs:0px;--z:2">
-            <section class="cs-seq-card cs-seq-info" aria-label="About these case studies">
-              <div class="cs-seq-tx">
-                <h2>Brief to Shipped</h2>
-                <p>A closer look at the problems, decisions, and outcomes behind each project.</p>
-              </div>
-            </section>
-          </div>
-          <div class="cs-seq-slot cs-seq-s3" style="--x:0px;--y:0px;--r:-3deg;--xs:0px;--z:3">
-            <a class="cs-seq-card" href="bi-platform.html">
-              <div class="cs-seq-tx">
-                <h2>BI Platform</h2>
-                <p>Redesigning an internal analytics product <b>three times,</b> without breaking what users <b>already knew.</b></p>
-                <span class="cs-seq-metas"><span class="cs-seq-mchip d">Product design</span><span class="cs-seq-mchip">GBT</span></span>
-              </div>
-              <span class="cs-seq-go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
-              <div class="cs-seq-gfx cs-seq-ill" aria-hidden="true">
-                <div style="position:absolute;left:8%;right:8%;top:40%;border-top:1.5px dashed rgba(20,20,20,.3)"></div>
-                <span class="cs-seq-bar" style="left:8%;height:26%"></span>
-                <span class="cs-seq-bar" style="left:22%;height:38%"></span>
-                <span class="cs-seq-bar hi" style="left:36%;height:58%"></span>
-                <span class="cs-seq-bar" style="left:50%;height:24%"></span>
-                <span class="cs-seq-bar" style="left:64%;height:44%"></span>
-                <span class="cs-seq-bar" style="left:78%;height:32%"></span>
-                <span class="cs-seq-cf d" style="left:calc(36% - 20px);top:8%">Better +12%</span>
-                <span class="cs-seq-cf l" style="right:6%;top:28%">AND / OR</span>
-              </div>
-            </a>
-          </div>
-          <div class="cs-seq-slot cs-seq-s4" style="--x:0px;--y:0px;--r:2deg;--xs:0px;--z:4">
-            <a class="cs-seq-card" href="admin-panel.html">
-              <div class="cs-seq-tx">
-                <h2>Admin panel for small Indian online stores</h2>
-                <p>Setting up and running a store <b>without five other apps.</b></p>
-                <span class="cs-seq-metas"><span class="cs-seq-mchip d">Product design</span><span class="cs-seq-mchip">GrowthJockey</span></span>
-              </div>
-              <span class="cs-seq-go" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
-              <div class="cs-seq-gfx cs-seq-ill" aria-hidden="true">
-                <span class="cs-seq-cf d" style="left:7%;top:12%">Products</span>
-                <span class="cs-seq-cf l" style="left:38%;top:36%">Orders</span>
-                <span class="cs-seq-cf d" style="right:7%;top:10%">Customers</span>
-                <span class="cs-seq-cf g" style="left:12%;bottom:26%">Add product</span>
-                <span class="cs-seq-cf l" style="right:10%;bottom:10%">Reviews</span>
-              </div>
-            </a>
-          </div>
+        <a class="cube-slot m1" href="kargen-ai.html" aria-label="Kargen AI case study" style="--rx:7deg;--ry0:-12deg;--dry:-32deg;--rz:-2deg;--t1:rgba(120,225,205,.38);--t2:rgba(255,170,225,.34)" data-i="0">
+          <div class="cube-fl"><div class="cube-hov"><div class="cube">
+            <div class="core" aria-hidden="true" data-seed="7"></div>
+            <div class="cf bk"></div>
+            <div class="cf lf"></div>
+            <div class="cf rt fx"><div class="sd" aria-hidden="true"><span class="lb">Motion highlights</span><span class="cc d" style="margin-left:0px">Hero flip</span><span class="cc " style="margin-left:34px">Text rise</span><span class="cc g" style="margin-left:10px">On scroll</span><span class="cc " style="margin-left:44px">Bento build</span><div class="gfx"><svg viewBox="0 0 260 120"><rect x="14" y="30" width="110" height="74" fill="#fff" fill-opacity=".25"/><rect x="40" y="16" width="110" height="74" fill="#fff" fill-opacity=".4"/><rect x="66" y="2" width="110" height="74" fill="#fff" fill-opacity=".95"/><rect x="80" y="16" width="52" height="8" fill="#fff"/><rect x="80" y="32" width="80" height="5" fill="#fff" opacity=".5"/><rect x="80" y="44" width="64" height="5" fill="#fff" opacity=".5"/><path d="M196 96c30-6 46-30 40-70" stroke="#fff" stroke-width="3" fill="none" stroke-dasharray="6 6"/><path d="M228 32l8-10 8 12" stroke="#fff" stroke-width="3" fill="none"/></svg></div><span class="vw">View case study ↗</span></div></div>
+            <div class="cf tp"></div><div class="cf bt"></div>
+            <div class="cf fr fx"><div class="fin"><h3>Kargen AI</h3><p><b>Motion-led</b> website for an AI workforce built for <b>freight brokerages.</b></p><span class="metas"><span class="mc d">Website design</span><span class="mc ">Freelance</span></span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></div>
+          </div></div></div>
+        </a>
+        <div class="cube-slot intro m2" role="group" aria-label="About these case studies" style="--rx:-6deg;--ry0:12deg;--dry:32deg;--rz:2deg;--t1:rgba(190,200,255,.40);--t2:rgba(255,200,235,.34)" data-i="1">
+          <div class="cube-fl"><div class="cube-hov"><div class="cube">
+            <div class="core" aria-hidden="true" data-seed="3"></div>
+            <div class="cf bk"></div>
+            <div class="cf rt"></div>
+            <div class="cf lf fx"><div class="sd" aria-hidden="true"><span class="lb">In this section</span><div class="ix"><span>Kargen AI<em>&#8599;</em></span><span>BI Platform<em>&#8599;</em></span><span>Admin panel<em>&#8599;</em></span></div><span class="vw">Scroll on &darr;</span></div></div>
+            <div class="cf tp"></div><div class="cf bt"></div>
+            <div class="cf fr fx"><div class="fin"><span class="eyebrow">Selected work</span><div><h3>Brief to Shipped</h3></div><p>A closer look at the <b>problems, decisions, and outcomes</b> behind each project.</p><span class="cue"><i></i>Scroll</span></div></div>
+          </div></div></div>
         </div>
+        <a class="cube-slot m3" href="bi-platform.html" aria-label="BI Platform case study" style="--rx:6deg;--ry0:-12deg;--dry:-32deg;--rz:-2deg;--t1:rgba(255,225,150,.40);--t2:rgba(255,190,150,.32)" data-i="2">
+          <div class="cube-fl"><div class="cube-hov"><div class="cube">
+            <div class="core" aria-hidden="true" data-seed="11"></div>
+            <div class="cf bk"></div>
+            <div class="cf lf"></div>
+            <div class="cf rt fx"><div class="sd" aria-hidden="true"><span class="lb">What changed</span><span class="cc d" style="margin-left:0px">Better +12%</span><span class="cc " style="margin-left:36px">AND / OR</span><span class="cc g" style="margin-left:6px">Clearer color</span><div class="gfx"><svg viewBox="0 0 260 120"><g fill="#fff" fill-opacity=".3"><rect x="0" y="0" width="150" height="120"/><rect x="162" y="0" width="98" height="120"/></g><g fill="#fff" fill-opacity=".7"><rect x="16" y="64" width="18" height="44"/><rect x="42" y="38" width="18" height="70" fill="#fff" fill-opacity=".95"/><rect x="68" y="52" width="18" height="56"/><rect x="94" y="20" width="18" height="88" fill="#fff" fill-opacity=".95"/><rect x="120" y="44" width="18" height="64"/></g><circle cx="211" cy="60" r="32" fill="none" stroke="#fff" stroke-width="16"/><circle cx="211" cy="60" r="32" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="16" stroke-dasharray="70 201" transform="rotate(-90 211 60)"/></svg></div><span class="vw">View case study ↗</span></div></div>
+            <div class="cf tp"></div><div class="cf bt"></div>
+            <div class="cf fr fx"><div class="fin"><h3>BI Platform</h3><p>Redesigning an internal analytics product <b>three times,</b> without breaking what users <b>already knew.</b></p><span class="metas"><span class="mc d">Product design</span><span class="mc ">GBT</span></span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></div>
+          </div></div></div>
+        </a>
+        <a class="cube-slot m4" href="admin-panel.html" aria-label="Admin panel case study" style="--rx:-7deg;--ry0:12deg;--dry:32deg;--rz:2deg;--t1:rgba(255,200,160,.42);--t2:rgba(255,160,190,.32)" data-i="3">
+          <div class="cube-fl"><div class="cube-hov"><div class="cube">
+            <div class="core" aria-hidden="true" data-seed="19"></div>
+            <div class="cf bk"></div>
+            <div class="cf rt"></div>
+            <div class="cf lf fx"><div class="sd" aria-hidden="true"><span class="lb">One place for</span><span class="cc d" style="margin-left:0px">Products</span><span class="cc " style="margin-left:34px">Orders</span><span class="cc d" style="margin-left:8px">Customers</span><span class="cc g" style="margin-left:40px">Add product</span><div class="gfx"><svg viewBox="0 0 260 120"><g fill="#fff" fill-opacity=".3"><rect x="0" y="0" width="260" height="34"/><rect x="0" y="43" width="260" height="34" opacity=".85"/><rect x="0" y="86" width="260" height="34" opacity=".7"/></g><g fill="#fff" fill-opacity=".95"><rect x="10" y="8" width="18" height="18"/><rect x="10" y="51" width="18" height="18" opacity=".7"/><rect x="10" y="94" width="18" height="18" opacity=".45"/></g><g fill="#fff" fill-opacity=".6"><rect x="40" y="11" width="92" height="6"/><rect x="40" y="54" width="70" height="6"/><rect x="40" y="97" width="104" height="6"/></g><g fill="#fff" fill-opacity=".7"><rect x="196" y="9" width="52" height="16"/><rect x="196" y="52" width="52" height="16" opacity=".6"/><rect x="196" y="95" width="52" height="16" opacity=".35"/></g></svg></div><span class="vw">View case study ↗</span></div></div>
+            <div class="cf tp"></div><div class="cf bt"></div>
+            <div class="cf fr fx"><div class="fin"><h3>Admin panel for small Indian online stores</h3><p>Setting up and running a store <b>without five other apps.</b></p><span class="metas"><span class="mc d">Product design</span><span class="mc ">GrowthJockey</span></span></div><span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg></span></div>
+          </div></div></div>
+        </a>
       </div>
     </div>
-  </section>
+</section>
 
+<div class="page">
   <footer class="footer" id="footer-contact">
     <div class="fc-row">
       <div class="fc-col">
@@ -1194,7 +1035,7 @@ a.cs-seq-card:hover .cs-seq-go,a.cs-seq-card:focus-visible .cs-seq-go{background
       <div class="footer-wordmark" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
         <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
         <canvas class="wm-canvas" aria-hidden="true"></canvas>
-        <div class="wm-hit" aria-hidden="true"></div>
+        <div class="wm-hit" aria-hidden="true" data-cursor-grow></div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1391,36 +1232,6 @@ function tick(){
 }
 tick();setInterval(tick,1000);
 
-(function(){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce) return;
-  if(CSS.supports && CSS.supports('animation-timeline','view()')) return;
-  const track=document.querySelector('.cs-seq-track');
-  if(!track) return;
-  const slots=[
-    [track.querySelector('.cs-seq-s1'),.26,.36],
-    [track.querySelector('.cs-seq-s2'),.37,.47],
-    [track.querySelector('.cs-seq-s3'),.48,.58],
-    [track.querySelector('.cs-seq-s4'),.59,.69]
-  ].filter(s=>s[0]);
-  slots.forEach(([el])=>el.style.setProperty('--t','0'));
-  function coverProgress(){
-    const r=track.getBoundingClientRect();
-    const vh=window.innerHeight||1;
-    return (vh-r.top)/(vh+r.height);
-  }
-  function tick(){
-    const p=coverProgress();
-    slots.forEach(([el,a,b])=>{
-      const t=Math.max(0,Math.min(1,(p-a)/(b-a)));
-      el.style.setProperty('--t',t.toFixed(4));
-    });
-  }
-  window.addEventListener('scroll',tick,{passive:true});
-  window.addEventListener('resize',tick);
-  tick();
-})();
-
 /* Green mat: drag stickers (accounts for stage scale) */
 (function(){
   let dragZ = 60;
@@ -1596,8 +1407,10 @@ tick();setInterval(tick,1000);
 })();
 
 </script>
+<script src="cube-work.js" defer></script>
 <script src="wordmark-particles.js?v=3" defer></script>
 <script src="contact-modal.js?v=13" defer></script>
 <script src="porto.js" defer></script>
+<script src="scripts/bubble-cursor.js" defer></script>
 </body>
 </html>
