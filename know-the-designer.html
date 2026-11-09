@@ -15,8 +15,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f2f2f2;--ink:#0c0c0c;--muted:#6b7280;--soft:#9ca3af;
-  --sans:'DM Sans',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
-  --display:'Montserrat',sans-serif;--serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;--mono:'Inter',system-ui,sans-serif;
+  --green:#134535;
+  --display:'Inter',system-ui,sans-serif;--serif:'Inter',system-ui,sans-serif;
 }
 html,body{height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 body{
@@ -696,9 +697,271 @@ img{display:block;max-width:100%}
   .footer-nav a::after{order:1;content:"→"}
   .hint{display:none}
 }
+/* ══ BEYOND / GREEN ══ */
+.beyond-wrap{background:var(--green);position:relative;width:100%;margin:0}
+.beyond{
+  background:var(--green);
+  position:relative;overflow:hidden;
+  height:890px;
+  color:#fff;
+}
+.rip{
+  position:absolute;left:0;width:100%;
+  height:clamp(130px, 15vw, 210px);
+  object-fit:cover;
+  z-index:5;pointer-events:none;user-select:none;display:block;
+}
+/* taller rips: up.png tear sits lower; down.png tear edge should stay visible at top of rip */
+.rip-top{top:0;object-position:center top}
+.rip-bottom{bottom:0;object-position:center top}
+.beyond-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+  background-size:54px 54px;
+  opacity:.8;pointer-events:none;z-index:1;
+}
+.beyond-inner{
+  position:relative;z-index:20;
+  padding:0;
+  height:890px;
+  overflow:visible;
+}
+.beyond-stage{
+  position:absolute;left:50%;top:0;
+  width:1512px;height:890px;
+  margin-left:-756px;
+  transform-origin:top center;
+}
+.beyond-title{
+  position:absolute;left:50%;top:calc(50% - 76px);transform:translate(-50%,-50%);
+  font-family:var(--display);font-weight:900;
+  font-size:63px;line-height:1;
+  letter-spacing:-.058em;text-align:center;pointer-events:none;
+  white-space:nowrap;z-index:5;color:#fff;
+}
+.sticker{
+  position:absolute;z-index:4;user-select:none;cursor:grab;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.28));
+}
+.sticker:active{cursor:grabbing;filter:drop-shadow(0 8px 18px rgba(0,0,0,.4))}
+.sticker.bx-fixed{cursor:default;pointer-events:none;filter:drop-shadow(0 3px 6px rgba(0,0,0,.25))}
+.sticker.bx-flower{
+  filter:none;
+  box-shadow:none;
+  width:160px;height:240px;
+}
+.sticker > img,
+.bx-badge-spin > img,
+.bx-lantern-inner > img{width:100%;height:100%;object-fit:cover;pointer-events:none}
+.sticker.bx-flower > img,
+.bx-flower > img{
+  width:100%;height:100%;
+  object-fit:contain !important;
+  object-position:center;
+  pointer-events:none;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.sticker.bx-break > img{
+  width:100%;height:100%;
+  object-fit:contain !important;
+  object-position:center;
+  image-rendering:auto;
+  pointer-events:none;
+}
+.sticker.bx-clip{
+  width:127px;height:97px;padding:0;border:0;background:none;
+  object-fit:cover;filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.bx-receipt .bx-smile,
+.bx-receipt .bx-delulu,
+.bx-receipt .dino{width:auto;height:auto;object-fit:cover;pointer-events:none}
+.chip{
+  display:inline-flex;align-items:center;
+  border-radius:999px;padding:9px 17px;
+  font-family:var(--sans);font-size:12px;font-weight:600;
+  box-shadow:0 4px 7px rgba(0,0,0,.25);white-space:nowrap;
+  border:3px solid #fff;
+}
+.chip.white{background:#fff;color:#c0392b;border-color:#5069f3;border-width:4px;font-weight:600;padding:10px 18px}
+.chip.orange{background:#f24e1e;color:#fff}
+.chip.vibe{
+  background:linear-gradient(170deg,#667eea,#764ba2);color:#fff;
+  font-family:var(--display);font-weight:900;border-radius:8px;border:none;
+  padding:8px 14px;font-size:14.4px;letter-spacing:-.01em;
+  box-shadow:0 4px 16px rgba(102,126,234,.45);
+}
+.term{
+  background:#1a1a2e;border:1px solid rgba(0,255,136,.2);
+  border-radius:8px;padding:12px 16px;width:160px;
+  font-family:var(--mono);font-size:11px;line-height:1.7;color:#888;
+  box-shadow:0 4px 8px rgba(0,0,0,.35);
+}
+.term .g{color:#0f8}.term .b{color:#64b5f6}
+.git{
+  background:#0d1117;border:1px solid rgba(126,231,135,.15);
+  border-radius:6px;padding:9px 13px;
+  font-family:var(--mono);font-size:10px;color:#7ee787;
+  box-shadow:0 4px 7px rgba(0,0,0,.4);
+}
+.bx-hello{
+  background:#b50d0d;border:2px solid #fff;border-radius:8px;
+  width:167px;padding:3px 4px 3px;box-shadow:0 4px 4px rgba(0,0,0,.25);
+  display:flex;flex-direction:column;gap:3px;justify-content:flex-end;
+}
+.bx-hello .hi{font-size:13.6px;color:#fff;line-height:1.2;padding:2px 4px 0}
+.bx-hello .name{
+  background:#fff;border-radius:4.6px;height:50px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Gochi Hand',cursive;font-size:24.7px;color:#000;
+}
+.bx-ooo{
+  background:#fff;border:4px solid #62b6ff;border-radius:5.6px;
+  width:185px;height:70px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  box-shadow:0 4px 4px rgba(0,0,0,.25);position:relative;
+  overflow:visible;
+}
+.bx-ooo .ooo-t{font-size:29.7px;letter-spacing:-1.2px;color:#000;line-height:1;white-space:nowrap}
+.bx-ooo .ooo-line{width:100%;height:1px;background:#111;opacity:.85}
+.bx-ooo .ooo-struck{
+  position:relative;
+  text-decoration:none;
+}
+.bx-ooo .ooo-struck::after{
+  content:"";
+  position:absolute;left:-2%;right:-2%;top:52%;
+  height:2.5px;background:#111;
+  transform:rotate(-6deg);
+}
+.bx-ooo .ooo-chip{
+  position:absolute;right:-10px;bottom:-12px;
+  background:#e7ff0c;border-radius:5px;padding:2px 7px;
+  font-size:16.4px;color:#000;line-height:1.3;
+  box-shadow:0 2px 4px rgba(0,0,0,.2);
+  z-index:2;
+}
+.bx-receipt{
+  width:252px;height:444px;
+  position:absolute;
+  background:url('Asset/images/home/beyond/receipt-bg.svg') center/100% 100% no-repeat;
+  box-shadow:0 4px 12px rgba(0,0,0,.22);
+  filter:none;
+}
+.bx-receipt-body{
+  position:absolute;left:19px;top:34px;width:214px;
+  display:flex;flex-direction:column;align-items:center;gap:19px;
+  color:#000;
+}
+.bx-receipt-title{font-size:22px;letter-spacing:-1.3px;text-align:center;line-height:1.05}
+.bx-receipt-hr{width:100%;height:1px;background:#111}
+.bx-receipt-hr.thick{height:2px}
+.bx-receipt-rows{
+  display:flex;justify-content:space-between;gap:12px;width:100%;
+  font-size:12px;letter-spacing:-1px;line-height:1.55;position:relative;
+}
+.bx-receipt-rows .left{display:flex;flex-direction:column;gap:6.6px;align-items:flex-start}
+.bx-receipt-rows .right{display:flex;flex-direction:column;gap:6.6px;align-items:flex-end;width:70px;text-align:right}
+.bx-receipt-foot{display:flex;flex-direction:column;align-items:center;gap:0;align-self:stretch;width:100%}
+.bx-receipt-foot .dino{width:41px;height:41px;object-fit:cover;margin-bottom:-3px;align-self:flex-start;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+.bx-receipt-foot .barcode{
+  width:144px !important;height:35px !important;
+  display:block;margin-left:auto;margin-right:auto;
+  align-self:center;object-fit:contain;pointer-events:none;
+}
+.bx-delulu{
+  position:absolute;left:33px;top:41px;width:29px !important;height:17px !important;
+  transform:rotate(10.6deg);object-fit:cover;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.25));
+}
+.bx-smile{
+  position:absolute;left:158px;top:-10px;width:57px !important;height:57px !important;
+  transform:rotate(-4deg);object-fit:cover;
+}
+.bx-clip{
+  position:absolute;width:127px;height:97px;
+  object-fit:cover;
+}
+.bx-flower{
+  position:absolute;width:160px;height:240px;
+  overflow:visible;z-index:10;
+}
+.bx-flower img{
+  object-fit:contain !important;object-position:center;height:100%;width:100%;
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,.28));
+}
+.bx-ooo-wrap{position:absolute;z-index:12;overflow:visible;filter:none !important}
+.bx-badge-spin{
+  width:100%;height:100%;
+  animation:badge-spin 14s linear infinite;
+  will-change:transform;
+}
+@keyframes badge-spin{to{transform:rotate(360deg)}}
+.bx-lantern-inner{
+  width:100%;height:100%;
+  transform-origin:50% 6%;
+  animation:lantern-sway 3.4s ease-in-out infinite;
+  will-change:transform;
+}
+@keyframes lantern-sway{
+  0%,100%{transform:rotate(-5deg)}
+  20%{transform:rotate(4.5deg)}
+  40%{transform:rotate(-3deg)}
+  60%{transform:rotate(5deg)}
+  80%{transform:rotate(-4deg)}
+}
+.bx-cloud{overflow:hidden}
+.bx-cloud img{object-fit:cover;object-position:center 42%;height:180%;width:100%;margin-top:-20%}
+.tag-row{display:flex;flex-wrap:wrap;gap:10px}
+.tag{
+  border:.5px solid rgba(255,255,255,.2);border-radius:999px;
+  padding:5px 12px;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.45);
+}
+.explore{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;letter-spacing:1.1px;text-transform:uppercase;color:#fff;
+  border-bottom:.5px solid rgba(255,255,255,.3);padding-bottom:3px;
+}
+
+/* Mobile beyond collage (Figma 393×888) — toggled via .is-mobile on stage */
+.beyond-stage.is-mobile .bx-hello{
+  width:89px;padding:1px 2px;
+}
+.beyond-stage.is-mobile .bx-hello .hi{font-size:7.3px;padding:1px 2px 0}
+.beyond-stage.is-mobile .bx-hello .name{height:27px;font-size:13.2px;border-radius:2.5px}
+.beyond-stage.is-mobile .term{
+  width:85px;padding:6px 8px;font-size:5.9px;line-height:1.7;border-radius:4px;
+}
+.beyond-stage.is-mobile .chip{font-size:9px;padding:6px 12px;border-width:2px}
+.beyond-stage.is-mobile .chip.white{border-width:3px;padding:7px 13px}
+.beyond-stage.is-mobile .git{font-size:7.2px;padding:6px 9px;border-radius:4px}
+.beyond-stage.is-mobile .bx-flower,
+.beyond-stage.is-mobile .sticker.bx-flower{
+  width:86px;height:130px;
+}
+
+.panel.panel-beyond{
+  width:100vw;min-width:100vw;flex:0 0 100vw;
+  height:100%;padding:0;overflow:hidden;
+  background:var(--green);z-index:4;
+}
+.panel-beyond .beyond,
+.panel-beyond .beyond-inner{height:100%}
+@media(max-width:1100px){
+  .beyond-title{font-size:63px;white-space:nowrap}
+}
+@media(max-width:900px){
+  .rip{height:120px}
+  .panel.panel-beyond{padding:0;width:100vw;min-width:100vw}
+}
+@media(max-width:700px){
+  .rip{height:72px}
+}
+
 </style>
 <link rel="stylesheet" href="contact-modal.css?v=13">
-<noscript><style>.rv,.rv-top,.rv-bot{opacity:1;transform:none}</style></noscript>
+<noscript><style>.rv,.rv-top,.rv-bot{opacity:1;transform:none}</style></noscript>  <link rel="stylesheet" href="site-typography.css?v=15">
 </head>
 <body>
 <div class="mob-menu" id="mobMenu">
@@ -847,6 +1110,118 @@ img{display:block;max-width:100%}
   </section>
 
   <!-- PANEL 2 -->
+<section class="panel panel-beyond beyond-wrap" id="beyond" aria-label="Beyond the brief">
+  <div class="beyond">
+    <img class="rip rip-top" src="Asset/images/home/up.png" alt="" aria-hidden="true" draggable="false">
+    <div class="beyond-grid"></div>
+    <div class="beyond-inner">
+      <div class="beyond-stage" id="beyond-stage">
+        <div class="beyond-title bx-pos" data-d="title" data-m="title">BEYOND<br>THE BRIEF.</div>
+
+        <!-- Fixed collage anchors -->
+        <div class="sticker bx-fixed bx-pos" data-d="0,1,92,146" data-m="-6,0,60,96" style="z-index:6">
+          <img src="Asset/images/home/beyond/exit-sign.png" alt="Exit">
+        </div>
+        <div class="sticker bx-fixed bx-break bx-pos" data-d="90,235,320,224" data-m="16,125,200,140" style="z-index:5">
+          <img src="Asset/images/home/beyond/break-the-rules.png" alt="Break the rules">
+        </div>
+        <div class="sticker bx-fixed bx-cloud bx-pos" data-d="136,40,302,141" data-m="64,48,165,77" style="z-index:3">
+          <img src="Asset/images/home/beyond/cloud.png" alt="">
+        </div>
+        <div class="sticker bx-fixed bx-cloud bx-pos" data-d="293,102,349,121" data-m="150,82,191,66" style="z-index:3">
+          <img src="Asset/images/home/beyond/cloud.png" alt="">
+        </div>
+        <div class="sticker bx-fixed bx-pos" data-d="1185,8,190,190" data-m="277,4,99,99" style="z-index:35">
+          <div class="bx-lantern-inner">
+            <img src="Asset/images/home/beyond/lantern.png" alt="Lantern">
+          </div>
+        </div>
+
+        <!-- Receipt (fixed) -->
+        <div class="sticker bx-fixed bx-receipt bx-pos" data-d="1026,216,252,444" data-m="105,452,252,444,scale(0.743)" style="z-index:8">
+          <div class="bx-receipt-body">
+            <div class="bx-receipt-title">Majority of<br>Time spent</div>
+            <div class="bx-receipt-hr"></div>
+            <div class="bx-receipt-rows">
+              <div class="left">
+                <span>Drinking Chai</span>
+                <span>Delulu</span>
+                <span>Travelllll</span>
+                <span>Freelancing</span>
+                <span>Consumerism</span>
+                <span>Taking photos constantly</span>
+              </div>
+              <div class="right">
+                <span>all the time/-</span>
+                <span>24 hr</span>
+                <span>1 month</span>
+                <span>0.00</span>
+                <span>₹ alot</span>
+                <span>Millions</span>
+              </div>
+              <img class="bx-delulu" src="Asset/images/home/beyond/delulu-pill.png" alt="">
+            </div>
+            <div class="bx-receipt-hr thick"></div>
+            <div class="chip vibe" style="transform:rotate(4deg)">Learning vibe code ✦</div>
+            <div class="bx-receipt-foot">
+              <img class="dino" src="Asset/images/home/beyond/dino.png" alt="">
+              <img class="barcode" src="Asset/images/home/beyond/barcode.svg" alt="">
+            </div>
+            <img class="bx-smile" src="Asset/images/home/beyond/smile.png" alt="">
+          </div>
+        </div>
+        <div class="sticker bx-fixed bx-ooo-wrap bx-pos" data-d="909,172,,,rotate(-11deg)" data-m="19,430,,,rotate(-11deg) scale(0.64)" style="z-index:14">
+          <div class="bx-ooo">
+            <div class="ooo-line"></div>
+            <div class="ooo-t">Out of <span class="ooo-struck">Office</span></div>
+            <div class="ooo-line"></div>
+            <div class="ooo-chip">my mind</div>
+          </div>
+        </div>
+        <img class="sticker bx-fixed bx-clip bx-pos" src="Asset/images/home/beyond/clip.png" alt="" data-d="1193,144,127,97,rotate(35deg)" data-m="229,398,94,72,rotate(35deg)" style="z-index:15">
+        <div class="sticker bx-fixed bx-flower bx-pos" data-d="910,430,160,240" data-m="40,667,86,130" style="z-index:10">
+          <img src="Asset/images/home/beyond/flower.png?v=2" alt="">
+        </div>
+
+        <!-- Draggable extras -->
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="313,208,117,117" data-m="138,115,62,62" style="z-index:9">
+          <div class="bx-badge-spin">
+            <img src="Asset/images/home/beyond/rotating-badge.svg" alt="Thank you for your time">
+          </div>
+        </div>
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="287,360,114,114" data-m="124,196,61,61" style="z-index:6">
+          <img src="Asset/images/home/beyond/clover.png" alt="">
+        </div>
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="470,629,172,172" data-m="304,262,92,92" style="z-index:6">
+          <img src="Asset/images/home/beyond/capybara.png" alt="" style="transform:scaleX(-1)">
+        </div>
+        <div class="sticker mat-move bx-pos bx-hello-wrap" data-cursor-grow data-d="99,500,,,rotate(-1deg)" data-m="277,148,,,rotate(15deg)" style="z-index:7">
+          <div class="bx-hello">
+            <div class="hi">Hello, I am</div>
+            <div class="name">User friendly</div>
+          </div>
+        </div>
+        <div class="sticker mat-move bx-pos bx-term-wrap" data-cursor-grow data-d="249,572,,,rotate(-4deg)" data-m="212,199,,,rotate(-4deg)" style="z-index:7">
+          <div class="term">
+            <div>$ <span class="g">parul --design</span></div>
+            <div><span class="b">→</span> <span class="g">shipping... ✓</span></div>
+            <div>$ <span class="g">▋</span></div>
+          </div>
+        </div>
+        <div class="sticker chip orange mat-move bx-pos" data-cursor-grow data-d="513,335,,,rotate(-15deg)" data-m="34,250,,,rotate(-15deg)" style="z-index:6">System Design</div>
+        <div class="sticker chip white mat-move bx-pos" data-cursor-grow data-d="764,500,,,rotate(8deg)" data-m="236,384,,,rotate(8deg)" style="z-index:6">Design Thinking</div>
+        <div class="sticker mat-move bx-pos bx-git-wrap" data-cursor-grow data-d="1090,701,,,rotate(-3deg)" data-m="106,797,,,rotate(-3deg)" style="z-index:6">
+          <div class="git">git commit -m "shipped 🚀"</div>
+        </div>
+        <div class="sticker mat-move bx-pos" data-cursor-grow data-d="1246,660,212,212" data-m="276,756,117,117" style="z-index:6">
+          <img src="Asset/images/home/beyond/smiski.png" alt="">
+        </div>
+      </div>
+    </div>
+    <img class="rip rip-bottom" src="Asset/images/home/down.png" alt="" aria-hidden="true" draggable="false">
+  </div>
+</section>
+
   <section class="panel panel-sketch" id="sketch" aria-label="Sketchbooks">
     <div class="sketch-ey rv">Hobby to skills</div>
     <div class="sketch-top">
@@ -1094,5 +1469,180 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 <script src="wordmark-particles.js?v=3" defer></script>
 <script src="contact-modal.js?v=13" defer></script>
 <script src="porto.js" defer></script>
+<script>
+/* Green mat: drag stickers (accounts for stage scale) */
+(function(){
+  let dragZ = 60;
+  function getStageScale(){
+    const stage = document.getElementById('beyond-stage');
+    if(!stage) return 1;
+    const t = getComputedStyle(stage).transform;
+    if(!t || t === 'none') return 1;
+    const m = t.match(/matrix\(([^,]+)/);
+    if(m) return Math.abs(parseFloat(m[1])) || 1;
+    const s = t.match(/scale\(([^)]+)\)/);
+    if(s) return Math.abs(parseFloat(s[1])) || 1;
+    return 1;
+  }
+
+  function enableDrag(el){
+    function pinToLeftTop(){
+      // Use layout offsets (unscaled) — getBoundingClientRect jumps under CSS scale
+      el.style.left = el.offsetLeft + 'px';
+      el.style.top = el.offsetTop + 'px';
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      el.style.transform = el.dataset.rot || '';
+    }
+
+    let active = false, moved = false;
+    let startMouseX = 0, startMouseY = 0;
+    let startElLeft = 0, startElTop = 0;
+
+    function onDown(cx, cy){
+      pinToLeftTop();
+      active = true; moved = false;
+      startMouseX = cx; startMouseY = cy;
+      startElLeft = parseFloat(el.style.left) || 0;
+      startElTop  = parseFloat(el.style.top)  || 0;
+      el.style.transition = 'none';
+      el.style.zIndex = String(++dragZ);
+    }
+    function onMove(cx, cy){
+      if(!active) return;
+      const scale = getStageScale() || 1;
+      const dx = (cx - startMouseX) / scale;
+      const dy = (cy - startMouseY) / scale;
+      if(Math.abs(dx) > 3 || Math.abs(dy) > 3) moved = true;
+      const par  = el.offsetParent || el.parentElement;
+      const maxX = Math.max(0, par.offsetWidth  - el.offsetWidth);
+      const maxY = Math.max(0, par.offsetHeight - el.offsetHeight);
+      let nx = startElLeft + dx;
+      let ny = startElTop  + dy;
+      nx = Math.max(0, Math.min(nx, maxX));
+      ny = Math.max(0, Math.min(ny, maxY));
+      el.style.left = nx + 'px';
+      el.style.top  = ny + 'px';
+    }
+    function onUp(){
+      if(!active) return;
+      active = false;
+      // keep elevated z-index so sticker stays on top after drop
+      el.style.transition = '';
+    }
+
+    el.addEventListener('mousedown', e => {
+      if(e.button !== 0) return;
+      onDown(e.clientX, e.clientY); e.preventDefault();
+    });
+    document.addEventListener('mousemove', e => onMove(e.clientX, e.clientY));
+    document.addEventListener('mouseup', onUp);
+
+    el.addEventListener('touchstart', e => {
+      const t = e.touches[0]; onDown(t.clientX, t.clientY); e.preventDefault();
+    }, {passive:false});
+    document.addEventListener('touchmove', e => {
+      if(!active) return;
+      const t = e.touches[0]; onMove(t.clientX, t.clientY);
+    }, {passive:false});
+    document.addEventListener('touchend', onUp);
+
+    el.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', e=>{ if(moved) e.preventDefault(); });
+    });
+  }
+
+  document.querySelectorAll('.mat-move').forEach(el=>{
+    enableDrag(el);
+  });
+})();
+
+/* Scale / switch green-mat stage: desktop 1512×890 (iPad+), phone 393×888 */
+(function(){
+  const stage = document.getElementById('beyond-stage');
+  const inner = stage && stage.parentElement;
+  const beyond = document.querySelector('.beyond');
+  if(!stage || !inner || !beyond) return;
+
+  const DESK = { w: 1512, h: 890 };
+  const MOB  = { w: 393,  h: 888 };
+  let mode = '';
+
+  function parsePos(str){
+    if(!str || str === 'title') return null;
+    const p = String(str).split(',');
+    return {
+      left: p[0] !== undefined && p[0] !== '' ? p[0] + 'px' : '',
+      top:  p[1] !== undefined && p[1] !== '' ? p[1] + 'px' : '',
+      width: p[2] !== undefined && p[2] !== '' ? p[2] + 'px' : '',
+      height: p[3] !== undefined && p[3] !== '' ? p[3] + 'px' : '',
+      transform: (p[4] || '').trim()
+    };
+  }
+
+  function applyPositions(isMobile){
+    stage.querySelectorAll('.bx-pos').forEach(el => {
+      if(el.classList.contains('beyond-title')){
+        el.style.left = '50%';
+        el.style.top = isMobile ? 'calc(50% - 157px)' : 'calc(50% - 76px)';
+        // Figma mobile anchors title by top edge (x only); desktop centers both axes
+        el.style.transform = isMobile ? 'translateX(-50%)' : 'translate(-50%, -50%)';
+        el.style.fontSize = isMobile ? '46px' : '63px';
+        el.style.letterSpacing = isMobile ? '-0.1em' : '-0.058em';
+        return;
+      }
+      const raw = isMobile ? (el.getAttribute('data-m') || el.getAttribute('data-d')) : el.getAttribute('data-d');
+      const pos = parsePos(raw);
+      if(!pos) return;
+      if(pos.left) el.style.left = pos.left;
+      if(pos.top) el.style.top = pos.top;
+      el.style.right = 'auto';
+      el.style.bottom = 'auto';
+      if(pos.width) el.style.width = pos.width;
+      else if(el.classList.contains('bx-clip') || el.querySelector('img')) { /* keep */ }
+      if(pos.height) el.style.height = pos.height;
+      if(pos.transform){
+        el.style.transform = pos.transform;
+        el.style.transformOrigin = pos.transform.indexOf('scale') !== -1 ? 'top left' : '';
+        el.dataset.rot = (pos.transform.match(/rotate\([^)]+\)/) || [''])[0];
+      } else {
+        el.style.transform = '';
+        el.style.transformOrigin = '';
+        el.dataset.rot = '';
+      }
+    });
+  }
+
+  function fit(){
+    const w = beyond.clientWidth || window.innerWidth;
+    // Phones only get the stacked mobile collage; iPad keeps desktop layout, scaled down
+    const isMobile = w <= 700;
+    const next = isMobile ? 'mobile' : 'desktop';
+    const dim = isMobile ? MOB : DESK;
+
+    if(mode !== next){
+      mode = next;
+      stage.classList.toggle('is-mobile', isMobile);
+      applyPositions(isMobile);
+    }
+
+    const availH = beyond.clientHeight || window.innerHeight;
+    const scale = Math.min(1, w / dim.w, availH / dim.h);
+    stage.style.width = dim.w + 'px';
+    stage.style.height = dim.h + 'px';
+    stage.style.transformOrigin = 'center center';
+    stage.style.transform = 'scale(' + scale + ')';
+    stage.style.left = '50%';
+    stage.style.top = '50%';
+    stage.style.marginLeft = (-dim.w / 2) + 'px';
+    stage.style.marginTop = (-dim.h / 2) + 'px';
+    inner.style.height = '100%';
+    beyond.style.height = '100%';
+  }
+
+  fit();
+  window.addEventListener('resize', fit);
+})();
+</script>
 </body>
 </html>

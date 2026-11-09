@@ -1,0 +1,91 @@
+/* Global site typography: Inter everywhere; −2px letter-spacing on headings only */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:wght@400;800&display=swap");
+
+:root {
+  --font-inter: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --heading-track: -2px;
+  --sans: var(--font-inter);
+  --inter: var(--font-inter);
+  --display: var(--font-inter);
+  --serif: var(--font-inter);
+  --brico: var(--font-inter);
+  --mono: var(--font-inter);
+  --M: var(--font-inter);
+  --B: var(--font-inter);
+  --S: var(--font-inter);
+  --cs-sans: var(--font-inter);
+  --cs-inter: var(--font-inter);
+  --cs-display: var(--font-inter);
+  --cs-serif: var(--font-inter);
+}
+
+html {
+  font-family: var(--font-inter);
+}
+
+body,
+button,
+input,
+textarea,
+select,
+optgroup {
+  font-family: inherit;
+}
+
+/* Override per-component font stacks sitewide (body copy keeps page letter-spacing) */
+body :where(:not(svg):not(svg *)) {
+  font-family: var(--font-inter) !important;
+}
+
+/* Headings: tight −2px tracking */
+body :where(
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .hero-h,
+  .hero-copy,
+  .hero-name,
+  .intro-h,
+  .disp,
+  .bio-title,
+  .sketch-h,
+  .next-t,
+  .cell-title,
+  .work-title,
+  .sec-h,
+  .sec-head,
+  .cs-card-title,
+  .cs-more-title,
+  .b-title,
+  .svc-title,
+  .mo-title,
+  .mo-hero-title,
+  .footer-cta,
+  .porto-hero-h,
+  .cm-title,
+  .cube-mq,
+  .fin h3
+):not(svg *) {
+  letter-spacing: var(--heading-track) !important;
+}
+
+body .footer-cta{
+  font-family:"Montserrat",sans-serif !important;
+  font-weight:800 !important;
+  letter-spacing:-2.52px !important;
+  line-height:88.7px !important;
+}
+@media (max-width:900px){
+  body .footer-cta{line-height:1.11 !important}
+}
+body .fc-l{
+  letter-spacing:normal !important;
+}
+body .footer-nav a{
+  font-style:normal !important;
+  font-weight:400 !important;
+  letter-spacing:normal !important;
+}
