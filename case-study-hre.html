@@ -49,12 +49,6 @@ body{
 img{max-width:100%;display:block;height:auto}
 a{color:inherit}
 #cr,#cd{display:none}
-@media(pointer:fine){
-  #cr{display:block;position:fixed;width:36px;height:36px;border:1.5px solid var(--ink);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s}
-  #cd{display:block;position:fixed;width:5px;height:5px;background:var(--ink);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-  #cr.hv{width:52px;height:52px}#cr.dk{border-color:#fff}#cd.dk{background:#fff}
-  body,a,button{cursor:none}
-}
 
 .hre{padding-top:0}
 .hre-inner{width:min(100% - 2*var(--pad),var(--max));margin:0 auto}
@@ -801,7 +795,7 @@ a{color:inherit}
     <div class="footer-wordmark" data-wm-burst data-wm-src="Asset/images/home/footer-wordmark.svg" aria-hidden="true">
         <img class="wm-img" src="Asset/images/home/footer-wordmark.svg" alt="parul.rathour" width="1377" height="205">
         <canvas class="wm-canvas" aria-hidden="true"></canvas>
-        <div class="wm-hit" aria-hidden="true"></div>
+        <div class="wm-hit" aria-hidden="true" data-cursor-grow></div>
       </div>
   </div>
   <div class="footer-bottom">
@@ -813,12 +807,8 @@ a{color:inherit}
 <script>
 function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
 const ring=document.getElementById('cr'),dot=document.getElementById('cd');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-(function l(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';dot.style.left=mx+'px';dot.style.top=my+'px';requestAnimationFrame(l)})();
-function lum(x,y){const el=document.elementFromPoint(x,y);if(!el)return 255;let n=el;while(n&&n!==document.body){const b=getComputedStyle(n).backgroundColor;if(b&&b!=='rgba(0, 0, 0, 0)'&&b!=='transparent'){const m=b.match(/\d+/g);if(m)return(+m[0]*299+ +m[1]*587+ +m[2]*114)/1000;}n=n.parentElement;}return 255;}
-document.addEventListener('mousemove',()=>{const d=lum(mx,my)<100;ring.classList.toggle('dk',d);dot.classList.toggle('dk',d);});
-document.querySelectorAll('a,button,.cs-card,.footer-nav a,.fs-link').forEach(el=>{el.addEventListener('mouseenter',()=>ring.classList.add('hv'));el.addEventListener('mouseleave',()=>ring.classList.remove('hv'));});
+if(ring) ring.remove();
+if(dot) dot.remove();
 const io=new IntersectionObserver(e=>e.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.08});
 document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 (function(){
@@ -833,5 +823,6 @@ document.querySelectorAll('.rv').forEach(el=>io.observe(el));
 <script src="wordmark-particles.js?v=3" defer></script>
 <script src="contact-modal.js?v=13" defer></script>
 <script src="porto.js" defer></script>
+<script src="scripts/bubble-cursor.js" defer></script>
 </body>
 </html>

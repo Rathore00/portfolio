@@ -1103,15 +1103,28 @@
     minimize: minimize,
   };
 
+  /* Keep Inter + letter-spacing last in the cascade (after porto.css). */
+  function ensureSiteTypography(next) {
+    const sheets = document.querySelectorAll('link[rel="stylesheet"]');
+    const last = sheets[sheets.length - 1];
+    if (last && last.href && last.href.indexOf('site-typography.css') !== -1) return next();
+    const ty = el('link');
+    ty.rel = 'stylesheet';
+    ty.href = new URL('site-typography.css', BASE).href + '?v=1';
+    ty.onload = ty.onerror = next;
+    document.head.appendChild(ty);
+  }
+
   /* load the stylesheet next to this script, then start */
   function start() {
     const go = () => { boot().catch((e) => console.error('[Porto]', e)); };
-    if (document.querySelector('link[href*="porto.css"]')) return go();
+    const afterCss = () => ensureSiteTypography(go);
+    if (document.querySelector('link[href*="porto.css"]')) return afterCss();
     const link = el('link');
     link.rel = 'stylesheet';
     link.href = new URL('porto.css', BASE).href + '?v=1';
-    link.onload = go;
-    link.onerror = go;
+    link.onload = afterCss;
+    link.onerror = afterCss;
     document.head.appendChild(link);
   }
   if (document.body) start(); else document.addEventListener('DOMContentLoaded', start);
