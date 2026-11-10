@@ -418,6 +418,9 @@ img{display:block;max-width:100%}
   .skill-cloud{top:0}
 }
 @media(max-width:900px){
+  html{scroll-behavior:auto}
+  .work{height:calc(var(--mvh, 100vh) - var(--pin) + var(--mvh, 100vh) * 1.05)}
+  .work-sticky{height:calc(var(--mvh, 100vh) - var(--pin))}
   .top{padding:12px 24px 0}
   .nav-spacer{height:76px}
   .top,.hero{padding-left:24px;padding-right:24px}
@@ -1159,7 +1162,7 @@ tick();setInterval(tick,1000);
   }
   function setStick(){
     placeMobileStack();
-    var vh = window.innerHeight, h = intro.offsetHeight;
+    var vh = lockVH(), h = intro.offsetHeight;
     var top = Math.min(0, vh - h);
     intro.style.top = top + 'px';
     var mobile = window.matchMedia('(max-width: 900px)').matches;
@@ -1171,10 +1174,21 @@ tick();setInterval(tick,1000);
   }
 
   var lastActive = -1, lastCover = -1, ticking = false;
+  var stableVH = window.innerHeight;
+  var lastLayoutW = window.innerWidth;
+  function isMobile(){ return window.matchMedia('(max-width: 900px)').matches; }
+  function lockVH(){
+    var h = window.innerHeight;
+    if(window.visualViewport) h = Math.max(h, Math.round(window.visualViewport.height));
+    if(!isMobile() || h > stableVH) stableVH = h;
+    if(isMobile()) document.documentElement.style.setProperty('--mvh', stableVH + 'px');
+    else document.documentElement.style.removeProperty('--mvh');
+    return isMobile() ? stableVH : window.innerHeight;
+  }
 
   function update(){
     ticking = false;
-    var vh = window.innerHeight;
+    var vh = isMobile() ? stableVH : window.innerHeight;
     var r  = work.getBoundingClientRect();
 
     var ib = Math.max(1, intro.getBoundingClientRect().bottom);
@@ -1192,6 +1206,7 @@ tick();setInterval(tick,1000);
 
     var activeIdx = 0;
     boxes.forEach(function(box, k){
+      if(k > 0 && isMobile()) return;
       var a = clamp((f - (HOLD_START + k * STAGGER)) / FLIP_LEN, 0, 1);
       var e = reduce ? (a >= .5 ? 1 : 0) : a * a * (3 - 2 * a);
       var sp = i + e;
@@ -1227,13 +1242,126 @@ tick();setInterval(tick,1000);
     if(!ticking){ ticking = true; requestAnimationFrame(update); }
   }
 
-  function onResize(){ setStick(); update(); }
+  function onResize(){
+    if(isMobile() && Math.abs(window.innerWidth - lastLayoutW) < 2){
+      update();
+      return;
+    }
+    lastLayoutW = window.innerWidth;
+    stableVH = window.innerHeight;
+    setStick();
+    update();
+  }
+
+  /* Mobile: one swipe = one beat. Work rises, then card 2, then the last card. */
+  var swipe = null, glide = null, glideUntil = 0;
+  function workRange(vh){
+    return Math.max(1, work.offsetHeight - (vh - pin));
+  }
+  function mobileBeats(){
+    var vh = stableVH || window.innerHeight;
+    var range = workRange(vh);
+    var arrive = work.getBoundingClientRect().top + window.scrollY - pin;
+    return [
+      Math.max(0, Math.round(arrive)),
+      Math.round(arrive + range * 0.38),
+      Math.round(arrive + range * 0.94)
+    ];
+  }
+  function glideTo(target){
+    if(glide) cancelAnimationFrame(glide);
+    var start = window.scrollY;
+    var dist = target - start;
+    if(Math.abs(dist) < 2){ glide = null; return; }
+    var t0 = performance.now();
+    var dur = 680;
+    glideUntil = t0 + dur + 40;
+    function frame(now){
+      var u = Math.min(1, (now - t0) / dur);
+      var e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+      window.scrollTo({top: Math.round(start + dist * e), behavior:'auto'});
+      if(u < 1) glide = requestAnimationFrame(frame);
+      else glide = null;
+    }
+    glide = requestAnimationFrame(frame);
+  }
+  function stepFrom(dir){
+    var beats = mobileBeats();
+    var y = window.scrollY;
+    var last = beats[beats.length - 1];
+    if(dir > 0 && y >= last - 20) return;
+    if(dir < 0 && y > last + window.innerHeight) return;
+    if(dir < 0 && y > last + 24){ glideTo(last); return; }
+    if(dir > 0 && y < beats[0] - 12){ glideTo(beats[0]); return; }
+    if(dir < 0 && y <= beats[0] + 12){ glideTo(0); return; }
+    var idx = 0, best = Infinity;
+    for(var i = 0; i < beats.length; i++){
+      var d = Math.abs(beats[i] - y);
+      if(d < best){ best = d; idx = i; }
+    }
+    var next = dir > 0 ? Math.min(beats.length - 1, idx + 1) : Math.max(0, idx - 1);
+    if(beats[next] === beats[idx] && dir > 0 && y < last - 8) next = Math.min(beats.length - 1, idx + 1);
+    glideTo(dir > 0 && next === idx ? last : beats[next]);
+  }
+  function sequenceEnd(){
+    return mobileBeats()[2];
+  }
+  function ownSwipe(y){
+    if(!isMobile()) return false;
+    return y < sequenceEnd() - 20;
+  }
+  window.addEventListener('touchstart', function(e){
+    if(!isMobile() || !e.touches || !e.touches[0]) return;
+    if(e.target.closest && e.target.closest('.mob-menu')){ swipe = null; return; }
+    swipe = {y: e.touches[0].clientY, x: e.touches[0].clientX, scroll: window.scrollY};
+  }, {passive:true});
+  window.addEventListener('touchmove', function(e){
+    if(!swipe || !e.touches || !e.touches[0]) return;
+    var dy = swipe.y - e.touches[0].clientY;
+    var dx = swipe.x - e.touches[0].clientX;
+    if(Math.abs(dy) < 12 || Math.abs(dx) > Math.abs(dy)) return;
+    if((swipe.scroll < sequenceEnd() - 20) || glide) e.preventDefault();
+  }, {passive:false});
+  window.addEventListener('touchend', function(e){
+    if(!swipe) return;
+    var end = e.changedTouches && e.changedTouches[0];
+    var dy = end ? swipe.y - end.clientY : 0;
+    var dx = end ? swipe.x - end.clientX : 0;
+    var started = swipe.scroll;
+    swipe = null;
+    if(!isMobile() || Math.abs(dy) < 28 || Math.abs(dx) > Math.abs(dy)) return;
+    if(started >= sequenceEnd() - 20 && dy > 0) return;
+    if(started > sequenceEnd() + window.innerHeight && dy < 0) return;
+    stepFrom(dy > 0 ? 1 : -1);
+  }, {passive:true});
+  window.addEventListener('touchcancel', function(){ swipe = null; }, {passive:true});
+  var wheelAt = 0;
+  window.addEventListener('wheel', function(e){
+    if(!isMobile() || Math.abs(e.deltaY) < 4) return;
+    if(!ownSwipe(window.scrollY)){
+      if(e.deltaY < 0 && window.scrollY < sequenceEnd() + 80){
+        e.preventDefault();
+        if(performance.now() < wheelAt || performance.now() < glideUntil) return;
+        wheelAt = performance.now() + 720;
+        stepFrom(-1);
+      }
+      return;
+    }
+    if(window.scrollY <= 0 && e.deltaY < 0) return;
+    e.preventDefault();
+    if(performance.now() < wheelAt || performance.now() < glideUntil) return;
+    wheelAt = performance.now() + 720;
+    stepFrom(e.deltaY > 0 ? 1 : -1);
+  }, {passive:false});
 
   setStick(); update();
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onResize);
   window.addEventListener('load', onResize);
-  if(window.ResizeObserver) new ResizeObserver(onResize).observe(intro);
+  if(window.ResizeObserver) new ResizeObserver(function(){
+    if(isMobile() && Math.abs(window.innerWidth - lastLayoutW) < 2) return;
+    onResize();
+  }).observe(intro);
 })();
 </script>
 <script src="wordmark-particles.js?v=3" defer></script>
