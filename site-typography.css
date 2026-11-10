@@ -79,7 +79,7 @@ body .footer-cta{
   line-height:88.7px !important;
 }
 @media (max-width:900px){
-  body .footer-cta{line-height:1.11 !important}
+  body .footer-cta{font-size:clamp(42px,13vw,53px) !important;line-height:1.02 !important}
 }
 body .fc-l{
   letter-spacing:normal !important;
