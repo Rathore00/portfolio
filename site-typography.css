@@ -85,7 +85,10 @@ body .bx-hello .name{
   font-family:"Gochi Hand",cursive !important;
   letter-spacing:normal !important;
 }
-body .fc-l{
+body .fc-l,
+body .fc-v,
+body .fc-v small,
+body .fc-mail{
   letter-spacing:normal !important;
 }
 body .footer-nav a{
