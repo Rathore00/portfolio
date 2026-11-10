@@ -434,7 +434,13 @@ img{display:block;max-width:100%}
 }
 @media(max-width:900px){
   html{scroll-behavior:auto}
-  #intro{min-height:100svh}
+  #intro{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    box-sizing:border-box;
+    padding-bottom:calc(var(--head-h, 108px) + 8px);
+  }
   .top{padding:12px 24px 0}
   .nav-spacer{height:76px}
   .top,.hero{padding-left:24px;padding-right:24px}
@@ -452,20 +458,20 @@ img{display:block;max-width:100%}
   }
   .btn-touch{padding:8px 14px;font-size:12px}
 
-  .namskar{margin-bottom:12px}
+  .namskar{margin-bottom:0}
   .green-cards{
     position:absolute;
     left:0;right:0;
     top:36px;
     margin:0;
-    width:auto;height:150px;
-    --stack-scale:.58;
+    width:auto;height:148px;
+    --stack-scale:.66;
     --stack-shift:var(--stack-lift, 24px);
     transform:none;
-    transform-origin:88% 0%;
+    transform-origin:96% 0%;
   }
   .green-cards .gcard{
-    width:32%;height:130px;
+    width:26%;height:112px;
     border-radius:14px;
     box-shadow:0 7px 7px rgba(0,0,0,.25);
   }
@@ -479,11 +485,11 @@ img{display:block;max-width:100%}
     transform:rotate(0deg) scale(1.16);
     z-index:20 !important;
   }
-  .green-cards .g1{left:2%;top:17px;--rot:-14deg;z-index:1}
-  .green-cards .g2{left:18%;top:7px;--rot:-7deg;z-index:3}
-  .green-cards .g3{left:34%;top:0;--rot:3deg;z-index:5;width:32%;height:130px}
-  .green-cards .g4{left:50%;top:6px;--rot:11deg;z-index:3}
-  .green-cards .g5{left:66%;top:18px;--rot:15deg;z-index:1}
+  .green-cards .g1{left:11%;top:24px;--rot:-16deg;z-index:1}
+  .green-cards .g2{left:24%;top:10px;--rot:-8deg;z-index:3}
+  .green-cards .g3{left:37%;top:0;--rot:2deg;z-index:5;width:28%;height:124px}
+  .green-cards .g4{left:52%;top:8px;--rot:12deg;z-index:3}
+  .green-cards .g5{left:65%;top:22px;--rot:16deg;z-index:1}
 
   /* Small floating preview card (not full-bleed) */
   .card-overlay{
@@ -505,7 +511,7 @@ img{display:block;max-width:100%}
   .hero-row{
     grid-template-columns:1fr;
     gap:0;
-    margin-top:168px;
+    margin-top:156px;
   }
   .hero-copy{
     font-size:24px;
@@ -520,19 +526,32 @@ img{display:block;max-width:100%}
     transform:none;
   }
   .skill-cloud{
-    position:absolute;
+    position:fixed;
     left:12px;
-    right:auto;
     top:auto;
-    bottom:18px;
-    width:284px;
-    height:126px;
+    right:auto;
+    bottom:auto;
+    width:calc(100% - 24px);
+    height:150px;
     margin:0;
-    transform:scale(.7);
-    transform-origin:left bottom;
-    z-index:5;
+    transform:none;
+    z-index:4;
+    display:block;
+    overflow:visible;
   }
-  .skill{font-size:11px;padding:8px 14px}
+  .skill{
+    font-size:13px;
+    padding:7px 13px;
+    line-height:1.1;
+    transform:translateY(-88px) rotate(var(--rot, 0deg));
+  }
+  .skill.s1,.skill.s2,.skill.s3,.skill.s4,.skill.s5,.skill.s6{position:absolute;margin:0}
+  .skill.s1{left:18%;top:0;--rot:3deg;z-index:3}
+  .skill.s2{left:62%;top:0;--rot:-7deg;z-index:2}
+  .skill.s3{left:0;top:68%;--rot:-1deg;z-index:1}
+  .skill.s4{left:24%;top:60%;--rot:9deg;z-index:3}
+  .skill.s5{left:30%;top:30%;--rot:11deg;z-index:4}
+  .skill.s6{left:0;top:32%;--rot:-13deg;z-index:2}
 
   .fc-row{
     grid-template-columns:1fr;
@@ -668,9 +687,8 @@ img{display:block;max-width:100%}
 .m-shot{display:none}
 .f-shot{background:linear-gradient(160deg,#53565b 0%,#1c1d20 55%,#0e0e10 100%)}
 .mock{
-  position:absolute;left:6%;top:10%;width:88%;height:80%;
-  object-fit:contain;object-position:center;
-  filter:drop-shadow(0 18px 22px rgba(0,0,0,.45));
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
 }
 
 @media(max-width:1100px){
@@ -678,15 +696,18 @@ img{display:block;max-width:100%}
 }
 @media(max-width:900px){
   .work-sticky{
-    --h:300px;
-    padding:12px 24px 0;gap:8px;
+    --h:320px;
+    padding:8px 24px 0;gap:16px;
   }
   .work{margin-bottom:72px}
   .f-title::before{
     background-size:600px 600px,480px 480px,0 0;
     -webkit-mask-image:none;
     mask-image:none;
+    opacity:.1;
+    animation:none;
   }
+  .f-title::after{opacity:.16}
   .work-head{
     display:grid;
     grid-template-columns:1fr auto;
@@ -694,32 +715,27 @@ img{display:block;max-width:100%}
     align-items:center;column-gap:12px;row-gap:0;
   }
   .wh-l,.wh-r{display:contents}
-  .wh-eye{grid-area:eye;font-size:10px;margin:0}
-  .work h2.wh-title{grid-area:title;font-size:60px;line-height:1.12;letter-spacing:-1.2px !important}
-  .wh-btn{grid-area:btn;align-self:center;height:32px;padding:0 14px}
+  .wh-eye{grid-area:eye;font-size:10px;margin:0 0 8px;letter-spacing:.12em}
+  .work h2.wh-title{grid-area:title;font-size:56px;line-height:.95;letter-spacing:-1.2px !important}
+  .wh-btn{grid-area:btn;align-self:center;height:36px;padding:0 16px}
   .wh-r p{
     grid-area:copy;display:block;text-align:left;
-    max-width:none;margin:12px 0 0;
+    max-width:none;margin:16px 0 0;
     font:400 14px/22px var(--inter);letter-spacing:-.28px;color:#323232;
   }
   .work-cards{display:block;height:var(--h);margin:0}
   .cb-side{display:none}
-  .cb,.cb-face{border-radius:22px}
-  .f-logo{left:18px;top:22px;width:24px;height:24px}
-  .f-logo svg{width:12px;height:12px}
-  .f-pill{right:18px;top:22px;padding:6px 10px;font-size:12px;letter-spacing:-.24px;background:rgba(255,255,255,.36)}
-  .f-copy{left:18px;right:18px;top:58px;bottom:auto}
-  .work .f-copy h3{font-size:18px;line-height:1.25;letter-spacing:-.36px !important;margin:0 0 8px;font-weight:400}
+  .cb,.cb-face{border-radius:28px}
+  .f-logo{left:20px;top:20px;width:40px;height:40px}
+  .f-logo svg{width:16px;height:16px}
+  .f-pill{right:20px;top:26px;padding:8px 12px;font-size:11px;letter-spacing:.04em;background:#6a6a6a}
+  .f-copy{left:22px;right:22px;top:auto;bottom:24px}
+  .work .f-copy h3{font-size:22px;line-height:1.2;letter-spacing:-.4px !important;margin:0 0 10px;font-weight:500}
   .f-copy p{
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;
-    font-size:12px;line-height:1.35;letter-spacing:-.24px;
+    display:block;
+    font-size:13px;line-height:1.35;letter-spacing:-.2px;
   }
-  .m-shot{
-    display:block;position:absolute;left:18px;right:18px;bottom:14px;
-    width:auto;height:136px;max-width:none;margin:0;
-    object-fit:cover;object-position:center top;
-    border-radius:24px;background:#1c1c1c;
-  }
+  .f-title .m-shot{display:none}
 }
 
 /* Stage motion. The script adds has-stages; otherwise the page just scrolls. */
@@ -771,10 +787,17 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
   transform:translateY(0);
 }
 @media(max-width:900px){
-  html.has-stages.is-stage-locked .work{height:auto}
-  html.has-stages.is-stage-locked .work-sticky{height:auto;max-height:none}
-  html.has-stages.is-stage-locked .work-cards{flex:none;height:var(--h)}
-  html.has-stages.is-stage-locked .cb{height:var(--h);flex:none}
+  html.has-stages.is-stage-locked .work{height:auto;background:var(--bg)}
+  html.has-stages.is-stage-locked .work-sticky{height:auto;max-height:none;overflow:visible;background:var(--bg)}
+  html.has-stages.is-stage-locked .work-cards{flex:none;height:var(--h);overflow:visible}
+  html.has-stages.is-stage-locked .cb{height:var(--h);flex:none;overflow:hidden}
+  html.has-stages.is-stage-locked #overlap[data-stage="0"] .work{
+    visibility:visible;
+    pointer-events:auto;
+    background:var(--bg);
+    transform:translateY(calc(100svh - var(--work-top, 42svh) - var(--head-h, 108px)));
+    transition:transform .7s cubic-bezier(.22,1,.36,1), visibility 0s;
+  }
   html.has-stages #overlap:not([data-stage="0"]) .skill-cloud{visibility:hidden}
 }
 
@@ -894,14 +917,14 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
               <span class="f-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
               <span class="f-pill">AMEX GBT</span>
               <div class="f-copy"><h3>Restructuring a BI platform around how people work.</h3><p>Making a BI platform’s capabilities discoverable, its data legible and its structure predictable.</p></div>
-              <img class="m-shot" src="Asset/images/work/bi-platform.png" alt="" data-accent="#4f7cff">
+              <img class="m-shot" src="Asset/images/work/bi-platform-laptop.png" alt="" data-accent="#4f7cff">
               <span class="f-shade" aria-hidden="true"></span>
             </a>
             <a class="cb-face f-title" style="--i:1" href="kargen-ai.html" aria-label="Kargen AI case study">
               <span class="f-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></svg></span>
               <span class="f-pill">Freelance</span>
               <div class="f-copy"><h3>A motion-led website for an AI workforce.</h3><p>Website design for an AI workforce built for freight brokerages — hero flip, text rise, on-scroll bento build.</p></div>
-              <img class="m-shot" src="Asset/images/work/kargen-ai.png" alt="" data-accent="#16b39a">
+              <img class="m-shot" src="Asset/images/work/kargen-ai-laptop.png" alt="" data-accent="#16b39a">
               <span class="f-shade" aria-hidden="true"></span>
             </a>
             <a class="cb-face f-title" style="--i:2" href="admin-panel.html" aria-label="Admin panel case study">
@@ -914,11 +937,11 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
         </div></div>
         <div class="cb cb-side"><div class="cb-box">
             <a class="cb-face f-shot" style="--i:0;--ac:#4f7cff" href="bi-platform.html" tabindex="-1" aria-hidden="true">
-              <img class="mock" src="Asset/images/work/bi-platform.png" alt="" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23d9dce1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23868a92%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234f7cff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234f7cff%22%20stop-opacity%3D%22.45%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%2260%22%20y%3D%2210%22%20width%3D%22360%22%20height%3D%22232%22%20rx%3D%2216%22%20fill%3D%22%23111214%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%22336%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23fff%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%2264%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23eceef1%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22236%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22320%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%22102%22%20width%3D%22240%22%20height%3D%22112%22%20rx%3D%228%22%20fill%3D%22url%28%23c%29%22%2F%3E%3Ccircle%20cx%3D%22240%22%20cy%3D%2216%22%20r%3D%222.5%22%20fill%3D%22%233a3c40%22%2F%3E%3Cpath%20d%3D%22M18%20246H462L452%20266Q450%20273%20442%20273H38Q30%20273%2028%20266Z%22%20fill%3D%22url%28%23b%29%22%2F%3E%3Crect%20x%3D%22200%22%20y%3D%22246%22%20width%3D%2280%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%236f737b%22%20fill-opacity%3D%22.55%22%2F%3E%3C%2Fsvg%3E'">
+              <img class="mock" src="Asset/images/work/bi-platform.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23d9dce1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23868a92%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%234f7cff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%234f7cff%22%20stop-opacity%3D%22.45%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%2260%22%20y%3D%2210%22%20width%3D%22360%22%20height%3D%22232%22%20rx%3D%2216%22%20fill%3D%22%23111214%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%22336%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23fff%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%2264%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23eceef1%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22236%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22320%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%234f7cff%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%22102%22%20width%3D%22240%22%20height%3D%22112%22%20rx%3D%228%22%20fill%3D%22url%28%23c%29%22%2F%3E%3Ccircle%20cx%3D%22240%22%20cy%3D%2216%22%20r%3D%222.5%22%20fill%3D%22%233a3c40%22%2F%3E%3Cpath%20d%3D%22M18%20246H462L452%20266Q450%20273%20442%20273H38Q30%20273%2028%20266Z%22%20fill%3D%22url%28%23b%29%22%2F%3E%3Crect%20x%3D%22200%22%20y%3D%22246%22%20width%3D%2280%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%236f737b%22%20fill-opacity%3D%22.55%22%2F%3E%3C%2Fsvg%3E'">
               <span class="f-shade" aria-hidden="true"></span>
             </a>
             <a class="cb-face f-shot" style="--i:1;--ac:#16b39a" href="kargen-ai.html" tabindex="-1" aria-hidden="true">
-              <img class="mock" src="Asset/images/work/kargen-ai.png" alt="" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23d9dce1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23868a92%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2316b39a%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2316b39a%22%20stop-opacity%3D%22.45%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%2260%22%20y%3D%2210%22%20width%3D%22360%22%20height%3D%22232%22%20rx%3D%2216%22%20fill%3D%22%23111214%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%22336%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23fff%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%2264%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23eceef1%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22236%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22320%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%22102%22%20width%3D%22240%22%20height%3D%22112%22%20rx%3D%228%22%20fill%3D%22url%28%23c%29%22%2F%3E%3Ccircle%20cx%3D%22240%22%20cy%3D%2216%22%20r%3D%222.5%22%20fill%3D%22%233a3c40%22%2F%3E%3Cpath%20d%3D%22M18%20246H462L452%20266Q450%20273%20442%20273H38Q30%20273%2028%20266Z%22%20fill%3D%22url%28%23b%29%22%2F%3E%3Crect%20x%3D%22200%22%20y%3D%22246%22%20width%3D%2280%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%236f737b%22%20fill-opacity%3D%22.55%22%2F%3E%3C%2Fsvg%3E'">
+              <img class="mock" src="Asset/images/work/kargen-ai.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20480%20300%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23d9dce1%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23868a92%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22c%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%2316b39a%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2316b39a%22%20stop-opacity%3D%22.45%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20x%3D%2260%22%20y%3D%2210%22%20width%3D%22360%22%20height%3D%22232%22%20rx%3D%2216%22%20fill%3D%22%23111214%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%22336%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23fff%22%2F%3E%3Crect%20x%3D%2272%22%20y%3D%2222%22%20width%3D%2264%22%20height%3D%22208%22%20rx%3D%226%22%20fill%3D%22%23eceef1%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22236%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22320%22%20y%3D%2240%22%20width%3D%2272%22%20height%3D%2246%22%20rx%3D%226%22%20fill%3D%22%2316b39a%22%20fill-opacity%3D%22.2%22%2F%3E%3Crect%20x%3D%22152%22%20y%3D%22102%22%20width%3D%22240%22%20height%3D%22112%22%20rx%3D%228%22%20fill%3D%22url%28%23c%29%22%2F%3E%3Ccircle%20cx%3D%22240%22%20cy%3D%2216%22%20r%3D%222.5%22%20fill%3D%22%233a3c40%22%2F%3E%3Cpath%20d%3D%22M18%20246H462L452%20266Q450%20273%20442%20273H38Q30%20273%2028%20266Z%22%20fill%3D%22url%28%23b%29%22%2F%3E%3Crect%20x%3D%22200%22%20y%3D%22246%22%20width%3D%2280%22%20height%3D%228%22%20rx%3D%224%22%20fill%3D%22%236f737b%22%20fill-opacity%3D%22.55%22%2F%3E%3C%2Fsvg%3E'">
               <span class="f-shade" aria-hidden="true"></span>
             </a>
             <a class="cb-face f-shot" style="--i:2;--ac:#f08a3c" href="admin-panel.html" tabindex="-1" aria-hidden="true">
@@ -1220,11 +1243,13 @@ tick();setInterval(tick,1000);
   var busyUntil = 0;
   var releaseY = 0;
   var lastW = window.innerWidth;
+  var lastH = window.innerHeight;
   var swallowClick = false;
 
   document.documentElement.classList.add('has-stages', 'is-stage-locked');
   overlap.setAttribute('data-stage', '0');
-  work.inert = true;
+  function phone(){ return window.matchMedia('(max-width: 900px)').matches; }
+  work.inert = !phone();
 
   function layoutOnce(){
     var mobile = window.matchMedia('(max-width: 900px)').matches;
@@ -1239,36 +1264,122 @@ tick();setInterval(tick,1000);
     if(mobile){
       var heroTop = hero.getBoundingClientRect().top + window.scrollY;
       var namBox = nam.getBoundingClientRect();
-      stack.style.top = Math.round(namBox.bottom + window.scrollY - heroTop + 14) + 'px';
+      stack.style.top = Math.round(namBox.bottom + window.scrollY - heroTop + 20) + 'px';
       var lowest = 0;
       var cards = stack.querySelectorAll('.gcard');
       for(var i = 0; i < cards.length; i++){
         lowest = Math.max(lowest, cards[i].getBoundingClientRect().bottom + window.scrollY);
       }
-      if(row){
-        var currentMargin = parseFloat(getComputedStyle(row).marginTop) || 0;
-        var rowTop = row.getBoundingClientRect().top + window.scrollY;
-        row.style.marginTop = Math.max(0, Math.round((lowest + 18) - (rowTop - currentMargin))) + 'px';
+      function placeRest(){
+        var headH = parseFloat(work.style.getPropertyValue('--head-h')) || 108;
+        var sheetTop = document.documentElement.clientHeight - headH;
+        var stackBottom = lowest - window.scrollY;
+        if(row){
+          var copyH = row.offsetHeight;
+          var open = sheetTop - stackBottom - copyH;
+          var desiredTop = Math.round(stackBottom + Math.max(36, open / 2));
+          var currentMargin = parseFloat(getComputedStyle(row).marginTop) || 0;
+          var rowTop = row.getBoundingClientRect().top;
+          row.style.marginTop = Math.max(0, Math.round(currentMargin + desiredTop - rowTop)) + 'px';
+        }
+        var cloud = overlap.querySelector('.skill-cloud') || intro.querySelector('.skill-cloud');
+        if(cloud){
+          if(cloud.parentElement !== overlap) overlap.appendChild(cloud);
+          var copyBottom = row ? row.getBoundingClientRect().bottom : stackBottom + 140;
+          var boxLeft = 12;
+          var boxTop = Math.round(copyBottom + 16);
+          var boxRight = document.documentElement.clientWidth - 12;
+          var boxBottom = Math.round(sheetTop - 4);
+          cloud.style.position = 'fixed';
+          cloud.style.zIndex = '4';
+          cloud.style.margin = '0';
+          cloud.style.transform = 'none';
+          cloud.style.left = boxLeft + 'px';
+          cloud.style.top = boxTop + 'px';
+          cloud.style.width = Math.max(220, boxRight - boxLeft) + 'px';
+          cloud.style.height = Math.max(96, boxBottom - boxTop) + 'px';
+        }
       }
       var stackTop = stack.getBoundingClientRect().top;
       parkBelow(stackTop);
+      placeRest();
+      requestAnimationFrame(placeRest);
     }else if(wide){
       stack.style.top = '';
       if(row) row.style.marginTop = '';
+      var deskCloud = overlap.querySelector('.skill-cloud');
+      if(deskCloud){
+        deskCloud.style.position = '';
+        deskCloud.style.left = '';
+        deskCloud.style.top = '';
+        deskCloud.style.width = '';
+        deskCloud.style.height = '';
+        deskCloud.style.zIndex = '';
+        deskCloud.style.margin = '';
+        deskCloud.style.transform = '';
+      }
       parkBelow(stack.getBoundingClientRect().top);
     }else{
       stack.style.top = '';
       if(row) row.style.marginTop = '';
+      var midCloud = overlap.querySelector('.skill-cloud');
+      if(midCloud){
+        midCloud.style.position = '';
+        midCloud.style.left = '';
+        midCloud.style.top = '';
+        midCloud.style.width = '';
+        midCloud.style.height = '';
+        midCloud.style.zIndex = '';
+        midCloud.style.margin = '';
+        midCloud.style.transform = '';
+      }
       parkBelow(stack.getBoundingClientRect().top);
     }
     stack.style.transform = prev || '';
 
     function parkBelow(boxTop){
       var namBottom = nam.getBoundingClientRect().bottom;
-      var scale = mobile ? 0.58 : (wide ? 0.52 : 0.72);
+      var scale = mobile ? (parseFloat(getComputedStyle(stack).getPropertyValue('--stack-scale')) || 0.66) : (wide ? 0.52 : 0.72);
+      if(mobile){
+        var box = stack.getBoundingClientRect();
+        var minY = Infinity;
+        var maxY = 0;
+        var bits = stack.querySelectorAll('.gcard');
+        for(var p = 0; p < bits.length; p++){
+          var bit = bits[p].getBoundingClientRect();
+          minY = Math.min(minY, bit.top - box.top);
+          maxY = Math.max(maxY, bit.bottom - box.top);
+        }
+        if(!isFinite(minY)) minY = 0;
+        var namRect = nam.getBoundingClientRect();
+        var targetTop = namRect.bottom - 18;
+        var shift = Math.round(targetTop - (minY * scale) - boxTop);
+        stack.style.setProperty('--stack-lift', shift + 'px');
+        var fanBottom = boxTop + shift + maxY * scale;
+        var workTop = Math.round(fanBottom + 18);
+        overlap.style.setProperty('--work-top', workTop + 'px');
+        var title = work.querySelector('.wh-title');
+        if(title){
+          var headH = Math.ceil(title.getBoundingClientRect().bottom - work.getBoundingClientRect().top) + 12;
+          work.style.setProperty('--head-h', headH + 'px');
+          intro.style.setProperty('--head-h', headH + 'px');
+        }
+        var sticky = work.querySelector('.work-sticky');
+        var head = work.querySelector('.work-head');
+        if(sticky && head){
+          var cs = getComputedStyle(sticky);
+          var padTop = parseFloat(cs.paddingTop) || 0;
+          var gap = parseFloat(cs.rowGap || cs.gap) || 0;
+          var cardTop = workTop + padTop + head.offsetHeight + gap;
+          var bottomPad = 36;
+          var h = Math.round(document.documentElement.clientHeight - bottomPad - cardTop);
+          sticky.style.setProperty('--h', Math.max(240, h) + 'px');
+        }
+        return;
+      }
       var visualH = stack.offsetHeight * scale;
-      var shift = Math.round((namBottom + 2) - visualH - boxTop);
-      stack.style.setProperty('--stack-lift', shift + 'px');
+      var deskShift = Math.round((namBottom + 2) - visualH - boxTop);
+      stack.style.setProperty('--stack-lift', deskShift + 'px');
       overlap.style.setProperty('--work-top', Math.round(namBottom) + 'px');
     }
   }
@@ -1320,7 +1431,7 @@ tick();setInterval(tick,1000);
     stage = n;
     overlap.setAttribute('data-stage', String(n));
     syncFaces();
-    work.inert = n === 0;
+    work.inert = n === 0 && !phone();
     if(n === 4 && from < 4){
       var cards = work.querySelectorAll('.cb');
       var hold = cards.length ? Math.round(cards[0].getBoundingClientRect().height) : 0;
@@ -1448,8 +1559,11 @@ tick();setInterval(tick,1000);
   });
 
   window.addEventListener('resize', function(){
-    if(Math.abs(window.innerWidth - lastW) < 2) return;
-    lastW = window.innerWidth;
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    if(Math.abs(w - lastW) < 2 && Math.abs(h - lastH) < 2) return;
+    lastW = w;
+    lastH = h;
     if(stage >= 4) return;
     layoutOnce();
   });
