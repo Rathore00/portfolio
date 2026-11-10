@@ -1,0 +1,13 @@
+# Dev / duplicate assets — not needed for the live site
+.cursor/
+porto-kit/
+porto-transparent-png/
+flora-growth-package/demo/
+*.md
+Break the rules.png
+Homepage_Portfolio.png
+Out of office.png
+bg.png
+down.png
+up.png
+cubes-section.html

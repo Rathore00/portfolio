@@ -1,5 +1,5 @@
 /* Global site typography: Inter everywhere; −2px letter-spacing on headings only */
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:wght@400;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@800&family=Gochi+Hand&display=swap");
 
 :root {
   --font-inter: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -80,6 +80,10 @@ body .footer-cta{
 }
 @media (max-width:900px){
   body .footer-cta{font-size:clamp(42px,13vw,53px) !important;line-height:1.02 !important}
+}
+body .bx-hello .name{
+  font-family:"Gochi Hand",cursive !important;
+  letter-spacing:normal !important;
 }
 body .fc-l{
   letter-spacing:normal !important;

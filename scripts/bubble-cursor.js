@@ -3,11 +3,11 @@
     density: 6,
     spread: 5,
     lifetime: 6,
-    maxParticles: 2600,
+    maxParticles: 1200,
     colors: 'auto',
     lightColors: ['#2f4a44', '#1a1f1e'],
     darkColors: ['#f2fbf8', '#ffffff'],
-    zIndex: 2147483647
+    zIndex: 9998
   };
 
   if (window.__dustCursor) return;

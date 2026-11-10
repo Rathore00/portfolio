@@ -1105,12 +1105,14 @@
 
   /* Keep Inter + letter-spacing last in the cascade (after porto.css). */
   function ensureSiteTypography(next) {
-    const sheets = document.querySelectorAll('link[rel="stylesheet"]');
-    const last = sheets[sheets.length - 1];
-    if (last && last.href && last.href.indexOf('site-typography.css') !== -1) return next();
+    const existing = document.querySelector('link[href*="site-typography.css"]');
+    if (existing) {
+      document.head.appendChild(existing);
+      return next();
+    }
     const ty = el('link');
     ty.rel = 'stylesheet';
-    ty.href = new URL('site-typography.css', BASE).href + '?v=1';
+    ty.href = new URL('site-typography.css', BASE).href + '?v=17';
     ty.onload = ty.onerror = next;
     document.head.appendChild(ty);
   }
