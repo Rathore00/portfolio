@@ -8,6 +8,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="Asset/images/home/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="Asset/images/home/favicon-192.png">
 <link rel="apple-touch-icon" href="Asset/images/home/apple-touch-icon.png">
+<script src="matter.min.js" defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -184,8 +185,8 @@ img{display:block;max-width:100%}
 .skill-cloud{
   position:absolute;
   right:268px;
-  top:calc(100svh - 168px);
-  width:284px;height:126px;
+  top:calc(100svh - 212px);
+  width:380px;height:170px;
   z-index:5;
 }
 .skill{
@@ -218,6 +219,17 @@ img{display:block;max-width:100%}
 .skill.s4{left:153px;top:59px;--rot:-17deg;transition-delay:.22s}
 .skill.s5{left:78px;top:35px;--rot:37deg;transition-delay:.12s}
 .skill.s6{left:-20px;top:32px;--rot:-20deg;transition-delay:.28s}
+.sticker{position:absolute;left:0;top:0;width:34px;height:34px;opacity:0;cursor:pointer;pointer-events:auto;will-change:transform,opacity;filter:drop-shadow(0 2px 3px rgba(20,24,28,.22))}
+.sticker svg{display:block;width:100%;height:100%;overflow:visible}
+.sticker{--k:1}
+.sticker.img{width:calc(var(--w) * var(--k));height:auto;filter:none}
+.sticker.img img{display:block;width:100%;height:auto;-webkit-user-drag:none;user-select:none;pointer-events:none}
+.sticker.st3{--w:46px}.sticker.st4{--w:46px}.sticker.st5{--w:42px}.sticker.st6{--w:34px}.sticker.st7{--w:66px}
+html.chips-physics .sticker.is-fallen{opacity:1}
+@media(max-width:900px),(min-width:901px) and (max-width:1100px) and (orientation:portrait){.sticker{width:38px;height:38px;--k:1.15}}
+html.chips-physics .skill.is-fallen,
+html.chips-physics .skill.is-fallen:hover,
+html.chips-physics .skill.is-fallen:active{animation:none;opacity:1;transition:none}
 .green-cards{
   position:absolute;
   right:74px;
@@ -461,10 +473,12 @@ img{display:block;max-width:100%}
   .namskar{margin-bottom:0}
   .green-cards{
     position:absolute;
-    left:0;right:0;
+    left:auto;
+    right:0;
     top:36px;
     margin:0;
-    width:auto;height:148px;
+    width:min(320px, 84vw);
+    height:148px;
     --stack-scale:.66;
     --stack-shift:var(--stack-lift, 24px);
     transform:none;
@@ -540,14 +554,14 @@ img{display:block;max-width:100%}
     overflow:visible;
   }
   .skill{
-    font-size:13px;
-    padding:7px 13px;
+    font-size:12px;
+    padding:6px 11px;
     line-height:1.1;
     transform:translateY(-88px) rotate(var(--rot, 0deg));
   }
   .skill.s1,.skill.s2,.skill.s3,.skill.s4,.skill.s5,.skill.s6{position:absolute;margin:0}
   .skill.s1{left:18%;top:0;--rot:3deg;z-index:3}
-  .skill.s2{left:62%;top:0;--rot:-7deg;z-index:2}
+  .skill.s2{left:46%;top:42%;--rot:-7deg;z-index:3}
   .skill.s3{left:0;top:68%;--rot:-1deg;z-index:1}
   .skill.s4{left:24%;top:60%;--rot:9deg;z-index:3}
   .skill.s5{left:30%;top:30%;--rot:11deg;z-index:4}
@@ -800,6 +814,9 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
   }
   html.has-stages #overlap:not([data-stage="0"]) .skill-cloud{visibility:hidden}
 }
+@media(max-width:900px),(min-width:901px) and (max-width:1100px) and (orientation:portrait){
+  html.has-stages #overlap:not([data-stage="0"]) .hero-copy{visibility:hidden}
+}
 
 @media (prefers-reduced-motion: reduce){
   .page-intro .hero{transform:none}
@@ -823,6 +840,7 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
 
 <div class="top">
     <nav class="nav" id="site-nav">
+      <a class="nav-logo" href="index.html" aria-label="Home">PR.</a>
       <button class="nav-burger" type="button" onclick="document.getElementById('mobMenu').classList.add('open')" aria-label="Menu"><span></span><span></span><span></span></button>
       <div class="nav-links">
         <a href="#hero" class="active">Home</a>
@@ -895,6 +913,13 @@ html.has-stages #overlap[data-stage="4"] .cb-face:nth-child(3){
     <span class="skill s4">Product Thinking</span>
     <span class="skill s5">UX Writing</span>
     <span class="skill s6">System Design</span>
+    <span class="sticker st1" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" r="22" fill="#F5C518" stroke="#fff" stroke-width="6"/><circle cx="24" cy="27" r="2.4" fill="#1a1a1a"/><circle cx="40" cy="27" r="2.4" fill="#1a1a1a"/><path d="M22 36c2.4 6 6.4 9 10 9s7.6-3 10-9" fill="none" stroke="#1a1a1a" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+    <span class="sticker st2" aria-hidden="true"><svg viewBox="0 0 72 96" xmlns="http://www.w3.org/2000/svg"><path fill="#F5C518" stroke="#fff" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" d="M30 50c-.2-12 1.2-26 4.2-33 1.4-3.2 5.4-3.4 6.6-.2 1.4 4 1.6 14 1.2 24 .4-12 2.6-26 7.4-32 1.8-2.2 5.4-1.6 6.4 1 2.4 6 2 18 .6 30 7 2 14 8.5 14.6 18 .8 12-6 22-16 25 1.4 3 1.6 6.4.4 9.4-1.8 4.6-6.6 7.6-12.6 7.6H30.4c-8 0-14.4-5-16-12.2-1.6-7.4 1.2-14.6 7.2-18.6-1.6-3-1.8-7-.2-10.4 1.2-2.6 4-4.4 8.6-4.6z"/></svg></span>
+    <span class="sticker img st3"><img src="Asset/stickers/sticker-claude.png" alt="" width="148" height="154" draggable="false"></span>
+    <span class="sticker img st4"><img src="Asset/stickers/sticker-chatgpt.png" alt="" width="146" height="154" draggable="false"></span>
+    <span class="sticker img st5"><img src="Asset/stickers/sticker-cursor.png" alt="" width="127" height="146" draggable="false"></span>
+    <span class="sticker img st6"><img src="Asset/stickers/sticker-figma.png" alt="" width="97" height="138" draggable="false"></span>
+    <span class="sticker img st7" data-shape="rect"><img src="Asset/stickers/sticker-trex.png" alt="" width="178" height="135" draggable="false"></span>
   </div>
   </div>
 
@@ -1052,6 +1077,114 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
   });
 })();
 
+/* Skill chips: real physics (Matter.js). Chips drop in, tumble, collide and settle on the cloud floor. */
+(function(){
+  var cloud = document.querySelector('.skill-cloud');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var st = null, raf = 0, dropped = false, timers = [];
+  var ORDER = ['s1','st1','s5','st7','s2','st2','s4','st3','s6','st4','s3','st5','st6'];
+
+  function build(){
+    var M = window.Matter;
+    if(!M || !cloud) return null;
+    var W = cloud.clientWidth, H = cloud.clientHeight;
+    if(!W || !H) return null;
+    var engine = M.Engine.create({enableSleeping:true});
+    engine.gravity.y = 1.7;
+    var T = 200, wall = {isStatic:true, friction:.5, restitution:.1};
+    M.Composite.add(engine.world, [
+      M.Bodies.rectangle(W/2, H + T/2, W + 2*T, T, wall),
+      M.Bodies.rectangle(-T/2, H/2 - 200, T, H + 600, wall),
+      M.Bodies.rectangle(W + T/2, H/2 - 200, T, H + 600, wall)
+    ]);
+    var chips = ORDER.map(function(k, i){
+      var el = cloud.querySelector('.' + k);
+      if(!el) return null;
+      var w = el.offsetWidth, h = el.offsetHeight, round = el.classList.contains('sticker');
+      var x = w/2 + 6 + ((i * 0.37 + .11) % 1) * Math.max(0, W - w - 12);
+      if(k === 's2') x = W * 0.5;
+      var opts = {restitution: round ? .35 : .28, friction:.55, frictionAir: round ? .03 : .012, density:.002,
+        angle:((i % 2 ? 1 : -1) * (.12 + (i * .07) % .25)), slop:.02};
+      var rect = el.getAttribute('data-shape') === 'rect';
+      var body = (round && !rect)
+        ? M.Bodies.circle(x, -60 - i * 46, Math.max(w, h) / 2 * .86, opts)
+        : M.Bodies.rectangle(x, -60 - i * 46, w, h, Object.assign({chamfer:{radius: rect ? 8 : h/2}}, opts));
+      M.Body.setInertia(body, body.inertia * 6);
+      M.Body.setAngularVelocity(body, (i % 2 ? -1 : 1) * (.02 + (i % 3) * .012));
+      el.style.left = '0px'; el.style.top = '0px'; el.style.zIndex = String(2 + i);
+      return {el:el, body:body, w:w, h:h, k:k};
+    }).filter(Boolean);
+    return {M:M, engine:engine, chips:chips, W:W, H:H, added:0};
+  }
+  function render(){
+    if(!st) return;
+    st.chips.forEach(function(c){
+      if(!c.live) return;
+      var p = c.body.position;
+      c.el.style.transform = 'translate(' + (p.x - c.w/2).toFixed(1) + 'px,' + (p.y - c.h/2).toFixed(1) + 'px) rotate(' + c.body.angle.toFixed(4) + 'rad)';
+    });
+  }
+  function loop(){
+    raf = 0;
+    if(!st) return;
+    st.chips.forEach(function(c){
+      if(!c.live || c.body.isSleeping) return;
+      var a = Math.atan2(Math.sin(c.body.angle), Math.cos(c.body.angle));
+      st.M.Body.setAngularVelocity(c.body, c.body.angularVelocity * .96 - a * .006);
+    });
+    st.M.Engine.update(st.engine, 1000/60);
+    render();
+    var busy = st.chips.some(function(c){ return c.live && !c.body.isSleeping; });
+    if(busy || st.chips.some(function(c){ return !c.live; })) raf = requestAnimationFrame(loop);
+  }
+  function wake(){ if(!raf) raf = requestAnimationFrame(loop); }
+  function addChip(c){
+    if(c.live) return;
+    c.live = true; c.el.classList.add('is-fallen');
+    st.M.Composite.add(st.engine.world, c.body);
+  }
+  function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+
+  function drop(){
+    if(reduced) return false;
+    clearTimers();
+    st = build();
+    if(!st) return false;
+    document.documentElement.classList.add('chips-physics');
+    dropped = true;
+    st.chips.forEach(function(c, i){ timers.push(setTimeout(function(){ addChip(c); wake(); }, 80 + i * 130)); });
+    return true;
+  }
+  /* layout changed: rebuild instantly in the settled state */
+  function resettle(){
+    if(!dropped) return;
+    clearTimers();
+    if(raf){ cancelAnimationFrame(raf); raf = 0; }
+    st = build();
+    if(!st) return;
+    st.chips.forEach(function(c){ addChip(c); });
+    for(var i = 0; i < 420; i++){ st.chips.forEach(function(c){ var a = Math.atan2(Math.sin(c.body.angle), Math.cos(c.body.angle)); st.M.Body.setAngularVelocity(c.body, c.body.angularVelocity * .96 - a * .006); }); st.M.Engine.update(st.engine, 1000/60); }
+    render();
+    wake();
+  }
+  function poke(c){
+    if(!st || !c.live) return;
+    var M = st.M, s = Math.random() < .5 ? -1 : 1;
+    M.Sleeping.set(c.body, false);
+    M.Body.setVelocity(c.body, {x: s * (1.5 + Math.random() * 2), y: -(5 + Math.random() * 3)});
+    M.Body.setAngularVelocity(c.body, s * (.02 + Math.random() * .03));
+    wake();
+  }
+  if(cloud){
+    Array.prototype.forEach.call(cloud.querySelectorAll('.skill, .sticker'), function(el){
+      function h(){ if(!st) return; var c = st.chips.filter(function(x){ return x.el === el; })[0]; if(c) poke(c); }
+      el.addEventListener('pointerenter', h);
+      el.addEventListener('pointerdown', h);
+    });
+  }
+  window.chipPhysics = {drop:drop, resettle:resettle};
+})();
+
 /* Typewriter + chip fall */
 (function(){
   const el = document.getElementById('hero-live') || document.getElementById('hero-type');
@@ -1076,7 +1209,7 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
     chipsDone.fired = true;
     document.dispatchEvent(new CustomEvent('chips-fallen'));
   }
-  function fallChips(){
+  function pile(){
     if(!cloud){ chipsDone(); return; }
     var skills = cloud.querySelectorAll('.skill');
     if(!skills.length){ chipsDone(); return; }
@@ -1092,6 +1225,18 @@ function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
       s.classList.add('is-fallen');
     });
   }
+  function fallChips(){
+    if(window.chipPhysics && window.chipPhysics.drop()){
+      setTimeout(chipsDone, 1800);
+      return;
+    }
+    pile();
+  }
+  window.pileChips = function(){
+    if(document.documentElement.classList.contains('chips-physics') && window.chipPhysics){
+      window.chipPhysics.resettle();
+    }
+  };
 
   function preferReduced(){
     return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1275,9 +1420,7 @@ tick();setInterval(tick,1000);
         var sheetTop = document.documentElement.clientHeight - headH;
         var stackBottom = lowest - window.scrollY;
         if(row){
-          var copyH = row.offsetHeight;
-          var open = sheetTop - stackBottom - copyH;
-          var desiredTop = Math.round(stackBottom + Math.max(36, open / 2));
+          var desiredTop = Math.round(stackBottom + 18);
           var currentMargin = parseFloat(getComputedStyle(row).marginTop) || 0;
           var rowTop = row.getBoundingClientRect().top;
           row.style.marginTop = Math.max(0, Math.round(currentMargin + desiredTop - rowTop)) + 'px';
@@ -1287,17 +1430,19 @@ tick();setInterval(tick,1000);
           if(cloud.parentElement !== overlap) overlap.appendChild(cloud);
           var copyBottom = row ? row.getBoundingClientRect().bottom : stackBottom + 140;
           var boxLeft = 12;
-          var boxTop = Math.round(copyBottom + 16);
+          var boxTop = Math.round(copyBottom + 12);
           var boxRight = document.documentElement.clientWidth - 12;
-          var boxBottom = Math.round(sheetTop - 4);
+          var boxBottom = Math.round(sheetTop - 10);
+          var span = Math.max(220, boxRight - boxLeft);
+          var boxW = Math.min(440, span);
           cloud.style.position = 'fixed';
           cloud.style.zIndex = '4';
           cloud.style.margin = '0';
           cloud.style.transform = 'none';
-          cloud.style.left = boxLeft + 'px';
+          cloud.style.left = (boxRight - boxW) + 'px';
           cloud.style.top = boxTop + 'px';
-          cloud.style.width = Math.max(220, boxRight - boxLeft) + 'px';
-          cloud.style.height = Math.max(96, boxBottom - boxTop) + 'px';
+          cloud.style.width = boxW + 'px';
+          cloud.style.height = Math.max(150, boxBottom - boxTop) + 'px';
         }
       }
       var stackTop = stack.getBoundingClientRect().top;
@@ -1332,6 +1477,12 @@ tick();setInterval(tick,1000);
         midCloud.style.zIndex = '';
         midCloud.style.margin = '';
         midCloud.style.transform = '';
+        if(window.matchMedia('(orientation: portrait)').matches){
+          midCloud.style.width = '440px';
+          midCloud.style.maxWidth = '100%';
+          midCloud.style.marginLeft = 'auto';
+          midCloud.style.marginRight = '74px';
+        }
       }
       parkBelow(stack.getBoundingClientRect().top);
     }
@@ -1407,6 +1558,7 @@ tick();setInterval(tick,1000);
   }
 
   var glide = 0;
+  function stopGlide(){ if(glide){ cancelAnimationFrame(glide); glide = 0; } }
   function glideTo(target){
     if(glide) cancelAnimationFrame(glide);
     var start = window.scrollY;
@@ -1460,7 +1612,7 @@ tick();setInterval(tick,1000);
       document.documentElement.classList.toggle('is-stage-locked', n < 4);
       if(n < 4) work.style.marginTop = '';
     }
-    busyUntil = performance.now() + 800;
+    busyUntil = performance.now() + 450;
     swallowClick = true;
     setTimeout(function(){ swallowClick = false; }, 500);
   }
@@ -1498,6 +1650,7 @@ tick();setInterval(tick,1000);
   }
 
   window.addEventListener('wheel', function(e){
+    if(stage >= 4 && Math.abs(e.deltaY) >= 4) stopGlide();
     if(Math.abs(e.deltaY) < 20) return;
     if(stage >= 4){
       if(e.deltaY < 0 && window.scrollY <= releaseY + 8){
@@ -1513,6 +1666,7 @@ tick();setInterval(tick,1000);
 
   var swipe = null;
   window.addEventListener('touchstart', function(e){
+    if(stage >= 4) stopGlide();
     if(!e.touches || !e.touches[0] || skipTouch(e.target)){ swipe = null; return; }
     swipe = {y: e.touches[0].clientY, x: e.touches[0].clientX, scroll: window.scrollY};
   }, {passive:true});
@@ -1532,7 +1686,7 @@ tick();setInterval(tick,1000);
     swipe = null;
     if(Math.abs(dy) < 40 || Math.abs(dx) > Math.abs(dy)) return;
     if(stage >= 4){
-      if(dy < 0 && started <= releaseY + 8) back();
+      if(dy < 0 && started <= releaseY + 40 && window.scrollY <= releaseY + 40) back();
       return;
     }
     if(dy > 0) forward();
@@ -1552,7 +1706,7 @@ tick();setInterval(tick,1000);
     var up = e.key === 'ArrowUp' || e.key === 'PageUp';
     if(!down && !up) return;
     if(stage >= 4 && down) return;
-    if(stage >= 4 && up && window.scrollY > releaseY + 8) return;
+    if(stage >= 4 && up && window.scrollY > releaseY + 8){ stopGlide(); return; }
     e.preventDefault();
     if(down) forward();
     else back();
@@ -1566,13 +1720,29 @@ tick();setInterval(tick,1000);
     lastH = h;
     if(stage >= 4) return;
     layoutOnce();
+    if(window.pileChips) window.pileChips();
   });
   window.addEventListener('load', function(){
-    if(stage === 0) layoutOnce();
+    if(stage === 0){
+      layoutOnce();
+      if(window.pileChips) window.pileChips();
+    }
   });
 
-  layoutOnce();
-  syncFaces();
+  if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  function resetHome(){
+    stopGlide();
+    if(stage >= 4) setStage(0);
+    window.scrollTo(0, 0);
+    layoutOnce(); syncFaces();
+    if(window.pileChips) window.pileChips();
+  }
+  window.addEventListener('pageshow', function(e){
+    if(e.persisted || window.scrollY > 0 && stage < 4) resetHome();
+  });
+  window.scrollTo(0, 0);
+  layoutOnce(); syncFaces();
+  if(window.pileChips) window.pileChips();
 })();
 
 </script>

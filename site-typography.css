@@ -96,3 +96,21 @@ body .footer-nav a{
   font-weight:400 !important;
   letter-spacing:normal !important;
 }
+
+body :is(h4, h5, h6, .sec-h, .card h3, .brief h4, .hre-proc-item h3, .job h3, .toc h3):not(svg *){
+  letter-spacing: normal !important;
+}
+
+@media (max-width: 900px) {
+  body .nav-right .social-btn, body .nav-right .social-mail, body .nav-right .social-mail-only {display:none !important}
+}
+.nav-logo{display:none}
+@media (max-width: 900px) {
+  body .nav{display:flex !important;align-items:center;justify-content:space-between !important;gap:8px;padding:12px 14px !important;min-height:64px}
+  body .nav-logo{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:40px;height:40px;border-radius:50%;background:#0c0c0c;color:#fff;font-family:var(--font-inter);font-size:13px;font-weight:700;letter-spacing:normal;text-decoration:none;order:0}
+  body .nav-links{display:none !important}
+  body .nav-right{order:1;margin-left:auto;gap:0}
+  body .nav-right .btn-touch{height:40px;padding:0 16px !important;font-size:14px !important;display:inline-flex;align-items:center}
+  body .nav .nav-burger{display:flex !important;order:2;flex-direction:column;gap:5px;width:40px !important;height:40px !important;border-radius:50% !important;margin-left:6px}
+  body .nav .nav-burger span{width:18px !important;height:2px !important;border-radius:2px}
+}
